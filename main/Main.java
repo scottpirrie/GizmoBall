@@ -2,10 +2,7 @@ package main;
 
 import javax.swing.UIManager;
 
-import model.Circle;
-import model.Model;
-import model.Square;
-import model.VerticalLine;
+import model.*;
 import view.RunGui;
 
 /**
@@ -33,13 +30,20 @@ public class Main {
 		model.addLine(new VerticalLine(100, 300, 300));
 		model.addLine(new VerticalLine(100, 400, 300));*/
 
-		model.addSquare(new Square(100,100,20));
+		model.addSquare(new Square(50,50,20));
+		model.addTriangle(new Triangle(100,100,20));
 		model.addSquare(new Square(150,150,20));
-		model.addSquare(new Square(200,200,20));
+		model.addTriangle(new Triangle(200,200,20));
 		model.addSquare(new Square(250,250,20));
-		model.addSquare(new Square(300,300,20));
-
+		model.addTriangle(new Triangle(300,300,20));
+		model.addSquare(new Square(350,350,20));
 		model.addSquare(new Square(400,400,20));
+
+		model.addSquare(new Square(450,450,20));
+
+
+
+
 
 
 		RunGui gui = new RunGui(model);

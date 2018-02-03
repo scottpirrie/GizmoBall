@@ -10,10 +10,7 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import model.Ball;
-import model.Model;
-import model.Square;
-import model.VerticalLine;
+import model.*;
 import physics.LineSegment;
 
 /**
@@ -52,16 +49,18 @@ public  class Board extends JPanel implements Observer {
 		}
 
 		for(Square square:gm.getSqs()){
-			g2.setColor(Color.BLACK);
 			g2.fillRect(square.getxPos(),square.getyPos(),square.getWidth(),square.getWidth());
-			g2.setColor(Color.RED);
-			/*for(LineSegment lineSegment:square.getLines()) {
-				g2.drawLine((int)lineSegment.p1().x(),(int)lineSegment.p1().y(),(int) lineSegment.p2().x(),(int) lineSegment.p2().y());
+
+		}
+		for(Triangle triangle:gm.getTrs()){
+			int [] xPoints = {triangle.getxPos(),triangle.getxPos(),triangle.getxPos()+triangle.getWidth()};
+			int [] yPoints = {triangle.getyPos(),triangle.getyPos()-triangle.getWidth(),triangle.getyPos()};
+			g2.fillPolygon(xPoints,yPoints,3);
+
+			/*for(LineSegment line:triangle.getLines()){
+				g2.drawLine((int)line.p1().x(),(int)line.p1().y(),(int)line.p2().x(),(int)line.p2().y());
 			}*/
 		}
-
-
-
 		
 		Ball b = gm.getBall();
 		if (b != null) {

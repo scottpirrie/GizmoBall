@@ -27,7 +27,7 @@ public class Model extends Observable {
 	public Model() {
 
 		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball(25, 25, 100, 100);
+		ball = new Ball(198, 25, 100, 100);
 
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
@@ -122,6 +122,8 @@ public class Model extends Observable {
 				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
 			}
 		}
+
+
 		// time colliding with squares
 		for(Square square : sqs){
 			for(LineSegment line :square.getLines()){
@@ -133,6 +135,25 @@ public class Model extends Observable {
 			}
 
 			for(Circle circle:square.getCircles()){
+				time=Geometry.timeUntilCircleCollision(circle,ballCircle,ballVelocity);
+				if(time<shortestTime){
+					shortestTime=time;
+					newVelo=Geometry.reflectCircle(circle.getCenter(),ballCircle.getCenter(),ballVelocity,1.0);
+				}
+			}
+		}
+
+		// time colliding with triangles
+		for(Triangle triangle : trs){
+			for(LineSegment line :triangle.getLines()){
+				time = Geometry.timeUntilWallCollision(line,ballCircle,ballVelocity);
+				if(time<shortestTime){
+					shortestTime=time;
+					newVelo=Geometry.reflectWall(line,ball.getVelo(),1.0);
+				}
+			}
+
+			for(Circle circle:triangle.getCircles()){
 				time=Geometry.timeUntilCircleCollision(circle,ballCircle,ballVelocity);
 				if(time<shortestTime){
 					shortestTime=time;
@@ -170,6 +191,7 @@ public class Model extends Observable {
 		sqs.add(s);
 	}
 	public void addTriangle(Triangle t) {
+
 		trs.add(t);
 	}
 	public void addCircle(model.Circle c){crs.add(c);}
