@@ -61,7 +61,7 @@ public class Model extends Observable {
 				}
 				//apply gravity and air friction
 				//applied by me original program doesnt have them
-				// ball.setVelo(ball.getVelo().plus(new Vect(0,9.81)));
+				//ball.setVelo(ball.getVelo().plus(new Vect(0,9.81)));
 
 				// Notify observers ... redraw updated view
 				this.setChanged();

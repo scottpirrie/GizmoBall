@@ -2,6 +2,7 @@ package main;
 
 import javax.swing.UIManager;
 
+import model.Circle;
 import model.Model;
 import model.Square;
 import model.VerticalLine;
@@ -26,8 +27,8 @@ public class Main {
 		model.setBallSpeed(200, 200);
 
 		// Vertical line at (100,100), width 300
-		/*model.addLine(new VerticalLine(100, 100, 300));
-		//model.addLine(new VerticalLine(100, 122, 300));
+		//model.addLine(new VerticalLine(90, 100, 300));
+		/*//model.addLine(new VerticalLine(100, 122, 300));
 		model.addLine(new VerticalLine(100, 200, 300));
 		model.addLine(new VerticalLine(100, 300, 300));
 		model.addLine(new VerticalLine(100, 400, 300));*/
@@ -37,6 +38,8 @@ public class Main {
 		model.addSquare(new Square(200,200,20));
 		model.addSquare(new Square(250,250,20));
 		model.addSquare(new Square(300,300,20));
+
+		model.addSquare(new Square(400,400,20));
 
 
 		RunGui gui = new RunGui(model);

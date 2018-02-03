@@ -59,8 +59,8 @@ public class Square {
     public void createCircles(){
         physics.Circle c1 = new physics.Circle(xPos,yPos,0);
         physics.Circle c2 = new physics.Circle(xPos+width,yPos,0);
-        physics.Circle c3 = new physics.Circle(xPos,yPos-width,0);
-        physics.Circle c4 = new physics.Circle(xPos+width,yPos-width,0);
+        physics.Circle c3 = new physics.Circle(xPos+width,yPos+width,0);
+        physics.Circle c4 = new physics.Circle(xPos,yPos+width,0);
 
         circles.add(c1);
         circles.add(c2);
@@ -69,9 +69,9 @@ public class Square {
     }
     public void createLines(){
         LineSegment l1 = new LineSegment(xPos,yPos,xPos+width,yPos);
-        LineSegment l2 = new LineSegment(xPos,yPos,xPos,yPos-width);
-        LineSegment l3 = new LineSegment(xPos,yPos-width,xPos+width,yPos-width);
-        LineSegment l4 = new LineSegment(xPos+width,yPos,xPos+width,yPos-width);
+        LineSegment l2 = new LineSegment(xPos+width,yPos,xPos+width,yPos+width);
+        LineSegment l3 = new LineSegment(xPos+width,yPos+width,xPos,yPos+width);
+        LineSegment l4 = new LineSegment(xPos,yPos+width,xPos,yPos);
 
         lines.add(l1);
         lines.add(l2);

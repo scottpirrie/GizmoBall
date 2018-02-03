@@ -14,6 +14,7 @@ import model.Ball;
 import model.Model;
 import model.Square;
 import model.VerticalLine;
+import physics.LineSegment;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
@@ -51,7 +52,12 @@ public  class Board extends JPanel implements Observer {
 		}
 
 		for(Square square:gm.getSqs()){
+			g2.setColor(Color.BLACK);
 			g2.fillRect(square.getxPos(),square.getyPos(),square.getWidth(),square.getWidth());
+			g2.setColor(Color.RED);
+			/*for(LineSegment lineSegment:square.getLines()) {
+				g2.drawLine((int)lineSegment.p1().x(),(int)lineSegment.p1().y(),(int) lineSegment.p2().x(),(int) lineSegment.p2().y());
+			}*/
 		}
 
 
