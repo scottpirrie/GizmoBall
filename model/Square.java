@@ -4,14 +4,15 @@ import physics.Circle;
 import physics.LineSegment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Square {
 
     private int xPos;
     private int yPos;
     private int width;
-    private ArrayList<LineSegment> lines;
-    private ArrayList<physics.Circle> circles;
+    private List<LineSegment> lines;
+    private List<Circle> circles;
     public Square(int xPos,int yPos,int width){
         this.xPos=xPos;
         this.yPos=yPos;
@@ -24,11 +25,11 @@ public class Square {
     }
 
 
-    public ArrayList<LineSegment> getLines(){
+    public List<LineSegment> getLines(){
         return lines;
     }
 
-    public ArrayList<Circle> getCircles() {
+    public List<Circle> getCircles() {
         return circles;
     }
 

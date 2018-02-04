@@ -4,14 +4,15 @@ import physics.Circle;
 import physics.LineSegment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Triangle {
 
     private int xPos;
     private int yPos;
     private int width;
-    private ArrayList<LineSegment> lines;
-    private ArrayList<Circle> circles;
+    private List<LineSegment> lines;
+    private List<Circle> circles;
     public Triangle(int xPos,int yPos,int width){
         this.xPos=xPos;
         this.yPos=yPos;
@@ -66,7 +67,7 @@ public class Triangle {
         this.width = width;
     }
 
-    public ArrayList<LineSegment> getLines() {
+    public List<LineSegment> getLines() {
         return lines;
     }
 
@@ -74,7 +75,7 @@ public class Triangle {
         this.lines = lines;
     }
 
-    public ArrayList<Circle> getCircles() {
+    public List<Circle> getCircles() {
         return circles;
     }
 
@@ -82,5 +83,19 @@ public class Triangle {
         this.circles = circles;
     }
 
+    public void rotate(){
+        lines.clear();
+        circles.clear();
+        LineSegment l1 = new LineSegment(xPos,yPos,xPos,yPos-width);
+        LineSegment l2 = new LineSegment(xPos,yPos-width,xPos+width,yPos-width);
+        LineSegment l3 = new LineSegment(xPos+width,yPos-width,xPos,yPos);
+
+        lines.add(l1);
+        lines.add(l2);
+        lines.add(l3);
+        circles.add(new Circle(xPos,yPos,0));
+        circles.add(new Circle(xPos,yPos-width,0));
+        circles.add(new Circle(xPos+width,yPos-width,0));
+    }
 
 }

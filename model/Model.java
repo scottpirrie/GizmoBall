@@ -2,6 +2,7 @@ package model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 import physics.Circle;
@@ -18,16 +19,16 @@ public class Model extends Observable {
 	private ArrayList<VerticalLine> lines;
 	private Ball ball;
 	private Walls gws;
-	private ArrayList<Square> sqs;
-	private ArrayList<Triangle> trs;
-	private ArrayList<model.Circle>crs;
+	private List<Square> sqs;
+	private List<Triangle> trs;
+	private List<model.Circle>crs;
 
 
 
 	public Model() {
 
 		// Ball position (25, 25) in pixels. Ball velocity (100, 100) pixels per tick
-		ball = new Ball(198, 25, 100, 100);
+		ball = new Ball(25, 50, 100, 100);
 
 		// Wall size 500 x 500 pixels
 		gws = new Walls(0, 0, 500, 500);
@@ -161,6 +162,15 @@ public class Model extends Observable {
 				}
 			}
 		}
+
+		//time colliding with circles
+		for(model.Circle circle:crs){
+			time = Geometry.timeUntilCircleCollision(circle.getCircle(),ballCircle,ballVelocity);
+			if(time<shortestTime){
+				shortestTime=time;
+				newVelo=Geometry.reflectCircle(circle.getCircle().getCenter(),ballCircle.getCenter(),ballVelocity,1.0);
+			}
+		}
 		return new CollisionDetails(shortestTime, newVelo);
 	}
 
@@ -168,19 +178,19 @@ public class Model extends Observable {
 		return ball;
 	}
 
-	public ArrayList<VerticalLine> getLines() {
+	public List<VerticalLine> getLines() {
 		return lines;
 	}
 
-	public ArrayList<model.Circle> getCrs() {
+	public List<model.Circle> getCrs() {
 		return crs;
 	}
 
-	public ArrayList<Triangle> getTrs() {
+	public List<Triangle> getTrs() {
 		return trs;
 	}
 
-	public ArrayList<Square> getSqs() {
+	public List<Square> getSqs() {
 		return sqs;
 	}
 
@@ -198,5 +208,13 @@ public class Model extends Observable {
 
 	public void setBallSpeed(int x, int y) {
 		ball.setVelo(new Vect(x, y));
+	}
+
+	public void rotate(Triangle t){
+		for(Triangle triangle:trs){
+			if(triangle.equals(t)){
+				triangle.rotate();
+			}
+		}
 	}
 }

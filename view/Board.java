@@ -53,13 +53,20 @@ public  class Board extends JPanel implements Observer {
 
 		}
 		for(Triangle triangle:gm.getTrs()){
-			int [] xPoints = {triangle.getxPos(),triangle.getxPos(),triangle.getxPos()+triangle.getWidth()};
-			int [] yPoints = {triangle.getyPos(),triangle.getyPos()-triangle.getWidth(),triangle.getyPos()};
+			LineSegment l1 = triangle.getLines().get(0);
+			LineSegment l2 = triangle.getLines().get(1);
+			LineSegment l3 = triangle.getLines().get(2);
+			int [] xPoints = {(int)l1.p1().x(),(int)l1.p2().x(),(int)l2.p2().x()};
+			int [] yPoints = {(int)l1.p1().y(),(int)l1.p2().y(),(int)l2.p2().y()};
 			g2.fillPolygon(xPoints,yPoints,3);
 
-			/*for(LineSegment line:triangle.getLines()){
-				g2.drawLine((int)line.p1().x(),(int)line.p1().y(),(int)line.p2().x(),(int)line.p2().y());
-			}*/
+		}
+
+		for(Circle circle:gm.getCrs()){
+		g2.fillOval(circle.getxPos()-circle.getRadious(),circle.getyPos()-circle.getRadious(),circle.getRadious()*2,circle.getRadious()*2);
+		//g2.setColor(Color.RED);
+		//g2.fillOval(circle.getxPos(),circle.getyPos(),circle.getRadious(),circle.getRadious());
+
 		}
 		
 		Ball b = gm.getBall();
