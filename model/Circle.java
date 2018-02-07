@@ -46,4 +46,8 @@ public class Circle {
     public void setCircle(physics.Circle circle) {
         this.circle = circle;
     }
+
+    public String toString(){
+        return xPos+" "+yPos+" "+radious;
+    }
 }

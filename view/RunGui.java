@@ -45,13 +45,25 @@ public class RunGui {
 		Font gf = new Font("Arial", Font.BOLD, 12);
 
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new GridLayout(4, 1));
+		buttons.setLayout(new GridLayout(6, 1));
 
 		JButton button1 = new JButton("Start");
 		button1.setFont(gf);
 		button1.addActionListener(listener);
 		button1.setMaximumSize(new Dimension(100, 100));
 		buttons.add(button1);
+
+		JButton save = new JButton("Save");
+		save.setFont(gf);
+		save.addActionListener(listener);
+		save.setMaximumSize(new Dimension(100, 100));
+		buttons.add(save);
+
+		JButton load = new JButton("Load");
+		load.setFont(gf);
+		load.addActionListener(listener);
+		load.setMaximumSize(new Dimension(100, 100));
+		buttons.add(load);
 
 		JButton button2 = new JButton("Stop");
 		button2.setFont(gf);

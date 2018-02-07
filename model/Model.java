@@ -1,6 +1,8 @@
 package model;
 
+import java.io.*;
 import java.lang.reflect.Array;
+import java.sql.SQLClientInfoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -216,5 +218,65 @@ public class Model extends Observable {
 				triangle.rotate();
 			}
 		}
+	}
+
+	public void save(String fileName) throws IOException {
+
+		File file = new File((fileName));
+		if(file.exists()){
+			file.delete();
+		}
+
+		file.createNewFile();
+
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		for(int i=0; i<sqs.size(); i++){
+			String s = "S"+i+" "+sqs.get(i).toString();
+			writer.write(s);
+			writer.write("\n");
+		}
+		for(int i=0; i<trs.size(); i++){
+			String s = "T"+i+" "+trs.get(i).toString();
+			writer.write(s);
+			writer.write("\n");
+		}
+		for(int i=0; i<crs.size(); i++){
+			String s = "C"+i+" "+crs.get(i).toString();
+			writer.write(s);
+			writer.write("\n");
+		}
+
+		writer.close();
+		System.out.println("Success");
+	}
+
+	public void load(String fileName) throws IOException{
+		FileReader fr = new FileReader(fileName);
+		BufferedReader br = new BufferedReader(fr);
+
+		String currentLine;
+		while((currentLine=br.readLine())!=null){
+			if(currentLine.charAt(0)=='S'){
+				String [] tokens = currentLine.split(" ");
+				int x = Integer.parseInt(tokens[1]);
+				int y = Integer.parseInt(tokens[2]);
+				int width = Integer.parseInt(tokens[3]);
+				addSquare(new Square(x,y,width));
+			}else if(currentLine.charAt(0)=='T'){
+				String [] tokens = currentLine.split(" ");
+				int x = Integer.parseInt(tokens[1]);
+				int y = Integer.parseInt(tokens[2]);
+				int width = Integer.parseInt(tokens[3]);
+				addTriangle(new Triangle(x,y,width));
+			}else{
+				String [] tokens = currentLine.split(" ");
+				int x = Integer.parseInt(tokens[1]);
+				int y = Integer.parseInt(tokens[2]);
+				int width = Integer.parseInt(tokens[3]);
+				addCircle(new model.Circle(x,y,width));
+			}
+		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 }

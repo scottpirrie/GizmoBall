@@ -13,7 +13,7 @@ public class Square {
     private int width;
     private List<LineSegment> lines;
     private List<Circle> circles;
-    public Square(int xPos,int yPos,int width){
+    public Square(int xPos, int yPos, int width){
         this.xPos=xPos;
         this.yPos=yPos;
         this.width=width;
@@ -78,5 +78,9 @@ public class Square {
         lines.add(l2);
         lines.add(l3);
         lines.add(l4);
+    }
+
+    public String toString(){
+        return xPos+" "+yPos+" "+width;
     }
 }

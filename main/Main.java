@@ -30,7 +30,7 @@ public class Main {
 		model.addLine(new VerticalLine(100, 300, 300));
 		model.addLine(new VerticalLine(100, 400, 300));*/
 
-		model.addSquare(new Square(50,50,20));
+		/*model.addSquare(new Square(50,50,20));
 		model.addTriangle(new Triangle(100,100,20));
 		model.addSquare(new Square(150,150,20));
 		model.addTriangle(new Triangle(200,200,20));

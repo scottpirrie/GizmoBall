@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.Timer;
 import model.Model;
 
@@ -38,6 +39,20 @@ public class RunListener implements ActionListener {
 			case "Quit":
 				System.exit(0);
 				break;
+			case "Save":
+				try {
+					model.save("test.txt");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				break;
+				case "Load":
+					try {
+						model.load("test.txt");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					break;
 			}
 	}
 }

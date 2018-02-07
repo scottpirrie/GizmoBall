@@ -98,4 +98,7 @@ public class Triangle {
         circles.add(new Circle(xPos+width,yPos-width,0));
     }
 
+    public String toString(){
+        return xPos+" "+yPos+" "+width;
+    }
 }
