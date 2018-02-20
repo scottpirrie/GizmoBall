@@ -21,6 +21,7 @@
 
 #Stuff i don't want to see in branches anymore#
 *.xml
+*.iml
 out/
 idea/
 
