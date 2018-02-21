@@ -5,6 +5,8 @@ import javax.swing.UIManager;
 import model.*;
 import view.RunGui;
 
+import java.awt.event.KeyEvent;
+
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
  */
@@ -38,17 +40,14 @@ public class Main {
 		model.addTriangle(new Triangle(300,300,25));
 		model.addSquare(new Square(350,350,20));
 		model.addSquare(new Square(400,400,20));
-
 		model.addSquare(new Square(450,450,20));
+*/
 
-
-		model.addCircle(new Circle(325,150,10));
-		model.addCircle(new Circle(178,30,15));
-		model.addCircle(new Circle(256,123,10));
-
-		/*Triangle triangle = new Triangle(300,300,25);
-		model.addTriangle(triangle);
-		model.rotate(triangle);*/
+		//FLIPPER TEST
+		model.addCircle(new Circle(70,340,40));
+		model.addSquare(new Square(70,340,40));
+		model.addFlipper(new Flipper(70,340,70,380,"LEFT"));
+		model.addFlipper(new Flipper(150,340,150,380,"RIGHT"));
 		RunGui gui = new RunGui(model);
 		gui.createAndShowGUI();
 	}
