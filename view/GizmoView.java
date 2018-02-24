@@ -1,7 +1,10 @@
 package view;
 
+import controller.MainMenuAL;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * The GizmoView will be the main menu for the Gizmoball Application
@@ -11,9 +14,11 @@ public class GizmoView extends JFrame {
 
     private Gui runGui;
     private Gui buildGui;
+    private Board board;
     private JButton button;
     private GridLayout layout;
     private JPanel panel;
+    private ActionListener menuAL;
 
     //private Model model;
 
@@ -22,6 +27,8 @@ public class GizmoView extends JFrame {
     }
 
     private void init(){
+        //need to pass through runGUI, buildGUI and Board
+        menuAL = new MainMenuAL(this);
         createLayout();
         setTitle("Gizmoball - Menu");
         pack();
@@ -36,14 +43,15 @@ public class GizmoView extends JFrame {
         panel.setLayout(layout);
 
         button = new JButton("Run Gizmoball");
-        //still need to add action listeners
+        button.addActionListener(menuAL);
         panel.add(button);
 
         button = new JButton("Build Gizmoball");
-        //still need to add action listeners
+        button.addActionListener(menuAL);
         panel.add(button);
 
         button = new JButton("Quit");
+        button.addActionListener(menuAL);
         panel.add(button);
 
         this.add(panel);
