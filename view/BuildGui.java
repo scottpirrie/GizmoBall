@@ -9,8 +9,5 @@ public class BuildGui implements Gui {
 
     }
 
-    public void disableView() {
-
-    }
 
 }

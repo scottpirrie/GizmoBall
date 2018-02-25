@@ -12,9 +12,6 @@ import java.awt.event.ActionListener;
 
 public class GizmoView extends JFrame {
 
-    private Gui runGui;
-    private Gui buildGui;
-    private Board board;
     private JButton button;
     private GridLayout layout;
     private JPanel panel;

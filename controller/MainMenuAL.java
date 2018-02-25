@@ -1,6 +1,8 @@
 package controller;
 
 import view.GizmoView;
+import view.Gui;
+import view.RunGui;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,6 +24,8 @@ public class MainMenuAL implements ActionListener {
                 System.out.println("Closing Main Menu.......");
                 view.dispose();
                 System.out.println("Opening Run GUI.......");
+                Gui rGUI = new RunGui();
+                rGUI.createAndShowGUI();
                 break;
             case "Build Gizmoball":
                 //close current view and open new view
