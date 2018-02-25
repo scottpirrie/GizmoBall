@@ -27,10 +27,11 @@ public class BuildGui implements Gui {
 
         createMenuBar();
         createGizmoButtons();
-        createAdditonalButtons();
+        createAdditionalButtons();
 
-        frame.setLocationRelativeTo(null);
         frame.pack();
+        frame.setSize(frame.getWidth(),400);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
@@ -81,7 +82,7 @@ public class BuildGui implements Gui {
         topButtons.add(button);
 
         JPanel lowButtons = new JPanel();
-        topButtons.setLayout(new FlowLayout());
+        lowButtons.setLayout(new FlowLayout());
 
         button = new JButton("Ball");
         button = setUpButton(button);
@@ -100,8 +101,26 @@ public class BuildGui implements Gui {
         cp.add(buttons, BorderLayout.PAGE_START);
     }
 
-    private void createAdditonalButtons(){
+    private void createAdditionalButtons(){
+        JPanel lowButtons = new JPanel();
+        lowButtons.setLayout(new FlowLayout());
 
+        JButton button = new JButton("Rotate Left");
+        button = setUpButton(button);
+        button.setEnabled(false);
+        lowButtons.add(button);
+
+        button = new JButton("Add Trigger");
+        button = setUpButton(button);
+        button.setEnabled(false);
+        lowButtons.add(button);
+
+        button = new JButton("Rotate Right");
+        button = setUpButton(button);
+        button.setEnabled(false);
+        lowButtons.add(button);
+
+        cp.add(lowButtons, BorderLayout.PAGE_END);
     }
 
     private JButton setUpButton(JButton btn){
