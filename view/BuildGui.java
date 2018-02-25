@@ -1,5 +1,7 @@
 package view;
 
+import controller.BuildListener;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -10,6 +12,7 @@ public class BuildGui implements Gui {
     private Board board;
     private Container cp;
     private Font gf;
+    private ActionListener listener;
     //private Model model;
 
     //still need to pass through the model and board
@@ -19,6 +22,9 @@ public class BuildGui implements Gui {
 
     public void createAndShowGUI(){
         frame = new JFrame("Gizmoball - Build Mode");
+
+        listener = new BuildListener(frame);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setFocusable(true);
 
@@ -56,6 +62,7 @@ public class BuildGui implements Gui {
         menuOption = new JMenu("Switch Mode");
         menuItem = new JMenuItem("Run Mode");
         //add the action listener for switching mode
+        menuItem.addActionListener(listener);
         menuOption.add(menuItem);
         menuBar.add(menuOption);
 

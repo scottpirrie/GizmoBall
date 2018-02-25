@@ -1,7 +1,10 @@
 package view;
 
+import controller.RunListener;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class RunGui implements Gui {
 
@@ -9,6 +12,7 @@ public class RunGui implements Gui {
     private Board board;
     private Container cp;
     private Font gf;
+    private ActionListener listener;
     //private Model model;
 
     //still need to pass through the model and board
@@ -21,6 +25,8 @@ public class RunGui implements Gui {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setFocusable(true);
         frame.setSize(300,200);
+
+        listener = new RunListener(frame);
 
         cp = frame.getContentPane();
         gf = new Font("Arial", Font.BOLD, 12);
@@ -54,6 +60,7 @@ public class RunGui implements Gui {
         menuOption = new JMenu("Switch Mode");
         menuItem = new JMenuItem("Build Mode");
         //add the action listener for switching mode
+        menuItem.addActionListener(listener);
         menuOption.add(menuItem);
         menuBar.add(menuOption);
 
