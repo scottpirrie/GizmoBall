@@ -18,7 +18,7 @@ public class RunGui implements Gui {
 
     public void createAndShowGUI() {
         frame = new JFrame("Gizmoball - Run Mode");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setFocusable(true);
         frame.setSize(300,200);
 
@@ -64,7 +64,7 @@ public class RunGui implements Gui {
     private void createButtons(){
         //still need the action listeners for the buttons.
         JPanel buttons = new JPanel();
-        buttons.setLayout(new GridLayout(6, 1));
+        buttons.setLayout(new FlowLayout());
 
         JButton button1 = new JButton("Start");
         button1.setFont(gf);
@@ -81,12 +81,8 @@ public class RunGui implements Gui {
         button4.setMaximumSize(new Dimension(100, 100));
         buttons.add(button4);
 
-        JButton button3 = new JButton("Quit");
-        button3.setFont(gf);
-        button3.setMaximumSize(new Dimension(100, 100));
-        buttons.add(button3);
 
-        cp.add(buttons, BorderLayout.LINE_START);
+        cp.add(buttons, BorderLayout.PAGE_END);
     }
 
 

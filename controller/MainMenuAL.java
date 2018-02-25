@@ -1,5 +1,6 @@
 package controller;
 
+import view.BuildGui;
 import view.GizmoView;
 import view.Gui;
 import view.RunGui;
@@ -31,6 +32,8 @@ public class MainMenuAL implements ActionListener {
                 //close current view and open new view
                 System.out.println("Closing Main Menu.......");
                 view.dispose();
+                Gui bGUI = new BuildGui();
+                bGUI.createAndShowGUI();
                 System.out.println("Opening Build GUI.........");
                 break;
             case "Quit":
