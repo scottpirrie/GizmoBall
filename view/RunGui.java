@@ -16,26 +16,28 @@ public class RunGui implements Gui {
     //private Model model;
 
     //still need to pass through the model and board
-    public RunGui(){
-
+    public RunGui(Board newBoard){
+        board = newBoard;
     }
 
     public void createAndShowGUI() {
         frame = new JFrame("Gizmoball - Run Mode");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setFocusable(true);
-        frame.setSize(300,200);
 
-        listener = new RunListener(frame);
+        listener = new RunListener(frame, board);
 
         cp = frame.getContentPane();
         gf = new Font("Arial", Font.BOLD, 12);
 
+        cp.add(board, BorderLayout.CENTER);
+
         createMenuBar();
         createButtons();
 
+
+        frame.pack();
         frame.setLocationRelativeTo(null);
-        //frame.pack();
         frame.setVisible(true);
     }
 
@@ -45,22 +47,22 @@ public class RunGui implements Gui {
         JMenuItem menuItem;
 
         menuOption = new JMenu("Option");
-        menuItem = new JMenuItem("Save");
-        //add the action listener for Saving
-        menuOption.add(menuItem);
-        menuItem = new JMenuItem("Load");
-        //add the action listener for Loading
-        menuOption.add(menuItem);
-        menuItem = new JMenuItem("Quit");
-        //add the action listener for Quit
+            menuItem = new JMenuItem("Save");
+            //add the action listener for Saving
+            menuOption.add(menuItem);
+            menuItem = new JMenuItem("Load");
+            //add the action listener for Loading
+            menuOption.add(menuItem);
+            menuItem = new JMenuItem("Quit");
+            //add the action listener for Quit
         menuOption.add(menuItem);
         menuBar.add(menuOption);
 
 
         menuOption = new JMenu("Switch Mode");
-        menuItem = new JMenuItem("Build Mode");
-        //add the action listener for switching mode
-        menuItem.addActionListener(listener);
+            menuItem = new JMenuItem("Build Mode");
+            //add the action listener for switching mode
+            menuItem.addActionListener(listener);
         menuOption.add(menuItem);
         menuBar.add(menuOption);
 
@@ -87,7 +89,6 @@ public class RunGui implements Gui {
         button4.setFont(gf);
         button4.setMaximumSize(new Dimension(100, 100));
         buttons.add(button4);
-
 
         cp.add(buttons, BorderLayout.PAGE_END);
     }

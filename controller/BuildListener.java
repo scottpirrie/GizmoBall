@@ -1,5 +1,6 @@
 package controller;
 
+import view.Board;
 import view.Gui;
 import view.RunGui;
 
@@ -10,9 +11,11 @@ import java.awt.event.ActionListener;
 public class BuildListener implements ActionListener {
 
     private JFrame frame;
+    private Board board;
     //pass through the model
-    public BuildListener(JFrame view){
+    public BuildListener(JFrame view, Board board){
         frame = view;
+        this.board = board;
     }
 
     @Override
@@ -20,9 +23,10 @@ public class BuildListener implements ActionListener {
         switch(e.getActionCommand()){
             case "Run Mode":
                 frame.dispose();
-                Gui rGUI = new RunGui();
+                Gui rGUI = new RunGui(board);
                 rGUI.createAndShowGUI();
                 break;
+
         }
     }
 

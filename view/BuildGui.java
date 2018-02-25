@@ -16,14 +16,14 @@ public class BuildGui implements Gui {
     //private Model model;
 
     //still need to pass through the model and board
-    public BuildGui(){
-
+    public BuildGui(Board newBoard){
+        board = newBoard;
     }
 
     public void createAndShowGUI(){
         frame = new JFrame("Gizmoball - Build Mode");
 
-        listener = new BuildListener(frame);
+        listener = new BuildListener(frame, board);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setFocusable(true);
@@ -31,12 +31,13 @@ public class BuildGui implements Gui {
         cp = frame.getContentPane();
         gf = new Font("Arial", Font.BOLD, 12);
 
+        cp.add(board, BorderLayout.CENTER);
+
         createMenuBar();
         createGizmoButtons();
         createAdditionalButtons();
 
         frame.pack();
-        frame.setSize(frame.getWidth(),400);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
