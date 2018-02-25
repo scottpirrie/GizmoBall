@@ -35,19 +35,28 @@ public class RunGui implements Gui {
 
     private void createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
-        JMenu menuOption = new JMenu("Option");
+        JMenu menuOption;
         JMenuItem menuItem;
 
+        menuOption = new JMenu("Option");
         menuItem = new JMenuItem("Save");
+        //add the action listener for Saving
         menuOption.add(menuItem);
-
         menuItem = new JMenuItem("Load");
+        //add the action listener for Loading
         menuOption.add(menuItem);
-
         menuItem = new JMenuItem("Quit");
+        //add the action listener for Quit
         menuOption.add(menuItem);
-
         menuBar.add(menuOption);
+
+
+        menuOption = new JMenu("Switch Mode");
+        menuItem = new JMenuItem("Build Mode");
+        //add the action listener for switching mode
+        menuOption.add(menuItem);
+        menuBar.add(menuOption);
+
         frame.setJMenuBar(menuBar);
 
     }
