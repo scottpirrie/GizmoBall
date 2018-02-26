@@ -43,18 +43,24 @@ public class BuildGui implements Gui {
     }
 
     private void createMenuBar(){
+        ImageIcon saveIcon = new ImageIcon(getClass().getResource(
+                "/save.png"));
+        ImageIcon quitIcon = new ImageIcon(getClass().getResource(
+                "/quit.png"));
+        ImageIcon loadIcon = new ImageIcon(getClass().getResource(
+                "/load.png"));
         JMenuBar menuBar = new JMenuBar();
         JMenu menuOption;
         JMenuItem menuItem;
 
         menuOption = new JMenu("Option");
-        menuItem = new JMenuItem("Save");
+        menuItem = new JMenuItem(saveIcon);
         //add the action listener for Saving
         menuOption.add(menuItem);
-        menuItem = new JMenuItem("Load");
+        menuItem = new JMenuItem(loadIcon);
         //add the action listener for Loading
         menuOption.add(menuItem);
-        menuItem = new JMenuItem("Quit");
+        menuItem = new JMenuItem(quitIcon);
         //add the action listener for Quit
         menuOption.add(menuItem);
         menuBar.add(menuOption);

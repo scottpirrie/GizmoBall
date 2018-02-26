@@ -42,21 +42,29 @@ public class RunGui implements Gui {
     }
 
     private void createMenuBar(){
+        ImageIcon saveIcon = new ImageIcon(getClass().getResource(
+                "/save.png"));
+
+        ImageIcon quitIcon = new ImageIcon(getClass().getResource(
+                "/quit.png"));
+
+        ImageIcon loadIcon = new ImageIcon(getClass().getResource(
+                "/load.png"));
         JMenuBar menuBar = new JMenuBar();
         JMenu menuOption;
         JMenuItem menuItem;
 
         menuOption = new JMenu("Option");
-            menuItem = new JMenuItem("Save");
+            menuItem = new JMenuItem(saveIcon);
             //add the action listener for Saving
             menuOption.add(menuItem);
-            menuItem = new JMenuItem("Load");
+            menuItem = new JMenuItem(loadIcon);
             //add the action listener for Loading
             menuOption.add(menuItem);
-            menuItem = new JMenuItem("Quit");
+            menuItem = new JMenuItem(quitIcon);
             //add the action listener for Quit
-        menuOption.add(menuItem);
         menuBar.add(menuOption);
+        menuOption.add(menuItem);
 
 
         menuOption = new JMenu("Switch Mode");
@@ -73,6 +81,9 @@ public class RunGui implements Gui {
     private void createButtons(){
         ImageIcon startIcon = new ImageIcon(getClass().getResource(
                 "/start.png"));
+
+        ImageIcon stopIcon = new ImageIcon(getClass().getResource(
+                "/stop.png"));
         //still need the action listeners for the buttons.
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
@@ -82,7 +93,7 @@ public class RunGui implements Gui {
         button1.setMaximumSize(new Dimension(100, 100));
         buttons.add(button1);
 
-        JButton button2 = new JButton("Stop");
+        JButton button2 = new JButton(stopIcon);
         button2.setFont(gf);
         button2.setMaximumSize(new Dimension(100, 100));
         buttons.add(button2);
