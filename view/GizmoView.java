@@ -35,6 +35,9 @@ public class GizmoView extends JFrame {
     }
 
     private void createLayout(){
+        ImageIcon quitIcon = new ImageIcon(getClass().getResource(
+                "/quit.png"));
+
         layout = new GridLayout(0,1);
         panel = new JPanel();
         panel.setLayout(layout);
@@ -49,6 +52,10 @@ public class GizmoView extends JFrame {
 
         button = new JButton("Quit");
         button.addActionListener(menuAL);
+
+        button = new JButton(quitIcon);
+        button.addActionListener(menuAL);
+
         panel.add(button);
 
         this.add(panel);

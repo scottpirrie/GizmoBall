@@ -71,11 +71,13 @@ public class RunGui implements Gui {
     }
 
     private void createButtons(){
+        ImageIcon startIcon = new ImageIcon(getClass().getResource(
+                "/start.png"));
         //still need the action listeners for the buttons.
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
 
-        JButton button1 = new JButton("Start");
+        JButton button1 = new JButton(startIcon);
         button1.setFont(gf);
         button1.setMaximumSize(new Dimension(100, 100));
         buttons.add(button1);
