@@ -13,6 +13,7 @@ public class RunGui implements Gui {
     private Container cp;
     private Font gf;
     private ActionListener listener;
+    private JButton button;
     //private Model model;
 
     //still need to pass through the model and board
@@ -49,6 +50,7 @@ public class RunGui implements Gui {
         ImageIcon saveIcon = new ImageIcon("save.png");
         ImageIcon quitIcon = new ImageIcon("quit.png");
         ImageIcon loadIcon = new ImageIcon("load.png");
+        ImageIcon buildIcon = new ImageIcon("build.png");
 
         menuOption = new JMenu("Option");
 
@@ -65,7 +67,7 @@ public class RunGui implements Gui {
 
 
         menuOption = new JMenu("Switch Mode");
-            menuItem = new JMenuItem("Build Mode");
+            menuItem = new JMenuItem("Build Mode", buildIcon);
             //add the action listener for switching mode
             menuItem.addActionListener(listener);
         menuOption.add(menuItem);
@@ -84,20 +86,20 @@ public class RunGui implements Gui {
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
 
-        JButton button1 = new JButton("Start", startIcon);
-        button1.setFont(gf);
-        button1.setMaximumSize(new Dimension(100, 100));
-        buttons.add(button1);
+        button = new JButton("Start", startIcon);
+        button.setFont(gf);
+        button.setMaximumSize(new Dimension(100, 100));
+        buttons.add(button);
 
-        JButton button2 = new JButton("Stop", stopIcon);
-        button2.setFont(gf);
-        button2.setMaximumSize(new Dimension(100, 100));
-        buttons.add(button2);
+        button = new JButton("Tick", tickIcon);
+        button.setFont(gf);
+        button.setMaximumSize(new Dimension(100, 100));
+        buttons.add(button);
 
-        JButton button4 = new JButton("Tick", tickIcon);
-        button4.setFont(gf);
-        button4.setMaximumSize(new Dimension(100, 100));
-        buttons.add(button4);
+        button = new JButton("Stop", stopIcon);
+        button.setFont(gf);
+        button.setMaximumSize(new Dimension(100, 100));
+        buttons.add(button);
 
         cp.add(buttons, BorderLayout.PAGE_END);
     }

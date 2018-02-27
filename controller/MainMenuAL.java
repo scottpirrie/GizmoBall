@@ -19,7 +19,7 @@ public class MainMenuAL implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch(e.getActionCommand()){
-            case "Run Gizmoball":
+            case "Run":
                 //close current view and open new view
                 System.out.println("Closing Main Menu.......");
                 view.dispose();
@@ -27,7 +27,7 @@ public class MainMenuAL implements ActionListener {
                 Gui rGUI = new RunGui(board);
                 rGUI.createAndShowGUI();
                 break;
-            case "Build Gizmoball":
+            case "Build":
                 //close current view and open new view
                 System.out.println("Closing Main Menu.......");
                 view.dispose();

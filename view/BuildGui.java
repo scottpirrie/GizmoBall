@@ -50,6 +50,7 @@ public class BuildGui implements Gui {
         ImageIcon saveIcon = new ImageIcon("save.png");
         ImageIcon quitIcon = new ImageIcon("quit.png");
         ImageIcon loadIcon = new ImageIcon("load.png");
+        ImageIcon runIcon = new ImageIcon("run.png");
 
         menuOption = new JMenu("Option");
 
@@ -66,7 +67,7 @@ public class BuildGui implements Gui {
 
 
         menuOption = new JMenu("Switch Mode");
-        menuItem = new JMenuItem("Run Mode");
+        menuItem = new JMenuItem("Run Mode",runIcon);
         //add the action listener for switching mode
         menuItem.addActionListener(listener);
         menuOption.add(menuItem);
