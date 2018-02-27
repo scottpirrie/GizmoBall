@@ -157,6 +157,7 @@ public class BuildGui implements Gui {
         JPanel settingsPanel1 = new JPanel();
         settingsPanel1.setLayout(new FlowLayout());
 
+        //need to add action listeners to the sliders
         JSlider gravitySlider = createNewSlider();
         JLabel label = new JLabel("Gravity: ");
         settingsPanel1.add(label);
