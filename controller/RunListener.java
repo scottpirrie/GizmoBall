@@ -1,9 +1,6 @@
 package controller;
 
-import view.Board;
-import view.BuildGui;
-import view.Gui;
-import view.RunGui;
+import view.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +23,16 @@ public class RunListener implements ActionListener {
                 frame.dispose();
                 Gui bGUI = new BuildGui(board);
                 bGUI.createAndShowGUI();
+                break;
+            case "Quit":
+                frame.dispose();
+                GizmoView view = new GizmoView();
+                break;
+            case "Save":
+                SaveView save = new SaveView();
+                break;
+            case "Load":
+                LoadView load = new LoadView();
                 break;
         }
     }

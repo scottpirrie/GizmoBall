@@ -55,14 +55,17 @@ public class RunGui implements Gui {
         menuOption = new JMenu("Option");
 
         menuItem = new JMenuItem("Save", saveIcon);
-        //add the action listener for Saving
+        menuItem.addActionListener(listener);
         menuOption.add(menuItem);
+
         menuItem = new JMenuItem("Load",loadIcon);
-        //add the action listener for Loading
+        menuItem.addActionListener(listener);
         menuOption.add(menuItem);
+
         menuItem = new JMenuItem("Quit", quitIcon);
-        //add the action listener for Quit
+        menuItem.addActionListener(listener);
         menuOption.add(menuItem);
+
         menuBar.add(menuOption);
 
 
