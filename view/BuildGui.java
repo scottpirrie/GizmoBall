@@ -5,6 +5,8 @@ import controller.BuildListener;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
+
 
 public class BuildGui implements Gui {
 
@@ -31,11 +33,11 @@ public class BuildGui implements Gui {
         cp = frame.getContentPane();
         gf = new Font("Arial", Font.BOLD, 12);
 
-        cp.add(board, BorderLayout.CENTER);
-
         createMenuBar();
         createGizmoButtons();
         createAdditionalButtons();
+
+        cp.add(board, BorderLayout.CENTER);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -83,8 +85,12 @@ public class BuildGui implements Gui {
         //still need the action listeners for the button
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(2,0));
+
         JPanel topButtons = new JPanel();
         topButtons.setLayout(new FlowLayout());
+
+        //creating a tabbed pane
+        JTabbedPane tabbedPane = new JTabbedPane();
 
         JButton button = new JButton("Triangle");
         button = setUpButton(button);
@@ -95,6 +101,10 @@ public class BuildGui implements Gui {
         topButtons.add(button);
 
         button = new JButton("Right Flipper");
+        button = setUpButton(button);
+        topButtons.add(button);
+
+        button = new JButton("Absorber");
         button = setUpButton(button);
         topButtons.add(button);
 
@@ -115,7 +125,87 @@ public class BuildGui implements Gui {
 
         buttons.add(topButtons);
         buttons.add(lowButtons);
-        cp.add(buttons, BorderLayout.PAGE_START);
+
+        //creating 1st tab panel
+        JPanel tabGizmoObj = new JPanel(){
+            //Make the panel wider than it really needs, so
+            //the window's wide enough for the tabs to stay
+            //in one row.
+            public Dimension getPreferredSize() {
+                Dimension size = super.getPreferredSize();
+                size.width += 50;
+                return size;
+            }
+        };
+
+        JPanel tabGizmoSet = new JPanel(){
+            //Make the panel wider than it really needs, so
+            //the window's wide enough for the tabs to stay
+            //in one row.
+            public Dimension getPreferredSize() {
+                Dimension size = super.getPreferredSize();
+                size.width += 100;
+                return size;
+            }
+        };
+
+        tabGizmoObj.add(buttons);
+
+        JPanel settingsPanel = new JPanel();
+        settingsPanel.setLayout(new GridLayout(2,1));
+
+        JPanel settingsPanel1 = new JPanel();
+        settingsPanel1.setLayout(new FlowLayout());
+
+        JSlider gravitySlider = createNewSlider();
+        JLabel label = new JLabel("Gravity: ");
+        settingsPanel1.add(label);
+        settingsPanel1.add(gravitySlider);
+
+
+        JPanel settingsPanel2 = new JPanel();
+        settingsPanel1.setLayout(new FlowLayout());
+
+        JSlider frictionSlider = createNewSlider();
+        label = new JLabel("Friction: ");
+
+        settingsPanel2.add(label);
+        settingsPanel2.add(frictionSlider);
+
+        settingsPanel.add(settingsPanel1);
+        settingsPanel.add(settingsPanel2);
+
+        tabGizmoSet.add(settingsPanel);
+
+
+
+
+
+        tabbedPane.addTab("Gizmoball Objects", tabGizmoObj);
+        tabbedPane.addTab("Gravity & Friction", tabGizmoSet);
+
+        cp.add(tabbedPane, BorderLayout.PAGE_START);
+    }
+
+    private JSlider createNewSlider(){
+        JSlider slider = new JSlider();
+        slider.setMajorTickSpacing(25);
+        slider.setMinorTickSpacing(10);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+
+        Hashtable pos = new Hashtable();
+        // Add positions label in the slider
+        pos.put(0, new JLabel("0"));
+        pos.put(25, new JLabel("25"));
+        pos.put(50, new JLabel("50"));
+        pos.put(75, new JLabel("75"));
+        pos.put(100, new JLabel("100"));
+
+        // Set the label to be drawn
+        slider.setLabelTable(pos);
+
+        return slider;
     }
 
     private void createAdditionalButtons(){
