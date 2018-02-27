@@ -210,25 +210,47 @@ public class BuildGui implements Gui {
     }
 
     private void createAdditionalButtons(){
-        JPanel lowButtons = new JPanel();
-        lowButtons.setLayout(new FlowLayout());
+        JPanel lowButtons1 = new JPanel();
+        lowButtons1.setLayout(new FlowLayout());
 
-        JButton button = new JButton("Rotate Left");
+        JPanel lowButtons2 = new JPanel();
+        lowButtons2.setLayout(new FlowLayout());
+
+        JButton button = new JButton("Delete Gizmo");
         button = setUpButton(button);
         button.setEnabled(false);
-        lowButtons.add(button);
+        lowButtons1.add(button);
 
-        button = new JButton("Add Trigger");
+        button = new JButton("Rotate Left");
         button = setUpButton(button);
         button.setEnabled(false);
-        lowButtons.add(button);
+        lowButtons1.add(button);
 
         button = new JButton("Rotate Right");
         button = setUpButton(button);
         button.setEnabled(false);
-        lowButtons.add(button);
+        lowButtons1.add(button);
 
-        cp.add(lowButtons, BorderLayout.PAGE_END);
+        button = new JButton("Add Trigger");
+        button = setUpButton(button);
+        button.setPreferredSize(new Dimension(120,40));
+        button.setEnabled(false);
+        lowButtons2.add(button);
+
+        button = new JButton("Remove Trigger");
+        button = setUpButton(button);
+        button.setPreferredSize(new Dimension(120,40));
+        button.setEnabled(false);
+        lowButtons2.add(button);
+
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new GridLayout(2,3));
+        buttons.add(lowButtons2);
+        buttons.add(lowButtons1);
+
+
+
+        cp.add(buttons, BorderLayout.PAGE_END);
     }
 
     private JButton setUpButton(JButton btn){
