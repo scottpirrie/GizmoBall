@@ -15,6 +15,7 @@ public class GizmoView extends JFrame {
     private JButton button;
     private GridLayout layout;
     private JPanel panel;
+    private JPanel logo;
     private ActionListener menuAL;
 
     //private Model model;
@@ -35,25 +36,28 @@ public class GizmoView extends JFrame {
     }
 
     private void createLayout(){
-        ImageIcon quitIcon = new ImageIcon(getClass().getResource(
-                "/quit.png"));
+        ImageIcon runIcon = new ImageIcon("run.png");
+        ImageIcon buildIcon = new ImageIcon("build.png");
+        ImageIcon quitIcon = new ImageIcon("quit.png");
+        ImageIcon logoIcon = new ImageIcon("logoGizmoball.png");
 
-        layout = new GridLayout(0,1);
+        logo = new JPanel();
+        JLabel label = new JLabel(logoIcon);
+        logo.add(label);
+        this.add(logo, BorderLayout.PAGE_START);
+
         panel = new JPanel();
-        panel.setLayout(layout);
+        panel.setLayout(new GridLayout(0,1));
 
-        button = new JButton("Run Gizmoball");
+        button = new JButton("Run", runIcon);
         button.addActionListener(menuAL);
         panel.add(button);
 
-        button = new JButton("Build Gizmoball");
+        button = new JButton("Build", buildIcon);
         button.addActionListener(menuAL);
         panel.add(button);
 
-        button = new JButton("Quit");
-        button.addActionListener(menuAL);
-
-        button = new JButton(quitIcon);
+        button = new JButton("Quit", quitIcon);
         button.addActionListener(menuAL);
 
         panel.add(button);
