@@ -34,6 +34,7 @@ public class Board extends JPanel implements Observer{
     }
 
     public void paintComponent(Graphics g) {
+        // lines go out of the building area
         if(isBuildingMode==true) {
             for (int i = 0; i < L; i++) {
                 g.drawLine(0, i * L, 500, i * L);
