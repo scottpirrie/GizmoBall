@@ -31,6 +31,7 @@ public class MainMenuAL implements ActionListener {
                 //close current view and open new view
                 System.out.println("Closing Main Menu.......");
                 view.dispose();
+                board.setBuildingMode(true);
                 Gui bGUI = new BuildGui(board);
                 bGUI.createAndShowGUI();
                 System.out.println("Opening Build GUI.........");

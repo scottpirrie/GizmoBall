@@ -21,6 +21,7 @@ public class RunListener implements ActionListener {
         switch(e.getActionCommand()){
             case "Build Mode":
                 frame.dispose();
+                board.setBuildingMode(true);
                 Gui bGUI = new BuildGui(board);
                 bGUI.createAndShowGUI();
                 break;
