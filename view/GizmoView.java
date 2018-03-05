@@ -1,10 +1,9 @@
 package view;
 
-import controller.MainMenuAL;
+import controller.MainMenuListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 /**
  * The GizmoView will be the main menu for the Gizmoball Application
@@ -12,12 +11,7 @@ import java.awt.event.ActionListener;
 
 public class GizmoView extends JFrame {
 
-    private JButton button;
     private GridLayout layout;
-    private JPanel panel;
-    private JPanel logo;
-    private ActionListener menuAL;
-
     //private Model model;
 
     public GizmoView(){
@@ -26,13 +20,12 @@ public class GizmoView extends JFrame {
 
     private void init(){
         //need to pass through runGUI, buildGUI and Board
-        menuAL = new MainMenuAL(this);
         createLayout();
         setTitle("Gizmoball - Menu");
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private void createLayout(){
@@ -41,24 +34,24 @@ public class GizmoView extends JFrame {
         ImageIcon quitIcon = new ImageIcon("quit.png");
         ImageIcon logoIcon = new ImageIcon("logoGizmoball.png");
 
-        logo = new JPanel();
+        JPanel logo = new JPanel();
         JLabel label = new JLabel(logoIcon);
         logo.add(label);
         this.add(logo, BorderLayout.PAGE_START);
 
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0,1));
 
-        button = new JButton("Run", runIcon);
-        button.addActionListener(menuAL);
+        JButton button = new JButton("Run", runIcon);
+        button.addActionListener(new MainMenuListener(this));
         panel.add(button);
 
         button = new JButton("Build", buildIcon);
-        button.addActionListener(menuAL);
+        button.addActionListener(new MainMenuListener(this));
         panel.add(button);
 
         button = new JButton("Quit", quitIcon);
-        button.addActionListener(menuAL);
+        button.addActionListener(new MainMenuListener(this));
 
         panel.add(button);
 

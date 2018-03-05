@@ -6,12 +6,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenuAL implements ActionListener {
+public class MainMenuListener implements ActionListener {
 
     private GizmoView view;
     private Board board;
 
-    public MainMenuAL(GizmoView frame){
+    public MainMenuListener(GizmoView frame){
         view = frame;
         board = new Board(500,500);
     }
