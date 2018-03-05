@@ -18,7 +18,7 @@ public class BuildGui implements Gui {
     private ActionListener listener;
     //private Model model;
 
-    //still need to pass through the model and board
+    //still need to check if anything else needs passed...
     public BuildGui(Board newBoard){
         board = newBoard;
     }

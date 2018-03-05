@@ -17,7 +17,7 @@ public class Board extends JPanel implements Observer{
         this.width = w;
         this.height = h;
         this.setBorder(BorderFactory.createLineBorder(Color.black));
-        L=500/20;
+        L=width/20;
         isBuildingMode=false;
     }
 
@@ -35,16 +35,17 @@ public class Board extends JPanel implements Observer{
 
     public void paintComponent(Graphics g) {
         // lines go out of the building area
-        if(isBuildingMode==true) {
+        if(isBuildingMode) {
             for (int i = 0; i < L; i++) {
-                g.drawLine(0, i * L, 500, i * L);
-                g.drawLine(i * L, 0, i * L, 500);
+                g.drawLine(0, i * L, width, i * L);
+                g.drawLine(i * L, 0, i * L, height);
             }
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        //Check here later
 
     }
 }

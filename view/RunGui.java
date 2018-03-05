@@ -15,7 +15,7 @@ public class RunGui implements Gui {
     private ActionListener listener;
     //private Model model;
 
-    //still need to pass through the model and board
+    //still need to check if anything else needs passed...
     public RunGui(Board newBoard){
         board = newBoard;
     }
@@ -69,9 +69,9 @@ public class RunGui implements Gui {
 
 
         menuOption = new JMenu("Switch Mode");
-            menuItem = new JMenuItem("Build Mode", buildIcon);
-            //add the action listener for switching mode
-            menuItem.addActionListener(listener);
+        menuItem = new JMenuItem("Build Mode", buildIcon);
+        //add the action listener for switching mode
+        menuItem.addActionListener(listener);
         menuOption.add(menuItem);
         menuBar.add(menuOption);
 
