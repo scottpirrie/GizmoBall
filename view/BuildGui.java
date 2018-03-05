@@ -4,6 +4,7 @@ import controller.BuildListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
@@ -27,7 +28,7 @@ public class BuildGui implements Gui {
 
         listener = new BuildListener(frame, board);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setFocusable(true);
 
         cp = frame.getContentPane();

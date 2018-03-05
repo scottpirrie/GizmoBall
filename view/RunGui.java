@@ -13,7 +13,6 @@ public class RunGui implements Gui {
     private Container cp;
     private Font gf;
     private ActionListener listener;
-    private JButton button;
     //private Model model;
 
     //still need to pass through the model and board
@@ -23,7 +22,7 @@ public class RunGui implements Gui {
 
     public void createAndShowGUI() {
         frame = new JFrame("Gizmoball - Run Mode");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setFocusable(true);
 
         listener = new RunListener(frame, board);
@@ -89,7 +88,7 @@ public class RunGui implements Gui {
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
 
-        button = new JButton("Start", startIcon);
+        JButton button = new JButton("Start", startIcon);
         button.setFont(gf);
         button.setMaximumSize(new Dimension(100, 100));
         buttons.add(button);
