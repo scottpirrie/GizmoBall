@@ -10,7 +10,6 @@ import java.util.*;
 
 public class Model extends Observable{
 
-
     private int L;
     private GizmoFactory gf;
     private Ball ball;
@@ -23,10 +22,16 @@ public class Model extends Observable{
     //TODO Should we pass it in at the start? In Main? Some kind of "pre-launch" set up?
     public Model() {
         this.L=500/20;
-        ball = new Ball("Ball","B",4*L, 4*L, 100, 100,L/4);
+
         gws = new Walls(0, 0, L*20, L*20);
         gizmos = new ArrayList<>();
+        flippers = new ArrayList<>();
+        balls = new ArrayList<>();
         gf = new GizmoFactory(L);
+
+        //TODO probably remove ball from creation on initialisation
+        ball = new Ball("Ball","B",4*L, 4*L, 100, 100,L/4);
+        balls.add(ball); //Testing purposes
     }
 
     public void moveBall(double move) {
@@ -110,17 +115,40 @@ public class Model extends Observable{
         return gizmos;
     }
 
-    private void addGizmo(AbstractGizmo gizmo){
-        gizmos.add(gizmo);
+    public List<Flipper> getFlippers(){
+        return flippers;
     }
 
-    //TODO make system handle multiple balls
-    public Ball getBall() {
-        return ball;
+    public List<Ball> getBalls(){
+        return balls;
     }
 
-    public void setBallSpeed(int x, int y) {
-        ball.setVelo(new Vect(x, y));
+    public void addGizmo(String type, String name, String xPos, String yPos){
+        gizmos.add(gf.createGizmo(type,name,xPos,yPos));
+    }
+
+    public void addAbsorber(String type, String name, String xPos1, String yPos1,String xPos2, String yPos2){
+        gizmos.add(gf.createAbsorber(type,name,xPos1,yPos1,xPos2,yPos2));
+    }
+
+    public void addFlipper(String type, String name, String xPos, String yPos){
+        flippers.add(gf.createFlipper(type,name,xPos,yPos));
+    }
+
+    public void addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo){
+        double x = Double.parseDouble(xPos);
+        double y = Double.parseDouble(yPos);
+        double xv = Double.parseDouble(xVelo);
+        double yv = Double.parseDouble(yVelo);
+        balls.add(new Ball(type,name,x,y,xv,yv,L/2));
+    }
+
+    public void setBallSpeed(String name,int xv, int yv) {
+        for(Ball  ball : balls) {
+            if(ball.getName().equals(name)) {
+                ball.setVelo(new Vect(xv, yv));
+            }
+        }
     }
 
     private boolean isWindows() {
@@ -176,43 +204,33 @@ public class Model extends Observable{
                         String token = tokenizer.nextToken();
 
                         if (token.toLowerCase().equals("square")) {
-                            addGizmo(gf.createGizmo(token, tokenizer.nextToken(),
-                                    tokenizer.nextToken(), tokenizer.nextToken()));
+                            addGizmo(token,tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken());
                         }
 
                         if (token.toLowerCase().equals("triangle")) {
-                            addGizmo(gf.createGizmo(token, tokenizer.nextToken(),
-                                    tokenizer.nextToken(), tokenizer.nextToken()));
+                            addGizmo(token,tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken());
                         }
 
                         if (token.toLowerCase().equals("circle")) {
-                            addGizmo(gf.createGizmo(token, tokenizer.nextToken(),
-                                    tokenizer.nextToken(), tokenizer.nextToken()));
+                            addGizmo(token,tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken());
                         }
 
                         if (token.toLowerCase().equals("absorber")) {
-                            addGizmo(gf.createAbsorber(token, tokenizer.nextToken(), tokenizer.nextToken(),
-                                    tokenizer.nextToken(),tokenizer.nextToken(), tokenizer.nextToken()));
+                            addAbsorber(token,tokenizer.nextToken(),tokenizer.nextToken(),
+                                    tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken());
                         }
 
                         if (token.toLowerCase().equals("leftflipper")) {
-                            flippers.add(gf.createFlipper(token,tokenizer.nextToken(),
-                                    tokenizer.nextToken(),tokenizer.nextToken()));
+                            addFlipper(token,tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken());
                         }
 
                         if (token.toLowerCase().equals("rightflipper")) {
-                            flippers.add(gf.createFlipper(token,tokenizer.nextToken(),
-                                    tokenizer.nextToken(),tokenizer.nextToken()));
+                            addFlipper(token,tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken());
                         }
 
                         if (token.toLowerCase().equals("ball")) {
-                            String t = token;
-                            String n = tokenizer.nextToken();
-                            double x = Double.parseDouble(tokenizer.nextToken());
-                            double y = Double.parseDouble(tokenizer.nextToken());
-                            double xv = Double.parseDouble(tokenizer.nextToken());
-                            double yv = Double.parseDouble(tokenizer.nextToken());
-                            balls.add(new Ball(t,n,x,y,xv,yv,L/2));
+                            addBall(token,tokenizer.nextToken(),tokenizer.nextToken(),
+                                    tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken());
                         }
 
                         if (token.toLowerCase().equals("rotate")) {
@@ -238,8 +256,12 @@ public class Model extends Observable{
         return true;
     }
 
+    //TODO clear triggers as well when they are implemented
     private void clearModel(){
         gizmos.clear();
+        flippers.clear();
+        balls.clear();
+        //Probably triggers clear as well
     }
 
 }
