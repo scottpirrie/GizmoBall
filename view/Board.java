@@ -49,8 +49,7 @@ public class Board extends JPanel implements Observer{
         repaint();
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-
-
+        
         // lines go out of the building area
         if(isBuildingMode) {
             for (int i = 0; i < L; i++) {
@@ -78,7 +77,11 @@ public class Board extends JPanel implements Observer{
                 g2.fillPolygon(xPoints,yPoints,3);
             }else if(gizmo.getType().toLowerCase().equals("circle")){
                 g2.setColor(Color.GREEN);
-                g2.fillOval(gizmo.getxPos()*L,gizmo.getyPos()*L,L,L);
+                double x = gizmo.getxPos();
+                double y = gizmo.getyPos();
+                double diameter = (0.5 * L ) * 2;
+                Ellipse2D circle = new Ellipse2D.Double(x*L,y*L,diameter,diameter);
+                g2.fill(circle);
             }
         }
 
@@ -100,8 +103,8 @@ public class Board extends JPanel implements Observer{
             double x = (ball.getExactX() - ball.getRadius());
             double y = (ball.getExactY() - ball.getRadius());
             double diameter = (ball.getRadius()*L) * 2;
-            Ellipse2D.Double circle = new Ellipse2D.Double(x*L,y*L,diameter,diameter);
-            g2.fill(circle);
+            Ellipse2D.Double ballCircle = new Ellipse2D.Double(x*L,y*L,diameter,diameter);
+            g2.fill(ballCircle);
         }
     }
 

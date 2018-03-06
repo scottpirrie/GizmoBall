@@ -25,7 +25,7 @@ public class CircleGizmo implements AbstractGizmo{
         this.xPos=xPos;
         this.yPos=yPos;
         circles = new ArrayList<>();
-
+        createCircles();
     }
 
 
@@ -56,7 +56,7 @@ public class CircleGizmo implements AbstractGizmo{
 
     @Override
     public void createCircles() {
-        physics.Circle circle = new physics.Circle(xPos,yPos,radius);
+        physics.Circle circle = new physics.Circle(xPos+radius,yPos+radius,radius);
         circles.add(circle);
     }
 
