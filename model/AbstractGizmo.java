@@ -9,6 +9,8 @@ public interface AbstractGizmo {
 
     String getType();
     String getName();
+    int getxPos();
+    int getyPos();
     void createLines();
     void createCircles();
     List<LineSegment> getLines();

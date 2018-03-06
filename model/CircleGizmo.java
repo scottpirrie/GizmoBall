@@ -40,6 +40,16 @@ public class CircleGizmo implements AbstractGizmo{
     }
 
     @Override
+    public int getxPos() {
+        return xPos;
+    }
+
+    @Override
+    public int getyPos() {
+        return yPos;
+    }
+
+    @Override
     public void createLines() {
         //DOES NOTHING
     }

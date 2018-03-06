@@ -43,6 +43,18 @@ public class AbsorberGizmo implements AbstractGizmo{
         return name;
     }
 
+
+    //TODO Figure out how to paint absorber whilst maintaining its status as a gizmo
+    @Override
+    public int getxPos() {
+        return xPos1;
+    }
+
+    @Override
+    public int getyPos() {
+        return yPos1;
+    }
+
     public boolean hasBall() {
         return hasBall;
     }

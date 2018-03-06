@@ -4,6 +4,7 @@ import model.AbstractGizmo;
 import model.Ball;
 import model.Flipper;
 import model.Model;
+import physics.LineSegment;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,17 +58,25 @@ public class Board extends JPanel implements Observer{
 
         //Normal Painting
         for(AbstractGizmo gizmo : model.getGizmos()){
+            if(gizmo.getType().toLowerCase().equals("square")){
+                g2.setColor(Color.RED);
+                g2.fillRect(gizmo.getxPos(),gizmo.getyPos(),L*20,L*20);
+
+            }else if(gizmo.getType().toLowerCase().equals("triangle")){
+                g2.setColor(Color.YELLOW);
+                LineSegment l1 = gizmo.getLines().get(0);
+                LineSegment l2 = gizmo.getLines().get(1);
+                LineSegment l3 = gizmo.getLines().get(2);
+                int [] xPoints = {(int)l1.p1().x(),(int)l1.p2().x(),(int)l2.p2().x()};
+                int [] yPoints = {(int)l1.p1().y(),(int)l1.p2().y(),(int)l2.p2().y()};
+                g2.fillPolygon(xPoints,yPoints,3);
+
+            }else if(gizmo.getType().toLowerCase().equals("circle")){
+                g2.setColor(Color.GREEN);
+                g2.fillOval(gizmo.getxPos()-L,gizmo.getyPos()-L,(L/2)*20,(L/2)*20);
+            }
 
         }
-
-        for(Flipper flipper : model.getFlippers()){
-
-        }
-
-        for(Ball ball : model.getBalls()){
-
-        }
-
 
     }
 

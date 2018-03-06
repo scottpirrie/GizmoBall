@@ -40,6 +40,16 @@ public class SquareGizmo implements  AbstractGizmo {
     }
 
     @Override
+    public int getxPos() {
+        return xPos;
+    }
+
+    @Override
+    public int getyPos() {
+        return yPos;
+    }
+
+    @Override
     public void createLines() {
         LineSegment l1 = new LineSegment(xPos,yPos,xPos+width,yPos);
         LineSegment l2 = new LineSegment(xPos+width,yPos,xPos+width,yPos+width);
