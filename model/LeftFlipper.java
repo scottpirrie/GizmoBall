@@ -14,7 +14,6 @@ public class LeftFlipper implements Flipper{
     private int yPos;
     private double xArc;
     private double yArc;
-    private int width;
     private int rotation;
     private List<LineSegment> lines;
     private List<Circle> circles;
@@ -23,14 +22,13 @@ public class LeftFlipper implements Flipper{
     private double xStart;
     private double yStart;
 
-    public LeftFlipper(String type,String name, int xPos, int yPos, int width){
+    public LeftFlipper(String type,String name, int xPos, int yPos){
         this.type = type;
         this.name = name;
         this.xPos = xPos;
         this.yPos = yPos;
         this.xArc = xPos;
-        this.yArc = yPos + (2 * width);
-        this.width = width;
+        this.yArc = yPos + 2;
         this.rotation = 0;
         lines=new ArrayList<>();
         circles = new ArrayList<>();
@@ -54,14 +52,14 @@ public class LeftFlipper implements Flipper{
 
     @Override
     public void createLines() {
-        LineSegment l1 = new LineSegment(xPos, yPos, xPos, yPos + width);
+        LineSegment l1 = new LineSegment(xPos, yPos, xPos, yPos + 2);
         lines.add(l1);
     }
 
     @Override
     public void createCircles() {
         Circle c1 = new Circle(xPos, yPos, 0);
-        Circle c2 = new Circle(xPos, yPos + width, 0);
+        Circle c2 = new Circle(xPos, yPos + 2, 0);
         circles.add(c1);
         circles.add(c2);
     }

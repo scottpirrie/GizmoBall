@@ -1,6 +1,7 @@
 package main;
 
 
+import model.Model;
 import view.GizmoView;
 
 /**
@@ -9,6 +10,7 @@ import view.GizmoView;
 
 public class Main {
 	public static void main(String[] args) {
-		GizmoView mainView = new GizmoView();
+		Model model = new Model();
+		GizmoView mainView = new GizmoView(model);
 	}
 }

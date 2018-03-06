@@ -13,18 +13,16 @@ public class TriangleGizmo implements AbstractGizmo{
     private String name;
     private int xPos;
     private int yPos;
-    private int width;
     private int rotation;
     private List<LineSegment> lines;
     private List<Circle> circles;
 
 
-    public TriangleGizmo(String type, String name,int xPos,int yPos,int width){
+    public TriangleGizmo(String type, String name,int xPos,int yPos){
         this.type = type;
         this.name = name;
         this.xPos=xPos;
         this.yPos=yPos;
-        this.width=width;
         this.rotation = 0;
         lines = new ArrayList<>();
         circles = new ArrayList<>();
@@ -55,9 +53,9 @@ public class TriangleGizmo implements AbstractGizmo{
 
     @Override
     public void createLines() {
-        LineSegment l1 = new LineSegment(xPos,yPos,xPos+width,yPos);
-        LineSegment l2 = new LineSegment(xPos+width,yPos,xPos,yPos+width);
-        LineSegment l3 = new LineSegment(xPos,yPos+width,xPos+width,yPos+width);
+        LineSegment l1 = new LineSegment(xPos,yPos,xPos+1,yPos);
+        LineSegment l2 = new LineSegment(xPos+1,yPos,xPos,yPos+1);
+        LineSegment l3 = new LineSegment(xPos,yPos+1,xPos+1,yPos+1);
 
         lines.add(l1);
         lines.add(l2);
@@ -67,8 +65,8 @@ public class TriangleGizmo implements AbstractGizmo{
     @Override
     public void createCircles() {
         Circle c1 = new Circle(xPos,yPos,0);
-        Circle c2 = new Circle(xPos+width,yPos,0);
-        Circle c3 = new Circle(xPos,yPos+width,0);
+        Circle c2 = new Circle(xPos+1,yPos,0);
+        Circle c3 = new Circle(xPos,yPos+1,0);
 
         circles.add(c1);
         circles.add(c2);

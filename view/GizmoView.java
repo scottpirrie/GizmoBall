@@ -45,15 +45,15 @@ public class GizmoView extends JFrame {
         panel.setLayout(new GridLayout(0,1));
 
         JButton button = new JButton("Run", runIcon);
-        button.addActionListener(new MainMenuListener(this));
+        button.addActionListener(new MainMenuListener(this,model));
         panel.add(button);
 
         button = new JButton("Build", buildIcon);
-        button.addActionListener(new MainMenuListener(this));
+        button.addActionListener(new MainMenuListener(this,model));
         panel.add(button);
 
         button = new JButton("Quit", quitIcon);
-        button.addActionListener(new MainMenuListener(this));
+        button.addActionListener(new MainMenuListener(this,model));
 
         panel.add(button);
 

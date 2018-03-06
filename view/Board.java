@@ -29,6 +29,10 @@ public class Board extends JPanel implements Observer{
         isBuildingMode=false;
     }
 
+    public Model getModel(){
+        return model;
+    }
+
     public Dimension getPreferredSize() {
         return new Dimension(width, height);
     }
@@ -60,20 +64,23 @@ public class Board extends JPanel implements Observer{
         for(AbstractGizmo gizmo : model.getGizmos()){
             if(gizmo.getType().toLowerCase().equals("square")){
                 g2.setColor(Color.RED);
-                g2.fillRect(gizmo.getxPos(),gizmo.getyPos(),L*20,L*20);
+                g2.fillRect(gizmo.getxPos()*L,gizmo.getyPos()*L,L,L);
 
             }else if(gizmo.getType().toLowerCase().equals("triangle")){
                 g2.setColor(Color.YELLOW);
                 LineSegment l1 = gizmo.getLines().get(0);
                 LineSegment l2 = gizmo.getLines().get(1);
                 LineSegment l3 = gizmo.getLines().get(2);
-                int [] xPoints = {(int)l1.p1().x(),(int)l1.p2().x(),(int)l2.p2().x()};
-                int [] yPoints = {(int)l1.p1().y(),(int)l1.p2().y(),(int)l2.p2().y()};
-                g2.fillPolygon(xPoints,yPoints,3);
 
+                int [] xPoints = {(int)l1.p1().x()*L,(int)l2.p1().x()*L,(int)l3.p1().x()*L};
+                int [] yPoints = {(int)l1.p1().y()*L,(int)l2.p1().y()*L,(int)l3.p1().y()*L};
+                Polygon p = new Polygon(xPoints,yPoints,3);
+                g2.fillPolygon(p);
+
+                g2.fillPolygon(xPoints,yPoints,3);
             }else if(gizmo.getType().toLowerCase().equals("circle")){
                 g2.setColor(Color.GREEN);
-                g2.fillOval(gizmo.getxPos()-L,gizmo.getyPos()-L,(L/2)*20,(L/2)*20);
+                g2.fillOval(gizmo.getxPos()*L,gizmo.getyPos()*L,L,L);
             }
 
         }
@@ -82,6 +89,7 @@ public class Board extends JPanel implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("painting...");
         validate();
         repaint();
     }

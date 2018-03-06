@@ -10,7 +10,7 @@ public class BuildListener implements ActionListener {
 
     private JFrame frame;
     private Board board;
-    //pass through the model
+
     public BuildListener(JFrame view, Board board){
         frame = view;
         this.board = board;
@@ -27,13 +27,13 @@ public class BuildListener implements ActionListener {
                 break;
             case "Quit":
                 frame.dispose();
-                GizmoView view = new GizmoView();
+                System.exit(0);
                 break;
             case "Save":
-                SaveView save = new SaveView();
+                SaveView save = new SaveView(board.getModel());
                 break;
             case "Load":
-                LoadView load = new LoadView();
+                LoadView load = new LoadView(board.getModel());
                 break;
         }
     }

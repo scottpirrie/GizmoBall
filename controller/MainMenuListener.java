@@ -1,5 +1,6 @@
 package controller;
 
+import model.Model;
 import view.*;
 
 import javax.swing.*;
@@ -11,9 +12,9 @@ public class MainMenuListener implements ActionListener {
     private GizmoView view;
     private Board board;
 
-    public MainMenuListener(GizmoView frame){
+    public MainMenuListener(GizmoView frame, Model model){
         view = frame;
-        board = new Board(500,500);
+        board = new Board(model,500,500);
     }
 
     @Override

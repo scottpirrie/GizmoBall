@@ -198,6 +198,7 @@ public class Model extends Observable{
             StringTokenizer tokenizer;
             String line;
             while ((line = br.readLine()) != null) {
+                System.out.println("Reading...");
                 try {
                     tokenizer = new StringTokenizer(line);
                     while (tokenizer.hasMoreTokens()) {

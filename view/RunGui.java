@@ -1,6 +1,7 @@
 package view;
 
 import controller.RunListener;
+import model.Model;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +14,10 @@ public class RunGui implements Gui {
     private Container cp;
     private Font gf;
     private ActionListener listener;
-    //private Model model;
 
     //still need to check if anything else needs passed...
     public RunGui(Board newBoard){
-        board = newBoard;
+        this.board = newBoard;
     }
 
     public void createAndShowGUI() {
@@ -25,7 +25,7 @@ public class RunGui implements Gui {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setFocusable(true);
 
-        listener = new RunListener(frame, board);
+        listener = new RunListener(frame,board);
 
         cp = frame.getContentPane();
         gf = new Font("Arial", Font.BOLD, 12);

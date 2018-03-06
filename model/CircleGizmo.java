@@ -13,15 +13,15 @@ public class CircleGizmo implements AbstractGizmo{
     private String name;
     private int xPos;
     private int yPos;
-    private int radius;
+    private double radius;
     private List<LineSegment> lines;
     private List<physics.Circle> circles;
 
 
-    public CircleGizmo(String type, String name,int xPos,int yPos,int radius){
+    public CircleGizmo(String type, String name,int xPos,int yPos){
         this.type = type;
         this.name = name;
-        this.radius=radius;
+        this.radius = 0.5;
         this.xPos=xPos;
         this.yPos=yPos;
         circles = new ArrayList<>();

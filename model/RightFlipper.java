@@ -14,7 +14,6 @@ public class RightFlipper implements Flipper{
     private int yPos;
     private double xArc;
     private double yArc;
-    private int width;
     private int rotation;
     private List<LineSegment> lines;
     private List<Circle> circles;
@@ -23,14 +22,13 @@ public class RightFlipper implements Flipper{
     private double xStart;
     private double yStart;
 
-    public RightFlipper(String type,String name, int xPos, int yPos, int width){
+    public RightFlipper(String type,String name, int xPos, int yPos){
         this.type = type;
         this.name = name;
-        this.xPos = xPos;
+        this.xPos = xPos + 2;
         this.yPos = yPos;
         this.xArc = xPos;
-        this.yArc = yPos + (2 * width);
-        this.width = width;
+        this.yArc = yPos + 2;
         this.rotation = 0;
         lines=new ArrayList<>();
         circles = new ArrayList<>();
@@ -54,16 +52,16 @@ public class RightFlipper implements Flipper{
 
     @Override
     public void createLines() {
-        //this.xPos = xPos+(width*2); Because its a RightFlipper its on the RIGHT side of the 4x4 box
+        //this.xPos = xPos+2; Because its a RightFlipper its on the RIGHT side of the 4x4 box
 
-        LineSegment l1 = new LineSegment(xPos, yPos, xPos, yPos + width);
+        LineSegment l1 = new LineSegment(xPos, yPos, xPos, yPos + 2);
         lines.add(l1);
     }
 
     @Override
     public void createCircles() {
         Circle c1 = new Circle(xPos, yPos, 0);
-        Circle c2 = new Circle(xPos, yPos + width, 0);
+        Circle c2 = new Circle(xPos, yPos + 2, 0);
         circles.add(c1);
         circles.add(c2);
     }
@@ -146,6 +144,6 @@ public class RightFlipper implements Flipper{
     }
 
     public String toString() {
-        return "LeftFlipper "+name+" "+xPos+" "+yPos;
+        return "RightFlipper "+name+" "+xPos+" "+yPos;
     }
 }

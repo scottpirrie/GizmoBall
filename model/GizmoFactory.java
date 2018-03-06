@@ -16,11 +16,11 @@ public class GizmoFactory {
 
         switch (type) {
             case "square":
-                return new SquareGizmo(type, name, x, y, L);
+                return new SquareGizmo(type, name, x, y);
             case "circle":
-                return new CircleGizmo(type, name, x + L / 2, y + L / 2, L / 2);
+                return new CircleGizmo(type, name, x, y );
             case "triangle":
-                return new TriangleGizmo(type, name, x, y, L);
+                return new TriangleGizmo(type, name, x, y);
         }
 
         return null;
@@ -46,9 +46,9 @@ public class GizmoFactory {
 
         switch (type){
             case "leftflipper":
-                return new LeftFlipper(type, name,x,y,L);
+                return new LeftFlipper(type, name,x,y);
             case "rightflipper":
-                return new RightFlipper(type, name,x,y,L);
+                return new RightFlipper(type, name,x,y);
         }
 
         return null;
