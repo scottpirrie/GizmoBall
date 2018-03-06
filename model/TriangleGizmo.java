@@ -18,7 +18,7 @@ public class TriangleGizmo implements AbstractGizmo{
     private List<Circle> circles;
 
 
-    public TriangleGizmo(String type, String name,int xPos,int yPos){
+    TriangleGizmo(String type, String name,int xPos,int yPos){
         this.type = type;
         this.name = name;
         this.xPos=xPos;

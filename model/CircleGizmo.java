@@ -18,7 +18,7 @@ public class CircleGizmo implements AbstractGizmo{
     private List<physics.Circle> circles;
 
 
-    public CircleGizmo(String type, String name,int xPos,int yPos){
+    CircleGizmo(String type, String name,int xPos,int yPos){
         this.type = type;
         this.name = name;
         this.radius = 0.5;

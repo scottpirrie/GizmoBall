@@ -15,6 +15,7 @@ public class Model extends Observable{
     private Ball ball;
     private Walls gws;
     private List<AbstractGizmo> gizmos;
+    private List<AbsorberGizmo> absorbers;
     private List<Flipper> flippers;
     private List<Ball> balls;
 
@@ -22,16 +23,12 @@ public class Model extends Observable{
     //TODO Should we pass it in at the start? In Main? Some kind of "pre-launch" set up?
     public Model() {
         this.L=500/20;
-
         gws = new Walls(0, 0, L*20, L*20);
         gizmos = new ArrayList<>();
+        absorbers = new ArrayList<>();
         flippers = new ArrayList<>();
         balls = new ArrayList<>();
-        gf = new GizmoFactory(L);
-
-        //TODO probably remove ball from creation on initialisation
-        ball = new Ball("Ball","B",4*L, 4*L, 100, 100,L/4);
-        balls.add(ball); //Testing purposes
+        gf = new GizmoFactory();
     }
 
     public void moveBall(double move) {
@@ -115,6 +112,10 @@ public class Model extends Observable{
         return gizmos;
     }
 
+    public List<AbsorberGizmo> getAbsorbers(){
+        return absorbers;
+    }
+
     public List<Flipper> getFlippers(){
         return flippers;
     }
@@ -128,7 +129,7 @@ public class Model extends Observable{
     }
 
     public void addAbsorber(String type, String name, String xPos1, String yPos1,String xPos2, String yPos2){
-        gizmos.add(gf.createAbsorber(type,name,xPos1,yPos1,xPos2,yPos2));
+        absorbers.add(gf.createAbsorber(type,name,xPos1,yPos1,xPos2,yPos2));
     }
 
     public void addFlipper(String type, String name, String xPos, String yPos){
@@ -140,7 +141,7 @@ public class Model extends Observable{
         double y = Double.parseDouble(yPos);
         double xv = Double.parseDouble(xVelo);
         double yv = Double.parseDouble(yVelo);
-        balls.add(new Ball(type,name,x,y,xv,yv,L/2));
+        balls.add(new Ball(type,name,x,y,xv,yv,0.5));
     }
 
     public void setBallSpeed(String name,int xv, int yv) {
@@ -198,7 +199,6 @@ public class Model extends Observable{
             StringTokenizer tokenizer;
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println("Reading...");
                 try {
                     tokenizer = new StringTokenizer(line);
                     while (tokenizer.hasMoreTokens()) {

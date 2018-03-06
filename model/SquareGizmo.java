@@ -15,7 +15,7 @@ public class SquareGizmo implements  AbstractGizmo {
     private List<LineSegment> lines;
     private List<Circle> circles;
 
-    public SquareGizmo(String type,String name, int xPos, int yPos){
+    SquareGizmo(String type,String name, int xPos, int yPos){
         this.type = type;
         this.name = name;
         this.xPos=xPos;

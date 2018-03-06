@@ -25,6 +25,7 @@ public class GizmoView extends JFrame {
         createLayout();
         setTitle("Gizmoball - Menu");
         pack();
+        setResizable(false);
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -5,7 +5,7 @@ import physics.LineSegment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbsorberGizmo implements AbstractGizmo{
+public class AbsorberGizmo{
 
     private String type;
     private String name;
@@ -18,7 +18,7 @@ public class AbsorberGizmo implements AbstractGizmo{
     private List<LineSegment> lines;
     private List<Circle> circles;
 
-    public AbsorberGizmo(String type, String name, int xPos1, int yPos1, int xPos2, int yPos2){
+    AbsorberGizmo(String type, String name, int xPos1, int yPos1, int xPos2, int yPos2){
         this.type = type;
         this.name = name;
         this.xPos1 = xPos1;
@@ -33,26 +33,28 @@ public class AbsorberGizmo implements AbstractGizmo{
         createCircles();
     }
 
-    @Override
     public String getType() {
         return type;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-
-    //TODO Figure out how to paint absorber whilst maintaining its status as a gizmo
-    @Override
     public int getxPos() {
         return xPos1;
     }
 
-    @Override
     public int getyPos() {
         return yPos1;
+    }
+
+    public int getxPos2() {
+        return xPos2;
+    }
+
+    public int getyPos2() {
+        return yPos2;
     }
 
     public boolean hasBall() {
@@ -63,9 +65,7 @@ public class AbsorberGizmo implements AbstractGizmo{
         this.hasBall = hasBall;
     }
 
-
-    @Override
-    public void createLines() {
+    private void createLines() {
         LineSegment l1 = new LineSegment(xPos1,yPos1,xPos2,yPos1); // TOP LINE
         LineSegment l2 = new LineSegment(xPos1,yPos2,xPos2,yPos2); // BOTTOM LINE
         LineSegment l3 = new LineSegment(xPos1,yPos1,xPos1,yPos2); // LEFT LINE
@@ -77,8 +77,7 @@ public class AbsorberGizmo implements AbstractGizmo{
         lines.add(l4);
     }
 
-    @Override
-    public void createCircles() {
+    private void createCircles() {
         physics.Circle c1 = new physics.Circle(xPos1,yPos1,0);
         physics.Circle c2 = new physics.Circle(xPos2,yPos2,0);
         physics.Circle c3 = new physics.Circle(xPos1,yPos2,0);
@@ -90,17 +89,14 @@ public class AbsorberGizmo implements AbstractGizmo{
         circles.add(c4);
     }
 
-    @Override
     public List<LineSegment> getLines() {
         return lines;
     }
 
-    @Override
     public List<Circle> getCircles() {
         return circles;
     }
 
-    @Override
     public void rotate() {
 
     }

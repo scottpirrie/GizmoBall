@@ -39,8 +39,8 @@ public class BuildGui implements Gui {
         createAdditionalButtons();
 
         cp.add(board, BorderLayout.CENTER);
-
         frame.pack();
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }

@@ -1,9 +1,6 @@
 package view;
 
-import model.AbstractGizmo;
-import model.Ball;
-import model.Flipper;
-import model.Model;
+import model.*;
 import physics.LineSegment;
 
 import javax.swing.*;
@@ -60,7 +57,6 @@ public class Board extends JPanel implements Observer{
             }
         }
 
-        //Normal Painting
         for(AbstractGizmo gizmo : model.getGizmos()){
             if(gizmo.getType().toLowerCase().equals("square")){
                 g2.setColor(Color.RED);
@@ -82,7 +78,27 @@ public class Board extends JPanel implements Observer{
                 g2.setColor(Color.GREEN);
                 g2.fillOval(gizmo.getxPos()*L,gizmo.getyPos()*L,L,L);
             }
+        }
 
+        for(AbsorberGizmo absorber : model.getAbsorbers()){
+                int width = (absorber.getxPos2() - absorber.getxPos()) * L;
+                int height = (absorber.getyPos2() - absorber.getyPos()) * L;
+                g2.setColor(Color.MAGENTA);
+                g2.fillRect(absorber.getxPos()*L,absorber.getyPos()*L, width,height);
+        }
+
+        for(Flipper flipper : model.getFlippers()){
+            g2.setColor(Color.CYAN);
+            g2.setStroke(new BasicStroke(3,BasicStroke.CAP_ROUND,1));
+            g2.drawLine(flipper.getXPivot()*L,flipper.getYPivot()*L,(int)flipper.getXArc()*L,(int)flipper.getYArc()*L);
+        }
+
+        for(Ball ball : model.getBalls()){
+            g2.setColor(ball.getColour());
+            int x = (int) ball.getExactX();
+            int y = (int) ball.getExactY();
+            int width = (int) (ball.getRadius()*L);
+            g2.fillOval(x*L, y*L, width, width);
         }
 
     }

@@ -22,7 +22,7 @@ public class LeftFlipper implements Flipper{
     private double xStart;
     private double yStart;
 
-    public LeftFlipper(String type,String name, int xPos, int yPos){
+    LeftFlipper(String type,String name, int xPos, int yPos){
         this.type = type;
         this.name = name;
         this.xPos = xPos;
@@ -126,7 +126,7 @@ public class LeftFlipper implements Flipper{
 
     @Override
     public double getXArc() {
-        return 0;
+        return xArc;
     }
 
     private void setXArc(double x){
@@ -135,7 +135,7 @@ public class LeftFlipper implements Flipper{
 
     @Override
     public double getYArc() {
-        return 0;
+        return yArc;
     }
 
     private void setYArc(double y){

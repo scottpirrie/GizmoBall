@@ -1,17 +1,14 @@
 package model;
 
-public class GizmoFactory {
+class GizmoFactory {
 
-    private int L;
+    GizmoFactory(){
 
-    public GizmoFactory(int L){
-        this.L = L;
     }
 
-    public AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
+    AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
         int x = Integer.parseInt(xPos);
         int y = Integer.parseInt(yPos);
-
         type = type.toLowerCase();
 
         switch (type) {
@@ -22,26 +19,22 @@ public class GizmoFactory {
             case "triangle":
                 return new TriangleGizmo(type, name, x, y);
         }
-
         return null;
     }
 
-    //I don't believe that this gizmo actually needs to know L..
-    //Furthermore i'm not sure whether or not I want this separate method..
-    public AbstractGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
+    AbsorberGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         int x1 = Integer.parseInt(xPos1);
         int y1 = Integer.parseInt(yPos1);
         int x2 = Integer.parseInt(xPos2);
         int y2 = Integer.parseInt(yPos2);
         type = type.toLowerCase();
+
         return new AbsorberGizmo(type,name,x1,y1,x2,y2);
     }
 
-    //Does this make sense here?
-    public Flipper createFlipper(String type,String name, String xPos, String yPos){
+    Flipper createFlipper(String type,String name, String xPos, String yPos){
         int x = Integer.parseInt(xPos);
         int y = Integer.parseInt(yPos);
-
         type = type.toLowerCase();
 
         switch (type){
@@ -50,7 +43,6 @@ public class GizmoFactory {
             case "rightflipper":
                 return new RightFlipper(type, name,x,y);
         }
-
         return null;
     }
 

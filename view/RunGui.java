@@ -37,6 +37,7 @@ public class RunGui implements Gui {
 
 
         frame.pack();
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
