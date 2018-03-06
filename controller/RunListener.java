@@ -21,30 +21,37 @@ public class RunListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch(e.getActionCommand()){
-            case "Start":
-                timer.start();
-                break;
-            case "Stop":
-                timer.stop();
-                break;
-            case "Build Mode":
-                frame.dispose();
-                board.setBuildingMode(true);
-                Gui bGUI = new BuildGui(board);
-                bGUI.createAndShowGUI();
-                timer.stop();
-                break;
-            case "Quit":
-                frame.dispose();
-                System.exit(0);
-                break;
-            case "Save":
-                SaveView save = new SaveView(board.getModel());
-                break;
-            case "Load":
-                LoadView load = new LoadView(board.getModel());
-                break;
+        if (e.getSource() == timer) {
+            board.getModel().moveBall(0.05);
+        } else {
+            switch (e.getActionCommand()) {
+                case "Start":
+                    timer.start();
+                    break;
+                case "Tick":
+                    board.getModel().moveBall(0.05);
+                    break;
+                case "Stop":
+                    timer.stop();
+                    break;
+                case "Build Mode":
+                    frame.dispose();
+                    board.setBuildingMode(true);
+                    Gui bGUI = new BuildGui(board);
+                    bGUI.createAndShowGUI();
+                    timer.stop();
+                    break;
+                case "Quit":
+                    frame.dispose();
+                    System.exit(0);
+                    break;
+                case "Save":
+                    SaveView save = new SaveView(board.getModel());
+                    break;
+                case "Load":
+                    LoadView load = new LoadView(board.getModel());
+                    break;
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ import physics.LineSegment;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -44,6 +45,7 @@ public class Board extends JPanel implements Observer{
 
     public void paintComponent(Graphics g) {
         //repaint can make bad systems laggy but smooths painting ball collisions
+        validate();
         repaint();
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
@@ -81,8 +83,8 @@ public class Board extends JPanel implements Observer{
         }
 
         for(AbsorberGizmo absorber : model.getAbsorbers()){
-                int width = (absorber.getxPos2() - absorber.getxPos()) * L;
-                int height = (absorber.getyPos2() - absorber.getyPos()) * L;
+                int width = Math.abs(absorber.getxPos2() - absorber.getxPos()) * L;
+                int height = Math.abs(absorber.getyPos2() - absorber.getyPos()) * L;
                 g2.setColor(Color.MAGENTA);
                 g2.fillRect(absorber.getxPos()*L,absorber.getyPos()*L, width,height);
         }
@@ -95,17 +97,16 @@ public class Board extends JPanel implements Observer{
 
         for(Ball ball : model.getBalls()){
             g2.setColor(ball.getColour());
-            int x = (int) ball.getExactX();
-            int y = (int) ball.getExactY();
-            int width = (int) (ball.getRadius()*L);
-            g2.fillOval(x*L, y*L, width, width);
+            double x = (ball.getExactX() - ball.getRadius());
+            double y = (ball.getExactY() - ball.getRadius());
+            double diameter = (ball.getRadius()*L) * 2;
+            Ellipse2D.Double circle = new Ellipse2D.Double(x*L,y*L,diameter,diameter);
+            g2.fill(circle);
         }
-
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("painting...");
         validate();
         repaint();
     }

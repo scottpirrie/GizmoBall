@@ -23,7 +23,7 @@ public class Model extends Observable{
     //TODO Should we pass it in at the start? In Main? Some kind of "pre-launch" set up?
     public Model() {
         this.L=500/20;
-        gws = new Walls(0, 0, L*20, L*20);
+        gws = new Walls(0, 0, 20, 20);
         gizmos = new ArrayList<>();
         absorbers = new ArrayList<>();
         flippers = new ArrayList<>();
@@ -34,7 +34,7 @@ public class Model extends Observable{
     public void moveBall(double move) {
         if (move > 0) {
             double moveTime = move; // 0.05 = 20 times per second as per Gizmoball
-
+            ball = balls.get(0);
             if (ball != null && !ball.stopped()) {
                 CollisionDetails cd = timeUntilCollision();
                 double tuc = cd.getTuc();
@@ -45,6 +45,8 @@ public class Model extends Observable{
                     ball.setVelo(cd.getVelo());
                 }
 
+                //setGravity(ball,moveTime);
+                //setFriction(ball,moveTime);
                 this.setChanged();
                 this.notifyObservers();
 
@@ -64,6 +66,25 @@ public class Model extends Observable{
         return ball;
     }
 
+    //TODO Need to check ball speed!!!
+    private void setGravity(Ball ball, double time){
+        ball.setVelo(ball.getVelo().plus(new Vect(0,(25*L)*time)));
+    }
+
+    private void setFriction(Ball ball, double time){
+        double mu1 = 0.025; //per/second
+        double mu2 = 0.025; //per/L
+        double oldX = ball.getVelo().x();
+        double oldY = ball.getVelo().y();
+        double nyV = 0.0;
+        double nxV = 0.0;
+        //Vnew = Vold * (1 - mu * delta_t - mu2 * |Vold| * delta_t)
+        nxV = (oldX * (1 - (mu1/20) * time - (mu2*0.05) * Math.abs(oldX) * time));
+        nyV = (oldY * (1 - (mu1/20)* time - (mu2*0.05) * Math.abs(oldY) * time));
+        ball.setVelo(new Vect(nxV,nyV));
+    }
+
+    //TODO Add collisions with flippers / balls
     private CollisionDetails timeUntilCollision() {
         Circle ballCircle = ball.getCircle();
         Vect ballVelocity = ball.getVelo();
@@ -91,6 +112,23 @@ public class Model extends Observable{
                 }
             }
             for(Circle circle: gizmo.getCircles()){
+                time=Geometry.timeUntilCircleCollision(circle,ballCircle,ballVelocity);
+                if(time<shortestTime){
+                    shortestTime=time;
+                    newVelo=Geometry.reflectCircle(circle.getCenter(),ballCircle.getCenter(),ballVelocity,1.0);
+                }
+            }
+        }
+
+        for(AbsorberGizmo absorber : absorbers){
+            for (LineSegment line : absorber.getLines()) {
+                time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
+                if (time < shortestTime) {
+                    shortestTime = time;
+                    newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+                }
+            }
+            for(Circle circle: absorber.getCircles()){
                 time=Geometry.timeUntilCircleCollision(circle,ballCircle,ballVelocity);
                 if(time<shortestTime){
                     shortestTime=time;
@@ -141,12 +179,14 @@ public class Model extends Observable{
         double y = Double.parseDouble(yPos);
         double xv = Double.parseDouble(xVelo);
         double yv = Double.parseDouble(yVelo);
-        balls.add(new Ball(type,name,x,y,xv,yv,0.5));
+        System.out.println(x + " " + y);
+        balls.add(new Ball(type,name,x,y,5,5,0.25));
     }
 
     public void setBallSpeed(String name,int xv, int yv) {
         for(Ball  ball : balls) {
             if(ball.getName().equals(name)) {
+                System.out.println("FOUND BALL");
                 ball.setVelo(new Vect(xv, yv));
             }
         }

@@ -68,7 +68,6 @@ public class RunGui implements Gui {
 
         menuBar.add(menuOption);
 
-
         menuOption = new JMenu("Switch Mode");
         menuItem = new JMenuItem("Build Mode", buildIcon);
         //add the action listener for switching mode
@@ -89,20 +88,23 @@ public class RunGui implements Gui {
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
 
-        JButton button = new JButton("Start", startIcon);
-        button.setFont(gf);
-        button.setMaximumSize(new Dimension(100, 100));
-        buttons.add(button);
+        JButton startButton = new JButton("Start", startIcon);
+        startButton.setFont(gf);
+        startButton.setMaximumSize(new Dimension(100, 100));
+        startButton.addActionListener(listener);
+        buttons.add(startButton);
 
-        button = new JButton("Tick", tickIcon);
-        button.setFont(gf);
-        button.setMaximumSize(new Dimension(100, 100));
-        buttons.add(button);
+        JButton tickButton = new JButton("Tick", tickIcon);
+        tickButton.setFont(gf);
+        tickButton.setMaximumSize(new Dimension(100, 100));
+        tickButton.addActionListener(listener);
+        buttons.add(tickButton);
 
-        button = new JButton("Stop", stopIcon);
-        button.setFont(gf);
-        button.setMaximumSize(new Dimension(100, 100));
-        buttons.add(button);
+        JButton stopButton = new JButton("Stop", stopIcon);
+        stopButton.setFont(gf);
+        stopButton.setMaximumSize(new Dimension(100, 100));
+        stopButton.addActionListener(listener);
+        buttons.add(stopButton);
 
         cp.add(buttons, BorderLayout.PAGE_END);
     }
