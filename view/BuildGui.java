@@ -1,6 +1,6 @@
 package view;
 
-import controller.BuildListener;
+import controller.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,41 +94,47 @@ public class BuildGui implements Gui {
         //creating a tabbed pane
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        JButton button = new JButton("Triangle");
-        button = setUpButton(button);
-        topButtons.add(button);
+        JButton triangleButton = new JButton("Triangle");
+        triangleButton = setUpButton(triangleButton);
+        triangleButton.addActionListener(new AddTriangleGizmoListener());
+        topButtons.add(triangleButton);
 
-        button = new JButton("Left Flipper");
-        button = setUpButton(button);
-        topButtons.add(button);
+        JButton lFlipperButton = new JButton("Left Flipper");
+        lFlipperButton = setUpButton(lFlipperButton);
+        lFlipperButton.addActionListener(new AddLeftFlipperListener());
+        topButtons.add(lFlipperButton);
 
-        button = new JButton("Right Flipper");
-        button = setUpButton(button);
-        topButtons.add(button);
+        JButton rFlipperButton = new JButton("Right Flipper");
+        rFlipperButton = setUpButton(rFlipperButton);
+        rFlipperButton.addActionListener(new AddRightFlipperListener());
+        topButtons.add(rFlipperButton);
 
-        button = new JButton("Absorber");
-        button = setUpButton(button);
-        topButtons.add(button);
+        JButton absorberButton = new JButton("Absorber");
+        absorberButton = setUpButton(absorberButton);
+        absorberButton.addActionListener(new AddAbsorberGizmoListener());
+        topButtons.add(absorberButton);
 
         JPanel lowButtons = new JPanel();
         lowButtons.setLayout(new FlowLayout());
 
-        button = new JButton("Ball");
-        button = setUpButton(button);
-        lowButtons.add(button);
+        JButton ballButton = new JButton("Ball");
+        ballButton = setUpButton(ballButton);
+        ballButton.addActionListener(new AddBallListener());
+        lowButtons.add(ballButton);
 
-        button = new JButton("Circle");
-        button = setUpButton(button);
-        lowButtons.add(button);
+        JButton circleButton = new JButton("Circle");
+        circleButton = setUpButton(circleButton);
+        circleButton.addActionListener(new AddCircleGizmoListener());
+        lowButtons.add(circleButton);
 
-        button = new JButton("Square");
-        button = setUpButton(button);
-        lowButtons.add(button);
+        JButton squareButton = new JButton("Square");
+        squareButton = setUpButton(squareButton);
+        squareButton.addActionListener(new AddSquareGizmoListener());
+        lowButtons.add(squareButton);
 
         buttons.add(topButtons);
         buttons.add(lowButtons);
 
-        //creating 1st tab panel
         JPanel tabGizmoObj = new JPanel(){
             //Make the panel wider than it really needs, so
             //the window's wide enough for the tabs to stay
@@ -159,12 +165,10 @@ public class BuildGui implements Gui {
         JPanel settingsPanel1 = new JPanel();
         settingsPanel1.setLayout(new FlowLayout());
 
-        //need to add action listeners to the sliders
         JSlider gravitySlider = createNewSlider();
         JLabel label = new JLabel("Gravity: ");
         settingsPanel1.add(label);
         settingsPanel1.add(gravitySlider);
-
 
         JPanel settingsPanel2 = new JPanel();
         settingsPanel1.setLayout(new FlowLayout());
@@ -180,10 +184,6 @@ public class BuildGui implements Gui {
 
         tabGizmoSet.add(settingsPanel);
 
-
-
-
-
         tabbedPane.addTab("Gizmoball Objects", tabGizmoObj);
         tabbedPane.addTab("Gravity & Friction", tabGizmoSet);
 
@@ -197,8 +197,7 @@ public class BuildGui implements Gui {
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
 
-        Hashtable pos = new Hashtable();
-        // Add positions label in the slider
+        Hashtable<Integer, JLabel> pos = new Hashtable<>();
         pos.put(0, new JLabel("0"));
         pos.put(25, new JLabel("25"));
         pos.put(50, new JLabel("50"));
@@ -249,8 +248,6 @@ public class BuildGui implements Gui {
         buttons.setLayout(new GridLayout(2,3));
         buttons.add(lowButtons2);
         buttons.add(lowButtons1);
-
-
 
         cp.add(buttons, BorderLayout.PAGE_END);
     }

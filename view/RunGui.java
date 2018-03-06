@@ -35,7 +35,6 @@ public class RunGui implements Gui {
         createMenuBar();
         createButtons();
 
-
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
