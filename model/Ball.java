@@ -6,23 +6,32 @@ import java.awt.*;
 
 public class Ball {
 
-
+    private String type;
+    private String name;
     private Vect velocity;
     private double radius;
     private double xpos;
     private double ypos;
     private Color colour;
-
     private boolean stopped;
 
-    // x, y coordinates and x,y velocity
-    public Ball(double x, double y, double xv, double yv) {
-        xpos = x; // Centre coordinates
-        ypos = y;
-        colour = Color.BLUE;
-        velocity = new Vect(xv, yv);
-        radius = 10;
-        stopped = false;
+    public Ball(String type, String name, double x, double y, double xv, double yv, double radius) {
+        this.type = type;
+        this.name = name;
+        this.xpos = x; // Centre coordinates
+        this.ypos = y;
+        this.colour = Color.BLUE;
+        this.velocity = new Vect(xv, yv);
+        this.radius = radius;
+        this.stopped = false;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Vect getVelo() {
@@ -39,10 +48,8 @@ public class Ball {
 
     public Circle getCircle() {
         return new Circle(xpos, ypos, radius);
-
     }
 
-    // Ball specific methods that deal with double precision.
     public double getExactX() {
         return xpos;
     }
@@ -74,6 +81,7 @@ public class Ball {
     public Color getColour() {
         return colour;
     }
+
     public String toString(){
         return "Ball "+"B "+Math.round(xpos)+" "+Math.round(ypos)+" "+Math.round(velocity.x())+" "+Math.round(velocity.y());
     }

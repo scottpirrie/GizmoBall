@@ -143,4 +143,9 @@ public class LeftFlipper implements Flipper{
     private void setYArc(double y){
         this.yArc = y;
     }
+
+    public String toString() {
+        return "LeftFlipper "+name+" "+xPos+" "+yPos;
+    }
+
 }

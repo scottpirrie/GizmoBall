@@ -1,6 +1,7 @@
 package view;
 
 import controller.MainMenuListener;
+import model.Model;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +13,10 @@ import java.awt.*;
 public class GizmoView extends JFrame {
 
     private GridLayout layout;
-    //private Model model;
+    private Model model;
 
-    public GizmoView(){
+    public GizmoView(Model model){
+        this.model = model;
         init();
     }
 

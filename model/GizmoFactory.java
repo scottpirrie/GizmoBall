@@ -37,6 +37,21 @@ public class GizmoFactory {
         return new AbsorberGizmo(type,name,x1,y1,x2,y2);
     }
 
+    //Does this make sense here?
+    public Flipper createFlipper(String type,String name, String xPos, String yPos){
+        int x = Integer.parseInt(xPos);
+        int y = Integer.parseInt(yPos);
 
+        type = type.toLowerCase();
+
+        switch (type){
+            case "leftflipper":
+                return new LeftFlipper(type, name,x,y,L);
+            case "rightflipper":
+                return new RightFlipper(type, name,x,y,L);
+        }
+
+        return null;
+    }
 
 }
