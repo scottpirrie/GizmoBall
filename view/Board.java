@@ -49,7 +49,7 @@ public class Board extends JPanel implements Observer{
         repaint();
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
+
         // lines go out of the building area
         if(isBuildingMode) {
             for (int i = 0; i < L; i++) {

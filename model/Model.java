@@ -45,8 +45,8 @@ public class Model extends Observable{
                     ball.setVelo(cd.getVelo());
                 }
 
-                //setGravity(ball,moveTime);
-                //setFriction(ball,moveTime);
+                setGravity(ball,moveTime);
+                setFriction(ball,moveTime);
                 this.setChanged();
                 this.notifyObservers();
 
@@ -67,8 +67,8 @@ public class Model extends Observable{
     }
 
     //TODO Need to check ball speed!!!
-    private void setGravity(Ball ball, double time){
-        ball.setVelo(ball.getVelo().plus(new Vect(0,(25*L)*time)));
+    private void setGravity(Ball ball){
+        ball.setVelo(ball.getVelo().plus(new Vect(0,(25*L)*0.00981)));
     }
 
     private void setFriction(Ball ball, double time){
@@ -179,7 +179,6 @@ public class Model extends Observable{
         double y = Double.parseDouble(yPos);
         double xv = Double.parseDouble(xVelo);
         double yv = Double.parseDouble(yVelo);
-        System.out.println(x + " " + y);
         balls.add(new Ball(type,name,x,y,5,5,0.25));
     }
 
