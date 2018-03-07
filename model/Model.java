@@ -45,6 +45,7 @@ public class Model extends Observable{
                 } else {
                     ball = movelBallForTime(ball, tuc);
                     ball.setVelo(cd.getVelo());
+                    //Do triggers here
                 }
 
                 setGravity(ball);
@@ -221,6 +222,10 @@ public class Model extends Observable{
 
             for(Flipper flipper : flippers){
                 writer.write(flipper.toString() + "\n");
+            }
+
+            for(AbsorberGizmo absorber : absorbers){
+                writer.write(absorber.toString() + "\n");
             }
 
             for(Ball ball : balls){
