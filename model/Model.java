@@ -10,7 +10,6 @@ import java.util.*;
 
 public class Model extends Observable{
 
-    //private int L;
     private GizmoFactory gf;
     private Ball ball;
     private Walls gws;
@@ -19,10 +18,7 @@ public class Model extends Observable{
     private List<Flipper> flippers;
     private List<Ball> balls;
 
-    //TODO Somehow get a value for L into the model...
-    //TODO Should we pass it in at the start? In Main? Some kind of "pre-launch" set up?
     public Model() {
-        //this.L=500/20;
         gws = new Walls(0, 0, 20, 20);
         gizmos = new ArrayList<>();
         absorbers = new ArrayList<>();
@@ -324,7 +320,7 @@ public class Model extends Observable{
         for(AbstractGizmo abstractGizmo: gizmos){
             if(abstractGizmo.getxPos()==x && abstractGizmo.getyPos()==y){
                 gizmos.remove(abstractGizmo);
-                gf.removeTeakenPoint(x,y);
+                gf.removeTakenPoint(x,y);
                 this.setChanged();
                 this.notifyObservers();
                 return true;

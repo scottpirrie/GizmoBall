@@ -56,11 +56,11 @@ class GizmoFactory {
         return null;
     }
 
-    //TODO Make a remove TakenPoints method that will go along with delete
     void clearPoints(){
         takenPoints.clear();
     }
-    public void removeTeakenPoint(int x,int y){
+
+    void removeTakenPoint(int x,int y){
         Point p = new Point(x,y);
         takenPoints.remove(p);
     }
