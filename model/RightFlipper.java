@@ -1,7 +1,6 @@
 package model;
 
-import physics.Circle;
-import physics.LineSegment;
+import physics.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +9,8 @@ public class RightFlipper implements Flipper{
 
     private String type;
     private String name;
-    private int xPos;
-    private int yPos;
+    private double xPos;
+    private double yPos;
     private double xArc;
     private double yArc;
     private int rotation;
@@ -19,15 +18,17 @@ public class RightFlipper implements Flipper{
     private List<Circle> circles;
     private boolean isPressed;
     private double theta;
+    private double thetaCheck;
     private double xStart;
     private double yStart;
+    private Vect pivot;
 
-    RightFlipper(String type,String name, int xPos, int yPos){
+    RightFlipper(String type,String name, double xPos, double yPos){
         this.type = type;
         this.name = name;
-        this.xPos = xPos + 2;
+        this.xPos = xPos;
         this.yPos = yPos;
-        this.xArc = xPos + 2;
+        this.xArc = xPos;
         this.yArc = yPos + 2;
         this.rotation = 0;
         lines=new ArrayList<>();
@@ -37,6 +38,9 @@ public class RightFlipper implements Flipper{
         this.isPressed = false;
         this.xStart = xPos; //TODO Test this
         this.yStart = yArc-yPos;
+        theta = 18;
+        thetaCheck = 0;
+        pivot = new Vect(xPos+0.25,yPos+0.25);
     }
 
 
@@ -54,16 +58,26 @@ public class RightFlipper implements Flipper{
     public void createLines() {
         //this.xPos = xPos+2; Because its a RightFlipper its on the RIGHT side of the 4x4 box
 
-        LineSegment l1 = new LineSegment(xPos, yPos, xPos, yPos + 2);
+        LineSegment l1 = new LineSegment(xPos+0.5, yPos+0.25, xPos+0.5, yPos + 1.75);
+        LineSegment l2 = new LineSegment(xPos+1, yPos+0.25, xPos+1, yPos + 1.75);
         lines.add(l1);
+        lines.add(l2);
     }
 
     @Override
     public void createCircles() {
-        Circle c1 = new Circle(xPos, yPos, 0);
-        Circle c2 = new Circle(xPos, yPos + 2, 0);
+        Circle c1 = new Circle(xPos+0.75, yPos+0.25, 0.25);
+        Circle c2 = new Circle(xPos+0.75, yPos+1.75, 0.25);
+        Circle c3 = new Circle(xPos+0.5, yPos+0.25,0);
+        Circle c4 = new Circle(xPos+1, yPos+0.25,0);
+        Circle c5 = new Circle(xPos+0.5, yPos+1.75,0);
+        Circle c6 = new Circle(xPos+1, yPos+1.75,0);
         circles.add(c1);
         circles.add(c2);
+        circles.add(c3);
+        circles.add(c4);
+        circles.add(c5);
+        circles.add(c6);
     }
 
     @Override
@@ -83,24 +97,25 @@ public class RightFlipper implements Flipper{
 
     @Override
     public void moveFlipper(double time) {
-        double newDeltaX;
-        double newDeltaY;
-
         if (!isPressed()) {
-            if (theta > Math.toRadians(0)) {
-                theta -= Math.toRadians(4.5);
-                newDeltaX = (this.xStart * Math.cos(theta)) - (this.yStart * Math.sin(theta));
-                newDeltaY = ((-1 * this.xStart) * Math.sin(theta)) + (this.yStart * Math.cos(theta));
-                this.setXArc(xPos + newDeltaX);
-                this.setYArc(yPos + newDeltaY);
+            if (thetaCheck > 0) {
+                thetaCheck -= theta;
+                for(LineSegment line: lines) {
+                    line = Geometry.rotateAround(line, pivot, new Angle(theta));
+                }
+                for(Circle circle: circles){
+                    circle = Geometry.rotateAround(circle, pivot, new Angle(theta));
+                }
             }
         }else {
-            if(theta < Math.toRadians(90)){
-                theta += Math.toRadians(4.5);
-                newDeltaX = (this.xStart * Math.cos(theta)) - (this.yStart * Math.sin(theta));
-                newDeltaY = ((-1 * this.xStart) * Math.sin(theta)) + (this.yStart * Math.cos(theta));
-                this.setXArc(xPos+newDeltaX);
-                this.setYArc(yPos+newDeltaY);
+            if(thetaCheck < 90) {
+                thetaCheck += theta;
+                for (LineSegment line : lines) {
+                    line = Geometry.rotateAround(line, pivot, new Angle(-theta));
+                }
+                for(Circle circle: circles){
+                    circle = Geometry.rotateAround(circle, pivot, new Angle(-theta));
+                }
             }
         }
     }
@@ -116,12 +131,12 @@ public class RightFlipper implements Flipper{
     }
 
     @Override
-    public int getXPivot() {
+    public double getXPivot() {
         return xPos;
     }
 
     @Override
-    public int getYPivot() {
+    public double getYPivot() {
         return yPos;
     }
 

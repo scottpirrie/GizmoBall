@@ -41,7 +41,7 @@ public class LeftFlipper implements Flipper{
         this.isPressed = false;
         this.xStart = xPos; //TODO Test this
         this.yStart = yArc-yPos;
-        theta = 4.5;
+        theta = 18;
         thetaCheck = 0;
         pivot = new Vect(xPos+0.25,yPos+0.25);
     }
@@ -99,24 +99,23 @@ public class LeftFlipper implements Flipper{
     @Override
     public void moveFlipper(double time) {
         if (!isPressed()) {
-            if (thetaCheck > Math.toRadians(0)) {
-                thetaCheck -= Math.toRadians(theta);
-                if (thetaCheck < Math.toRadians(0)) {
-                    theta=Math.toRadians(0);
-                }
-
+            if (thetaCheck > 0) {
+                thetaCheck -= theta;
                 for(LineSegment line: lines) {
                     line = Geometry.rotateAround(line, pivot, new Angle(-theta));
                 }
+                for(Circle circle: circles){
+                    circle = Geometry.rotateAround(circle, pivot, new Angle(-theta));
+                }
             }
         }else {
-            if(thetaCheck < Math.toRadians(90)) {
-                thetaCheck += Math.toRadians(theta);
-                if (thetaCheck > Math.toRadians(90)) {
-                    theta = Math.toRadians(90);
-                }
+            if(thetaCheck < 90) {
+                thetaCheck += theta;
                 for (LineSegment line : lines) {
-                    line = Geometry.rotateAround(line, pivot, new Angle(-theta));
+                    line = Geometry.rotateAround(line, pivot, new Angle(theta));
+                }
+                for(Circle circle: circles){
+                    circle = Geometry.rotateAround(circle, pivot, new Angle(theta));
                 }
             }
         }
