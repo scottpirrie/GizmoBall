@@ -25,10 +25,9 @@ public class Board extends JPanel implements Observer{
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         L=width/20;
         isBuildingMode=false;
-<<<<<<< HEAD
+
         this.model.addObserver(this);
-=======
->>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
+
     }
 
     public Model getModel(){
@@ -114,10 +113,7 @@ public class Board extends JPanel implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-<<<<<<< HEAD
-        System.out.println("Updating");
-=======
->>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
+
         validate();
         repaint();
     }

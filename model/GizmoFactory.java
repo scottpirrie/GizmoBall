@@ -1,6 +1,6 @@
 package model;
 
-<<<<<<< HEAD
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -16,8 +16,8 @@ public class GizmoFactory {
         int x = Integer.parseInt(xPos);
         int y = Integer.parseInt(yPos);
         type = type.toLowerCase();
-        Point p = new Point(x,y);
-        if(!takenPoints.contains(p)) {
+        Point p = new Point(x, y);
+        if (!takenPoints.contains(p)) {
             takenPoints.add(p);
             switch (type) {
                 case "square":
@@ -27,30 +27,9 @@ public class GizmoFactory {
                 case "triangle":
                     return new TriangleGizmo(type, name, x, y);
             }
-=======
-class GizmoFactory {
-
-    GizmoFactory(){
-
-    }
-
-    AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
-        int x = Integer.parseInt(xPos);
-        int y = Integer.parseInt(yPos);
-        type = type.toLowerCase();
-
-        switch (type) {
-            case "square":
-                return new SquareGizmo(type, name, x, y);
-            case "circle":
-                return new CircleGizmo(type, name, x, y );
-            case "triangle":
-                return new TriangleGizmo(type, name, x, y);
->>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
         }
         return null;
     }
-
     AbsorberGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         int x1 = Integer.parseInt(xPos1);
         int y1 = Integer.parseInt(yPos1);
