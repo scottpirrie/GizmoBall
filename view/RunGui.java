@@ -1,7 +1,6 @@
 package view;
 
 import controller.RunListener;
-import model.Model;
 
 import javax.swing.*;
 import java.awt.*;

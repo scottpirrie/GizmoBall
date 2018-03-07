@@ -4,7 +4,6 @@ import controller.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
@@ -98,27 +97,26 @@ public class BuildGui implements Gui {
 
         JButton triangleButton = new JButton("Triangle");
         triangleButton = setUpButton(triangleButton);
-
         triangleButton.setName("Triangle");
-        triangleButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
-
+        triangleButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         topButtons.add(triangleButton);
 
         JButton lFlipperButton = new JButton("Left Flipper");
         lFlipperButton = setUpButton(lFlipperButton);
-        lFlipperButton.addActionListener(new AddLeftFlipperListener());
+        lFlipperButton.setName("leftFlipper");
+        lFlipperButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         topButtons.add(lFlipperButton);
 
         JButton rFlipperButton = new JButton("Right Flipper");
         rFlipperButton = setUpButton(rFlipperButton);
-        rFlipperButton.addActionListener(new AddRightFlipperListener());
+        rFlipperButton.setName("rightFlipper");
+        rFlipperButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         topButtons.add(rFlipperButton);
 
         JButton absorberButton = new JButton("Absorber");
         absorberButton = setUpButton(absorberButton);
-
-        absorberButton.addActionListener(new AddAbsorberGizmoListener());
-
+        absorberButton.setName("absorber");
+        absorberButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         topButtons.add(absorberButton);
 
         JPanel lowButtons = new JPanel();
@@ -126,27 +124,26 @@ public class BuildGui implements Gui {
 
         JButton ballButton = new JButton("Ball");
         ballButton = setUpButton(ballButton);
-
-        ballButton.addActionListener(new AddBallListener());
-
+        ballButton.setName("ball");
+        ballButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons.add(ballButton);
 
         JButton circleButton = new JButton("Circle");
         circleButton = setUpButton(circleButton);
         circleButton.setName("Circle");
-        circleButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
+        circleButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons.add(circleButton);
 
         JButton squareButton = new JButton("Square");
         squareButton = setUpButton(squareButton);
         squareButton.setName("Square");
-        squareButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
+        squareButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons.add(squareButton);
 
         JButton removeButton = new JButton("Remove");
         removeButton = setUpButton(removeButton);
         removeButton.setName("Remove");
-        removeButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
+        removeButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons.add(removeButton);
 
         buttons.add(topButtons);
@@ -237,7 +234,12 @@ public class BuildGui implements Gui {
         JPanel lowButtons2 = new JPanel();
         lowButtons2.setLayout(new FlowLayout());
 
-        JButton button = new JButton("Rotate Left");
+        JButton button = new JButton("Delete Gizmo");
+        button = setUpButton(button);
+        button.setEnabled(false);
+        lowButtons1.add(button);
+
+        button = new JButton("Rotate Left");
         button = setUpButton(button);
         button.setEnabled(false);
         lowButtons1.add(button);

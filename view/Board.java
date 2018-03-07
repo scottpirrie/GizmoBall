@@ -102,7 +102,7 @@ public class Board extends JPanel implements Observer{
         for(Flipper flipper : model.getFlippers()){
             g2.setColor(Color.CYAN);
             g2.setStroke(new BasicStroke(3,BasicStroke.CAP_ROUND,1));
-            g2.drawLine(flipper.getXPivot()*L,flipper.getYPivot()*L,(int)flipper.getXArc()*L,(int)flipper.getYArc()*L);
+            g2.drawLine((int)flipper.getXPivot()*L,(int)flipper.getYPivot()*L,(int)flipper.getXArc()*L,(int)flipper.getYArc()*L);
         }
 
         for(Ball ball : model.getBalls()){
