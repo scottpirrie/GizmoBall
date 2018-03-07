@@ -46,7 +46,7 @@ class GizmoFactory {
         int x = Integer.parseInt(xPos);
         int y = Integer.parseInt(yPos);
         type = type.toLowerCase();
-
+        System.out.println(x + " " + y);
         switch (type){
             case "leftflipper":
                 return new LeftFlipper(type, name,x,y);

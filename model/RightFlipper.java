@@ -58,20 +58,20 @@ public class RightFlipper implements Flipper{
     public void createLines() {
         //this.xPos = xPos+2; Because its a RightFlipper its on the RIGHT side of the 4x4 box
 
-        LineSegment l1 = new LineSegment(xPos+0.5, yPos+0.25, xPos+0.5, yPos + 1.75);
-        LineSegment l2 = new LineSegment(xPos+1, yPos+0.25, xPos+1, yPos + 1.75);
+        LineSegment l1 = new LineSegment(xPos+1.5, yPos+0.25, xPos+1.5, yPos + 1.75);
+        LineSegment l2 = new LineSegment(xPos+2, yPos+0.25, xPos+2, yPos + 1.75);
         lines.add(l1);
         lines.add(l2);
     }
 
     @Override
     public void createCircles() {
-        Circle c1 = new Circle(xPos+0.75, yPos+0.25, 0.25);
-        Circle c2 = new Circle(xPos+0.75, yPos+1.75, 0.25);
-        Circle c3 = new Circle(xPos+0.5, yPos+0.25,0);
-        Circle c4 = new Circle(xPos+1, yPos+0.25,0);
-        Circle c5 = new Circle(xPos+0.5, yPos+1.75,0);
-        Circle c6 = new Circle(xPos+1, yPos+1.75,0);
+        Circle c1 = new Circle(xPos+1.75, yPos+0.25, 0.25);
+        Circle c2 = new Circle(xPos+1.75, yPos+1.75, 0.25);
+        Circle c3 = new Circle(xPos+1.5, yPos+0.25,0);
+        Circle c4 = new Circle(xPos+2, yPos+0.25,0);
+        Circle c5 = new Circle(xPos+1.5, yPos+1.75,0);
+        Circle c6 = new Circle(xPos+2, yPos+1.75,0);
         circles.add(c1);
         circles.add(c2);
         circles.add(c3);

@@ -16,20 +16,20 @@ public class RunListener implements ActionListener {
     public RunListener(JFrame view, Board board){
         this.frame = view;
         this.board = board;
-        timer = new Timer(50, this);
+        timer = new Timer(17, this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == timer) {
-            board.getModel().moveBall(0.05);
+            board.getModel().moveBall(0.0167);
         } else {
             switch (e.getActionCommand()) {
                 case "Start":
                     timer.start();
                     break;
                 case "Tick":
-                    board.getModel().moveBall(0.05);
+                    board.getModel().moveBall(0.0167);
                     break;
                 case "Stop":
                     timer.stop();
