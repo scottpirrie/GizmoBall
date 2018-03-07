@@ -133,22 +133,27 @@ public class BuildGui implements Gui {
 
         JButton circleButton = new JButton("Circle");
         circleButton = setUpButton(circleButton);
-
         circleButton.setName("Circle");
         circleButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
-
         lowButtons.add(circleButton);
 
         JButton squareButton = new JButton("Square");
         squareButton = setUpButton(squareButton);
-
         squareButton.setName("Square");
         squareButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
-
         lowButtons.add(squareButton);
+
+        JButton removeButton = new JButton("Remove");
+        removeButton = setUpButton(removeButton);
+        removeButton.setName("Remove");
+        removeButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
+        lowButtons.add(removeButton);
 
         buttons.add(topButtons);
         buttons.add(lowButtons);
+
+
+
 
         JPanel tabGizmoObj = new JPanel(){
             //Make the panel wider than it really needs, so

@@ -5,6 +5,7 @@ import view.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 public class BuildListener implements ActionListener {
 
@@ -22,6 +23,7 @@ public class BuildListener implements ActionListener {
             case "Run Mode":
                 frame.dispose();
                 board.setBuildingMode(false);
+                removeListeners();
                 Gui rGUI = new RunGui(board);
                 rGUI.createAndShowGUI();
                 break;
@@ -37,5 +39,10 @@ public class BuildListener implements ActionListener {
                 break;
         }
     }
-
+    public void removeListeners() {
+        MouseListener[] listeners = board.getMouseListeners();
+        for (int i = 0; i < listeners.length; i++) {
+            board.removeMouseListener(listeners[i]);
+        }
+    }
 }

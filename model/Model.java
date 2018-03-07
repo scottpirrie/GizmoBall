@@ -310,7 +310,7 @@ public class Model extends Observable{
     }
 
     //TODO clear triggers as well when they are implemented
-    private void clearModel(){
+    public void clearModel(){
         System.out.println("Clearing model...");
         gizmos.clear();
         flippers.clear();
@@ -318,6 +318,19 @@ public class Model extends Observable{
         gf.clearPoints();
         this.setChanged();
         this.notifyObservers();
+    }
+
+    public boolean removeGizmo(int x,int y){
+        for(AbstractGizmo abstractGizmo: gizmos){
+            if(abstractGizmo.getxPos()==x && abstractGizmo.getyPos()==y){
+                gizmos.remove(abstractGizmo);
+                gf.removeTeakenPoint(x,y);
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+        }
+        return false;
     }
 
 

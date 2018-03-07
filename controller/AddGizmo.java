@@ -28,8 +28,8 @@ public class AddGizmo implements MouseListener{
             bl.addMouseListener(new AddTriangleGizmoListener(m,bl,L));
         } else if (e.getComponent().getName().equals("Circle")) {
             bl.addMouseListener(new AddCircleGizmoListener(m,bl,L));
-        }else if(e.getComponent().getName().equals("remove")){
-           // bl.addMouseListener(new RemoveGizmo(m));
+        }else if(e.getComponent().getName().equals("Remove")){
+            bl.addMouseListener(new RemoveGizmo(bl,m));
         }
     }
 

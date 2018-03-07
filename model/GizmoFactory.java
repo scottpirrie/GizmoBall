@@ -60,5 +60,8 @@ class GizmoFactory {
     void clearPoints(){
         takenPoints.clear();
     }
-
+    public void removeTeakenPoint(int x,int y){
+        Point p = new Point(x,y);
+        takenPoints.remove(p);
+    }
 }
