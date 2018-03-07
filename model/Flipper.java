@@ -17,8 +17,8 @@ public interface Flipper {
     void moveFlipper(double time);
     void setPressed(boolean isPressed);
     boolean isPressed();
-    int getXPivot();
-    int getYPivot();
+    double getXPivot();
+    double getYPivot();
     double getXArc();
     double getYArc();
 
