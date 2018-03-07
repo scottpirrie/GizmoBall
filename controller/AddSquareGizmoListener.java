@@ -24,15 +24,7 @@ public class AddSquareGizmoListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int xPos = e.getX()/L;
-        int yPos = e.getY()/L;
-        boolean success=m.addGizmo("square","s",String.valueOf(xPos),String.valueOf(yPos));
-        if(!success){
-            JOptionPane.showMessageDialog(panel,
-                    "Location already taken",
-                    "Inane error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+
     }
 
 
@@ -43,7 +35,15 @@ public class AddSquareGizmoListener implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        int xPos = e.getX()/L;
+        int yPos = e.getY()/L;
+        boolean success=m.addGizmo("square","s",String.valueOf(xPos),String.valueOf(yPos));
+        if(!success){
+            JOptionPane.showMessageDialog(panel,
+                    "Location already taken",
+                    "Inane error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @Override
