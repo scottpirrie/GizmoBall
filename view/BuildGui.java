@@ -82,7 +82,11 @@ public class BuildGui implements Gui {
         frame.setJMenuBar(menuBar);
     }
 
+<<<<<<< HEAD
     //TODO Fix buttons
+=======
+    //TODO Add appropriate ActionListeners to Buttons - Some are commented out
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
     private void createGizmoButtons(){
         //still need the action listeners for the button
         JPanel buttons = new JPanel();
@@ -96,8 +100,12 @@ public class BuildGui implements Gui {
 
         JButton triangleButton = new JButton("Triangle");
         triangleButton = setUpButton(triangleButton);
+<<<<<<< HEAD
         triangleButton.setName("Triangle");
         triangleButton.addMouseListener(new AddGizmo(board.getModel(),board.getModel().getL(),board));
+=======
+        //triangleButton.addActionListener(new AddTriangleGizmoListener());
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
         topButtons.add(triangleButton);
 
         JButton lFlipperButton = new JButton("Left Flipper");
@@ -112,7 +120,11 @@ public class BuildGui implements Gui {
 
         JButton absorberButton = new JButton("Absorber");
         absorberButton = setUpButton(absorberButton);
+<<<<<<< HEAD
         absorberButton.addActionListener(new AddAbsorberGizmoListener());
+=======
+        //absorberButton.addActionListener(new AddAbsorberGizmoListener());
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
         topButtons.add(absorberButton);
 
         JPanel lowButtons = new JPanel();
@@ -120,19 +132,31 @@ public class BuildGui implements Gui {
 
         JButton ballButton = new JButton("Ball");
         ballButton = setUpButton(ballButton);
+<<<<<<< HEAD
         ballButton.addActionListener(new AddBallListener());
+=======
+        //ballButton.addActionListener(new AddBallListener());
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
         lowButtons.add(ballButton);
 
         JButton circleButton = new JButton("Circle");
         circleButton = setUpButton(circleButton);
+<<<<<<< HEAD
         circleButton.setName("Circle");
         circleButton.addMouseListener(new AddGizmo(board.getModel(),board.getModel().getL(),board));
+=======
+        //circleButton.addActionListener(new AddCircleGizmoListener());
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
         lowButtons.add(circleButton);
 
         JButton squareButton = new JButton("Square");
         squareButton = setUpButton(squareButton);
+<<<<<<< HEAD
         squareButton.setName("Square");
         squareButton.addMouseListener(new AddGizmo(board.getModel(),board.getModel().getL(),board));
+=======
+        //squareButton.addActionListener(new AddSquareGizmoListener());
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
         lowButtons.add(squareButton);
 
         buttons.add(topButtons);

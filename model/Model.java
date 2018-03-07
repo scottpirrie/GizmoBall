@@ -28,7 +28,11 @@ public class Model extends Observable{
         absorbers = new ArrayList<>();
         flippers = new ArrayList<>();
         balls = new ArrayList<>();
+<<<<<<< HEAD
         gf = new GizmoFactory(L);
+=======
+        gf = new GizmoFactory();
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
     }
 
     public void moveBall(double move) {
@@ -157,14 +161,18 @@ public class Model extends Observable{
         return flippers;
     }
 
+<<<<<<< HEAD
     public int getL() {
         return L;
     }
 
+=======
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
     public List<Ball> getBalls(){
         return balls;
     }
 
+<<<<<<< HEAD
     public boolean addGizmo(String type, String name, String xPos, String yPos){
         AbstractGizmo gizmo = gf.createGizmo(type,name,xPos,yPos);
         if(gizmo!=null) {
@@ -175,6 +183,10 @@ public class Model extends Observable{
         }else{
             return false;
         }
+=======
+    public void addGizmo(String type, String name, String xPos, String yPos){
+        gizmos.add(gf.createGizmo(type,name,xPos,yPos));
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
     }
 
     public void addAbsorber(String type, String name, String xPos1, String yPos1,String xPos2, String yPos2){
@@ -315,7 +327,10 @@ public class Model extends Observable{
         //Probably triggers clear as well
     }
 
+<<<<<<< HEAD
     public GizmoFactory getGf() {
         return gf;
     }
+=======
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
 }

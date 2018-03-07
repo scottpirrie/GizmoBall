@@ -1,5 +1,6 @@
 package model;
 
+<<<<<<< HEAD
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -26,6 +27,26 @@ public class GizmoFactory {
                 case "triangle":
                     return new TriangleGizmo(type, name, x, y);
             }
+=======
+class GizmoFactory {
+
+    GizmoFactory(){
+
+    }
+
+    AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
+        int x = Integer.parseInt(xPos);
+        int y = Integer.parseInt(yPos);
+        type = type.toLowerCase();
+
+        switch (type) {
+            case "square":
+                return new SquareGizmo(type, name, x, y);
+            case "circle":
+                return new CircleGizmo(type, name, x, y );
+            case "triangle":
+                return new TriangleGizmo(type, name, x, y);
+>>>>>>> 543827cca5d6df3f0a651a908d34c6a145dcebc0
         }
         return null;
     }
