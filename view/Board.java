@@ -23,7 +23,7 @@ public class Board extends JPanel implements Observer{
         this.width = w;
         this.height = h;
         this.setBorder(BorderFactory.createLineBorder(Color.black));
-        L=width/20;
+        this.L = width/20;
         isBuildingMode=false;
 
         this.model.addObserver(this);
@@ -32,6 +32,10 @@ public class Board extends JPanel implements Observer{
 
     public Model getModel(){
         return model;
+    }
+
+    public int getL(){
+        return L;
     }
 
     public Dimension getPreferredSize() {
@@ -113,7 +117,6 @@ public class Board extends JPanel implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-
         validate();
         repaint();
     }

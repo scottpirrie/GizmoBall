@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Model extends Observable{
 
-    private int L;
+    //private int L;
     private GizmoFactory gf;
     private Ball ball;
     private Walls gws;
@@ -22,17 +22,17 @@ public class Model extends Observable{
     //TODO Somehow get a value for L into the model...
     //TODO Should we pass it in at the start? In Main? Some kind of "pre-launch" set up?
     public Model() {
-        this.L=500/20;
+        //this.L=500/20;
         gws = new Walls(0, 0, 20, 20);
         gizmos = new ArrayList<>();
         absorbers = new ArrayList<>();
         flippers = new ArrayList<>();
         balls = new ArrayList<>();
-
-        gf = new GizmoFactory(L);
+        gf = new GizmoFactory();
 
     }
 
+    //TODO Make this method multi-ball capable - later on
     public void moveBall(double move) {
         if (move > 0) {
             double moveTime = move; // 0.05 = 20 times per second as per Gizmoball
@@ -69,7 +69,7 @@ public class Model extends Observable{
     }
 
     private void setGravity(Ball ball){
-        ball.setVelo(ball.getVelo().plus(new Vect(0,(25*L)*0.00981)));
+        ball.setVelo(ball.getVelo().plus(new Vect(0,(25*10)*0.00981)));
     }
 
     private void setFriction(Ball ball, double time){
@@ -159,20 +159,13 @@ public class Model extends Observable{
         return flippers;
     }
 
-
-    public int getL() {
-        return L;
-    }
-
-
     public List<Ball> getBalls(){
         return balls;
     }
 
-
     public boolean addGizmo(String type, String name, String xPos, String yPos){
         AbstractGizmo gizmo = gf.createGizmo(type,name,xPos,yPos);
-        if(gizmo!=null) {
+        if(gizmo != null) {
             gizmos.add(gizmo);
             this.setChanged();
             this.notifyObservers();
@@ -297,7 +290,6 @@ public class Model extends Observable{
                                 }
                             }
                         }
-
                     }
                 } catch (NoSuchElementException e) {
                     br.readLine();
@@ -306,7 +298,7 @@ public class Model extends Observable{
         }catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.println("Loading model...");
         this.setChanged();
         this.notifyObservers();
         return true;
@@ -314,10 +306,13 @@ public class Model extends Observable{
 
     //TODO clear triggers as well when they are implemented
     private void clearModel(){
+        System.out.println("Clearing model...");
         gizmos.clear();
         flippers.clear();
         balls.clear();
-        //Probably triggers clear as well
+        gf.clearPoints();
+        this.setChanged();
+        this.notifyObservers();
     }
 
 

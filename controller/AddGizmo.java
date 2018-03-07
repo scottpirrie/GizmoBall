@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class AddGizmo implements MouseListener{
+
     private Model m;
     private int L;
     private String type;
@@ -22,11 +23,11 @@ public class AddGizmo implements MouseListener{
     public void mouseClicked(MouseEvent e) {
         removeListeners();
         if (e.getComponent().getName().equals("Square")) {
-            bl.addMouseListener(new AddSquareGizmoListener(m,bl));
+            bl.addMouseListener(new AddSquareGizmoListener(m,bl,L));
         } else if (e.getComponent().getName().equals("Triangle")) {
-            bl.addMouseListener(new AddTriangleGizmoListener(m,bl));
+            bl.addMouseListener(new AddTriangleGizmoListener(m,bl,L));
         } else if (e.getComponent().getName().equals("Circle")) {
-            bl.addMouseListener(new AddCircleGizmoListener(m,bl));
+            bl.addMouseListener(new AddCircleGizmoListener(m,bl,L));
         }else if(e.getComponent().getName().equals("remove")){
            // bl.addMouseListener(new RemoveGizmo(m));
         }

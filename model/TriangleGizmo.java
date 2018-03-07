@@ -53,7 +53,6 @@ public class TriangleGizmo implements AbstractGizmo{
 
     @Override
     public void createLines() {
-
         LineSegment l1 = new LineSegment(xPos,yPos,xPos,yPos+1);
         LineSegment l2 = new LineSegment(xPos,yPos+1,xPos+1,yPos+1);
         LineSegment l3 = new LineSegment(xPos+1,yPos+1,xPos,yPos);
@@ -67,7 +66,6 @@ public class TriangleGizmo implements AbstractGizmo{
     @Override
     public void createCircles() {
         Circle c1 = new Circle(xPos,yPos,0);
-
         Circle c2 = new Circle(xPos,yPos+1,0);
         Circle c3 = new Circle(xPos+1,yPos+1,0);
 

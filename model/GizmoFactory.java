@@ -4,19 +4,20 @@ package model;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GizmoFactory {
-    private int L;
+class GizmoFactory {
+
     private ArrayList<Point> takenPoints;
-    GizmoFactory(int L){
-        this.L=L;
+
+    GizmoFactory(){
         takenPoints = new ArrayList<>();
     }
 
-    public AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
+    AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
         int x = Integer.parseInt(xPos);
         int y = Integer.parseInt(yPos);
         type = type.toLowerCase();
         Point p = new Point(x, y);
+
         if (!takenPoints.contains(p)) {
             takenPoints.add(p);
             switch (type) {
@@ -30,6 +31,7 @@ public class GizmoFactory {
         }
         return null;
     }
+
     AbsorberGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         int x1 = Integer.parseInt(xPos1);
         int y1 = Integer.parseInt(yPos1);
@@ -52,6 +54,11 @@ public class GizmoFactory {
                 return new RightFlipper(type, name,x,y);
         }
         return null;
+    }
+
+    //TODO Make a remove TakenPoints method that will go along with delete
+    void clearPoints(){
+        takenPoints.clear();
     }
 
 }

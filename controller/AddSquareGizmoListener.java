@@ -3,8 +3,6 @@ package controller;
 import model.Model;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -12,16 +10,24 @@ public class AddSquareGizmoListener implements MouseListener {
 
     private Model m;
     private JPanel panel;
-    public AddSquareGizmoListener(Model m, JPanel panel){
+    private int L;
+
+    public AddSquareGizmoListener(Model m, JPanel panel, int L){
         this.panel=panel;
         this.m = m;
+        this.L = L;
     }
+
+    //TODO the line "int xPos = e.getX()/m.getL();" was previously "int xPos = e.getX()/25;" we should avoid using
+    //TODO absolute values for L ! but its minor and easily fixed with m.getL();
+    //TODO also need to somehow increment the name to something like S0 , S1 , S3 - also minor!
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        int xPos = e.getX()/25;
-        int yPos=e.getY()/25;
+        int xPos = e.getX()/L;
+        int yPos = e.getY()/L;
         boolean success=m.addGizmo("square","s",String.valueOf(xPos),String.valueOf(yPos));
-        if(success==false){
+        if(!success){
             JOptionPane.showMessageDialog(panel,
                     "Location already taken",
                     "Inane error",

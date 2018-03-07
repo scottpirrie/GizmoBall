@@ -100,7 +100,7 @@ public class BuildGui implements Gui {
         triangleButton = setUpButton(triangleButton);
 
         triangleButton.setName("Triangle");
-        triangleButton.addMouseListener(new AddGizmo(board.getModel(),board.getModel().getL(),board));
+        triangleButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
 
         topButtons.add(triangleButton);
 
@@ -135,7 +135,7 @@ public class BuildGui implements Gui {
         circleButton = setUpButton(circleButton);
 
         circleButton.setName("Circle");
-        circleButton.addMouseListener(new AddGizmo(board.getModel(),board.getModel().getL(),board));
+        circleButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
 
         lowButtons.add(circleButton);
 
@@ -143,7 +143,7 @@ public class BuildGui implements Gui {
         squareButton = setUpButton(squareButton);
 
         squareButton.setName("Square");
-        squareButton.addMouseListener(new AddGizmo(board.getModel(),board.getModel().getL(),board));
+        squareButton.addMouseListener(new AddGizmo(board.getModel(),board.getL(),board));
 
         lowButtons.add(squareButton);
 
