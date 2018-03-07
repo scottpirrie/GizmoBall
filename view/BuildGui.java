@@ -82,7 +82,7 @@ public class BuildGui implements Gui {
         frame.setJMenuBar(menuBar);
     }
 
-    //TODO Fix buttons
+    //TODO Add appropriate ActionListeners to Buttons - Some are commented out
     private void createGizmoButtons(){
         //still need the action listeners for the button
         JPanel buttons = new JPanel();
@@ -96,7 +96,7 @@ public class BuildGui implements Gui {
 
         JButton triangleButton = new JButton("Triangle");
         triangleButton = setUpButton(triangleButton);
-        triangleButton.addActionListener(new AddTriangleGizmoListener());
+        //triangleButton.addActionListener(new AddTriangleGizmoListener());
         topButtons.add(triangleButton);
 
         JButton lFlipperButton = new JButton("Left Flipper");
@@ -111,7 +111,7 @@ public class BuildGui implements Gui {
 
         JButton absorberButton = new JButton("Absorber");
         absorberButton = setUpButton(absorberButton);
-        absorberButton.addActionListener(new AddAbsorberGizmoListener());
+        //absorberButton.addActionListener(new AddAbsorberGizmoListener());
         topButtons.add(absorberButton);
 
         JPanel lowButtons = new JPanel();
@@ -119,17 +119,17 @@ public class BuildGui implements Gui {
 
         JButton ballButton = new JButton("Ball");
         ballButton = setUpButton(ballButton);
-        ballButton.addActionListener(new AddBallListener());
+        //ballButton.addActionListener(new AddBallListener());
         lowButtons.add(ballButton);
 
         JButton circleButton = new JButton("Circle");
         circleButton = setUpButton(circleButton);
-        circleButton.addActionListener(new AddCircleGizmoListener());
+        //circleButton.addActionListener(new AddCircleGizmoListener());
         lowButtons.add(circleButton);
 
         JButton squareButton = new JButton("Square");
         squareButton = setUpButton(squareButton);
-        squareButton.addActionListener(new AddSquareGizmoListener());
+        //squareButton.addActionListener(new AddSquareGizmoListener());
         lowButtons.add(squareButton);
 
         buttons.add(topButtons);
