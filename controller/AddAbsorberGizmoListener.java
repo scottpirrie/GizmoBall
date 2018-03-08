@@ -84,10 +84,6 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
                minX=p.x;
             }
         }
-
-        if(toReturn==null){
-            return board.getAbsorberPoints().get(0);
-        }
         toReturn=new Point(minX,minY);
         return toReturn;
     }
