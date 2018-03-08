@@ -1,6 +1,7 @@
 package controller;
 
 import model.Model;
+import view.Board;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -53,7 +54,9 @@ public class SwitchPanelListener implements ActionListener{
         }else if(e.getActionCommand().equals("Ball")){
             bl.addMouseListener(new AddBallListener());
         }else if(e.getActionCommand().equals("Absorber")){
-            bl.addMouseListener(new AddAbsorberGizmoListener());
+            AddAbsorberGizmoListener listener = new AddAbsorberGizmoListener((Board) bl,m);
+            bl.addMouseListener(listener);
+            bl.addMouseMotionListener(listener);
         }
     }
 }

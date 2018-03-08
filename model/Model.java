@@ -174,6 +174,8 @@ public class Model extends Observable{
 
     public void addAbsorber(String type, String name, String xPos1, String yPos1,String xPos2, String yPos2){
         absorbers.add(gf.createAbsorber(type,name,xPos1,yPos1,xPos2,yPos2));
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public void addFlipper(String type, String name, String xPos, String yPos){

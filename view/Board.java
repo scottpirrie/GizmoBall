@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,6 +19,7 @@ public class Board extends JPanel implements Observer{
     private int height;
     private int L;
     private boolean isBuildingMode;
+    private ArrayList<Point> absorberPoints;
 
     public Board(Model model, int w, int h){
         this.model = model;
@@ -26,7 +28,7 @@ public class Board extends JPanel implements Observer{
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.L = width/20;
         isBuildingMode=false;
-
+        absorberPoints=new ArrayList<>();
         this.model.addObserver(this);
 
     }
@@ -57,8 +59,14 @@ public class Board extends JPanel implements Observer{
         repaint();
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-
+        g2.setColor(Color.MAGENTA);
+        if(absorberPoints.size()>0){
+            for(Point p:absorberPoints){
+                g2.fillRect((int)p.getX()*L,(int)p.getY()*L,L,L);
+            }
+        }
         // lines go out of the building area
+        g2.setColor(Color.BLACK);
         if(isBuildingMode) {
             for (int i = 0; i < L; i++) {
                 g2.drawLine(0, i * L, width, i * L);
@@ -120,6 +128,20 @@ public class Board extends JPanel implements Observer{
             Ellipse2D.Double ballCircle = new Ellipse2D.Double(x*L,y*L,diameter,diameter);
             g2.fill(ballCircle);
         }
+    }
+
+    public void addAbsorberPoints(Point point){
+        if(!absorberPoints.contains(point)) {
+            absorberPoints.add(point);
+        }
+    }
+
+    public void clearAbsorberPoints(){
+        absorberPoints.clear();
+    }
+
+    public ArrayList<Point> getAbsorberPoints() {
+        return absorberPoints;
     }
 
     @Override
