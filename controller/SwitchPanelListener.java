@@ -52,7 +52,7 @@ public class SwitchPanelListener implements ActionListener{
         }else if(e.getActionCommand().equals("Right Flipper")){
             bl.addMouseListener(new AddRightFlipperListener());
         }else if(e.getActionCommand().equals("Ball")){
-            bl.addMouseListener(new AddBallListener());
+            bl.addMouseListener(new AddBallListener(m,bl, L));
         }else if(e.getActionCommand().equals("Absorber")){
             AddAbsorberGizmoListener listener = new AddAbsorberGizmoListener((Board) bl,m);
             bl.addMouseListener(listener);

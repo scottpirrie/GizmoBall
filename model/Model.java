@@ -182,12 +182,13 @@ public class Model extends Observable{
         flippers.add(gf.createFlipper(type,name,xPos,yPos));
     }
 
-    public void addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo){
+    public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo){
         double x = Double.parseDouble(xPos);
         double y = Double.parseDouble(yPos);
         double xv = Double.parseDouble(xVelo);
         double yv = Double.parseDouble(yVelo);
         balls.add(new Ball(type,name,x,y,5,5,0.25));
+        return true;
     }
 
     public void setBallSpeed(String name,int xv, int yv) {
