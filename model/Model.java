@@ -329,8 +329,17 @@ public class Model extends Observable{
                 return true;
             }
         }
+        for(Ball ball :balls){
+            if(ball.getExactX() == x && ball.getExactY()==y){
+                balls.remove(ball);
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+        }
         return false;
     }
+
 
 
 }

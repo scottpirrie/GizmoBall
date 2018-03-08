@@ -47,7 +47,7 @@ public class SwitchPanelListener implements ActionListener{
             bl.addMouseListener(new AddCircleGizmoListener(m,bl,L));
         }else if(e.getActionCommand().equals("Remove")){
             bl.addMouseListener(new RemoveGizmo(bl,m));
-        }else if(e.getActionCommand().equals("Left Flipper")){
+        } else if(e.getActionCommand().equals("Left Flipper")){
             bl.addMouseListener(new AddLeftFlipperListener());
         }else if(e.getActionCommand().equals("Right Flipper")){
             bl.addMouseListener(new AddRightFlipperListener());
