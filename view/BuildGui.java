@@ -158,21 +158,12 @@ public class BuildGui implements Gui {
             //in one row.
             public Dimension getPreferredSize() {
                 Dimension size = super.getPreferredSize();
-                size.width += 50;
+                size.width += 25;
                 return size;
             }
         };
 
-        JPanel tabGizmoSet = new JPanel(){
-            //Make the panel wider than it really needs, so
-            //the window's wide enough for the tabs to stay
-            //in one row.
-            public Dimension getPreferredSize() {
-                Dimension size = super.getPreferredSize();
-                size.width += 100;
-                return size;
-            }
-        };
+        JPanel tabGizmoSet = new JPanel();
 
         tabGizmoObj.add(buttons);
 
