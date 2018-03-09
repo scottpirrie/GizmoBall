@@ -13,7 +13,7 @@ public class AddBallListener implements MouseListener{
 
     private Model m;
     private JPanel panel;
-    private int L;
+    private double L;
 
     public AddBallListener(Model m, JPanel panel, int L){
         this.panel=panel;

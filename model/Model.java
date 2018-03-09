@@ -319,18 +319,18 @@ public class Model extends Observable{
         this.notifyObservers();
     }
 
-    public boolean removeGizmo(int x,int y){
+    public boolean removeGizmo(double x,double y){
         for(AbstractGizmo abstractGizmo: gizmos){
             if(abstractGizmo.getxPos()==x && abstractGizmo.getyPos()==y){
                 gizmos.remove(abstractGizmo);
-                gf.removeTakenPoint(x,y);
+                gf.removeTakenPoint((int)x,(int)y);
                 this.setChanged();
                 this.notifyObservers();
                 return true;
             }
         }
         for(Ball ball :balls){
-            if(ball.getExactX() == x && ball.getExactY()==y){
+            if(ball.getExactX()+ball.getRadius() >= x && ball.getExactY()+ball.getRadius()>=y){
                 balls.remove(ball);
                 this.setChanged();
                 this.notifyObservers();

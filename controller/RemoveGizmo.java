@@ -19,8 +19,8 @@ public class RemoveGizmo implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int xPos=e.getX()/25;
-        int yPos=e.getY()/25;
+        double xPos=e.getX()/25;
+        double yPos=e.getY()/25;
         boolean success = model.removeGizmo(xPos,yPos);
         if(success==false){
             JOptionPane.showMessageDialog(panel,
