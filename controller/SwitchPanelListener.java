@@ -14,9 +14,9 @@ public class SwitchPanelListener implements ActionListener{
     private Model m;
     private int L;
     private String type;
-    private JPanel bl;
+    private Board bl;
 
-    public SwitchPanelListener(Model m, int L, JPanel bl) {
+    public SwitchPanelListener(Model m, int L, Board bl) {
         this.m = m;
         this.L = L;
         this.bl = bl;
@@ -54,7 +54,7 @@ public class SwitchPanelListener implements ActionListener{
         }else if(e.getActionCommand().equals("Ball")){
             bl.addMouseListener(new AddBallListener(m,bl, L));
         }else if(e.getActionCommand().equals("Absorber")){
-            AddAbsorberGizmoListener listener = new AddAbsorberGizmoListener((Board) bl,m);
+            AddAbsorberGizmoListener listener = new AddAbsorberGizmoListener(bl,m);
             bl.addMouseListener(listener);
             bl.addMouseMotionListener(listener);
         }

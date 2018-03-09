@@ -64,4 +64,9 @@ class GizmoFactory {
         Point p = new Point(x,y);
         takenPoints.remove(p);
     }
+
+    void addTakenPoint(int x,int y){
+        Point p = new Point(x,y);
+        takenPoints.add(p);
+    }
 }

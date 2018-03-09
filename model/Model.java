@@ -183,6 +183,7 @@ public class Model extends Observable{
     }
 
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo){
+        gf.addTakenPoint((int)Double.parseDouble(xPos),(int)Double.parseDouble(yPos));
         double x = Double.parseDouble(xPos);
         double y = Double.parseDouble(yPos);
         double xv = Double.parseDouble(xVelo);
@@ -319,18 +320,23 @@ public class Model extends Observable{
         this.notifyObservers();
     }
 
-    public boolean removeGizmo(double x,double y){
+    public boolean removeGizmo(double x,double y,int L){
         for(AbstractGizmo abstractGizmo: gizmos){
-            if(abstractGizmo.getxPos()==x && abstractGizmo.getyPos()==y){
+            int tempX=(int)x/L;
+            int tempY=(int)y/L;
+            if(abstractGizmo.getxPos()==tempX && abstractGizmo.getyPos()==tempY){
                 gizmos.remove(abstractGizmo);
-                gf.removeTakenPoint((int)x,(int)y);
+                gf.removeTakenPoint(tempX,tempY);
                 this.setChanged();
                 this.notifyObservers();
                 return true;
             }
         }
         for(Ball ball :balls){
-            if(ball.getExactX()+ball.getRadius() >= x && ball.getExactY()+ball.getRadius()>=y){
+            x=x/(double) L;
+            y=y/(double) L;
+            double distanceFromClickToCenter=Math.abs(Math.pow(x-ball.getExactX(),2))+Math.abs(Math.pow(y-ball.getExactY(),2));
+            if(distanceFromClickToCenter<=Math.pow(ball.getRadius(),2)){
                 balls.remove(ball);
                 this.setChanged();
                 this.notifyObservers();

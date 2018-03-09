@@ -2,6 +2,7 @@ package controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import model.Model;
+import view.Board;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -9,19 +10,19 @@ import java.awt.event.MouseListener;
 
 public class RemoveGizmo implements MouseListener{
 
-    private JPanel panel;
+    private Board panel;
     private Model model;
 
-    public RemoveGizmo(JPanel panel, Model model){
+    public RemoveGizmo(Board panel, Model model){
         this.panel=panel;
         this.model=model;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        double xPos=e.getX()/25;
-        double yPos=e.getY()/25;
-        boolean success = model.removeGizmo(xPos,yPos);
+        double xPos=e.getX();
+        double yPos=e.getY();
+        boolean success = model.removeGizmo(xPos,yPos,panel.getL());
         if(success==false){
             JOptionPane.showMessageDialog(panel,
                     "No gizmo in this location",
