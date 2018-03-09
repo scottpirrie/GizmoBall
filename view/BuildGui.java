@@ -225,12 +225,7 @@ public class BuildGui implements Gui {
         JPanel lowButtons2 = new JPanel();
         lowButtons2.setLayout(new FlowLayout());
 
-        JButton button = new JButton("Delete Gizmo");
-        button = setUpButton(button);
-        button.setEnabled(false);
-        lowButtons1.add(button);
-
-        button = new JButton("Rotate Left");
+        JButton button = new JButton("Rotate Left");
         button = setUpButton(button);
         button.setEnabled(false);
         lowButtons1.add(button);
@@ -254,8 +249,9 @@ public class BuildGui implements Gui {
 
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(2,3));
-        buttons.add(lowButtons2);
         buttons.add(lowButtons1);
+        buttons.add(lowButtons2);
+
 
         cp.add(buttons, BorderLayout.PAGE_END);
     }
