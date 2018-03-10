@@ -5,8 +5,10 @@ import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
+import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
 public class Model extends Observable{
 
@@ -178,17 +180,48 @@ public class Model extends Observable{
         this.notifyObservers();
     }
 
-    public void addFlipper(String type, String name, String xPos, String yPos){
-        flippers.add(gf.createFlipper(type,name,xPos,yPos));
+    public boolean addFlipper(String type, String name, String xPos, String yPos){
+        Flipper flipper = gf.createFlipper(type,name,xPos,yPos);
+        if(flipper!=null) {
+            flippers.add(flipper);
+            this.setChanged();
+            this.notifyObservers();
+            return true;
+        }
+        return false;
     }
 
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo){
-        gf.addTakenPoint((int)Double.parseDouble(xPos),(int)Double.parseDouble(yPos));
+
         double x = Double.parseDouble(xPos);
         double y = Double.parseDouble(yPos);
         double xv = Double.parseDouble(xVelo);
         double yv = Double.parseDouble(yVelo);
         balls.add(new Ball(type,name,x,y,5,5,0.25));
+
+        Point squareToAddBall = new Point((int)Double.parseDouble(xPos),(int) Double.parseDouble(yPos));
+        System.out.println("Square to add: "+squareToAddBall.x+" "+squareToAddBall.y);
+        //gizmos.add(gf.createGizmo("square",name,String.valueOf(squareToAddBall.x),String.valueOf(squareToAddBall.y)));
+        int maxWidth=squareToAddBall.x+1;
+        int maxHeight=squareToAddBall.y+1;
+        int leastWidth=squareToAddBall.x;
+        int leastHeight=squareToAddBall.y;
+
+
+        // if the left most point is outside the least width mark the left square as invalid
+        //if the right most point is outside the max width mark the right square as invalid
+        //if the top most point is outside the least height mark the top square as invalid
+        //if the down most point is outside the max height mark the down square as invalid
+        Ball ball = balls.get(balls.size()-1);
+        if(ball.getExactX()-ball.getRadius()<leastWidth){
+            gf.addTakenPoint(leastWidth,squareToAddBall.y);
+        } if(ball.getExactX()+ball.getRadius()>maxWidth){// works
+            gf.addTakenPoint(maxWidth,squareToAddBall.y);
+        } if(ball.getExactY()-ball.getRadius()<leastHeight){
+            gf.addTakenPoint(squareToAddBall.x,leastHeight);
+        } if(ball.getExactY()+ball.getRadius()>maxHeight){ // works
+            gf.addTakenPoint(squareToAddBall.x,maxHeight);
+        }
         return true;
     }
 

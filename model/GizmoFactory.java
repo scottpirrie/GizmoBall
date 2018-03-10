@@ -46,12 +46,20 @@ class GizmoFactory {
         int x = Integer.parseInt(xPos);
         int y = Integer.parseInt(yPos);
         type = type.toLowerCase();
+        Point p = new Point(x, y);
         System.out.println(x + " " + y);
-        switch (type){
-            case "leftflipper":
-                return new LeftFlipper(type, name,x,y);
-            case "rightflipper":
-                return new RightFlipper(type, name,x,y);
+        if(!takenPoints.contains(p)) {
+            // need to add all four squares
+            takenPoints.add(p);
+            takenPoints.add(new Point(p.x+1,p.y));
+            takenPoints.add(new Point(p.x,p.y+1));
+            takenPoints.add(new Point(p.x+1,p.y+1));
+            switch (type) {
+                case "leftflipper":
+                    return new LeftFlipper(type, name, x, y);
+                case "rightflipper":
+                    return new RightFlipper(type, name, x, y);
+            }
         }
         return null;
     }

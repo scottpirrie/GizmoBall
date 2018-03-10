@@ -1,5 +1,10 @@
 package controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import model.Model;
+import view.Board;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -7,15 +12,27 @@ import java.awt.event.MouseListener;
 
 public class AddLeftFlipperListener implements MouseListener{
 
-    public AddLeftFlipperListener(){
-
+    private Board board;
+    private Model model;
+    public AddLeftFlipperListener(Board board, Model model){
+        this.model=model;
+        this.board=board;
     }
 
 
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("left flipper to add");
+        int xPos=e.getX()/25;
+        int yPos=e.getY()/25;
+        boolean success = model.addFlipper("leftflipper","f",String.valueOf(xPos),String.valueOf(yPos));
+        if(!success){
+            JOptionPane.showMessageDialog(board,
+                    "Location already taken",
+                    "Inane error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        System.out.println("left lipper to add");
     }
 
     @Override
