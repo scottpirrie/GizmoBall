@@ -15,6 +15,7 @@ public interface Flipper {
     List<Circle> getCircles();
     void rotate();
     void moveFlipper(double time);
+    double getThetaCheck();
     void setPressed(boolean isPressed);
     boolean isPressed();
     double getXPivot();

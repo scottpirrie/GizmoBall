@@ -19,8 +19,6 @@ public class RightFlipper implements Flipper{
     private boolean isPressed;
     private double theta;
     private double thetaCheck;
-    private double xStart;
-    private double yStart;
     private Vect pivot;
 
     RightFlipper(String type,String name, double xPos, double yPos){
@@ -36,8 +34,6 @@ public class RightFlipper implements Flipper{
         createLines();
         createCircles();
         this.isPressed = false;
-        this.xStart = xPos; //TODO Test this
-        this.yStart = yArc-yPos;
         theta = 18;
         thetaCheck = 0;
         pivot = new Vect(xPos+1.75,yPos+0.25);
@@ -123,6 +119,10 @@ public class RightFlipper implements Flipper{
                 }
             }
         }
+    }
+
+    public double getThetaCheck(){
+        return thetaCheck;
     }
 
     @Override

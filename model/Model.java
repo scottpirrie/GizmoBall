@@ -146,7 +146,7 @@ public class Model extends Observable{
         }
 
         for(Flipper flipper : flippers){
-            if(flipper.isPressed()) {
+            if(flipper.getThetaCheck() > 0 && flipper.getThetaCheck() < 90) {
                 for (LineSegment line : flipper.getLines()) {
                     time = Geometry.timeUntilRotatingWallCollision(line, new Vect(line.p1().x(), line.p1().y()),
                             Math.toRadians(1080), ballCircle, ballVelocity);
@@ -166,6 +166,22 @@ public class Model extends Observable{
                         shortestTime = time;
                         newVelo = Geometry.reflectRotatingCircle(circle,new Vect(circle.getCenter().x(),circle.getCenter().y()),
                                 Math.toRadians(1080),ballCircle,ballVelocity,0.95);
+                    }
+                }
+            }else{
+                for (LineSegment line : flipper.getLines()) {
+                    time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
+                    if (time < shortestTime) {
+                        shortestTime = time;
+                        newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+                    }
+                }
+
+                for(Circle circle: flipper.getCircles()){
+                    time=Geometry.timeUntilCircleCollision(circle,ballCircle,ballVelocity);
+                    if(time<shortestTime){
+                        shortestTime=time;
+                        newVelo=Geometry.reflectCircle(circle.getCenter(),ballCircle.getCenter(),ballVelocity,1.0);
                     }
                 }
             }

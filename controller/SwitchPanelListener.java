@@ -21,6 +21,7 @@ public class SwitchPanelListener implements ActionListener{
         this.L = L;
         this.bl = bl;
     }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -29,7 +30,7 @@ public class SwitchPanelListener implements ActionListener{
         return type;
     }
 
-    public void removeListeners() {
+    private void removeListeners() {
         MouseListener[] listeners = bl.getMouseListeners();
         for (int i = 0; i < listeners.length; i++) {
             bl.removeMouseListener(listeners[i]);

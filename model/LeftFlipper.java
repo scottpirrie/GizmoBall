@@ -19,8 +19,6 @@ public class LeftFlipper implements Flipper{
     private boolean isPressed;
     private double theta;
     private double thetaCheck;
-    private double xStart;
-    private double yStart;
     private Vect pivot;
 
 
@@ -39,8 +37,6 @@ public class LeftFlipper implements Flipper{
         createLines();
         createCircles();
         this.isPressed = false;
-        this.xStart = xPos; //TODO Test this
-        this.yStart = yArc-yPos;
         theta = 18;
         thetaCheck = 0;
         pivot = new Vect(xPos+0.25,yPos+0.25);
@@ -124,6 +120,10 @@ public class LeftFlipper implements Flipper{
                 }
             }
         }
+    }
+
+    public double getThetaCheck(){
+        return thetaCheck;
     }
 
     @Override
