@@ -42,7 +42,6 @@ class GizmoFactory {
         return new AbsorberGizmo(type,name,x1,y1,x2,y2);
     }
 
-
     //TODO test if flipper extends outside wall! ( only happens on rotation and left flippers currently
     Flipper createFlipper(String type,String name, String xPos, String yPos){
         int x = Integer.parseInt(xPos);

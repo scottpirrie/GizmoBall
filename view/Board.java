@@ -110,13 +110,13 @@ public class Board extends JPanel implements Observer{
 
         for(Flipper flipper : model.getFlippers()){
             g2.setColor(Color.CYAN);
-            g2.setStroke(new BasicStroke(3,BasicStroke.CAP_ROUND,1));
+            g2.setStroke(new BasicStroke(3,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
             double x1 = flipper.getCircles().get(0).getCenter().x()*L;
             double y1 = flipper.getCircles().get(0).getCenter().y()*L;
             double x2 = flipper.getCircles().get(1).getCenter().x()*L;
             double y2 = flipper.getCircles().get(1).getCenter().y()*L;
             Line2D.Double flipperLine = new Line2D.Double(x1,y1,x2,y2);
-            g2.setStroke(new BasicStroke(0.5f*L,BasicStroke.CAP_ROUND,0));
+            g2.setStroke(new BasicStroke(0.5f*L,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
             g2.draw(flipperLine);
         }
 

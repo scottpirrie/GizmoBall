@@ -1,5 +1,7 @@
 package view;
 
+import controller.MagicKeyListener;
+import controller.MoveFlipperListener;
 import controller.RunListener;
 
 import javax.swing.*;
@@ -22,11 +24,12 @@ public class RunGui implements Gui {
     public void createAndShowGUI() {
         frame = new JFrame("Gizmoball - Run Mode");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setFocusable(true);
-
+        frame.setFocusable(false);
         listener = new RunListener(frame,board);
 
         cp = frame.getContentPane();
+        cp.setFocusable(true);
+        cp.addKeyListener(new MagicKeyListener(new MoveFlipperListener(board.getModel())));
         gf = new Font("Arial", Font.BOLD, 12);
 
         cp.add(board, BorderLayout.CENTER);
@@ -90,18 +93,21 @@ public class RunGui implements Gui {
         startButton.setFont(gf);
         startButton.setMaximumSize(new Dimension(100, 100));
         startButton.addActionListener(listener);
+        startButton.setFocusable(false);
         buttons.add(startButton);
 
         JButton tickButton = new JButton("Tick", tickIcon);
         tickButton.setFont(gf);
         tickButton.setMaximumSize(new Dimension(100, 100));
         tickButton.addActionListener(listener);
+        tickButton.setFocusable(false);
         buttons.add(tickButton);
 
         JButton stopButton = new JButton("Stop", stopIcon);
         stopButton.setFont(gf);
         stopButton.setMaximumSize(new Dimension(100, 100));
         stopButton.addActionListener(listener);
+        stopButton.setFocusable(false);
         buttons.add(stopButton);
 
         cp.add(buttons, BorderLayout.PAGE_END);

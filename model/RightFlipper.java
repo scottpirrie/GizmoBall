@@ -40,7 +40,7 @@ public class RightFlipper implements Flipper{
         this.yStart = yArc-yPos;
         theta = 18;
         thetaCheck = 0;
-        pivot = new Vect(xPos+0.25,yPos+0.25);
+        pivot = new Vect(xPos+1.75,yPos+0.25);
     }
 
 
@@ -101,20 +101,25 @@ public class RightFlipper implements Flipper{
             if (thetaCheck > 0) {
                 thetaCheck -= theta;
                 for(LineSegment line: lines) {
-                    line = Geometry.rotateAround(line, pivot, new Angle(theta));
+                    LineSegment newline = Geometry.rotateAround(line, pivot, new Angle(Math.toRadians(-theta)));
+                    lines.set(lines.indexOf(line),newline);
                 }
                 for(Circle circle: circles){
-                    circle = Geometry.rotateAround(circle, pivot, new Angle(theta));
+                    Circle newCircle = Geometry.rotateAround(circle, pivot, new Angle(Math.toRadians(-theta)));
+                    circles.set(circles.indexOf(circle),newCircle);
                 }
             }
         }else {
             if(thetaCheck < 90) {
                 thetaCheck += theta;
                 for (LineSegment line : lines) {
-                    line = Geometry.rotateAround(line, pivot, new Angle(-theta));
+                    LineSegment newline = Geometry.rotateAround(line, pivot, new Angle(Math.toRadians(theta)));
+                    lines.set(lines.indexOf(line),newline);
                 }
+
                 for(Circle circle: circles){
-                    circle = Geometry.rotateAround(circle, pivot, new Angle(-theta));
+                    Circle newCircle = Geometry.rotateAround(circle, pivot, new Angle(Math.toRadians(theta)));
+                    circles.set(circles.indexOf(circle),newCircle);
                 }
             }
         }

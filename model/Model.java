@@ -46,6 +46,7 @@ public class Model extends Observable{
                     //Do triggers here
                 }
 
+                moveFlipper(moveTime);
                 setGravity(ball);
                 setFriction(ball,moveTime);
                 this.setChanged();
@@ -54,6 +55,13 @@ public class Model extends Observable{
             }
         }
     }
+
+    private void moveFlipper(double moveTime){
+        for(Flipper f : flippers){
+            f.moveFlipper(moveTime);
+        }
+    }
+
 
     private Ball movelBallForTime(Ball ball, double time) {
         double newX = 0.0;
@@ -137,7 +145,31 @@ public class Model extends Observable{
             }
         }
 
-        //Add check for flipper collision here
+        for(Flipper flipper : flippers){
+            if(flipper.isPressed()) {
+                for (LineSegment line : flipper.getLines()) {
+                    time = Geometry.timeUntilRotatingWallCollision(line, new Vect(line.p1().x(), line.p1().y()),
+                            Math.toRadians(1080), ballCircle, ballVelocity);
+
+                    if (time < shortestTime) {
+                        shortestTime = time;
+                        newVelo = Geometry.reflectRotatingWall(line, new Vect(line.p1().x(), line.p1().y()),
+                                Math.toRadians(1080), ballCircle, ballVelocity, 0.95);
+                    }
+                }
+
+                for (Circle circle : flipper.getCircles()) {
+                    time = Geometry.timeUntilRotatingCircleCollision(circle,new Vect(circle.getCenter().x(),circle.getCenter().y()),
+                            Math.toRadians(1080),ballCircle,ballVelocity);
+
+                    if (time < shortestTime) {
+                        shortestTime = time;
+                        newVelo = Geometry.reflectRotatingCircle(circle,new Vect(circle.getCenter().x(),circle.getCenter().y()),
+                                Math.toRadians(1080),ballCircle,ballVelocity,0.95);
+                    }
+                }
+            }
+        }
 
 
         //Add check for ball-to-ball collisions here
@@ -224,7 +256,7 @@ public class Model extends Observable{
         } if(ball.getExactY()+ball.getRadius()>maxHeight){ // works
             gf.addTakenPoint(squareToAddBall.x,maxHeight);
         }
-        
+
         return true;
     }
 
