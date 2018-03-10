@@ -48,7 +48,7 @@ class GizmoFactory {
         type = type.toLowerCase();
         Point p = new Point(x, y);
         System.out.println(x + " " + y);
-        if(!takenPoints.contains(p)) {
+        if(!takenPoints.contains(p)&&!takenPoints.contains(new Point(p.x,p.y+1))&&!takenPoints.contains(new Point(p.x+1,p.y+1))&&!takenPoints.contains(new Point(p.x+1,p.y))) {
             // need to add all four squares
             takenPoints.add(p);
             takenPoints.add(new Point(p.x+1,p.y));

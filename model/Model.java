@@ -376,6 +376,44 @@ public class Model extends Observable{
                 return true;
             }
         }
+        x=(int)(x/L);
+        y= (int) (y/L);
+        for(Flipper flipper:flippers){
+
+            System.out.println(x+" "+y);
+            System.out.println(flipper.getXPivot());
+            System.out.println(flipper.getYPivot());
+            double maxX=0.0;
+            double maxY=0.0;
+
+            boolean flipperFound=false;
+                if (flipper.getXPivot() == x && flipper.getYPivot() == y){
+                    flipperFound=true;
+                }else if( flipper.getXPivot()+1 == x && flipper.getYPivot()+1 == y){
+                    flipperFound=true;
+                }else if(flipper.getXPivot()+1 == x && flipper.getYPivot() == y) {
+                    flipperFound=true;
+                }else if (flipper.getXPivot() == x && flipper.getYPivot()+1 == y) {
+                    flipperFound=true;
+                }
+
+                if(flipperFound) {
+
+
+                    gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
+                    gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
+                    gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
+                    gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
+
+                
+                }
+                    flippers.remove(flipper);
+                    this.setChanged();
+                    this.notifyObservers();
+                    return true;
+                }
+
+
         return false;
     }
 
