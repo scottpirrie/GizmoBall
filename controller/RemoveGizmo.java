@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import model.Model;
 import view.Board;
 
@@ -20,10 +19,12 @@ public class RemoveGizmo implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        double xPos=e.getX();
-        double yPos=e.getY();
-        boolean success = model.removeGizmo(xPos,yPos,panel.getL());
-        if(success==false){
+        double L = panel.getL();
+        double xPos = e.getX()/L;
+        double yPos = e.getY()/L;
+
+        boolean success = model.remove(xPos,yPos);
+        if(!success){
             JOptionPane.showMessageDialog(panel,
                     "No gizmo in this location",
                     "Inane error",

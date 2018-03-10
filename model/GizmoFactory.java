@@ -42,18 +42,24 @@ class GizmoFactory {
         return new AbsorberGizmo(type,name,x1,y1,x2,y2);
     }
 
+
+    //TODO test if flipper extends outside wall! ( only happens on rotation and left flippers currently
     Flipper createFlipper(String type,String name, String xPos, String yPos){
         int x = Integer.parseInt(xPos);
         int y = Integer.parseInt(yPos);
         type = type.toLowerCase();
         Point p = new Point(x, y);
-        System.out.println(x + " " + y);
-        if(!takenPoints.contains(p)&&!takenPoints.contains(new Point(p.x,p.y+1))&&!takenPoints.contains(new Point(p.x+1,p.y+1))&&!takenPoints.contains(new Point(p.x+1,p.y))) {
-            // need to add all four squares
+
+        if(!takenPoints.contains(p)
+                &&!takenPoints.contains(new Point(p.x,p.y+1))
+                &&!takenPoints.contains(new Point(p.x+1,p.y+1))
+                &&!takenPoints.contains(new Point(p.x+1,p.y))) {
+
             takenPoints.add(p);
             takenPoints.add(new Point(p.x+1,p.y));
             takenPoints.add(new Point(p.x,p.y+1));
             takenPoints.add(new Point(p.x+1,p.y+1));
+
             switch (type) {
                 case "leftflipper":
                     return new LeftFlipper(type, name, x, y);

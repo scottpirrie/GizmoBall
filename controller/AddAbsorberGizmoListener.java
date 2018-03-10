@@ -11,9 +11,10 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
     private int timesClicked=0;
     private Board board;
     private Model model;
+
     public AddAbsorberGizmoListener(Board board,Model model){
-    this.model=model;
-    this.board=board;
+        this.model=model;
+        this.board=board;
     }
 
 
@@ -74,7 +75,7 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
         }
     }
 
-    public Point findStartingPoint(){
+    private Point findStartingPoint(){
         int minY=board.getAbsorberPoints().get(0).y;
         int minX=board.getAbsorberPoints().get(0).x;
         Point toReturn=null;
@@ -88,7 +89,7 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
         return toReturn;
     }
 
-    public Point findEndingPoint(){
+    private Point findEndingPoint(){
         int maxY=board.getAbsorberPoints().get(0).y;
         int maxX=board.getAbsorberPoints().get(0).x;
         Point toReturn=null;

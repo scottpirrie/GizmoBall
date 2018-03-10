@@ -191,24 +191,26 @@ public class Model extends Observable{
         return false;
     }
 
+
+    //TODO Marking the taken points for the ball is something that probably requires its own method,
+    //TODO after all anytime we switch to build-mode we need to update the balls taken points
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo){
 
         double x = Double.parseDouble(xPos);
         double y = Double.parseDouble(yPos);
         double xv = Double.parseDouble(xVelo);
         double yv = Double.parseDouble(yVelo);
-        balls.add(new Ball(type,name,x,y,5,5,0.25));
+        balls.add(new Ball(type,name,x,y,xv,yv,0.25));
+
 
         Point squareToAddBall = new Point((int)Double.parseDouble(xPos),(int) Double.parseDouble(yPos));
-        System.out.println("Square to add: "+squareToAddBall.x+" "+squareToAddBall.y);
-        //gizmos.add(gf.createGizmo("square",name,String.valueOf(squareToAddBall.x),String.valueOf(squareToAddBall.y)));
+
         int maxWidth=squareToAddBall.x+1;
         int maxHeight=squareToAddBall.y+1;
         int leastWidth=squareToAddBall.x;
         int leastHeight=squareToAddBall.y;
 
-
-        // if the left most point is outside the least width mark the left square as invalid
+        //if the left most point is outside the least width mark the left square as invalid
         //if the right most point is outside the max width mark the right square as invalid
         //if the top most point is outside the least height mark the top square as invalid
         //if the down most point is outside the max height mark the down square as invalid
@@ -222,6 +224,7 @@ public class Model extends Observable{
         } if(ball.getExactY()+ball.getRadius()>maxHeight){ // works
             gf.addTakenPoint(squareToAddBall.x,maxHeight);
         }
+        
         return true;
     }
 
@@ -343,7 +346,7 @@ public class Model extends Observable{
     }
 
     //TODO clear triggers as well when they are implemented
-    public void clearModel(){
+    private void clearModel(){
         System.out.println("Clearing model...");
         gizmos.clear();
         flippers.clear();
@@ -353,10 +356,15 @@ public class Model extends Observable{
         this.notifyObservers();
     }
 
-    public boolean removeGizmo(double x,double y,int L){
+    //TODO remove absorber!
+    public boolean remove(double x,double y){
+        return removeBall(x,y) || removeGizmo(x,y) || removeFlipper(x,y);
+    }
+
+    private boolean removeGizmo(double x, double y){
+        int tempX = (int)x ;
+        int tempY = (int)y;
         for(AbstractGizmo abstractGizmo: gizmos){
-            int tempX=(int)x/L;
-            int tempY=(int)y/L;
             if(abstractGizmo.getxPos()==tempX && abstractGizmo.getyPos()==tempY){
                 gizmos.remove(abstractGizmo);
                 gf.removeTakenPoint(tempX,tempY);
@@ -365,58 +373,52 @@ public class Model extends Observable{
                 return true;
             }
         }
-        for(Ball ball :balls){
-            x=x/(double) L;
-            y=y/(double) L;
-            double distanceFromClickToCenter=Math.abs(Math.pow(x-ball.getExactX(),2))+Math.abs(Math.pow(y-ball.getExactY(),2));
-            if(distanceFromClickToCenter<=Math.pow(ball.getRadius(),2)){
+        return false;
+    }
+
+    private boolean removeBall(double x, double y){
+        for(Ball ball : balls){
+            if((x <= ball.getExactX() + ball.getRadius() && x >= ball.getExactX() - ball.getRadius())
+                    && (y <= ball.getExactY() + ball.getRadius() && y >= ball.getExactY() - ball.getRadius())){
                 balls.remove(ball);
                 this.setChanged();
                 this.notifyObservers();
                 return true;
             }
         }
-        x=(int)(x/L);
-        y= (int) (y/L);
-        for(Flipper flipper:flippers){
-
-            System.out.println(x+" "+y);
-            System.out.println(flipper.getXPivot());
-            System.out.println(flipper.getYPivot());
-            double maxX=0.0;
-            double maxY=0.0;
-
-            boolean flipperFound=false;
-                if (flipper.getXPivot() == x && flipper.getYPivot() == y){
-                    flipperFound=true;
-                }else if( flipper.getXPivot()+1 == x && flipper.getYPivot()+1 == y){
-                    flipperFound=true;
-                }else if(flipper.getXPivot()+1 == x && flipper.getYPivot() == y) {
-                    flipperFound=true;
-                }else if (flipper.getXPivot() == x && flipper.getYPivot()+1 == y) {
-                    flipperFound=true;
-                }
-
-                if(flipperFound) {
-
-
-                    gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
-                    gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
-                    gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
-                    gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
-
-                
-                }
-                    flippers.remove(flipper);
-                    this.setChanged();
-                    this.notifyObservers();
-                    return true;
-                }
-
-
         return false;
     }
 
+    private boolean removeFlipper(double x, double y){
+        boolean flipperFound = false;
+        x=(int) x;
+        y= (int) y;
 
+        for(Flipper flipper : flippers) {
+            double maxX = 0.0;
+            double maxY = 0.0;
+
+            if (flipper.getXPivot() == x && flipper.getYPivot() == y) {
+                flipperFound = true;
+            } else if (flipper.getXPivot() + 1 == x && flipper.getYPivot() + 1 == y) {
+                flipperFound = true;
+            } else if (flipper.getXPivot() + 1 == x && flipper.getYPivot() == y) {
+                flipperFound = true;
+            } else if (flipper.getXPivot() == x && flipper.getYPivot() + 1 == y) {
+                flipperFound = true;
+            }
+
+            if (flipperFound) {
+                gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
+                gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
+                gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
+                gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
+                flippers.remove(flipper);
+                break;
+            }
+
+        }
+        return flipperFound;
+    }
 
 }

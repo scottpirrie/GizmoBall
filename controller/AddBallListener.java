@@ -1,11 +1,8 @@
 package controller;
 
 import model.Model;
-import physics.Vect;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -43,7 +40,6 @@ public class AddBallListener implements MouseListener{
 
         double xV = 5.0;
         double yV = 5.0;
-
 
         boolean success = m.addBall("ball", "B", String.valueOf(x), String.valueOf(y), String.valueOf(xV), String.valueOf(yV));
 
