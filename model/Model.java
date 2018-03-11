@@ -19,6 +19,8 @@ public class Model extends Observable {
     private List<AbsorberGizmo> absorbers;
     private List<Flipper> flippers;
     private List<Ball> balls;
+    private double gravityConstant;
+    private  double frictionConstant;
 
     public Model() {
         gws = new Walls(0, 0, 20, 20);
@@ -27,7 +29,25 @@ public class Model extends Observable {
         flippers = new ArrayList<>();
         balls = new ArrayList<>();
         gf = new GizmoFactory();
+        gravityConstant= 0.00981;
+        frictionConstant=0.0;
 
+    }
+
+    public double getGravityConstant() {
+        return gravityConstant;
+    }
+
+    public void setGravityConstant(double gravityConstant) {
+        this.gravityConstant = gravityConstant;
+    }
+
+    public double getFrictionConstant() {
+        return frictionConstant;
+    }
+
+    public void setFrictionConstant(double frictionConstant) {
+        this.frictionConstant = frictionConstant;
     }
 
     //TODO Make this method multi-ball capable - later on
@@ -77,7 +97,7 @@ public class Model extends Observable {
     }
 
     private void setGravity(Ball ball) {
-        ball.setVelo(ball.getVelo().plus(new Vect(0, (25 * 10) * 0.00981)));
+        ball.setVelo(ball.getVelo().plus(new Vect(0, (25 * 10) * gravityConstant)));
     }
 
     private void setFriction(Ball ball, double time) {
