@@ -70,7 +70,8 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
         if(timesClicked==1) {
             AbstractGizmo gizmo = model.findGizmo(startingX, startingY);
             model.remove(startingX, startingY);
-           boolean success= model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(e.getX()/board.getL()), String.valueOf(e.getY()/board.getL()));
+            boolean success= model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(e.getX()/board.getL()), String.valueOf(e.getY()/board.getL()));
+
            if(!success) {
                JOptionPane.showMessageDialog(board,
                        "Other gizmo in this location",

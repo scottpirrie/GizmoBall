@@ -50,7 +50,6 @@ public class Model extends Observable {
         this.frictionConstant = frictionConstant;
     }
 
-    //TODO Make this method multi-ball capable - later on
     public void moveBall(double move) {
         if (move > 0) {
             double moveTime = move; // 0.0167 = 60 times per second
@@ -113,7 +112,6 @@ public class Model extends Observable {
         ball.setVelo(new Vect(nxV, nyV));
     }
 
-    //TODO Add collisions with flippers / balls
     private CollisionDetails timeUntilCollision() {
         Circle ballCircle = ball.getCircle();
         Vect ballVelocity = ball.getVelo();
@@ -429,7 +427,6 @@ public class Model extends Observable {
         this.notifyObservers();
     }
 
-    //TODO remove absorber!
     public boolean remove(double x, double y) {
         return removeBall(x, y) || removeAbsorber(x, y) ||removeGizmo(x, y) || removeFlipper(x, y);
     }

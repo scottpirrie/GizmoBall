@@ -18,6 +18,7 @@ public class KeyPressListener implements KeyListener{
 
     }
 
+    //TODO this class is really just searching through a map of keys
     @Override
     public void keyPressed(KeyEvent e) {
 

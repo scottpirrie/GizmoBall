@@ -81,9 +81,6 @@ public class BuildGui implements Gui {
         frame.setJMenuBar(menuBar);
     }
 
-
-    //TODO Fix buttons
-
     private void createGizmoButtons(){
         //still need the action listeners for the button
         JPanel buttons = new JPanel();
