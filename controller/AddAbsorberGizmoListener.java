@@ -80,9 +80,11 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
         int minX=board.getAbsorberPoints().get(0).x;
         Point toReturn=null;
         for(Point p: board.getAbsorberPoints()){
-            if(p.x<=minX && p.y<=minY ) {
+            if(p.x<=minX) {
+                minX=p.x;
+            }
+            if(p.y<=minY) {
                 minY=p.y;
-               minX=p.x;
             }
         }
         toReturn=new Point(minX,minY);
@@ -94,10 +96,13 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
         int maxX=board.getAbsorberPoints().get(0).x;
         Point toReturn=null;
         for(Point p: board.getAbsorberPoints()){
-            if(p.x>=maxX && p.y>=maxY ) {
-               maxY=p.y;
+            if(p.x>=maxX) {
                 maxX=p.x;
             }
+            if(p.y>=maxY ) {
+                maxY=p.y;
+            }
+
         }
         toReturn=new Point(maxX,maxY);
         return toReturn;
