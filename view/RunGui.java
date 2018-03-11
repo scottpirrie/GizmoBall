@@ -1,7 +1,7 @@
 package view;
 
+import controller.KeyPressListener;
 import controller.MagicKeyListener;
-import controller.MoveFlipperListener;
 import controller.RunListener;
 
 import javax.swing.*;
@@ -29,7 +29,7 @@ public class RunGui implements Gui {
 
         cp = frame.getContentPane();
         cp.setFocusable(true);
-        cp.addKeyListener(new MagicKeyListener(new MoveFlipperListener(board.getModel())));
+        cp.addKeyListener(new MagicKeyListener(new KeyPressListener(board.getModel())));
         gf = new Font("Arial", Font.BOLD, 12);
 
         cp.add(board, BorderLayout.CENTER);

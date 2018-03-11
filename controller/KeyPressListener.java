@@ -1,22 +1,30 @@
 package controller;
 
 import model.Model;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class MoveFlipperListener implements KeyListener{
+public class KeyPressListener implements KeyListener{
 
     private Model model;
 
-    public MoveFlipperListener(Model m){
-        this.model = m;
+    public KeyPressListener(Model model){
+        this.model = model;
     }
 
-    //TODO THIS IS ALL TESTING CODE
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //Up here put something that finds a flipper
+
+        if(e.getKeyCode() == KeyEvent.VK_DELETE){
+            //Ready Ball for launch here
+        }
+
         if(e.getKeyCode() == KeyEvent.VK_UP){
             model.getFlippers().get(0).setPressed(true);
             model.getFlippers().get(1).setPressed(true);
@@ -25,16 +33,14 @@ public class MoveFlipperListener implements KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+        if(e.getKeyCode() == KeyEvent.VK_DELETE){
+            //Launch ball from absorber here
+        }
+
         if(e.getKeyCode() == KeyEvent.VK_UP) {
             model.getFlippers().get(0).setPressed(false);
             model.getFlippers().get(1).setPressed(false);
         }
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-
 }
