@@ -33,7 +33,8 @@ public class Model extends Observable {
     //TODO Make this method multi-ball capable - later on
     public void moveBall(double move) {
         if (move > 0) {
-            double moveTime = move; // 0.05 = 20 times per second as per Gizmoball
+            double moveTime = move; // 0.0167 = 60 times per second
+
             ball = balls.get(0);
             if (ball != null && !ball.stopped()) {
                 CollisionDetails cd = timeUntilCollision();

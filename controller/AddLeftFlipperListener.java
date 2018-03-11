@@ -1,12 +1,9 @@
 package controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import model.Model;
 import view.Board;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
