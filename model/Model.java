@@ -468,6 +468,12 @@ public class Model extends Observable {
             //if((tempX >= ab.getxPos() || tempY >= ab.getyPos()) && (tempX <= ab.getxPos2() || tempY <= ab.getyPos2())){
             if((tempX >= ab.getxPos() && tempX <= ab.getxPos2()) &&(tempY >= ab.getyPos() && tempY <= ab.getyPos2())){
                 absorbers.remove(ab);
+                for(int i=ab.getyPos(); i<=ab.getyPos2(); i++){
+                    for(int j=ab.getxPos(); j<=ab.getxPos2(); j++){
+                     
+                        gf.removeTakenPoint(j,i);
+                    }
+                }
                 this.setChanged();
                 this.notifyObservers();
                 return true;

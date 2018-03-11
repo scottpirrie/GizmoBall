@@ -38,7 +38,12 @@ class GizmoFactory {
         int x2 = Integer.parseInt(xPos2);
         int y2 = Integer.parseInt(yPos2);
         type = type.toLowerCase();
-
+        for(int i=y1; i<=y2; i++){
+            for(int j=x1; j<=x2; j++){
+                Point p = new Point(j,i);
+                takenPoints.add(p);
+            }
+        }
         return new AbsorberGizmo(type,name,x1,y1,x2,y2);
     }
 
