@@ -445,7 +445,8 @@ public class Model extends Observable {
         int tempX = (int) x;
         int tempY = (int) y;
         for(AbsorberGizmo ab: absorbers){
-            if((tempX == ab.getxPos() && tempY == ab.getyPos())){
+            //if((tempX >= ab.getxPos() || tempY >= ab.getyPos()) && (tempX <= ab.getxPos2() || tempY <= ab.getyPos2())){
+            if((tempX >= ab.getxPos() && tempX <= ab.getxPos2()) &&(tempY >= ab.getyPos() && tempY <= ab.getyPos2())){
                 absorbers.remove(ab);
                 this.setChanged();
                 this.notifyObservers();
