@@ -146,6 +146,8 @@ public class BuildGui implements Gui {
         removeButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons.add(removeButton);
 
+
+
         buttons.add(topButtons);
         buttons.add(lowButtons);
 
@@ -174,6 +176,7 @@ public class BuildGui implements Gui {
         settingsPanel1.setLayout(new FlowLayout());
 
         JSlider gravitySlider = createNewSlider();
+        gravitySlider.addMouseListener(new SetGravityConstantListener(board.getModel()));
         JLabel label = new JLabel("Gravity: ");
         settingsPanel1.add(label);
         settingsPanel1.add(gravitySlider);
@@ -252,6 +255,11 @@ public class BuildGui implements Gui {
         buttons.add(lowButtons1);
         buttons.add(lowButtons2);
 
+        JButton moveButton = new JButton("Move");
+        moveButton = setUpButton(moveButton);
+        moveButton.setName("Move");
+        moveButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
+       lowButtons1.add(moveButton);
 
         cp.add(buttons, BorderLayout.PAGE_END);
     }

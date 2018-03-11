@@ -39,6 +39,7 @@ public class SwitchPanelListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         removeListeners();
         if (e.getActionCommand().equals("Square")) {
             bl.addMouseListener(new AddSquareGizmoListener(m,bl,L));
@@ -56,6 +57,10 @@ public class SwitchPanelListener implements ActionListener{
             bl.addMouseListener(new AddBallListener(m,bl, L));
         }else if(e.getActionCommand().equals("Absorber")){
             AddAbsorberGizmoListener listener = new AddAbsorberGizmoListener(bl,m);
+            bl.addMouseListener(listener);
+            bl.addMouseMotionListener(listener);
+        }else if(e.getActionCommand().equals("Move")){
+            MoveGizmoListener listener = new MoveGizmoListener(bl,m);
             bl.addMouseListener(listener);
             bl.addMouseMotionListener(listener);
         }
