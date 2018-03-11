@@ -224,6 +224,7 @@ public class Model extends Observable {
 
     public void addAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         absorbers.add(gf.createAbsorber(type, name, xPos1, yPos1, xPos2, yPos2));
+        System.out.println("x1 " +xPos1 + " y1" + yPos1 + " x2 " + xPos2 + " y2 " + yPos2);
         this.setChanged();
         this.notifyObservers();
     }
@@ -409,7 +410,7 @@ public class Model extends Observable {
 
     //TODO remove absorber!
     public boolean remove(double x, double y) {
-        return removeBall(x, y) || removeGizmo(x, y) || removeFlipper(x, y);
+        return removeBall(x, y) || removeAbsorber(x, y) ||removeGizmo(x, y) || removeFlipper(x, y);
     }
 
     private boolean removeGizmo(double x, double y) {
@@ -432,6 +433,20 @@ public class Model extends Observable {
             if ((x <= ball.getExactX() + ball.getRadius() && x >= ball.getExactX() - ball.getRadius())
                     && (y <= ball.getExactY() + ball.getRadius() && y >= ball.getExactY() - ball.getRadius())) {
                 balls.remove(ball);
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean removeAbsorber(double x, double y){
+        int tempX = (int) x;
+        int tempY = (int) y;
+        for(AbsorberGizmo ab: absorbers){
+            if((tempX == ab.getxPos() && tempY == ab.getyPos())){
+                absorbers.remove(ab);
                 this.setChanged();
                 this.notifyObservers();
                 return true;
