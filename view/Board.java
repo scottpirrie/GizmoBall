@@ -60,7 +60,6 @@ public class Board extends JPanel implements Observer{
         repaint();
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
         if(absorberPoints.size()>0){
             g2.setColor(Color.MAGENTA);
             for(Point p:absorberPoints){

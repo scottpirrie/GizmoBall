@@ -11,25 +11,24 @@ public class AddLeftFlipperListener implements MouseListener{
 
     private Board board;
     private Model model;
+
     public AddLeftFlipperListener(Board board, Model model){
         this.model=model;
         this.board=board;
     }
 
-
-
     @Override
     public void mouseClicked(MouseEvent e) {
         int xPos=e.getX()/25;
         int yPos=e.getY()/25;
-        boolean success = model.addFlipper("leftflipper","f",String.valueOf(xPos),String.valueOf(yPos));
+        int size = model.getFlippers().size();
+        boolean success = model.addFlipper("leftflipper","LF"+size,String.valueOf(xPos),String.valueOf(yPos));
         if(!success){
             JOptionPane.showMessageDialog(board,
                     "Location already taken",
                     "Inane error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println("left lipper to add");
     }
 
     @Override

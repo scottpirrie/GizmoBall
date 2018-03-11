@@ -19,6 +19,7 @@ public class Model extends Observable {
     private List<AbsorberGizmo> absorbers;
     private List<Flipper> flippers;
     private List<Ball> balls;
+    private Map<Integer,String> keyBinds;
     private double gravityConstant;
     private  double frictionConstant;
 
@@ -28,6 +29,7 @@ public class Model extends Observable {
         absorbers = new ArrayList<>();
         flippers = new ArrayList<>();
         balls = new ArrayList<>();
+        keyBinds = new HashMap<>();
         gf = new GizmoFactory();
         gravityConstant= 0.00981;
         frictionConstant=0.0;
@@ -229,6 +231,10 @@ public class Model extends Observable {
         return balls;
     }
 
+    public Map<Integer,String> getKeyBinds(){
+        return keyBinds;
+    }
+
     public boolean addGizmo(String type, String name, String xPos, String yPos) {
         AbstractGizmo gizmo = gf.createGizmo(type, name, xPos, yPos);
         if (gizmo != null) {
@@ -258,7 +264,6 @@ public class Model extends Observable {
         }
         return false;
     }
-
 
     //TODO Marking the taken points for the ball is something that probably requires its own method,
     //TODO after all anytime we switch to build-mode we need to update the balls taken points
@@ -297,6 +302,10 @@ public class Model extends Observable {
         }
 
         return true;
+    }
+
+    public boolean addKeyBind(int key,String gizmoName ){
+        return false;
     }
 
     public void setBallSpeed(String name, int xv, int yv) {

@@ -40,8 +40,8 @@ public class AddBallListener implements MouseListener{
 
         double xV = 5.0;
         double yV = 5.0;
-
-        boolean success = m.addBall("ball", "B", String.valueOf(x), String.valueOf(y), String.valueOf(xV), String.valueOf(yV));
+        int size = m.getBalls().size();
+        boolean success = m.addBall("ball", "B"+size, String.valueOf(x), String.valueOf(y), String.valueOf(xV), String.valueOf(yV));
 
         if(!success){
             JOptionPane.showMessageDialog(panel,

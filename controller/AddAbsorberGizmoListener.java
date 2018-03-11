@@ -31,19 +31,16 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("absorber to add");
         timesClicked++;
         if(timesClicked==1){
             Point p = new Point(e.getX()/25,e.getY()/25);
             board.addAbsorberPoints(p);
             board.repaint();
         }else if(timesClicked==2){
-            System.out.println(board.getAbsorberPoints().toString());
             Point startingPoint = findStartingPoint();
-            System.out.println("Starting point: "+startingPoint.toString());
             Point endingPoint = findEndingPoint();
-            System.out.println("Ending point: "+endingPoint.toString());
-            model.addAbsorber("absorber","A",String.valueOf(startingPoint.x),String.valueOf(startingPoint.y),String.valueOf(endingPoint.x+1),String.valueOf(endingPoint.y+1));
+            int size = board.getModel().getGizmos().size();
+            model.addAbsorber("absorber","A"+size,String.valueOf(startingPoint.x),String.valueOf(startingPoint.y),String.valueOf(endingPoint.x+1),String.valueOf(endingPoint.y+1));
             board.clearAbsorberPoints();
             timesClicked=0;
         }

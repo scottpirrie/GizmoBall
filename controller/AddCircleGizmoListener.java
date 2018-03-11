@@ -31,7 +31,8 @@ public class AddCircleGizmoListener implements MouseListener{
     public void mouseReleased(MouseEvent e) {
         int xPos = e.getX()/L;
         int yPos=e.getY()/L;
-        boolean success=m.addGizmo("circle","C",String.valueOf(xPos),String.valueOf(yPos));
+        int size = m.getGizmos().size();
+        boolean success=m.addGizmo("circle","C"+size,String.valueOf(xPos),String.valueOf(yPos));
         if(!success){
             JOptionPane.showMessageDialog(panel,
                     "Location already taken",
