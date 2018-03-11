@@ -176,6 +176,7 @@ public class BuildGui implements Gui {
         settingsPanel1.setLayout(new FlowLayout());
 
         JSlider gravitySlider = createNewSlider();
+        gravitySlider.addMouseListener(new SetGravityConstantListener(board.getModel()));
         JLabel label = new JLabel("Gravity: ");
         settingsPanel1.add(label);
         settingsPanel1.add(gravitySlider);
