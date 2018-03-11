@@ -462,6 +462,7 @@ public class Model extends Observable {
         return false;
     }
 
+    //added remove points
     private boolean removeAbsorber(double x, double y){
         int tempX = (int) x;
         int tempY = (int) y;
