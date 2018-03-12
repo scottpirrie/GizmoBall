@@ -37,7 +37,7 @@ public class Model extends Observable {
         triggers = new HashMap<>();
         gf = new GizmoFactory();
         gravityConstant = 0.00981;
-        frictionConstant = 0.0;
+        frictionConstant = 0.025;
 
     }
 
@@ -82,7 +82,6 @@ public class Model extends Observable {
         }
     }
 
-
     private Ball moveBallForTime(Ball ball, double time) {
         double newX = 0.0;
         double newY = 0.0;
@@ -102,8 +101,8 @@ public class Model extends Observable {
     }
 
     private void setFriction(Ball ball, double time) {
-        double mu1 = 0.025; //per/second
-        double mu2 = 0.025; //per/L
+        double mu1 = frictionConstant; //per/second
+        double mu2 = frictionConstant; //per/L
         double oldX = ball.getVelo().x();
         double oldY = ball.getVelo().y();
         double nyV = 0.0;
@@ -449,7 +448,6 @@ public class Model extends Observable {
         }
     }
 
-    //TODO load CONNECT / KEYCONNECT commands
     public boolean load(String directory, String fileName) {
         clearModel();
         String name;
