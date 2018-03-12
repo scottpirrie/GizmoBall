@@ -262,6 +262,36 @@ public class Model extends Observable {
         }
     }
 
+    private void keybindActions(String name){
+        for (AbstractGizmo gizmo : gizmos) {
+            if (name.equals(gizmo.getName())) {
+                gizmo.doAction();
+            }
+        }
+
+        for (Flipper flipper : flippers) {
+            if (name.equals(flipper.getName())) {
+                flipper.doAction();
+            }
+        }
+
+        for (AbsorberGizmo absorber : absorbers) {
+            if (name.equals(absorber.getName())) {
+                if(absorber.getBall() != null) {
+                    absorber.doAction();
+                }
+            }
+        }
+    }
+
+    public void keybindAction(int key){
+        if(keyDownMap.containsKey(key)){
+            keybindActions(keyDownMap.get(key));
+        }else if(keyUpMap.containsKey(key)) {
+            keybindActions(keyUpMap.get(key));
+        }
+    }
+
     public List<AbstractGizmo> getGizmos() {
         return gizmos;
     }
@@ -362,8 +392,10 @@ public class Model extends Observable {
     }
 
     public boolean addKeyBind(int key, String gizmoName) {
+        System.out.println(key);
         if (!keyDownMap.containsKey(key)) {
             keyDownMap.put(key, gizmoName);
+            return true;
         }
         return false;
     }
@@ -652,8 +684,11 @@ public class Model extends Observable {
 
     public String findName(double x, double y){
         String gizmo = findGizmo(x,y);
-        String[] temp = gizmo.split(" ");
-        return temp[1];
+        if(gizmo != null && !gizmo.isEmpty()) {
+            String[] temp = gizmo.split(" ");
+            return temp[1];
+        }
+        return "";
     }
 
     public String findGizmo(double x, double y) {

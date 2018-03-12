@@ -4,8 +4,6 @@ import model.Model;
 import view.Board;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -61,7 +59,7 @@ public class RemoveKeyBindListener implements MouseListener {
     private void getKey(){
         String message = JOptionPane.showInputDialog(board,
                 "Please press the key and then select the gizmo you wish to disconnect.",
-                "Instructions");
+                "Enter a single key here...");
 
         if(message != null && !message.isEmpty()) {
             if (message.length() > 1) {
@@ -69,9 +67,8 @@ public class RemoveKeyBindListener implements MouseListener {
                         "Please only enter the key you wish to disconnect.",
                         "", JOptionPane.ERROR_MESSAGE);
             } else {
-                key = message.charAt(0);
+                key = message.toLowerCase().charAt(0);
             }
         }
-
     }
 }

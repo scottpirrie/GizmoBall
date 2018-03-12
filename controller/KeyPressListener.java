@@ -21,27 +21,17 @@ public class KeyPressListener implements KeyListener{
     //TODO this class is really just searching through a map of keys
     @Override
     public void keyPressed(KeyEvent e) {
-
-        if(e.getKeyCode() == KeyEvent.VK_DELETE){
-            //Ready Ball for launch here
-        }
-
-        if(e.getKeyCode() == KeyEvent.VK_UP){
-            model.getFlippers().get(0).setPressed(true);
-            model.getFlippers().get(1).setPressed(true);
+        int key = e.getKeyChar();
+        if(model.getKeyDownMap().containsKey(key)){
+            model.keybindAction(key);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
-        if(e.getKeyCode() == KeyEvent.VK_DELETE){
-            //Launch ball from absorber here
-        }
-
-        if(e.getKeyCode() == KeyEvent.VK_UP) {
-            model.getFlippers().get(0).setPressed(false);
-            model.getFlippers().get(1).setPressed(false);
+        int key = e.getKeyChar();
+        if(model.getKeyUpMap().containsKey(key)){
+            model.keybindAction(key);
         }
     }
 }
