@@ -89,10 +89,7 @@ public class CircleGizmo implements AbstractGizmo{
     }
 
     @Override
-    public void doAction(double time) {
-        double millis = time * 1000;
-        long delay = (long) millis;
-
+    public void doAction() {
         Timer timer = new Timer();
         color = Color.blue;
         if(!isTriggered) {
@@ -102,7 +99,7 @@ public class CircleGizmo implements AbstractGizmo{
                     color = Color.GREEN;
                     isTriggered = false;
                 }
-            }, delay);
+            }, 2000);
         }
         isTriggered = true;
     }

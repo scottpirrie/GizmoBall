@@ -101,9 +101,7 @@ public class SquareGizmo implements  AbstractGizmo {
     }
 
     @Override
-    public void doAction(double time) {
-        double millis = time * 1000;
-        long delay = (long) millis;
+    public void doAction() {
 
         Timer timer = new Timer();
         color = Color.GREEN;
@@ -114,7 +112,7 @@ public class SquareGizmo implements  AbstractGizmo {
                     color = Color.RED;
                     isTriggered = false;
                 }
-            }, delay);
+            }, 2000);
         }
         isTriggered = true;
     }

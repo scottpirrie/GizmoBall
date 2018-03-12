@@ -235,16 +235,16 @@ public class BuildGui implements Gui {
         button.setEnabled(false);
         lowButtons1.add(button);
 
-        button = new JButton("Add Trigger");
-        button = setUpButton(button);
-        button.setPreferredSize(new Dimension(120,40));
-        button.setEnabled(false);
-        lowButtons2.add(button);
+        JButton addTrigger = new JButton("Add Trigger");
+        addTrigger = setUpButton(addTrigger);
+        addTrigger.setPreferredSize(new Dimension(120,40));
+        addTrigger.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
+        lowButtons2.add(addTrigger);
 
-        button = new JButton("Remove Trigger");
-        button = setUpButton(button);
-        button.setPreferredSize(new Dimension(120,40));
-        button.setEnabled(false);
+        JButton removeTrigger = new JButton("Remove Trigger");
+        removeTrigger = setUpButton(removeTrigger);
+        removeTrigger.setPreferredSize(new Dimension(120,40));
+        removeTrigger.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons2.add(button);
 
         JPanel buttons = new JPanel();
@@ -256,7 +256,7 @@ public class BuildGui implements Gui {
         moveButton = setUpButton(moveButton);
         moveButton.setName("Move");
         moveButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
-       lowButtons1.add(moveButton);
+        lowButtons1.add(moveButton);
 
         cp.add(buttons, BorderLayout.PAGE_END);
     }

@@ -68,7 +68,7 @@ public class Model extends Observable {
                 } else {
                     ball = moveBallForTime(ball, tuc);
                     ball.setVelo(cd.getVelo());
-                    callActions(tuc,triggerSource);
+                    callActions(triggerSource);
                 }
 
                 moveFlipper(moveTime);
@@ -223,7 +223,7 @@ public class Model extends Observable {
         return new CollisionDetails(shortestTime, newVelo);
     }
 
-    private void callActions(double time, String source){
+    private void callActions(String source){
         List<String> temp = triggers.get(source);
 
         if(temp != null) {
@@ -231,7 +231,7 @@ public class Model extends Observable {
 
                 for (AbstractGizmo gizmo : gizmos) {
                     if (name.equals(gizmo.getName())) {
-                        gizmo.doAction(time);
+                        gizmo.doAction();
                     }
                 }
 
@@ -601,6 +601,7 @@ public class Model extends Observable {
             return true;
         }
     }
+
 
     public AbstractGizmo findGizmo(int x, int y) {
         for (AbstractGizmo abstractGizmo : gizmos) {
