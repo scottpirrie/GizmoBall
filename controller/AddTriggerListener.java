@@ -38,7 +38,8 @@ public class AddTriggerListener implements MouseListener {
         }else if(timesClicked==2){
             targetX = e.getX()/board.getL();
             targetY = e.getY()/board.getL();
-            
+
+
             boolean success = model.addTrigger(model.findName(sourceX,sourceY),model.findName(targetX,targetY));
 
             if (!success) {

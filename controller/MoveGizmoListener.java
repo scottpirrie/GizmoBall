@@ -33,9 +33,10 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
         timesClicked++;
 
         if(timesClicked==1){
+
             String gizmo = model.findGizmo(e.getX()/board.getL(),e.getY()/board.getL());
             String [] attributes=gizmo.split(" ");
-            if(gizmo==null){
+            if(gizmo.equals("")){
                 JOptionPane.showMessageDialog(board,
                         "No gizmo in this location",
                         "Inane error",
@@ -52,10 +53,12 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                     moveBackY = Integer.parseInt(attributes[3]);
                 }
             }
+
         }else if(timesClicked==2){
             String gizmo = model.findGizmo(e.getX()/board.getL(),e.getY()/board.getL());
             model.remove(e.getX()/board.getL(),e.getY()/board.getL());
             String[] attributes = gizmo.split(" ");
+
             if(attributes[0].equals("square")||attributes[0].equals("triangle")||attributes[0].equals("circle")) {//done
                 model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
             }else if(attributes[0].equals("rightflipper")||attributes[0].equals("leftflipper")){//done
@@ -65,13 +68,11 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             }else if(attributes.equals("absorber")){
                 model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),"23","23");
             }
-          timesClicked=0;
 
-
-            }
+            timesClicked=0;
         }
-
     }
+
 
 
     @Override

@@ -595,6 +595,26 @@ public class Model extends Observable {
         return false;
     }
 
+    public boolean removeTrigger(String source, String target){
+        List<String> temp = triggers.get(source);
+
+        if(temp == null){
+            return false;
+        }else if(!temp.contains(target)){
+            return false;
+        }else{
+            triggers.get(source).remove(target);
+            return true;
+        }
+    }
+
+    public String findName(double x, double y){
+        String gizmo = findGizmo(x,y);
+        String[] temp = gizmo.split(" ");
+        String name = temp[1];
+        return name;
+    }
+
     public String findGizmo(double x, double y) {
         for (AbstractGizmo abstractGizmo : gizmos) {
             if (abstractGizmo.getxPos() == (int)x && abstractGizmo.getyPos() == (int)y) {
@@ -639,6 +659,6 @@ public class Model extends Observable {
             }
 
         }
-        return null;
+        return "";
     }
 }
