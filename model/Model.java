@@ -6,6 +6,7 @@ import physics.LineSegment;
 import physics.Vect;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -19,7 +20,8 @@ public class Model extends Observable {
     private List<AbsorberGizmo> absorbers;
     private List<Flipper> flippers;
     private List<Ball> balls;
-    private Map<Integer,String> keyBinds;
+    private Map<Integer,String> keyDownMap;
+    private Map<Integer,String> keyUpMap;
     private Map<String,List<String>> triggers;
     private double gravityConstant;
     private double frictionConstant;
@@ -31,7 +33,8 @@ public class Model extends Observable {
         absorbers = new ArrayList<>();
         flippers = new ArrayList<>();
         balls = new ArrayList<>();
-        keyBinds = new HashMap<>();
+        keyDownMap = new HashMap<>();
+        keyUpMap = new HashMap<>();
         triggers = new HashMap<>();
         gf = new GizmoFactory();
         gravityConstant = 0.00981;
@@ -277,10 +280,6 @@ public class Model extends Observable {
         return balls;
     }
 
-    public Map<Integer, String> getKeyBinds() {
-        return keyBinds;
-    }
-
     public boolean addGizmo(String type, String name, String xPos, String yPos) {
         AbstractGizmo gizmo = gf.createGizmo(type, name, xPos, yPos);
         if (gizmo != null) {
@@ -355,10 +354,9 @@ public class Model extends Observable {
     }
 
     public boolean addKeyBind(int key, String gizmoName) {
-        if (!keyBinds.containsKey(key)) {
-            keyBinds.put(key, gizmoName);
+        if (!keyDownMap.containsKey(key)) {
+            keyDownMap.put(key, gizmoName);
         }
-
         return false;
     }
 
@@ -474,6 +472,27 @@ public class Model extends Observable {
                                 }
                             }
                         }
+
+                        if(token.toLowerCase().equals("connect")){
+                            String nameA = tokenizer.nextToken();
+                            String nameB = tokenizer.nextToken();
+                            addTrigger(nameA, nameB);
+                        }
+
+                        if(token.toLowerCase().equals("keyconnect")){
+                            tokenizer.nextToken();
+                            String key = tokenizer.nextToken();
+                            String type = tokenizer.nextToken();
+                            String gizmoName = tokenizer.nextToken();
+
+                            if(type.toLowerCase().equals("down")){
+                                keyDownMap.put(Integer.parseInt(key),gizmoName);
+                            }else{
+                                keyUpMap.put(Integer.parseInt(key),gizmoName);
+                            }
+
+                        }
+
                     }
                 } catch (NoSuchElementException e) {
                     br.readLine();
