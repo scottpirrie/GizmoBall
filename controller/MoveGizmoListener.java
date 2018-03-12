@@ -55,18 +55,33 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             }
 
         }else if(timesClicked==2){
+
             String gizmo = model.findGizmo(e.getX()/board.getL(),e.getY()/board.getL());
             model.remove(e.getX()/board.getL(),e.getY()/board.getL());
             String[] attributes = gizmo.split(" ");
 
-            if(attributes[0].equals("square")||attributes[0].equals("triangle")||attributes[0].equals("circle")) {//done
-                model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-            }else if(attributes[0].equals("rightflipper")||attributes[0].equals("leftflipper")){//done
-                model.addFlipper(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-            }else if(attributes[0].equals("ball")){
-                model.addBall(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),"25","24");
-            }else if(attributes.equals("absorber")){
-                model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),"23","23");
+            switch (attributes[0]){
+                case "square":
+                    model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    break;
+                case "triangle":
+                    model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    break;
+                case "circle":
+                    model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    break;
+                case "rightflipper":
+                    model.addFlipper(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    break;
+                case "leftflipper":
+                    model.addFlipper(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    break;
+                case "absorber":
+                    model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),"23","23");
+                    break;
+                case "ball":
+                    model.addBall(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),"25","24");
+                    break;
             }
 
             timesClicked=0;
