@@ -70,6 +70,13 @@ public class SwitchPanelListener implements ActionListener{
         }else if(e.getActionCommand().equals("Remove Trigger")){
             RemoveTriggerListener listener = new RemoveTriggerListener(bl,m);
             bl.addMouseListener(listener);
+        }else if(e.getActionCommand().equals("Add KeyBind")){
+            AddKeyBindListener listener = new AddKeyBindListener(bl,m);
+            bl.addMouseListener(listener);
+            bl.addKeyListener(listener);
+        }else if(e.getActionCommand().equals("Remove KeyBind")){
+            RemoveKeyBindListener listener = new RemoveKeyBindListener(bl,m);
+            bl.addMouseListener(listener);
         }
     }
 }
