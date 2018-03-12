@@ -13,8 +13,15 @@ class GizmoFactory {
     }
 
     AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
-        int x = Integer.parseInt(xPos);
-        int y = Integer.parseInt(yPos);
+        int x=0;
+        int y=0;
+        try {
+          x = Integer.parseInt(xPos);
+             y = Integer.parseInt(yPos);
+        }catch (NumberFormatException e){
+            x = (int)Double.parseDouble(xPos);
+            y =  (int)Double.parseDouble(yPos);
+        }
         type = type.toLowerCase();
         Point p = new Point(x, y);
 
@@ -33,24 +40,43 @@ class GizmoFactory {
     }
 
     AbsorberGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
+        boolean foundTakenPoint=false;
         int x1 = Integer.parseInt(xPos1);
         int y1 = Integer.parseInt(yPos1);
         int x2 = Integer.parseInt(xPos2);
         int y2 = Integer.parseInt(yPos2);
-        type = type.toLowerCase();
-        for(int i=y1; i<=y2; i++){
-            for(int j=x1; j<=x2; j++){
+        for(int i=y1; i<y2; i++){
+            for(int j=x1; j<x2; j++){
                 Point p = new Point(j,i);
-                takenPoints.add(p);
+                if(takenPoints.contains(p)){
+                    foundTakenPoint=true;
+                }
             }
         }
-        return new AbsorberGizmo(type,name,x1,y1,x2,y2);
+        if(!foundTakenPoint) {
+            type = type.toLowerCase();
+            for (int i = y1; i <= y2; i++) {
+                for (int j = x1; j <= x2; j++) {
+                    Point p = new Point(j, i);
+                    takenPoints.add(p);
+                }
+            }
+            return new AbsorberGizmo(type, name, x1, y1, x2, y2);
+        }
+        return null;
     }
 
     //TODO test if flipper extends outside wall! ( only happens on rotation and left flippers currently
     Flipper createFlipper(String type,String name, String xPos, String yPos){
-        int x = Integer.parseInt(xPos);
-        int y = Integer.parseInt(yPos);
+        int x=0;
+        int y=0;
+        try {
+            x = Integer.parseInt(xPos);
+            y = Integer.parseInt(yPos);
+        }catch (NumberFormatException e){
+            x = (int)Double.parseDouble(xPos);
+            y =  (int)Double.parseDouble(yPos);
+        }
         type = type.toLowerCase();
         Point p = new Point(x, y);
 
