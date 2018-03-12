@@ -39,16 +39,8 @@ public class Model extends Observable {
 
     }
 
-    public double getGravityConstant() {
-        return gravityConstant;
-    }
-
     public void setGravityConstant(double gravityConstant) {
         this.gravityConstant = gravityConstant;
-    }
-
-    public double getFrictionConstant() {
-        return frictionConstant;
     }
 
     public void setFrictionConstant(double frictionConstant) {
@@ -219,7 +211,6 @@ public class Model extends Observable {
                 }
             }
         }
-
         return new CollisionDetails(shortestTime, newVelo);
     }
 
@@ -482,14 +473,13 @@ public class Model extends Observable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Loading model...");
+
         this.setChanged();
         this.notifyObservers();
         return true;
     }
 
     private void clearModel() {
-        System.out.println("Clearing model...");
         gizmos.clear();
         flippers.clear();
         balls.clear();
@@ -555,7 +545,6 @@ public class Model extends Observable {
     }
 
     private boolean removeFlipper(double x, double y) {
-        boolean flipperFound = false;
         x = (int) x;
         y = (int) y;
 
@@ -563,27 +552,17 @@ public class Model extends Observable {
             double maxX = 0.0;
             double maxY = 0.0;
 
-            if (flipper.getXPivot() == x && flipper.getYPivot() == y) {
-                flipperFound = true;
-            } else if (flipper.getXPivot() + 1 == x && flipper.getYPivot() + 1 == y) {
-                flipperFound = true;
-            } else if (flipper.getXPivot() + 1 == x && flipper.getYPivot() == y) {
-                flipperFound = true;
-            } else if (flipper.getXPivot() == x && flipper.getYPivot() + 1 == y) {
-                flipperFound = true;
-            }
-
-            if (flipperFound) {
+            if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
                 gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
                 gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
                 gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
                 gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
                 flippers.remove(flipper);
-                break;
+                return true;
             }
 
         }
-        return flipperFound;
+        return false;
     }
 
     public boolean removeKeybind(int key, String gizmoName) {
@@ -611,8 +590,7 @@ public class Model extends Observable {
     public String findName(double x, double y){
         String gizmo = findGizmo(x,y);
         String[] temp = gizmo.split(" ");
-        String name = temp[1];
-        return name;
+        return temp[1];
     }
 
     public String findGizmo(double x, double y) {
@@ -636,7 +614,7 @@ public class Model extends Observable {
             }
 
         }
-        boolean flipperFound = false;
+
         x = (int) x;
         y = (int) y;
 
@@ -644,21 +622,24 @@ public class Model extends Observable {
             double maxX = 0.0;
             double maxY = 0.0;
 
-            if (flipper.getXPivot() == x && flipper.getYPivot() == y) {
-                flipperFound = true;
-            } else if (flipper.getXPivot() + 1 == x && flipper.getYPivot() + 1 == y) {
-                flipperFound = true;
-            } else if (flipper.getXPivot() + 1 == x && flipper.getYPivot() == y) {
-                flipperFound = true;
-            } else if (flipper.getXPivot() == x && flipper.getYPivot() + 1 == y) {
-                flipperFound = true;
-            }
-
-            if (flipperFound) {
+            if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
                 return flipper.getType()+" "+flipper.getName()+" "+flipper.getXPivot()+" "+flipper.getYPivot();
             }
 
         }
         return "";
+    }
+
+    private boolean flipperCheck(double flipperX, double flipperY, double targetX, double targetY){
+        if (flipperX == targetX && flipperY == targetY) {
+            return true;
+        } else if (flipperX + 1 == targetX && flipperY + 1 == targetY) {
+            return true;
+        } else if (flipperX + 1 == targetX && flipperY == targetY) {
+            return true;
+        } else if (flipperX == targetX && flipperY + 1 == targetY) {
+            return true;
+        }
+        return false;
     }
 }
