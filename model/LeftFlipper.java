@@ -4,6 +4,8 @@ import physics.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class LeftFlipper implements Flipper{
 
@@ -148,9 +150,19 @@ public class LeftFlipper implements Flipper{
 
     @Override
     public void doAction() {
-        while(thetaCheck < 90){
-            moveFlipper(0.017);
+        Timer timer = new Timer();
+        if(!isPressed) {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    while(thetaCheck < 90) {
+                        moveFlipper(0.017);
+                    }
+                    isPressed = false;
+                }
+            }, 1000);
         }
+        isPressed = true;
     }
 
     public String toString() {
