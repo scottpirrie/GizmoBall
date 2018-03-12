@@ -158,12 +158,4 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
         }
     }
 
-    public void moveGizmo(){
-
-    }
-
-    public void moveFlipper(){
-
-    }
-
 }

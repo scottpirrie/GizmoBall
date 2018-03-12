@@ -6,7 +6,6 @@ import physics.LineSegment;
 import physics.Vect;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -280,6 +279,14 @@ public class Model extends Observable {
         return balls;
     }
 
+    public Map<Integer,String> getKeyDownMap(){
+        return keyDownMap;
+    }
+
+    public Map<Integer,String> getKeyUpMap(){
+        return keyUpMap;
+    }
+
     public boolean addGizmo(String type, String name, String xPos, String yPos) {
         AbstractGizmo gizmo = gf.createGizmo(type, name, xPos, yPos);
         if (gizmo != null) {
@@ -414,6 +421,20 @@ public class Model extends Observable {
                 writer.write(ball.toString() + "\n");
             }
 
+            for(String s : triggers.keySet()){
+                for(String ss : triggers.get(s)){
+                    writer.write("Connect " + s + " " + ss + "\n");
+                }
+            }
+
+            for(int i : keyDownMap.keySet()){
+                writer.write("KeyConnect key " + i + " " + "down" + " " + keyDownMap.get(i));
+            }
+
+            for(int i : keyUpMap.keySet()){
+                writer.write("KeyConnect key " + i + " " + "down" + " " + keyUpMap.get(i));
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -518,7 +539,8 @@ public class Model extends Observable {
         balls.clear();
         gf.clearPoints();
         triggers.clear();
-        keyBinds.clear();
+        keyDownMap.clear();
+        keyUpMap.clear();
         this.setChanged();
         this.notifyObservers();
     }
@@ -604,11 +626,10 @@ public class Model extends Observable {
     }
 
     public boolean removeKeybind(int key, String gizmoName) {
-        if (keyBinds.containsKey(key)) {
-            keyBinds.remove(key, gizmoName);
+        if (keyDownMap.containsKey(key)) {
+            keyDownMap.remove(key, gizmoName);
             return true;
         }
-
         return false;
     }
 
