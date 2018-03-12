@@ -9,6 +9,7 @@ public interface Flipper {
 
     String getType();
     String getName();
+    int getRotation();
     void createLines();
     void createCircles();
     List<LineSegment> getLines();

@@ -10,6 +10,7 @@ public interface AbstractGizmo {
 
     String getType();
     String getName();
+    int getRotation();
     int getxPos();
     int getyPos();
     Color getColor();

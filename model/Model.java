@@ -19,7 +19,8 @@ public class Model extends Observable {
     private List<AbsorberGizmo> absorbers;
     private List<Flipper> flippers;
     private List<Ball> balls;
-    private Map<Integer,String> keyBinds;
+    private Map<Integer,String> keyDownMap;
+    private Map<Integer,String> keyUpMap;
     private Map<String,List<String>> triggers;
     private double gravityConstant;
     private double frictionConstant;
@@ -31,7 +32,8 @@ public class Model extends Observable {
         absorbers = new ArrayList<>();
         flippers = new ArrayList<>();
         balls = new ArrayList<>();
-        keyBinds = new HashMap<>();
+        keyDownMap = new HashMap<>();
+        keyUpMap = new HashMap<>();
         triggers = new HashMap<>();
         gf = new GizmoFactory();
         gravityConstant = 0.00981;
@@ -277,8 +279,12 @@ public class Model extends Observable {
         return balls;
     }
 
-    public Map<Integer, String> getKeyBinds() {
-        return keyBinds;
+    public Map<Integer,String> getKeyDownMap(){
+        return keyDownMap;
+    }
+
+    public Map<Integer,String> getKeyUpMap(){
+        return keyUpMap;
     }
 
     public boolean addGizmo(String type, String name, String xPos, String yPos) {
@@ -360,10 +366,9 @@ public class Model extends Observable {
     }
 
     public boolean addKeyBind(int key, String gizmoName) {
-        if (!keyBinds.containsKey(key)) {
-            keyBinds.put(key, gizmoName);
+        if (!keyDownMap.containsKey(key)) {
+            keyDownMap.put(key, gizmoName);
         }
-
         return false;
     }
 
@@ -390,7 +395,6 @@ public class Model extends Observable {
         return (OS.contains("win"));
     }
 
-    //TODO save CONNECT / KEYCONNECT commands + ROTATE
     public void save(String directory, String fileName) {
         String name;
         if (isWindows()) {
@@ -402,10 +406,20 @@ public class Model extends Observable {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (AbstractGizmo gizmo : gizmos) {
                 writer.write(gizmo.toString() + "\n");
+                if(gizmo.getRotation() > 0){
+                    for(int i = 0; i < gizmo.getRotation(); i++){
+                        writer.write("Rotate " + gizmo.getName() + "\n");
+                    }
+                }
             }
 
             for (Flipper flipper : flippers) {
                 writer.write(flipper.toString() + "\n");
+                if(flipper.getRotation() > 0){
+                    for(int i = 0; i < flipper.getRotation(); i++){
+                        writer.write("Rotate " + flipper.getName() + "\n");
+                    }
+                }
             }
 
             for (AbsorberGizmo absorber : absorbers) {
@@ -414,6 +428,20 @@ public class Model extends Observable {
 
             for (Ball ball : balls) {
                 writer.write(ball.toString() + "\n");
+            }
+
+            for(String s : triggers.keySet()){
+                for(String ss : triggers.get(s)){
+                    writer.write("Connect " + s + " " + ss + "\n");
+                }
+            }
+
+            for(int i : keyDownMap.keySet()){
+                writer.write("KeyConnect key " + i + " " + "down" + " " + keyDownMap.get(i));
+            }
+
+            for(int i : keyUpMap.keySet()){
+                writer.write("KeyConnect key " + i + " " + "up" + " " + keyUpMap.get(i));
             }
 
         } catch (IOException e) {
@@ -479,6 +507,27 @@ public class Model extends Observable {
                                 }
                             }
                         }
+
+                        if(token.toLowerCase().equals("connect")){
+                            String nameA = tokenizer.nextToken();
+                            String nameB = tokenizer.nextToken();
+                            addTrigger(nameA, nameB);
+                        }
+
+                        if(token.toLowerCase().equals("keyconnect")){
+                            tokenizer.nextToken();
+                            String key = tokenizer.nextToken();
+                            String type = tokenizer.nextToken();
+                            String gizmoName = tokenizer.nextToken();
+
+                            if(type.toLowerCase().equals("down")){
+                                keyDownMap.put(Integer.parseInt(key),gizmoName);
+                            }else{
+                                keyUpMap.put(Integer.parseInt(key),gizmoName);
+                            }
+
+                        }
+
                     }
                 } catch (NoSuchElementException e) {
                     br.readLine();
@@ -499,7 +548,8 @@ public class Model extends Observable {
         balls.clear();
         gf.clearPoints();
         triggers.clear();
-        keyBinds.clear();
+        keyDownMap.clear();
+        keyUpMap.clear();
         this.setChanged();
         this.notifyObservers();
     }
@@ -585,11 +635,10 @@ public class Model extends Observable {
     }
 
     public boolean removeKeybind(int key, String gizmoName) {
-        if (keyBinds.containsKey(key)) {
-            keyBinds.remove(key, gizmoName);
+        if (keyDownMap.containsKey(key)) {
+            keyDownMap.remove(key, gizmoName);
             return true;
         }
-
         return false;
     }
 

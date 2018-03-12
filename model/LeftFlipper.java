@@ -55,6 +55,10 @@ public class LeftFlipper implements Flipper{
         return name;
     }
 
+    public int getRotation() {
+        return rotation;
+    }
+
     @Override
     public void createLines() {
         LineSegment l1 = new LineSegment(xPos, yPos+0.25, xPos, yPos + 1.75);

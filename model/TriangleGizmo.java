@@ -47,6 +47,10 @@ public class TriangleGizmo implements AbstractGizmo{
         return name;
     }
 
+    public int getRotation() {
+        return rotation;
+    }
+
     @Override
     public int getxPos() {
         return xPos;
