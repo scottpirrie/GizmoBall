@@ -4,8 +4,11 @@ package model;
 import physics.Circle;
 import physics.LineSegment;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CircleGizmo implements AbstractGizmo{
 
@@ -16,6 +19,8 @@ public class CircleGizmo implements AbstractGizmo{
     private double radius;
     private List<LineSegment> lines;
     private List<physics.Circle> circles;
+    private Color color;
+    private boolean isTriggered;
 
 
     CircleGizmo(String type, String name,int xPos,int yPos){
@@ -26,6 +31,8 @@ public class CircleGizmo implements AbstractGizmo{
         this.yPos=yPos;
         circles = new ArrayList<>();
         createCircles();
+        this.color = Color.GREEN;
+        this.isTriggered = false;
     }
 
 
@@ -47,6 +54,11 @@ public class CircleGizmo implements AbstractGizmo{
     @Override
     public int getyPos() {
         return yPos;
+    }
+
+    @Override
+    public Color getColor() {
+        return color;
     }
 
     @Override
@@ -74,6 +86,27 @@ public class CircleGizmo implements AbstractGizmo{
     @Override
     public void rotate() {
         //DOES NOTHING
+    }
+
+    @Override
+    public void doAction() {
+        Timer timer = new Timer();
+        color = Color.blue;
+        if(!isTriggered) {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    color = Color.GREEN;
+                    isTriggered = false;
+                }
+            }, 2000);
+        }
+        isTriggered = true;
+    }
+
+    @Override
+    public void trigger() {
+
     }
 
     public String toString() {

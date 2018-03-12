@@ -147,21 +147,15 @@ public class LeftFlipper implements Flipper{
     }
 
     @Override
-    public double getXArc() {
-        return xArc;
-    }
-
-    private void setXArc(double x){
-        this.xArc = x;
+    public void doAction() {
+        while(thetaCheck < 90){
+            moveFlipper(0.017);
+        }
     }
 
     @Override
-    public double getYArc() {
-        return yArc;
-    }
+    public void trigger() {
 
-    private void setYArc(double y){
-        this.yArc = y;
     }
 
     public String toString() {

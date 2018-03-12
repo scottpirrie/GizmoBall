@@ -66,6 +66,10 @@ public class Model extends Observable {
                     ball = movelBallForTime(ball, tuc);
                     ball.setVelo(cd.getVelo());
                     //Do triggers here
+                    //Add gizmo name to collision details
+                    //Take tuc and pass it through to do trigger function
+                    //pass into trigger class that gizmos hold
+                    //schedule task for 1000 * tuc
                 }
 
                 moveFlipper(moveTime);
@@ -78,6 +82,7 @@ public class Model extends Observable {
         }
     }
 
+    //TODO only move flippers that are triggered/bound - just a case of implementing triggers
     private void moveFlipper(double moveTime) {
         for (Flipper f : flippers) {
             f.moveFlipper(moveTime);
@@ -305,6 +310,10 @@ public class Model extends Observable {
     }
 
     public boolean addKeyBind(int key,String gizmoName ){
+        if(!keyBinds.containsKey(key)){
+            keyBinds.put(key,gizmoName);
+        }
+
         return false;
     }
 
@@ -520,6 +529,15 @@ public class Model extends Observable {
 
         }
         return flipperFound;
+    }
+
+    public boolean removeKeybind(int key, String gizmoName){
+        if(keyBinds.containsKey(key)){
+            keyBinds.remove(key,gizmoName);
+            return true;
+        }
+
+        return false;
     }
 
     public AbstractGizmo findGizmo(int x, int y) {

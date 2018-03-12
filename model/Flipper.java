@@ -20,7 +20,7 @@ public interface Flipper {
     boolean isPressed();
     double getXPivot();
     double getYPivot();
-    double getXArc();
-    double getYArc();
+    void doAction();
+    void trigger();
 
 }

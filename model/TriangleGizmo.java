@@ -3,8 +3,11 @@ package model;
 import physics.Circle;
 import physics.LineSegment;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TriangleGizmo implements AbstractGizmo{
 
@@ -16,7 +19,8 @@ public class TriangleGizmo implements AbstractGizmo{
     private int rotation;
     private List<LineSegment> lines;
     private List<Circle> circles;
-
+    private Color color;
+    private boolean isTriggered;
 
     TriangleGizmo(String type, String name,int xPos,int yPos){
         this.type = type;
@@ -28,6 +32,8 @@ public class TriangleGizmo implements AbstractGizmo{
         circles = new ArrayList<>();
         createLines();
         createCircles();
+        this.color = Color.YELLOW;
+        this.isTriggered = false;
     }
 
 
@@ -49,6 +55,11 @@ public class TriangleGizmo implements AbstractGizmo{
     @Override
     public int getyPos() {
         return yPos;
+    }
+
+    @Override
+    public Color getColor() {
+        return color;
     }
 
     @Override
@@ -88,6 +99,27 @@ public class TriangleGizmo implements AbstractGizmo{
     @Override
     public void rotate() {
         //TODO Probably need to find a better way than the 50-line chunk! But its always there if needed!
+    }
+
+    @Override
+    public void doAction() {
+        Timer timer = new Timer();
+        color = Color.CYAN;
+        if(!isTriggered) {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    color = Color.YELLOW;
+                    isTriggered = false;
+                }
+            }, 2000);
+        }
+        isTriggered = true;
+    }
+
+    @Override
+    public void trigger() {
+
     }
 
     @Override

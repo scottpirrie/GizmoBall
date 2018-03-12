@@ -35,7 +35,7 @@ public class AddTriangleGizmoListener implements MouseListener {
         int xPos = e.getX()/L;
         int yPos=e.getY()/L;
         int size = m.getGizmos().size();
-        
+
         boolean success=m.addGizmo("triangle","T"+size,String.valueOf(xPos),String.valueOf(yPos));
         if(!success){
             JOptionPane.showMessageDialog(panel,
