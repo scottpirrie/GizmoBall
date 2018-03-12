@@ -18,7 +18,6 @@ public interface AbstractGizmo {
     List<LineSegment> getLines();
     List<Circle> getCircles();
     void rotate();
-    void doAction();
-    void trigger();
+    void doAction(double time);
 
 }

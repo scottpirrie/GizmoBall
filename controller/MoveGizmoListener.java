@@ -29,6 +29,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
     @Override
     public void mousePressed(MouseEvent e) {
         timesClicked++;
+
         if(timesClicked==1){
             startingX=e.getX()/board.getL();
             startingY=e.getY()/board.getL();
@@ -37,13 +38,11 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
         }else if(timesClicked==2){
             AbstractGizmo gizmo = model.findGizmo(e.getX()/board.getL(),e.getY()/board.getL());
             model.remove(e.getX()/board.getL(),e.getY()/board.getL());
-           model.addGizmo(gizmo.getType(),gizmo.getName(),String.valueOf(e.getX()/board.getL()),String.valueOf(e.getY()/board.getL()));
-          timesClicked=0;
-
-
-            }
-
+            model.addGizmo(gizmo.getType(),gizmo.getName(),String.valueOf(e.getX()/board.getL()),String.valueOf(e.getY()/board.getL()));
+            timesClicked=0;
         }
+
+    }
 
 
     @Override
@@ -70,7 +69,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
         if(timesClicked==1) {
             AbstractGizmo gizmo = model.findGizmo(startingX, startingY);
             model.remove(startingX, startingY);
-            boolean success= model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(e.getX()/board.getL()), String.valueOf(e.getY()/board.getL()));
+            boolean success = model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(e.getX()/board.getL()), String.valueOf(e.getY()/board.getL()));
 
            if(!success) {
                JOptionPane.showMessageDialog(board,
@@ -80,9 +79,18 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(moveBackX), String.valueOf(moveBackY));
                timesClicked=0;
            }
-            startingX=e.getX()/board.getL();
-            startingY=e.getY()/board.getL();
+           startingX=e.getX()/board.getL();
+           startingY=e.getY()/board.getL();
         }
 
     }
+
+    public void moveGizmo(){
+
+    }
+
+    public void moveFlipper(){
+
+    }
+
 }

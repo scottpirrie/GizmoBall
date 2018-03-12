@@ -8,10 +8,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class SetGravityConstantListener implements MouseListener {
+
     private Model m;
+
     public SetGravityConstantListener(Model m){
         this.m=m;
     }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -28,7 +31,6 @@ public class SetGravityConstantListener implements MouseListener {
         double value = slider.getValue()/10000.0;
         System.out.println(value);
         m.setGravityConstant(value);
-            System.out.println("Slider moved");
     }
 
     @Override
