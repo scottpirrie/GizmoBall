@@ -267,7 +267,7 @@ public class Model extends Observable {
         return balls;
     }
 
-    public Map<Integer,String> getKeyBinds(){
+    public Map<Integer, String> getKeyBinds() {
         return keyBinds;
     }
 
@@ -344,9 +344,9 @@ public class Model extends Observable {
         return true;
     }
 
-    public boolean addKeyBind(int key,String gizmoName ){
-        if(!keyBinds.containsKey(key)){
-            keyBinds.put(key,gizmoName);
+    public boolean addKeyBind(int key, String gizmoName) {
+        if (!keyBinds.containsKey(key)) {
+            keyBinds.put(key, gizmoName);
         }
 
         return false;
@@ -501,7 +501,7 @@ public class Model extends Observable {
     }
 
     public boolean remove(double x, double y) {
-        return removeBall(x, y) || removeAbsorber(x, y) ||removeGizmo(x, y) || removeFlipper(x, y);
+        return removeBall(x, y) || removeAbsorber(x, y) || removeGizmo(x, y) || removeFlipper(x, y);
     }
 
     private boolean removeGizmo(double x, double y) {
@@ -533,16 +533,17 @@ public class Model extends Observable {
     }
 
     //added remove points
-    private boolean removeAbsorber(double x, double y){
+    private boolean removeAbsorber(double x, double y) {
         int tempX = (int) x;
         int tempY = (int) y;
-        for(AbsorberGizmo ab: absorbers){
+        for (AbsorberGizmo ab : absorbers) {
             //if((tempX >= ab.getxPos() || tempY >= ab.getyPos()) && (tempX <= ab.getxPos2() || tempY <= ab.getyPos2())){
-            if((tempX >= ab.getxPos() && tempX <= ab.getxPos2()) &&(tempY >= ab.getyPos() && tempY <= ab.getyPos2())){
+            if ((tempX >= ab.getxPos() && tempX <= ab.getxPos2()) && (tempY >= ab.getyPos() && tempY <= ab.getyPos2())) {
                 absorbers.remove(ab);
-                for(int i=ab.getyPos(); i<=ab.getyPos2(); i++){
-                    for(int j=ab.getxPos(); j<=ab.getxPos2(); j++){
-                        gf.removeTakenPoint(j,i);
+                for (int i = ab.getyPos(); i <= ab.getyPos2(); i++) {
+                    for (int j = ab.getxPos(); j <= ab.getxPos2(); j++) {
+
+                        gf.removeTakenPoint(j, i);
                     }
                 }
                 this.setChanged();
@@ -585,59 +586,58 @@ public class Model extends Observable {
         return flipperFound;
     }
 
-    public boolean removeKeybind(int key, String gizmoName){
-        if(keyBinds.containsKey(key)){
-            keyBinds.remove(key,gizmoName);
+    public boolean removeKeybind(int key, String gizmoName) {
+        if (keyBinds.containsKey(key)) {
+            keyBinds.remove(key, gizmoName);
             return true;
         }
 
         return false;
     }
 
-    public boolean removeTrigger(String source, String target){
-        List<String> temp = triggers.get(source);
-
-        if(temp == null){
-            return false;
-        }else if(!temp.contains(target)){
-            return false;
-        }else{
-            triggers.get(source).remove(target);
-            return true;
-        }
-    }
-
-
-
-    public String findName(int x, int y){
-
-        for (AbstractGizmo gizmo : gizmos) {
-            if (gizmo.getxPos() == x && gizmo.getyPos() == y) {
-                return gizmo.getName();
+    public String findGizmo(double x, double y) {
+        for (AbstractGizmo abstractGizmo : gizmos) {
+            if (abstractGizmo.getxPos() == (int)x && abstractGizmo.getyPos() == (int)y) {
+                return abstractGizmo.getType() + " " + abstractGizmo.getName() + " " + abstractGizmo.getxPos() + " " + abstractGizmo.getyPos();
             }
         }
+        for (AbsorberGizmo ab : absorbers) {
+            //if((tempX >= ab.getxPos() || tempY >= ab.getyPos()) && (tempX <= ab.getxPos2() || tempY <= ab.getyPos2())){
+            if (((int)x >= ab.getxPos() && (int)x <= ab.getxPos2()) && ((int)y >= ab.getyPos() && (int)y <= ab.getyPos2())) {
+                return ab.getType() + " " + ab.getName() + " " + ab.getxPos() + " " + ab.getyPos() + " " + ab.getxPos2() + " " + ab.getyPos2();
+            }
+
+        }
+
+        for (Ball ball : balls) {
+            if ((x <= ball.getExactX() + ball.getRadius() && x >= ball.getExactX() - ball.getRadius())
+                    && (y <= ball.getExactY() + ball.getRadius() && y >= ball.getExactY() - ball.getRadius())) {
+                return ball.getType() + " " + ball.getName() + " " + ball.getExactX() + " " + ball.getExactY();
+            }
+
+        }
+        boolean flipperFound = false;
+        x = (int) x;
+        y = (int) y;
 
         for (Flipper flipper : flippers) {
+            double maxX = 0.0;
+            double maxY = 0.0;
+
             if (flipper.getXPivot() == x && flipper.getYPivot() == y) {
-                return flipper.getName();
+                flipperFound = true;
+            } else if (flipper.getXPivot() + 1 == x && flipper.getYPivot() + 1 == y) {
+                flipperFound = true;
+            } else if (flipper.getXPivot() + 1 == x && flipper.getYPivot() == y) {
+                flipperFound = true;
+            } else if (flipper.getXPivot() == x && flipper.getYPivot() + 1 == y) {
+                flipperFound = true;
             }
-        }
 
-        for (AbsorberGizmo absorber : absorbers) {
-            if (absorber.getxPos() >= x && absorber.getxPos2() <= x
-                && absorber.getyPos() <= y && absorber.getyPos2() >= y) {
-                return absorber.getName();
+            if (flipperFound) {
+                return flipper.getType()+" "+flipper.getName()+" "+flipper.getXPivot()+" "+flipper.getYPivot();
             }
-        }
 
-        return "";
-    }
-
-    public AbstractGizmo findGizmo(int x, int y) {
-        for (AbstractGizmo abstractGizmo : gizmos) {
-            if (abstractGizmo.getxPos() == x && abstractGizmo.getyPos() == y) {
-                return abstractGizmo;
-            }
         }
         return null;
     }

@@ -13,8 +13,15 @@ class GizmoFactory {
     }
 
     AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
-        int x = Integer.parseInt(xPos);
-        int y = Integer.parseInt(yPos);
+        int x=0;
+        int y=0;
+        try {
+          x = Integer.parseInt(xPos);
+             y = Integer.parseInt(yPos);
+        }catch (NumberFormatException e){
+            x = (int)Double.parseDouble(xPos);
+            y =  (int)Double.parseDouble(yPos);
+        }
         type = type.toLowerCase();
         Point p = new Point(x, y);
 
@@ -38,7 +45,6 @@ class GizmoFactory {
         int y1 = Integer.parseInt(yPos1);
         int x2 = Integer.parseInt(xPos2);
         int y2 = Integer.parseInt(yPos2);
-        // check if any point is taken
         for(int i=y1; i<y2; i++){
             for(int j=x1; j<x2; j++){
                 Point p = new Point(j,i);
@@ -58,13 +64,19 @@ class GizmoFactory {
             return new AbsorberGizmo(type, name, x1, y1, x2, y2);
         }
         return null;
-
     }
 
     //TODO test if flipper extends outside wall! ( only happens on rotation and left flippers currently
     Flipper createFlipper(String type,String name, String xPos, String yPos){
-        int x = Integer.parseInt(xPos);
-        int y = Integer.parseInt(yPos);
+        int x=0;
+        int y=0;
+        try {
+            x = Integer.parseInt(xPos);
+            y = Integer.parseInt(yPos);
+        }catch (NumberFormatException e){
+            x = (int)Double.parseDouble(xPos);
+            y =  (int)Double.parseDouble(yPos);
+        }
         type = type.toLowerCase();
         Point p = new Point(x, y);
 
