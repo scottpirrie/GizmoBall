@@ -339,6 +339,7 @@ public class Model extends Observable {
             //if the right most point is outside the max width mark the right square as invalid
             //if the top most point is outside the least height mark the top square as invalid
             //if the down most point is outside the max height mark the down square as invalid
+            //TODO need to think about invalid points
             Ball ball = balls.get(balls.size() - 1);
             /*if (ball.getExactX() - ball.getRadius() < leastWidth) {
                 gf.addTakenPoint(leastWidth, squareToAddBall.y);
