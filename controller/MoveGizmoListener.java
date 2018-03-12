@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class MoveGizmoListener implements MouseListener,MouseMotionListener{
+
     private Board board;
     private Model model;
     private double startingX;
@@ -15,10 +16,11 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
     private double moveBackX;
     private double moveBackY;
     private int timesClicked;
+
     public MoveGizmoListener(Board board, Model model){
-        timesClicked=0;
-        this.board=board;
-        this.model=model;
+        timesClicked = 0;
+        this.board = board;
+        this.model = model;
     }
 
     @Override
@@ -29,6 +31,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
     @Override
     public void mousePressed(MouseEvent e) {
         timesClicked++;
+
         if(timesClicked==1){
             String gizmo = model.findGizmo(e.getX()/board.getL(),e.getY()/board.getL());
             String [] attributes=gizmo.split(" ");
@@ -66,8 +69,9 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
 
 
             }
-
         }
+
+    }
 
 
     @Override
@@ -133,6 +137,14 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             startingX=e.getX()/board.getL();
             startingY=e.getY()/board.getL();
         }
+    }
+
+    public void moveGizmo(){
 
     }
+
+    public void moveFlipper(){
+
+    }
+
 }

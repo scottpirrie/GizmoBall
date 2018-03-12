@@ -103,6 +103,7 @@ public class TriangleGizmo implements AbstractGizmo{
 
     @Override
     public void doAction() {
+
         Timer timer = new Timer();
         color = Color.CYAN;
         if(!isTriggered) {
@@ -115,11 +116,6 @@ public class TriangleGizmo implements AbstractGizmo{
             }, 2000);
         }
         isTriggered = true;
-    }
-
-    @Override
-    public void trigger() {
-
     }
 
     @Override

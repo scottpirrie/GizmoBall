@@ -51,6 +51,7 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
             board.clearAbsorberPoints();
             timesClicked=0;
         }
+
     }
 
     @Override

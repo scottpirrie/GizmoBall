@@ -2,8 +2,12 @@ package model;
 
 import physics.Circle;
 import physics.LineSegment;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class AbsorberGizmo{
 
@@ -97,7 +101,7 @@ public class AbsorberGizmo{
         return circles;
     }
 
-    public void rotate() {
+    public void doAction() {
 
     }
 

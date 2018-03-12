@@ -104,11 +104,6 @@ public class CircleGizmo implements AbstractGizmo{
         isTriggered = true;
     }
 
-    @Override
-    public void trigger() {
-
-    }
-
     public String toString() {
         return "Circle " + name + " " + xPos + " " + yPos;
     }

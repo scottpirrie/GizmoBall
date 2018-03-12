@@ -102,6 +102,7 @@ public class SquareGizmo implements  AbstractGizmo {
 
     @Override
     public void doAction() {
+
         Timer timer = new Timer();
         color = Color.GREEN;
         if(!isTriggered) {
@@ -114,11 +115,6 @@ public class SquareGizmo implements  AbstractGizmo {
             }, 2000);
         }
         isTriggered = true;
-    }
-
-    @Override
-    public void trigger() {
-
     }
 
     public String toString(){

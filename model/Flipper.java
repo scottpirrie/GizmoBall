@@ -21,6 +21,5 @@ public interface Flipper {
     double getXPivot();
     double getYPivot();
     void doAction();
-    void trigger();
 
 }
