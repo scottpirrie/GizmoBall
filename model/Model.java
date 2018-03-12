@@ -322,35 +322,40 @@ public class Model extends Observable {
         double y = Double.parseDouble(yPos);
         double xv = Double.parseDouble(xVelo);
         double yv = Double.parseDouble(yVelo);
-        balls.add(new Ball(type, name, x, y, xv, yv, 0.25));
+        Point p = new Point((int) x, (int) y);
+        if (!gf.isPointTaken(p)) {
+            balls.add(new Ball(type, name, x, y, xv, yv, 0.25));
 
 
-        Point squareToAddBall = new Point((int) Double.parseDouble(xPos), (int) Double.parseDouble(yPos));
+            Point squareToAddBall = new Point((int) Double.parseDouble(xPos), (int) Double.parseDouble(yPos));
 
-        int maxWidth = squareToAddBall.x + 1;
-        int maxHeight = squareToAddBall.y + 1;
-        int leastWidth = squareToAddBall.x;
-        int leastHeight = squareToAddBall.y;
+            int maxWidth = squareToAddBall.x + 1;
+            int maxHeight = squareToAddBall.y + 1;
+            int leastWidth = squareToAddBall.x;
+            int leastHeight = squareToAddBall.y;
 
-        //if the left most point is outside the least width mark the left square as invalid
-        //if the right most point is outside the max width mark the right square as invalid
-        //if the top most point is outside the least height mark the top square as invalid
-        //if the down most point is outside the max height mark the down square as invalid
-        Ball ball = balls.get(balls.size() - 1);
-        if (ball.getExactX() - ball.getRadius() < leastWidth) {
-            gf.addTakenPoint(leastWidth, squareToAddBall.y);
+            //if the left most point is outside the least width mark the left square as invalid
+            //if the right most point is outside the max width mark the right square as invalid
+            //if the top most point is outside the least height mark the top square as invalid
+            //if the down most point is outside the max height mark the down square as invalid
+            //TODO need to think about invalid points
+            Ball ball = balls.get(balls.size() - 1);
+            /*if (ball.getExactX() - ball.getRadius() < leastWidth) {
+                gf.addTakenPoint(leastWidth, squareToAddBall.y);
+            }
+            if (ball.getExactX() + ball.getRadius() > maxWidth) {// works
+                gf.addTakenPoint(maxWidth, squareToAddBall.y);
+            }
+            if (ball.getExactY() - ball.getRadius() < leastHeight) {
+                gf.addTakenPoint(squareToAddBall.x, leastHeight);
+            }
+            if (ball.getExactY() + ball.getRadius() > maxHeight) { // works
+                gf.addTakenPoint(squareToAddBall.x, maxHeight);
+            }*/
+
+            return true;
         }
-        if (ball.getExactX() + ball.getRadius() > maxWidth) {// works
-            gf.addTakenPoint(maxWidth, squareToAddBall.y);
-        }
-        if (ball.getExactY() - ball.getRadius() < leastHeight) {
-            gf.addTakenPoint(squareToAddBall.x, leastHeight);
-        }
-        if (ball.getExactY() + ball.getRadius() > maxHeight) { // works
-            gf.addTakenPoint(squareToAddBall.x, maxHeight);
-        }
-
-        return true;
+        return false;
     }
 
     public boolean addKeyBind(int key, String gizmoName) {
@@ -641,6 +646,7 @@ public class Model extends Observable {
         }
 
         for (Ball ball : balls) {
+            System.out.println("Actual parameters: "+ball.getExactX()+" "+ball.getExactY());
             if ((x <= ball.getExactX() + ball.getRadius() && x >= ball.getExactX() - ball.getRadius())
                     && (y <= ball.getExactY() + ball.getRadius() && y >= ball.getExactY() - ball.getRadius())) {
                 return ball.getType() + " " + ball.getName() + " " + ball.getExactX() + " " + ball.getExactY();
