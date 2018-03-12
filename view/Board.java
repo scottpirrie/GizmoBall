@@ -78,11 +78,11 @@ public class Board extends JPanel implements Observer{
 
         for(AbstractGizmo gizmo : model.getGizmos()){
             if(gizmo.getType().toLowerCase().equals("square")){
-                g2.setColor(Color.RED);
+                g2.setColor(gizmo.getColor());
                 g2.fillRect(gizmo.getxPos()*L,gizmo.getyPos()*L,L,L);
 
             }else if(gizmo.getType().toLowerCase().equals("triangle")){
-                g2.setColor(Color.YELLOW);
+                g2.setColor(gizmo.getColor());
                 LineSegment l1 = gizmo.getLines().get(0);
                 LineSegment l2 = gizmo.getLines().get(1);
                 LineSegment l3 = gizmo.getLines().get(2);
@@ -94,7 +94,7 @@ public class Board extends JPanel implements Observer{
 
                 g2.fillPolygon(xPoints,yPoints,3);
             }else if(gizmo.getType().toLowerCase().equals("circle")){
-                g2.setColor(Color.GREEN);
+                g2.setColor(gizmo.getColor());
                 double x = gizmo.getxPos();
                 double y = gizmo.getyPos();
                 double diameter = (0.5 * L ) * 2;

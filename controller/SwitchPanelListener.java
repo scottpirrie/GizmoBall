@@ -37,6 +37,7 @@ public class SwitchPanelListener implements ActionListener{
         }
     }
 
+    //TODO Make into a switch statement
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -64,9 +65,11 @@ public class SwitchPanelListener implements ActionListener{
             bl.addMouseListener(listener);
             bl.addMouseMotionListener(listener);
         }else if(e.getActionCommand().equals("Add Trigger")){
-
+            AddTriggerListener listener = new AddTriggerListener(bl,m);
+            bl.addMouseListener(listener);
         }else if(e.getActionCommand().equals("Remove Trigger")){
-
+            RemoveTriggerListener listener = new RemoveTriggerListener(bl,m);
+            bl.addMouseListener(listener);
         }
     }
 }

@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class AddTriggerListener implements MouseListener {
+public class RemoveTriggerListener implements MouseListener{
 
     private Board board;
     private Model model;
@@ -17,7 +17,7 @@ public class AddTriggerListener implements MouseListener {
     private int targetY;
     private int timesClicked;
 
-    public AddTriggerListener(Board board, Model model){
+    public RemoveTriggerListener(Board board, Model model){
         timesClicked = 0;
         this.board = board;
         this.model = model;
@@ -38,12 +38,12 @@ public class AddTriggerListener implements MouseListener {
         }else if(timesClicked==2){
             targetX = e.getX()/board.getL();
             targetY = e.getY()/board.getL();
-            
-            boolean success = model.addTrigger(model.findName(sourceX,sourceY),model.findName(targetX,targetY));
+
+            boolean success = model.removeTrigger(model.findName(sourceX,sourceY),model.findName(targetX,targetY));
 
             if (!success) {
                 JOptionPane.showMessageDialog(board,
-                        "Trigger could not be added.",
+                        "Trigger could not be removed.",
                         "Inane error",
                         JOptionPane.ERROR_MESSAGE);
                 timesClicked = 0;

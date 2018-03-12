@@ -245,7 +245,7 @@ public class BuildGui implements Gui {
         removeTrigger = setUpButton(removeTrigger);
         removeTrigger.setPreferredSize(new Dimension(120,40));
         removeTrigger.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
-        lowButtons2.add(button);
+        lowButtons2.add(removeTrigger);
 
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(2,3));

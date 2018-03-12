@@ -231,6 +231,7 @@ public class Model extends Observable {
 
                 for (AbstractGizmo gizmo : gizmos) {
                     if (name.equals(gizmo.getName())) {
+                        System.out.println("Action called");
                         gizmo.doAction();
                     }
                 }
@@ -284,15 +285,13 @@ public class Model extends Observable {
 
     public boolean addAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         AbsorberGizmo absorberGizmo = gf.createAbsorber(type, name, xPos1, yPos1, xPos2, yPos2);
-        if(absorberGizmo!=null) {
+        if(absorberGizmo != null) {
             absorbers.add(absorberGizmo);
-            System.out.println("x1 " + xPos1 + " y1" + yPos1 + " x2 " + xPos2 + " y2 " + yPos2);
             this.setChanged();
             this.notifyObservers();
             return true;
         }
         return false;
-
     }
 
     public boolean addFlipper(String type, String name, String xPos, String yPos) {
@@ -354,17 +353,19 @@ public class Model extends Observable {
     }
 
     public boolean addTrigger(String source, String target){
-        List<String> temp = triggers.get(source);
+        if(!source.equals("") && !target.equals("")) {
+            List<String> temp = triggers.get(source);
 
-        if(temp == null){
-            temp = new ArrayList<>();
-            temp.add(target);
-            triggers.put(source,temp);
-            return true;
-        }else{
-            if(!temp.contains(target)){
-                triggers.get(source).add(target);
+            if (temp == null) {
+                temp = new ArrayList<>();
+                temp.add(target);
+                triggers.put(source, temp);
                 return true;
+            } else {
+                if (!temp.contains(target)) {
+                    triggers.get(source).add(target);
+                    return true;
+                }
             }
         }
         return false;
@@ -541,7 +542,6 @@ public class Model extends Observable {
                 absorbers.remove(ab);
                 for(int i=ab.getyPos(); i<=ab.getyPos2(); i++){
                     for(int j=ab.getxPos(); j<=ab.getxPos2(); j++){
-                     
                         gf.removeTakenPoint(j,i);
                     }
                 }
@@ -600,7 +600,6 @@ public class Model extends Observable {
         if(temp == null){
             return false;
         }else if(!temp.contains(target)){
-            triggers.get(source).add(target);
             return false;
         }else{
             triggers.get(source).remove(target);
@@ -608,6 +607,31 @@ public class Model extends Observable {
         }
     }
 
+
+
+    public String findName(int x, int y){
+
+        for (AbstractGizmo gizmo : gizmos) {
+            if (gizmo.getxPos() == x && gizmo.getyPos() == y) {
+                return gizmo.getName();
+            }
+        }
+
+        for (Flipper flipper : flippers) {
+            if (flipper.getXPivot() == x && flipper.getYPivot() == y) {
+                return flipper.getName();
+            }
+        }
+
+        for (AbsorberGizmo absorber : absorbers) {
+            if (absorber.getxPos() >= x && absorber.getxPos2() <= x
+                && absorber.getyPos() <= y && absorber.getyPos2() >= y) {
+                return absorber.getName();
+            }
+        }
+
+        return "";
+    }
 
     public AbstractGizmo findGizmo(int x, int y) {
         for (AbstractGizmo abstractGizmo : gizmos) {
