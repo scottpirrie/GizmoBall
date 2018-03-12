@@ -113,4 +113,8 @@ class GizmoFactory {
         Point p = new Point(x,y);
         takenPoints.add(p);
     }
+
+    boolean isPointTaken(Point p){
+        return takenPoints.contains(p);
+    }
 }
