@@ -3,6 +3,7 @@ package controller;
 import model.Model;
 import view.Board;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -40,10 +41,17 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
             Point startingPoint = findStartingPoint();
             Point endingPoint = findEndingPoint();
             int size = board.getModel().getGizmos().size();
-            model.addAbsorber("absorber","A"+size,String.valueOf(startingPoint.x),String.valueOf(startingPoint.y),String.valueOf(endingPoint.x+1),String.valueOf(endingPoint.y+1));
+            boolean success=model.addAbsorber("absorber","A"+size,String.valueOf(startingPoint.x),String.valueOf(startingPoint.y),String.valueOf(endingPoint.x+1),String.valueOf(endingPoint.y+1));
+            if(!success){
+                JOptionPane.showMessageDialog(board,
+                        "A location you choose is already taken",
+                        "Inane error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
             board.clearAbsorberPoints();
             timesClicked=0;
         }
+
     }
 
     @Override
