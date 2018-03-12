@@ -340,10 +340,7 @@ public class Model extends Observable {
             int leastWidth = squareToAddBall.x;
             int leastHeight = squareToAddBall.y;
 
-            //if the left most point is outside the least width mark the left square as invalid
-            //if the right most point is outside the max width mark the right square as invalid
-            //if the top most point is outside the least height mark the top square as invalid
-            //if the down most point is outside the max height mark the down square as invalid
+     
             //TODO need to think about invalid points
             Ball ball = balls.get(balls.size() - 1);
             /*if (ball.getExactX() - ball.getRadius() < leastWidth) {
@@ -590,6 +587,7 @@ public class Model extends Observable {
     private boolean removeAbsorber(double x, double y) {
         int tempX = (int) x;
         int tempY = (int) y;
+        System.out.println("The x and y to remove: "+tempX+" "+tempY);
         for (AbsorberGizmo ab : absorbers) {
             //if((tempX >= ab.getxPos() || tempY >= ab.getyPos()) && (tempX <= ab.getxPos2() || tempY <= ab.getyPos2())){
             if ((tempX >= ab.getxPos() && tempX <= ab.getxPos2()) && (tempY >= ab.getyPos() && tempY <= ab.getyPos2())) {
@@ -599,7 +597,6 @@ public class Model extends Observable {
                 absorbers.remove(ab);
                 for (int i = ab.getyPos(); i <= ab.getyPos2(); i++) {
                     for (int j = ab.getxPos(); j <= ab.getxPos2(); j++) {
-
                         gf.removeTakenPoint(j, i);
                     }
                 }
@@ -668,7 +665,9 @@ public class Model extends Observable {
         for (AbsorberGizmo ab : absorbers) {
             //if((tempX >= ab.getxPos() || tempY >= ab.getyPos()) && (tempX <= ab.getxPos2() || tempY <= ab.getyPos2())){
             if (((int)x >= ab.getxPos() && (int)x <= ab.getxPos2()) && ((int)y >= ab.getyPos() && (int)y <= ab.getyPos2())) {
-                return ab.getType() + " " + ab.getName() + " " + ab.getxPos() + " " + ab.getyPos() + " " + ab.getxPos2() + " " + ab.getyPos2();
+                int height = ab.getyPos2()-ab.getyPos();
+                int width = ab.getxPos2()-ab.getxPos();
+                return ab.getType() + " " + ab.getName() + " " + ab.getxPos() + " " + ab.getyPos() + " " + height + " " + width;
             }
 
         }
