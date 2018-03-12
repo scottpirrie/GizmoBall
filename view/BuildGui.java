@@ -225,12 +225,7 @@ public class BuildGui implements Gui {
         JPanel lowButtons2 = new JPanel();
         lowButtons2.setLayout(new FlowLayout());
 
-        JButton button = new JButton("Rotate Left");
-        button = setUpButton(button);
-        button.setEnabled(false);
-        lowButtons1.add(button);
-
-        button = new JButton("Rotate Right");
+        JButton button = new JButton("Rotate");
         button = setUpButton(button);
         button.setEnabled(false);
         lowButtons1.add(button);
@@ -241,11 +236,23 @@ public class BuildGui implements Gui {
         addTrigger.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons2.add(addTrigger);
 
+        JButton addKeyBind = new JButton("Add KeyBind");
+        addKeyBind = setUpButton(addKeyBind);
+        addKeyBind.setPreferredSize(new Dimension(120,40));
+        addKeyBind.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
+        lowButtons2.add(addKeyBind);
+
         JButton removeTrigger = new JButton("Remove Trigger");
         removeTrigger = setUpButton(removeTrigger);
         removeTrigger.setPreferredSize(new Dimension(120,40));
         removeTrigger.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons2.add(removeTrigger);
+
+        JButton removeKeyBind = new JButton("Remove KeyBind");
+        removeKeyBind = setUpButton(removeKeyBind);
+        removeKeyBind.setPreferredSize(new Dimension(120,40));
+        removeKeyBind.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
+        lowButtons2.add(removeKeyBind);
 
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(2,3));
