@@ -20,8 +20,10 @@ public class Model extends Observable {
     private List<Flipper> flippers;
     private List<Ball> balls;
     private Map<Integer,String> keyBinds;
+    private Map<String,List<String>> triggers;
     private double gravityConstant;
-    private  double frictionConstant;
+    private double frictionConstant;
+    private String triggerSource;
 
     public Model() {
         gws = new Walls(0, 0, 20, 20);
@@ -30,6 +32,7 @@ public class Model extends Observable {
         flippers = new ArrayList<>();
         balls = new ArrayList<>();
         keyBinds = new HashMap<>();
+        triggers = new HashMap<>();
         gf = new GizmoFactory();
         gravityConstant= 0.00981;
         frictionConstant=0.0;
@@ -61,15 +64,11 @@ public class Model extends Observable {
                 CollisionDetails cd = timeUntilCollision();
                 double tuc = cd.getTuc();
                 if (tuc > moveTime) {
-                    ball = movelBallForTime(ball, moveTime);
+                    ball = moveBallForTime(ball, moveTime);
                 } else {
-                    ball = movelBallForTime(ball, tuc);
+                    ball = moveBallForTime(ball, tuc);
                     ball.setVelo(cd.getVelo());
-                    //Do triggers here
-                    //Add gizmo name to collision details
-                    //Take tuc and pass it through to do trigger function
-                    //pass into trigger class that gizmos hold
-                    //schedule task for 1000 * tuc
+                    callActions(tuc,triggerSource);
                 }
 
                 moveFlipper(moveTime);
@@ -90,7 +89,7 @@ public class Model extends Observable {
     }
 
 
-    private Ball movelBallForTime(Ball ball, double time) {
+    private Ball moveBallForTime(Ball ball, double time) {
         double newX = 0.0;
         double newY = 0.0;
         double xVel = ball.getVelo().x();
@@ -141,6 +140,7 @@ public class Model extends Observable {
                     time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
                     if (time < shortestTime) {
                         shortestTime = time;
+                        triggerSource = gizmo.getName();
                         newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
                     }
                 }
@@ -149,6 +149,7 @@ public class Model extends Observable {
                 time = Geometry.timeUntilCircleCollision(circle, ballCircle, ballVelocity);
                 if (time < shortestTime) {
                     shortestTime = time;
+                    triggerSource = gizmo.getName();
                     newVelo = Geometry.reflectCircle(circle.getCenter(), ballCircle.getCenter(), ballVelocity, 1.0);
                 }
             }
@@ -159,6 +160,7 @@ public class Model extends Observable {
                 time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
                 if (time < shortestTime) {
                     shortestTime = time;
+                    triggerSource = absorber.getName();
                     newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
                 }
             }
@@ -166,6 +168,7 @@ public class Model extends Observable {
                 time = Geometry.timeUntilCircleCollision(circle, ballCircle, ballVelocity);
                 if (time < shortestTime) {
                     shortestTime = time;
+                    triggerSource = absorber.getName();
                     newVelo = Geometry.reflectCircle(circle.getCenter(), ballCircle.getCenter(), ballVelocity, 1.0);
                 }
             }
@@ -179,6 +182,7 @@ public class Model extends Observable {
 
                     if (time < shortestTime) {
                         shortestTime = time;
+                        triggerSource = flipper.getName();
                         newVelo = Geometry.reflectRotatingWall(line, new Vect(line.p1().x(), line.p1().y()),
                                 Math.toRadians(1080), ballCircle, ballVelocity, 0.95);
                     }
@@ -190,6 +194,7 @@ public class Model extends Observable {
 
                     if (time < shortestTime) {
                         shortestTime = time;
+                        triggerSource = flipper.getName();
                         newVelo = Geometry.reflectRotatingCircle(circle, new Vect(circle.getCenter().x(), circle.getCenter().y()),
                                 Math.toRadians(1080), ballCircle, ballVelocity, 0.95);
                     }
@@ -199,6 +204,7 @@ public class Model extends Observable {
                     time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
                     if (time < shortestTime) {
                         shortestTime = time;
+                        triggerSource = flipper.getName();
                         newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
                     }
                 }
@@ -207,17 +213,41 @@ public class Model extends Observable {
                     time = Geometry.timeUntilCircleCollision(circle, ballCircle, ballVelocity);
                     if (time < shortestTime) {
                         shortestTime = time;
+                        triggerSource = flipper.getName();
                         newVelo = Geometry.reflectCircle(circle.getCenter(), ballCircle.getCenter(), ballVelocity, 1.0);
                     }
                 }
             }
         }
 
-
-        //Add check for ball-to-ball collisions here
-
-
         return new CollisionDetails(shortestTime, newVelo);
+    }
+
+    private void callActions(double time, String source){
+        List<String> temp = triggers.get(source);
+
+        if(temp != null) {
+            for (String name : temp) {
+
+                for (AbstractGizmo gizmo : gizmos) {
+                    if (name.equals(gizmo.getName())) {
+                        gizmo.doAction(time);
+                    }
+                }
+
+                for (Flipper flipper : flippers) {
+                    if (name.equals(flipper.getName())) {
+                        flipper.doAction();
+                    }
+                }
+
+                for (AbsorberGizmo absorber : absorbers) {
+                    if (name.equals(absorber.getName())) {
+                        absorber.doAction();
+                    }
+                }
+            }
+        }
     }
 
     public List<AbstractGizmo> getGizmos() {
@@ -314,6 +344,23 @@ public class Model extends Observable {
             keyBinds.put(key,gizmoName);
         }
 
+        return false;
+    }
+
+    public boolean addTrigger(String source, String target){
+        List<String> temp = triggers.get(source);
+
+        if(temp == null){
+            temp = new ArrayList<>();
+            temp.add(target);
+            triggers.put(source,temp);
+            return true;
+        }else{
+            if(!temp.contains(target)){
+                triggers.get(source).add(target);
+                return true;
+            }
+        }
         return false;
     }
 
@@ -434,13 +481,14 @@ public class Model extends Observable {
         return true;
     }
 
-    //TODO clear triggers as well when they are implemented
     private void clearModel() {
         System.out.println("Clearing model...");
         gizmos.clear();
         flippers.clear();
         balls.clear();
         gf.clearPoints();
+        triggers.clear();
+        keyBinds.clear();
         this.setChanged();
         this.notifyObservers();
     }
@@ -538,6 +586,20 @@ public class Model extends Observable {
         }
 
         return false;
+    }
+
+    public boolean removeTrigger(String source, String target){
+        List<String> temp = triggers.get(source);
+
+        if(temp == null){
+            return false;
+        }else if(!temp.contains(target)){
+            triggers.get(source).add(target);
+            return false;
+        }else{
+            triggers.get(source).remove(target);
+            return true;
+        }
     }
 
     public AbstractGizmo findGizmo(int x, int y) {

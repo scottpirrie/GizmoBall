@@ -153,11 +153,6 @@ public class LeftFlipper implements Flipper{
         }
     }
 
-    @Override
-    public void trigger() {
-
-    }
-
     public String toString() {
         return "LeftFlipper "+name+" "+xPos+" "+yPos;
     }

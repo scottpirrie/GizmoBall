@@ -101,7 +101,10 @@ public class SquareGizmo implements  AbstractGizmo {
     }
 
     @Override
-    public void doAction() {
+    public void doAction(double time) {
+        double millis = time * 1000;
+        long delay = (long) millis;
+
         Timer timer = new Timer();
         color = Color.GREEN;
         if(!isTriggered) {
@@ -111,14 +114,9 @@ public class SquareGizmo implements  AbstractGizmo {
                     color = Color.RED;
                     isTriggered = false;
                 }
-            }, 2000);
+            }, delay);
         }
         isTriggered = true;
-    }
-
-    @Override
-    public void trigger() {
-
     }
 
     public String toString(){
