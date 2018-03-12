@@ -47,6 +47,11 @@ public class CircleGizmo implements AbstractGizmo{
     }
 
     @Override
+    public int getRotation() {
+        return 0;
+    }
+
+    @Override
     public int getxPos() {
         return xPos;
     }

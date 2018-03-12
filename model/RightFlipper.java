@@ -53,6 +53,10 @@ public class RightFlipper implements Flipper{
         return name;
     }
 
+    public int getRotation() {
+        return rotation;
+    }
+
     @Override
     public void createLines() {
         //this.xPos = xPos+2; Because its a RightFlipper its on the RIGHT side of the 4x4 box

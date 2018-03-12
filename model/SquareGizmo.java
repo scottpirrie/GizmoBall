@@ -44,6 +44,10 @@ public class SquareGizmo implements  AbstractGizmo {
         return name;
     }
 
+    public int getRotation() {
+        return 0;
+    }
+
     @Override
     public int getxPos() {
         return xPos;

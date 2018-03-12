@@ -395,7 +395,6 @@ public class Model extends Observable {
         return (OS.contains("win"));
     }
 
-    //TODO save CONNECT / KEYCONNECT commands + ROTATE
     public void save(String directory, String fileName) {
         String name;
         if (isWindows()) {
@@ -407,10 +406,20 @@ public class Model extends Observable {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (AbstractGizmo gizmo : gizmos) {
                 writer.write(gizmo.toString() + "\n");
+                if(gizmo.getRotation() > 0){
+                    for(int i = 0; i < gizmo.getRotation(); i++){
+                        writer.write("Rotate " + gizmo.getName() + "\n");
+                    }
+                }
             }
 
             for (Flipper flipper : flippers) {
                 writer.write(flipper.toString() + "\n");
+                if(flipper.getRotation() > 0){
+                    for(int i = 0; i < flipper.getRotation(); i++){
+                        writer.write("Rotate " + flipper.getName() + "\n");
+                    }
+                }
             }
 
             for (AbsorberGizmo absorber : absorbers) {
@@ -432,7 +441,7 @@ public class Model extends Observable {
             }
 
             for(int i : keyUpMap.keySet()){
-                writer.write("KeyConnect key " + i + " " + "down" + " " + keyUpMap.get(i));
+                writer.write("KeyConnect key " + i + " " + "up" + " " + keyUpMap.get(i));
             }
 
         } catch (IOException e) {
