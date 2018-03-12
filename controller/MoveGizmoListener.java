@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class MoveGizmoListener implements MouseListener,MouseMotionListener{
+
     private Board board;
     private Model model;
     private int startingX;
@@ -15,10 +16,11 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
     private int moveBackX;
     private int moveBackY;
     private int timesClicked;
+
     public MoveGizmoListener(Board board, Model model){
-        timesClicked=0;
-        this.board=board;
-        this.model=model;
+        timesClicked = 0;
+        this.board = board;
+        this.model = model;
     }
 
     @Override
@@ -36,10 +38,12 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             moveBackX=e.getX()/board.getL();
             moveBackY=e.getY()/board.getL();
         }else if(timesClicked==2){
-            AbstractGizmo gizmo = model.findGizmo(e.getX()/board.getL(),e.getY()/board.getL());
-            model.remove(e.getX()/board.getL(),e.getY()/board.getL());
-            model.addGizmo(gizmo.getType(),gizmo.getName(),String.valueOf(e.getX()/board.getL()),String.valueOf(e.getY()/board.getL()));
-            timesClicked=0;
+            if(model.findGizmo(e.getX() / board.getL(), e.getY() / board.getL()) != null) {
+                AbstractGizmo gizmo = model.findGizmo(e.getX() / board.getL(), e.getY() / board.getL());
+                model.remove(e.getX() / board.getL(), e.getY() / board.getL());
+                model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                timesClicked = 0;
+            }
         }
 
     }
@@ -67,22 +71,23 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
     @Override
     public void mouseMoved(MouseEvent e) {
         if(timesClicked==1) {
-            AbstractGizmo gizmo = model.findGizmo(startingX, startingY);
-            model.remove(startingX, startingY);
-            boolean success = model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(e.getX()/board.getL()), String.valueOf(e.getY()/board.getL()));
+            if (model.findGizmo(startingX, startingY) != null) {
+                AbstractGizmo gizmo = model.findGizmo(startingX, startingY);
+                model.remove(startingX, startingY);
+                boolean success = model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
 
-           if(!success) {
-               JOptionPane.showMessageDialog(board,
-                       "Other gizmo in this location",
-                       "Inane error",
-                       JOptionPane.ERROR_MESSAGE);
-               model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(moveBackX), String.valueOf(moveBackY));
-               timesClicked=0;
-           }
-           startingX=e.getX()/board.getL();
-           startingY=e.getY()/board.getL();
+                if (!success) {
+                    JOptionPane.showMessageDialog(board,
+                            "Other gizmo in this location",
+                            "Inane error",
+                            JOptionPane.ERROR_MESSAGE);
+                    model.addGizmo(gizmo.getType(), gizmo.getName(), String.valueOf(moveBackX), String.valueOf(moveBackY));
+                    timesClicked = 0;
+                }
+                startingX = e.getX() / board.getL();
+                startingY = e.getY() / board.getL();
+            }
         }
-
     }
 
     public void moveGizmo(){

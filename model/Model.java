@@ -34,8 +34,8 @@ public class Model extends Observable {
         keyBinds = new HashMap<>();
         triggers = new HashMap<>();
         gf = new GizmoFactory();
-        gravityConstant= 0.00981;
-        frictionConstant=0.0;
+        gravityConstant = 0.00981;
+        frictionConstant = 0.0;
 
     }
 
