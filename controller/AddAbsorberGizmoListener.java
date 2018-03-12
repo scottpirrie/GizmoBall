@@ -32,7 +32,9 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
 
     @Override
     public void mouseReleased(MouseEvent e) {
+
         timesClicked++;
+
         if(timesClicked==1){
             Point p = new Point(e.getX()/25,e.getY()/25);
             board.addAbsorberPoints(p);
@@ -41,7 +43,12 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
             Point startingPoint = findStartingPoint();
             Point endingPoint = findEndingPoint();
             int size = board.getModel().getGizmos().size();
-            boolean success=model.addAbsorber("absorber","A"+size,String.valueOf(startingPoint.x),String.valueOf(startingPoint.y),String.valueOf(endingPoint.x+1),String.valueOf(endingPoint.y+1));
+            boolean success = model.addAbsorber("absorber","A"+size,String.valueOf(startingPoint.x),String.valueOf(startingPoint.y),String.valueOf(endingPoint.x+1),String.valueOf(endingPoint.y+1));
+
+            if(success){
+                model.addTrigger("A"+size,"A"+size);
+            }
+
             if(!success){
                 JOptionPane.showMessageDialog(board,
                         "A location you choose is already taken",

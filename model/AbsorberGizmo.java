@@ -2,12 +2,10 @@ package model;
 
 import physics.Circle;
 import physics.LineSegment;
+import physics.Vect;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AbsorberGizmo{
 
@@ -18,7 +16,7 @@ public class AbsorberGizmo{
     private int xPos2;
     private int yPos2;
     private int height;
-    private boolean hasBall;
+    private Ball ball;
     private List<LineSegment> lines;
     private List<Circle> circles;
 
@@ -30,7 +28,7 @@ public class AbsorberGizmo{
         this.xPos2 = xPos2;
         this.yPos2 = yPos2;
         this.height = height;
-        this.hasBall = false;
+        this.ball = null;
         lines = new ArrayList<>();
         circles = new ArrayList<>();
         createLines();
@@ -61,12 +59,12 @@ public class AbsorberGizmo{
         return yPos2;
     }
 
-    public boolean hasBall() {
-        return hasBall;
+    public Ball getBall() {
+        return ball;
     }
 
-    public void setHasBall(boolean hasBall) {
-        this.hasBall = hasBall;
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 
     private void createLines() {
@@ -101,8 +99,12 @@ public class AbsorberGizmo{
         return circles;
     }
 
-    public void doAction() {
-
+    void doAction() {
+        ball.setExactX(xPos2-0.25);
+        ball.setExactY(yPos1-0.25);
+        ball.setVelo(new Vect(0,-150));
+        ball.start();
+        setBall(null);
     }
 
     public String toString(){

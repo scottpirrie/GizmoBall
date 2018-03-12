@@ -94,7 +94,9 @@ public class Model extends Observable {
     }
 
     private void setGravity(Ball ball) {
-        ball.setVelo(ball.getVelo().plus(new Vect(0, (25 * 10) * gravityConstant)));
+        if(!ball.stopped()) {
+            ball.setVelo(ball.getVelo().plus(new Vect(0, (25 * 20) * gravityConstant)));
+        }
     }
 
     private void setFriction(Ball ball, double time) {
@@ -104,6 +106,7 @@ public class Model extends Observable {
         double oldY = ball.getVelo().y();
         double nyV = 0.0;
         double nxV = 0.0;
+
         //Vnew = Vold * (1 - mu * delta_t - mu2 * |Vold| * delta_t)
         nxV = (oldX * (1 - (mu1 / 20) * time - (mu2 * 0.05) * Math.abs(oldX) * time));
         nyV = (oldY * (1 - (mu1 / 20) * time - (mu2 * 0.05) * Math.abs(oldY) * time));
@@ -153,7 +156,8 @@ public class Model extends Observable {
                 if (time < shortestTime) {
                     shortestTime = time;
                     triggerSource = absorber.getName();
-                    newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+                    newVelo = Geometry.reflectWall(line, ball.getVelo(), -1.0);
+                    captureBall(absorber,ball);
                 }
             }
             for (Circle circle : absorber.getCircles()) {
@@ -161,7 +165,8 @@ public class Model extends Observable {
                 if (time < shortestTime) {
                     shortestTime = time;
                     triggerSource = absorber.getName();
-                    newVelo = Geometry.reflectCircle(circle.getCenter(), ballCircle.getCenter(), ballVelocity, 1.0);
+                    newVelo = Geometry.reflectCircle(circle.getCenter(), ballCircle.getCenter(), ballVelocity, -1.0);
+                    captureBall(absorber,ball);
                 }
             }
         }
@@ -214,6 +219,19 @@ public class Model extends Observable {
         return new CollisionDetails(shortestTime, newVelo);
     }
 
+    private void captureBall(AbsorberGizmo absorber, Ball ball){
+        boolean XCheck = ball.getExactX() >= absorber.getxPos() && ball.getExactX() <= absorber.getxPos2();
+        boolean YCheck = ball.getExactY() >= absorber.getyPos() - ball.getRadius()
+                && ball.getExactY() <= absorber.getyPos2() + ball.getRadius();
+
+        if(XCheck && YCheck){
+                absorber.setBall(ball);
+                ball.stop();
+                ball.setExactX(absorber.getxPos2() - ball.getRadius());
+                ball.setExactY(absorber.getyPos2() - ball.getRadius());
+        }
+    }
+
     private void callActions(String source){
         List<String> temp = triggers.get(source);
 
@@ -222,7 +240,6 @@ public class Model extends Observable {
 
                 for (AbstractGizmo gizmo : gizmos) {
                     if (name.equals(gizmo.getName())) {
-                        System.out.println("Action called");
                         gizmo.doAction();
                     }
                 }
@@ -235,7 +252,9 @@ public class Model extends Observable {
 
                 for (AbsorberGizmo absorber : absorbers) {
                     if (name.equals(absorber.getName())) {
-                        absorber.doAction();
+                        if(absorber.getBall() != null) {
+                            absorber.doAction();
+                        }
                     }
                 }
             }
@@ -346,7 +365,6 @@ public class Model extends Observable {
     public boolean addTrigger(String source, String target){
         if(!source.equals("") && !target.equals("")) {
             List<String> temp = triggers.get(source);
-
             if (temp == null) {
                 temp = new ArrayList<>();
                 temp.add(target);
@@ -360,15 +378,6 @@ public class Model extends Observable {
             }
         }
         return false;
-    }
-
-    public void setBallSpeed(String name, int xv, int yv) {
-        for (Ball ball : balls) {
-            if (ball.getName().equals(name)) {
-                System.out.println("FOUND BALL");
-                ball.setVelo(new Vect(xv, yv));
-            }
-        }
     }
 
     private boolean isWindows() {
@@ -499,6 +508,9 @@ public class Model extends Observable {
         int tempY = (int) y;
         for (AbstractGizmo abstractGizmo : gizmos) {
             if (abstractGizmo.getxPos() == tempX && abstractGizmo.getyPos() == tempY) {
+                if(triggers.containsKey(abstractGizmo.getName())){
+                    triggers.remove(abstractGizmo.getName());
+                }
                 gizmos.remove(abstractGizmo);
                 gf.removeTakenPoint(tempX, tempY);
                 this.setChanged();
@@ -522,13 +534,15 @@ public class Model extends Observable {
         return false;
     }
 
-    //added remove points
     private boolean removeAbsorber(double x, double y) {
         int tempX = (int) x;
         int tempY = (int) y;
         for (AbsorberGizmo ab : absorbers) {
             //if((tempX >= ab.getxPos() || tempY >= ab.getyPos()) && (tempX <= ab.getxPos2() || tempY <= ab.getyPos2())){
             if ((tempX >= ab.getxPos() && tempX <= ab.getxPos2()) && (tempY >= ab.getyPos() && tempY <= ab.getyPos2())) {
+                if(triggers.containsKey(ab.getName())){
+                    triggers.remove(ab.getName());
+                }
                 absorbers.remove(ab);
                 for (int i = ab.getyPos(); i <= ab.getyPos2(); i++) {
                     for (int j = ab.getxPos(); j <= ab.getxPos2(); j++) {
@@ -549,14 +563,14 @@ public class Model extends Observable {
         y = (int) y;
 
         for (Flipper flipper : flippers) {
-            double maxX = 0.0;
-            double maxY = 0.0;
-
             if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
                 gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
                 gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
                 gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
                 gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
+                if(triggers.containsKey(flipper.getName())){
+                    triggers.remove(flipper.getName());
+                }
                 flippers.remove(flipper);
                 return true;
             }
@@ -619,9 +633,6 @@ public class Model extends Observable {
         y = (int) y;
 
         for (Flipper flipper : flippers) {
-            double maxX = 0.0;
-            double maxY = 0.0;
-
             if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
                 return flipper.getType()+" "+flipper.getName()+" "+flipper.getXPivot()+" "+flipper.getYPivot();
             }
