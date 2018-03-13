@@ -109,8 +109,8 @@ public class Model extends Observable {
         double nxV = 0.0;
 
         //Vnew = Vold * (1 - mu * delta_t - mu2 * |Vold| * delta_t)
-        nxV = (oldX * (1 - (mu1 / 60) * time - (mu2 * 0.0167) * Math.abs(oldX) * time));
-        nyV = (oldY * (1 - (mu1 / 60) * time - (mu2 * 0.0167) * Math.abs(oldY) * time));
+        nxV = (oldX * (1 - (mu1 / 60) * time - (mu2 / 20) * Math.abs(oldX) * time));
+        nyV = (oldY * (1 - (mu1 / 60) * time - (mu2 / 20) * Math.abs(oldY) * time));
         ball.setVelo(new Vect(nxV, nyV));
     }
 
