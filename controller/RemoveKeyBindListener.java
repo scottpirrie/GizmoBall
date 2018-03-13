@@ -32,6 +32,8 @@ public class RemoveKeyBindListener implements MouseListener {
                         "No gizmo in this location",
                         "Inane error",
                         JOptionPane.ERROR_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(board, "KeyBind Removed");
             }
         }
     }

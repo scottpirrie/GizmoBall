@@ -36,6 +36,8 @@ public class AddKeyBindListener implements MouseListener{
                     "Key is already bound or gizmo not selected.",
                     "Inane error",
                     JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(board, "KeyBind Added");
         }
     }
 

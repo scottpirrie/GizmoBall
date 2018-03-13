@@ -47,6 +47,8 @@ public class RemoveTriggerListener implements MouseListener{
                         "Inane error",
                         JOptionPane.ERROR_MESSAGE);
                 timesClicked = 0;
+            }else{
+                JOptionPane.showMessageDialog(board, "Trigger Removed Removed");
             }
         }
     }
