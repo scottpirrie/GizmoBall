@@ -227,7 +227,9 @@ public class BuildGui implements Gui {
 
         JButton button = new JButton("Rotate");
         button = setUpButton(button);
-        button.setEnabled(false);
+        button.setName("Remove");
+        button.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
+
         lowButtons1.add(button);
 
         JButton addTrigger = new JButton("Add Trigger");

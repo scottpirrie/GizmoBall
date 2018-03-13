@@ -1,7 +1,6 @@
 package model;
 
-import physics.Circle;
-import physics.LineSegment;
+import physics.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -102,7 +101,19 @@ public class TriangleGizmo implements AbstractGizmo{
 
     @Override
     public void rotate() {
-        //TODO Probably need to find a better way than the 50-line chunk! But its always there if needed!
+        System.out.println("Attempted to rotate");
+        Vect pivot = new Vect((double)(xPos)+0.5,(double)(yPos)+0.5);
+        for(int x=0; x<circles.size();x++){
+            circles.set(x,Geometry.rotateAround(circles.get(x),pivot,new Angle(Math.toRadians(90))));
+            System.out.println("Circle moved");
+        }
+
+        for(int x=0; x<lines.size(); x++){
+            lines.set(x,Geometry.rotateAround(lines.get(x),pivot,new Angle(Math.toRadians(90))));
+            System.out.println("Line moved");
+        }
+
+
     }
 
     @Override

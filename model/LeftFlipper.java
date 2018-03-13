@@ -95,7 +95,14 @@ public class LeftFlipper implements Flipper{
 
     @Override
     public void rotate() {
-
+        Vect rotatePivot = new Vect(xPos+1,yPos+1);
+        for(int x=0; x<circles.size();x++){
+            circles.set(x,Geometry.rotateAround(circles.get(x),rotatePivot,new Angle(Math.toRadians(90))));
+        }
+        for(int x=0; x<lines.size(); x++){
+            lines.set(x,Geometry.rotateAround(lines.get(x),rotatePivot,new Angle(Math.toRadians(90))));
+        }
+        pivot = Geometry.rotateAround(pivot,rotatePivot,new Angle(Math.toRadians(90)));
     }
 
     @Override

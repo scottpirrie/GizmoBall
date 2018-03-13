@@ -109,8 +109,8 @@ public class Model extends Observable {
         double nxV = 0.0;
 
         //Vnew = Vold * (1 - mu * delta_t - mu2 * |Vold| * delta_t)
-        nxV = (oldX * (1 - (mu1 / 20) * time - (mu2 * 0.05) * Math.abs(oldX) * time));
-        nyV = (oldY * (1 - (mu1 / 20) * time - (mu2 * 0.05) * Math.abs(oldY) * time));
+        nxV = (oldX * (1 - (mu1 / 60) * time - (mu2 * 0.0167) * Math.abs(oldX) * time));
+        nyV = (oldY * (1 - (mu1 / 60) * time - (mu2 * 0.0167) * Math.abs(oldY) * time));
         ball.setVelo(new Vect(nxV, nyV));
     }
 
@@ -579,6 +579,40 @@ public class Model extends Observable {
         keyUpMap.clear();
         this.setChanged();
         this.notifyObservers();
+    }
+
+    public boolean rotate(double x, double y){
+        return rotateGizmo(x,y) || rotateFlipper(x,y);
+    }
+
+    private boolean rotateGizmo(double x, double y) {
+        int tempX = (int) x;
+        int tempY = (int) y;
+        for (AbstractGizmo abstractGizmo : gizmos) {
+            if (abstractGizmo.getxPos() == tempX && abstractGizmo.getyPos() == tempY) {
+                abstractGizmo.rotate();
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean rotateFlipper(double x, double y){
+        x = (int) x;
+        y = (int) y;
+
+        for (Flipper flipper : flippers) {
+            if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
+                flipper.rotate();
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+
+        }
+        return false;
     }
 
     public boolean remove(double x, double y) {

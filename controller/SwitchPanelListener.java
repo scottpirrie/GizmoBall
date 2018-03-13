@@ -76,6 +76,8 @@ public class SwitchPanelListener implements ActionListener{
         }else if(e.getActionCommand().equals("Remove KeyBind")){
             RemoveKeyBindListener listener = new RemoveKeyBindListener(bl,m);
             bl.addMouseListener(listener);
+        }else if(e.getActionCommand().equals("Rotate")){
+            bl.addMouseListener(new RotateGizmoListener(bl,m));
         }
     }
 }
