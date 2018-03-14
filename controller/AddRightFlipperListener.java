@@ -22,12 +22,19 @@ public class AddRightFlipperListener implements MouseListener{
         int xPos=e.getX()/25;
         int yPos=e.getY()/25;
         int size = model.getFlippers().size();
-        boolean success = model.addFlipper("rightflipper","RF"+size,String.valueOf(xPos),String.valueOf(yPos));
-        if(!success){
+        if(xPos>=19 || yPos>=19){
             JOptionPane.showMessageDialog(board,
-                    "Location already taken",
+                    "Cannot place flipper out of bounds",
                     "Inane error",
                     JOptionPane.ERROR_MESSAGE);
+        }else {
+            boolean success = model.addFlipper("rightflipper", "RF" + size, String.valueOf(xPos), String.valueOf(yPos));
+            if (!success) {
+                JOptionPane.showMessageDialog(board,
+                        "Location already taken",
+                        "Inane error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
