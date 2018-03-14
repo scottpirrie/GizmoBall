@@ -139,9 +139,13 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             }else if(attributes[0].equals("absorber")){
                 int height = Integer.parseInt(attributes[4]);
                 int width = Integer.parseInt(attributes[5]);
-                int newXPos2=(e.getX() / board.getL())+width;
-                int newYPos2=(e.getY() / board.getL())+height;
-                success= model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
+                if((e.getX() / board.getL())+width<=20 && (e.getY() / board.getL())+height<=20){
+                    int newXPos2=(e.getX() / board.getL())+width;
+                    int newYPos2=(e.getY() / board.getL())+height;
+                    success= model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
+                }else{
+                    outOfBounds=true;
+                }
             }
 
 
