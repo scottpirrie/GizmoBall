@@ -32,19 +32,25 @@ public class AddBallListener implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        double x = e.getX()/L;
-        double y = e.getY()/L;
+        double x = e.getX() / L;
+        double y = e.getY() / L;
         double xV = 5.0;
         double yV = 5.0;
         int size = m.getBalls().size();
-
-        boolean success = m.addBall("ball", "B"+size, String.valueOf(x), String.valueOf(y), String.valueOf(xV), String.valueOf(yV));
-
-        if(!success){
+        if (x >= 20 || y >= 20) {
             JOptionPane.showMessageDialog(panel,
-                    "Location already taken",
+                    "Out of bounds",
                     "Inane error",
                     JOptionPane.ERROR_MESSAGE);
+        } else {
+            boolean success = m.addBall("ball", "B" + size, String.valueOf(x), String.valueOf(y), String.valueOf(xV), String.valueOf(yV));
+
+            if (!success) {
+                JOptionPane.showMessageDialog(panel,
+                        "Location already taken",
+                        "Inane error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

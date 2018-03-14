@@ -248,7 +248,7 @@ public class BuildGui implements Gui {
         removeTrigger = setUpButton(removeTrigger);
         removeTrigger.setPreferredSize(new Dimension(120,40));
         removeTrigger.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
-        lowButtons2.add(removeTrigger);
+        lowButtons1.add(removeTrigger);
 
         JButton removeKeyBind = new JButton("Remove KeyBind");
         removeKeyBind = setUpButton(removeKeyBind);
