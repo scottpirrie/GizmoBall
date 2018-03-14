@@ -32,6 +32,7 @@ public class Board extends JPanel implements Observer{
         absorberPoints = new ArrayList<>();
         this.model.addObserver(this);
 
+
     }
 
     public Model getModel(){
@@ -43,6 +44,7 @@ public class Board extends JPanel implements Observer{
     }
 
     public Dimension getPreferredSize() {
+
         return new Dimension(width, height);
     }
 
@@ -55,6 +57,11 @@ public class Board extends JPanel implements Observer{
     }
 
     public void paintComponent(Graphics g) {
+        if(isBuildingMode) {
+            System.out.println("Board: " + this.getWidth() + " " + this.getHeight());
+        }else{
+            System.out.println("Board (Running): " + this.getWidth() + " " + this.getHeight());
+        }
         //repaint can make bad systems laggy but smooths painting ball collisions
         validate();
         repaint();
@@ -68,7 +75,7 @@ public class Board extends JPanel implements Observer{
         }
         // lines go out of the building area
 
-        if(isBuildingMode) {
+        //if(isBuildingMode) {
             g2.setColor(Color.BLACK);
             for (int i = 0; i <= width/L; i++) {
                 g2.drawLine(0, i * L, width, i * L);
@@ -76,7 +83,7 @@ public class Board extends JPanel implements Observer{
                 /*System.out.println("Vertical line: ["+0+","+i*L+"]"+" "+"["+width+","+i*L+"]");
                 System.out.println("Horizontal line: ["+i*L+","+0+"]"+" "+"["+i*L+","+width+"]");*/
             }
-        }
+       // }//
 
         for(AbstractGizmo gizmo : model.getGizmos()){
             if(gizmo.getType().toLowerCase().equals("square")){

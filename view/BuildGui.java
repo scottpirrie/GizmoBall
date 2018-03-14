@@ -19,7 +19,9 @@ public class BuildGui implements Gui {
 
     //still need to check if anything else needs passed...
     public BuildGui(Board newBoard){
+
         board = newBoard;
+
     }
 
     public void createAndShowGUI(){
@@ -39,9 +41,12 @@ public class BuildGui implements Gui {
 
         cp.add(board, BorderLayout.CENTER);
         frame.pack();
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        System.out.println(frame.getWidth()+" "+frame.getHeight());
+
     }
 
     private void createMenuBar(){

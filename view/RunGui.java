@@ -23,6 +23,7 @@ public class RunGui implements Gui {
 
     public void createAndShowGUI() {
         frame = new JFrame("Gizmoball - Run Mode");
+        frame.setPreferredSize(new Dimension(506,604));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setFocusable(false);
         listener = new RunListener(frame,board);
@@ -41,6 +42,7 @@ public class RunGui implements Gui {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        System.out.println("Run Gui: "+frame.getWidth()+" "+frame.getHeight());
     }
 
     private void createMenuBar(){
