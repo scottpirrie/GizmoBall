@@ -75,7 +75,6 @@ public class Model extends Observable {
         }
     }
 
-    //TODO only move flippers that are triggered/bound - just a case of implementing triggers
     private void moveFlipper(double moveTime) {
         for (Flipper f : flippers) {
             f.moveFlipper(moveTime);
@@ -271,7 +270,9 @@ public class Model extends Observable {
 
         for (Flipper flipper : flippers) {
             if (name.equals(flipper.getName())) {
-                flipper.doAction();
+                if(flipper.isPressed()) {
+                    flipper.moveFlipper(0.017);
+                }
             }
         }
 
@@ -279,6 +280,24 @@ public class Model extends Observable {
             if (name.equals(absorber.getName())) {
                 if(absorber.getBall() != null) {
                     absorber.doAction();
+                }
+            }
+        }
+    }
+
+    public void changeFlipperStatus(int key){
+        String name ="";
+        if(keyDownMap.containsKey(key)){
+            name = keyDownMap.get(key);
+        }else if(keyUpMap.containsKey(key)){
+            name = keyUpMap.get(key);
+        }
+        for (Flipper flipper : flippers) {
+            if (name.equals(flipper.getName())) {
+                if(!flipper.isPressed()){
+                    flipper.setPressed(true);
+                }else{
+                    flipper.setPressed(false);
                 }
             }
         }

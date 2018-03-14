@@ -22,16 +22,15 @@ public class KeyPressListener implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyChar();
-        if(model.getKeyDownMap().containsKey(key)){
-            model.keybindAction(key);
-        }
+        model.changeFlipperStatus(key);
+        model.keybindAction(key);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyChar();
-        if(model.getKeyUpMap().containsKey(key)){
-            model.keybindAction(key);
-        }
+        model.changeFlipperStatus(key);
+        model.keybindAction(key);
+
     }
 }
