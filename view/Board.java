@@ -76,8 +76,7 @@ public class Board extends JPanel implements Observer{
             for (int i = 0; i <= width/L; i++) {
                 g2.drawLine(0, i * L, width, i * L);
                 g2.drawLine(i * L, 0, i * L, height);
-                /*System.out.println("Vertical line: ["+0+","+i*L+"]"+" "+"["+width+","+i*L+"]");
-                System.out.println("Horizontal line: ["+i*L+","+0+"]"+" "+"["+i*L+","+width+"]");*/
+
             }
         }
 

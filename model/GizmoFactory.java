@@ -55,8 +55,8 @@ class GizmoFactory {
         }
         if(!foundTakenPoint) {
             type = type.toLowerCase();
-            for (int i = y1; i <= y2; i++) {
-                for (int j = x1; j <= x2; j++) {
+            for (int i = y1; i < y2; i++) {
+                for (int j = x1; j < x2; j++) {
                     Point p = new Point(j, i);
                     takenPoints.add(p);
                 }
