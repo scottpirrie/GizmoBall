@@ -178,6 +178,6 @@ public class RightFlipper implements Flipper{
 
     //Minus 2 here because we +2 at the top to push it right
     public String toString() {
-        return "RightFlipper "+name+" "+(xPos-2)+" "+yPos;
+        return "RightFlipper "+name+" "+(xPos)+" "+yPos;
     }
 }

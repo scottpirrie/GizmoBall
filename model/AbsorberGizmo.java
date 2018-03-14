@@ -102,7 +102,7 @@ public class AbsorberGizmo{
     void doAction() {
         ball.setExactX(xPos2-0.25);
         ball.setExactY(yPos1-0.25);
-        ball.setVelo(new Vect(0,-150));
+        ball.setVelo(new Vect(0,-170));
         ball.start();
         setBall(null);
     }
