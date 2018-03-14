@@ -16,11 +16,13 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
     private double moveBackX;
     private double moveBackY;
     private int timesClicked;
+    private boolean outOfBounds;
 
     public MoveGizmoListener(Board board, Model model){
         timesClicked = 0;
         this.board = board;
         this.model = model;
+        outOfBounds=false;
     }
 
     @Override
@@ -125,26 +127,39 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             String[] attributes = gizmo.split(" ");
             boolean success=false;
             if(attributes[0].equals("square")||attributes[0].equals("triangle")||attributes[0].equals("circle")) {//done
-                 success=model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-            }else if(attributes[0].equals("rightflipper")||attributes[0].equals("leftflipper")){// done
-               success= model.addFlipper(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                success=model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+            }else if((attributes[0].equals("rightflipper")||attributes[0].equals("leftflipper"))){// done
+                if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19){
+                    success= model.addFlipper(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                }else{
+                    outOfBounds=true;
+                }
             }else if(attributes[0].equals("ball")){
                 success=model.addBall(attributes[0],attributes[1],String.valueOf((double)e.getX() / board.getL()),  String.valueOf((double)e.getY() / board.getL()),"5.0","5.0");
             }else if(attributes[0].equals("absorber")){
                 int height = Integer.parseInt(attributes[4]);
                 int width = Integer.parseInt(attributes[5]);
-                 int newXPos2=(e.getX() / board.getL())+width;
-                 int newYPos2=(e.getY() / board.getL())+height;
-               success= model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
+                int newXPos2=(e.getX() / board.getL())+width;
+                int newYPos2=(e.getY() / board.getL())+height;
+                success= model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
             }
 
 
 
             if(!success) {
-               JOptionPane.showMessageDialog(board,
-                       "Other gizmo in this location(moving)",
-                       "Inane error",
-                       JOptionPane.ERROR_MESSAGE);
+
+                if(outOfBounds){
+                    JOptionPane.showMessageDialog(board,
+                            "Attempting to place gizmo out of bounds",
+                            "Inane error",
+                            JOptionPane.ERROR_MESSAGE);
+                    outOfBounds=false;
+                }else {
+                    JOptionPane.showMessageDialog(board,
+                            "Other gizmo in this location(moving)",
+                            "Inane error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
                 if(attributes[0].equals("square")||attributes[0].equals("triangle")||attributes[0].equals("circle")) {
                     model.addGizmo(attributes[0], attributes[1], String.valueOf(moveBackX), String.valueOf(moveBackY));
                 }else if(attributes[0].equals("leftflipper")){
