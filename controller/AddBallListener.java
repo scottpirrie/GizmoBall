@@ -34,8 +34,8 @@ public class AddBallListener implements MouseListener{
     public void mouseReleased(MouseEvent e) {
         double x = e.getX() / L;
         double y = e.getY() / L;
-        double xV = 5.0;
-        double yV = 5.0;
+        double xV = 15.0;
+        double yV = 15.0;
         int size = m.getBalls().size();
         if (x >= 20 || y >= 20) {
             JOptionPane.showMessageDialog(panel,
