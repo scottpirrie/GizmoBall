@@ -17,7 +17,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
     private int timesClicked;
     private boolean outOfBounds;
 
-    public MoveGizmoListener(Board board, Model model){
+    MoveGizmoListener(Board board, Model model){
         timesClicked = 0;
         this.board = board;
         this.model = model;

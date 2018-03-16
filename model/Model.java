@@ -36,7 +36,7 @@ public class Model extends Observable {
         keyUpMap = new HashMap<>();
         triggers = new HashMap<>();
         gf = new GizmoFactory();
-        gravityConstant = 0.00981;
+        gravityConstant = 25;
         frictionConstant = 0.025;
 
     }
@@ -66,7 +66,7 @@ public class Model extends Observable {
                 }
 
                 moveFlipper(moveTime);
-                setGravity(ball);
+                setGravity(ball,moveTime);
                 setFriction(ball, moveTime);
                 this.setChanged();
                 this.notifyObservers();
@@ -93,9 +93,10 @@ public class Model extends Observable {
         return ball;
     }
 
-    private void setGravity(Ball ball) {
+    //TODO fix gravity + Friction ( though i think its gravity ) 
+    private void setGravity(Ball ball,double time) {
         if(!ball.stopped()) {
-            ball.setVelo(ball.getVelo().plus(new Vect(0, (25 * 20) * gravityConstant)));
+            ball.setVelo(ball.getVelo().plus(new Vect(0, (Math.sqrt(gravityConstant) * 20) * time)));
         }
     }
 
@@ -108,8 +109,8 @@ public class Model extends Observable {
         double nxV = 0.0;
 
         //Vnew = Vold * (1 - mu * delta_t - mu2 * |Vold| * delta_t)
-        nxV = (oldX * (1 - (mu1 / 60) * time - (mu2 / 60) * Math.abs(oldX) * time));
-        nyV = (oldY * (1 - (mu1 / 60) * time - (mu2 / 60) * Math.abs(oldY) * time));
+        nxV = oldX * (1 - mu1 * time - mu2 * Math.abs(oldX) * time);
+        nyV = oldY * (1 - mu1 * time - mu2 * Math.abs(oldY) * time);
         ball.setVelo(new Vect(nxV, nyV));
     }
 

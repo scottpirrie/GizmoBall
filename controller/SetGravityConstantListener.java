@@ -28,7 +28,7 @@ public class SetGravityConstantListener implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         JSlider slider = (JSlider) e.getComponent();
-        double value = slider.getValue()/10000.0;
+        double value = slider.getValue();
         m.setGravityConstant(value);
     }
 
