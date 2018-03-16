@@ -15,8 +15,8 @@ class GizmoFactory {
     }
 
     AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
-        double x = Double.parseDouble(xPos);
-        double y = Double.parseDouble(yPos);
+        double x = Math.floor(Double.parseDouble(xPos));
+        double y = Math.floor(Double.parseDouble(yPos));
 
         type = type.toLowerCase();
         Point.Double p = new Point2D.Double(x,y);

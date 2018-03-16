@@ -437,7 +437,7 @@ public class Model extends Observable {
 
                 for(double i=y1; i<=y2; i++){
                     for(double j=x1; j<=x2; j++){
-                        Point.Double p =new Point.Double(j,i);
+                        Point.Double p = new Point.Double(j,i);
                         if(gf.isPointTaken(p)){
                             return false;
                         }
@@ -448,9 +448,7 @@ public class Model extends Observable {
                 ab.move(x1,x2,y1,y2);
                 for(double i=y1; i<y2; i++){
                     for(double j=x1; j<x2; j++){
-
-                        gf.addTakenPoint((int)j,(int)i);
-
+                        gf.addTakenPoint(j,i);
                     }
                 }
 
@@ -575,9 +573,7 @@ public class Model extends Observable {
                     triggers.remove(abstractGizmo.getName());
                 }
                 gizmos.remove(abstractGizmo);
-                x = Math.floor(x);
-                y = Math.floor(y);
-                gf.removeTakenPoint((int) flooredx,(int) flooredy);
+                gf.removeTakenPoint(flooredx,flooredy);
                 this.setChanged();
                 this.notifyObservers();
                 return true;
@@ -609,8 +605,8 @@ public class Model extends Observable {
                     triggers.remove(ab.getName());
                 }
 
-                for (int i = (int)ab.getyPos(); i <= ab.getyPos2(); i++) {
-                    for (int j = (int)ab.getxPos(); j <= ab.getxPos2(); j++) {
+                for (double i = ab.getyPos(); i <= ab.getyPos2(); i++) {
+                    for (double j = ab.getxPos(); j <= ab.getxPos2(); j++) {
                         gf.removeTakenPoint(j, i);
                     }
                 }
@@ -717,8 +713,7 @@ public class Model extends Observable {
     private boolean flipperCheck(double flipperX, double flipperY, double targetX, double targetY){
         targetX = Math.floor(targetX);
         targetY = Math.floor(targetY);
-        System.out.println(flipperX+" "+flipperY);
-        System.out.println(targetX+" "+targetY);
+
         if (flipperX == targetX && flipperY == targetY) {
             return true;
         } else if (flipperX + 1 == targetX && flipperY + 1 == targetY) {
@@ -896,10 +891,6 @@ public class Model extends Observable {
 
     public List<Ball> getBalls() {
         return balls;
-    }
-
-    public Map<Integer,String> getKeyDownMap(){
-        return keyDownMap;
     }
 
     private void clearModel() {
