@@ -22,6 +22,6 @@ public interface Flipper {
     double getXPivot();
     double getYPivot();
     void doAction();
-    void move(double xPos,double yPos);
+    void movePoints(double xPos,double yPos);
 
 }

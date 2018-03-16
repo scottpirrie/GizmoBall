@@ -351,15 +351,18 @@ public class Model extends Observable {
     }
 
     public boolean moveGizmo(String name,String xPos,String yPos){
+        double toCheckX = Double.parseDouble(xPos);
+        double toCheckY = Double.parseDouble(yPos);
+
         for(AbstractGizmo gizmo:gizmos){
             if(gizmo.getName().equals(name)){
-                System.out.println("Here");
-                gf.removeTakenPoint((int)gizmo.getxPos(),(int)gizmo.getyPos());
-                Point.Double p = new Point.Double(Double.parseDouble(xPos),Double.parseDouble(yPos));
-                if(!gf.isPointTaken(p)){
+                gf.removeTakenPoint(gizmo.getxPos(),gizmo.getyPos());
+                Point.Double p = new Point.Double(Math.floor(toCheckX),Math.floor(toCheckY));
 
-                    gizmo.move(Double.parseDouble(xPos),Double.parseDouble(yPos));
-                    gf.addTakenPoint((int)gizmo.getxPos(),(int)gizmo.getyPos());
+                if(!gf.isPointTaken(p)){
+                    gizmo.movePoints(Double.parseDouble(xPos),Double.parseDouble(yPos));
+                    gf.addTakenPoint(gizmo.getxPos(),gizmo.getyPos());
+
                     this.setChanged();
                     this.notifyObservers();
                     return true;
@@ -370,16 +373,14 @@ public class Model extends Observable {
     }
 
     public boolean moveBall(String name,String xPos,String yPos){
-        int toCheckX = (int)Double.parseDouble(xPos);
-        int toCheckY = (int)Double.parseDouble(yPos);
+        double toCheckX = Double.parseDouble(xPos);
+        double toCheckY = Double.parseDouble(yPos);
+
         for(Ball ball:balls){
-            System.out.println(ball.getName());
-            System.out.println(name);
             if(ball.getName().equals(name)){
-                System.out.println("here");
-                Point.Double p = new Point.Double((double)toCheckX,(double)toCheckY);
+                Point.Double p = new Point.Double(Math.floor(toCheckX),Math.floor(toCheckY));
                 if(!gf.isPointTaken(p)){
-                    ball.move(Double.parseDouble(xPos),Double.parseDouble(yPos));
+                    ball.movePoints(toCheckX,toCheckY);
                     this.setChanged();
                     this.notifyObservers();
                     return true;
@@ -390,25 +391,26 @@ public class Model extends Observable {
     }
 
     public boolean MoveFlipper(String name,String xPos,String yPos){
+        double toCheckX = Double.parseDouble(xPos);
+        double toCheckY = Double.parseDouble(yPos);
+
         for(Flipper flipper:flippers){
             if(flipper.getName().equals(name)){
-                double xPivot = flipper.getXPivot();
-                double yPivot = flipper.getYPivot();
-                System.out.println("The pivot: "+xPivot+" "+yPivot);
-                gf.removeTakenPoint((int)xPivot,(int)yPivot);
-                gf.removeTakenPoint((int)xPivot,(int)yPivot+1);
-                gf.removeTakenPoint((int)xPivot+1,(int)yPivot);
-                gf.removeTakenPoint((int)xPivot+1,(int)yPivot+1);
+                double xPivot = Math.floor(flipper.getXPivot());
+                double yPivot = Math.floor(flipper.getYPivot());
 
-                Point.Double p = new Point.Double(Double.parseDouble(xPos),Double.parseDouble(yPos));
+                gf.removeTakenPoint(xPivot,yPivot);
+                gf.removeTakenPoint(xPivot,yPivot+1);
+                gf.removeTakenPoint(xPivot+1,yPivot);
+                gf.removeTakenPoint(xPivot+1,yPivot+1);
+
+                Point.Double p = new Point.Double(Math.floor(toCheckX),Math.floor(toCheckY));
                 if(!gf.isPointTaken(p)) {
-                    // move theFlipper
-                    flipper.move(Double.parseDouble(xPos), Double.parseDouble(yPos));
-
-                    gf.addTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
-                    gf.addTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
-                    gf.addTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
-                    gf.addTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
+                    flipper.movePoints(xPivot, yPivot);
+                    gf.addTakenPoint(xPivot, yPivot);
+                    gf.addTakenPoint(xPivot, yPivot + 1);
+                    gf.addTakenPoint(xPivot + 1, yPivot);
+                    gf.addTakenPoint(xPivot + 1, yPivot + 1);
 
                     this.setChanged();
                     this.notifyObservers();
@@ -444,7 +446,7 @@ public class Model extends Observable {
                     }
                 }
 
-                ab.move(x1,x2,y1,y2);
+                ab.movePoints(x1,x2,y1,y2);
                 for(double i=y1; i<y2; i++){
                     for(double j=x1; j<x2; j++){
 
@@ -460,6 +462,7 @@ public class Model extends Observable {
         }
         return false;
     }
+
     //TODO Marking the taken points for the ball is something that probably requires its own method,
     //TODO after all anytime we switch to build-mode we need to update the balls taken points
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo) {
@@ -892,10 +895,6 @@ public class Model extends Observable {
 
     public List<Ball> getBalls() {
         return balls;
-    }
-
-    public Map<Integer,String> getKeyDownMap(){
-        return keyDownMap;
     }
 
     private void clearModel() {

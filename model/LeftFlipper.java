@@ -21,9 +21,6 @@ public class LeftFlipper implements Flipper{
     private double thetaCheck;
     private Vect pivot;
 
-
-    private double moveSpeed;
-
     LeftFlipper(String type,String name, double xPos, double yPos){
         this.type = type;
         this.name = name;
@@ -184,7 +181,7 @@ public class LeftFlipper implements Flipper{
     }
 
     @Override
-    public void move(double x, double y) {
+    public void movePoints(double x, double y) {
         xPos = x;
         yPos = y;
         lines.clear();

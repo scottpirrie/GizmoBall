@@ -20,6 +20,6 @@ public interface AbstractGizmo {
     List<Circle> getCircles();
     void rotate();
     void doAction();
-    void move(double x,double y);
+    void movePoints(double x,double y);
 
 }

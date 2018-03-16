@@ -115,10 +115,7 @@ public class AbsorberGizmo{
         setBall(null);
     }
 
-    public String toString(){
-        return "Absorber "+name+" "+xPos1+" "+yPos1+" "+xPos2+" "+yPos2;
-    }
-    public void move(double xPos1,double xPos2,double yPos1,double yPos2){
+    void movePoints(double xPos1,double xPos2,double yPos1,double yPos2){
         this.xPos1=xPos1;
         this.xPos2=xPos2;
         this.yPos1=yPos1;
@@ -126,4 +123,10 @@ public class AbsorberGizmo{
         createCircles(this.xPos1,this.xPos2,this.yPos1,this.yPos2);
         createLines(this.xPos1,this.xPos2,this.yPos1,this.yPos2);
     }
+
+    public String toString(){
+        return "Absorber "+name+" "+xPos1+" "+yPos1+" "+xPos2+" "+yPos2;
+    }
+
+
 }
