@@ -185,6 +185,7 @@ public class RightFlipper implements Flipper{
     public void move(double x, double y) {
         xPos = x;
         yPos = y;
+        pivot = new Vect(xPos+1.75,yPos+0.25);
         lines.clear();
         circles.clear();
         createLines(x,y);
