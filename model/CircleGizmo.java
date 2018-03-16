@@ -109,6 +109,12 @@ public class CircleGizmo implements AbstractGizmo{
         isTriggered = true;
     }
 
+    @Override
+    public void move(double x, double y) {
+        xPos=x;
+        yPos=y;
+    }
+
     public String toString() {
         return "Circle " + name + " " + xPos + " " + yPos;
     }

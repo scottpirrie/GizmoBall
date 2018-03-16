@@ -62,18 +62,18 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
         }else if(timesClicked==2){
 
             String gizmo = model.findGizmo((double)e.getX()/board.getL(),(double)e.getY()/board.getL());
-            model.remove((double)e.getX()/board.getL(),(double)e.getY()/board.getL());
+            //model.remove((double)e.getX()/board.getL(),(double)e.getY()/board.getL());
             String[] attributes = gizmo.split(" ");
 
             switch (attributes[0]){
                 case "square":
-                    model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
                     break;
                 case "triangle":
-                    model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
                     break;
                 case "circle":
-                    model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
                     break;
                 case "rightflipper":
                     model.addFlipper(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
@@ -84,9 +84,9 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                 case "absorber":
                     double height = Double.parseDouble(attributes[4]);
                     double width = Double.parseDouble(attributes[5]);
-                    int newXPos2= (int) ((e.getX() / board.getL())+width);
-                    int newYPos2= (int) ((e.getY() / board.getL())+height);
-                    model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
+                    double newXPos2=  (Double.parseDouble(attributes[2])+width);
+                    double newYPos2=  (Double.parseDouble(attributes[3])+height);
+                    model.addAbsorber(attributes[0],attributes[1],attributes[2], attributes[3],String.valueOf(newXPos2),String.valueOf(newYPos2));
                     break;
                 case "ball":
                     model.addBall(attributes[0],attributes[1],String.valueOf((double)e.getX() / board.getL()), String.valueOf((double)e.getY() / board.getL()),"5.0","5.0");
@@ -126,12 +126,12 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             System.out.println(startingX+" "+startingY);
             String gizmo = model.findGizmo(startingX,startingY);
             System.out.println(gizmo);
-            model.remove(startingX,startingY);
+            //model.remove(startingX,startingY);
             String[] attributes = gizmo.split(" ");
             boolean success=false;
             if(attributes[0].equals("square")||attributes[0].equals("triangle")||attributes[0].equals("circle")) {
                 if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
-                    success = model.addGizmo(attributes[0], attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                   System.out.println(success= model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL())));
                 }else{
                     outOfBounds=true;
                 }

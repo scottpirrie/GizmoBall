@@ -20,7 +20,13 @@ public class SquareGizmo implements  AbstractGizmo {
     private Color color;
     private boolean isTriggered;
 
-    SquareGizmo(String type,String name, double xPos, double yPos){
+    @Override
+    public void move(double x, double y) {
+        xPos=x;
+        yPos=y;
+    }
+
+    SquareGizmo(String type, String name, double xPos, double yPos){
         this.type = type;
         this.name = name;
         this.xPos=xPos;

@@ -131,6 +131,12 @@ public class TriangleGizmo implements AbstractGizmo{
     }
 
     @Override
+    public void move(double x, double y) {
+        xPos=x;
+        yPos=y;
+    }
+
+    @Override
     public String toString() {
         return "Triangle "+name+" "+xPos+" "+yPos;
     }

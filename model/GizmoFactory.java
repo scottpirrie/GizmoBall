@@ -42,7 +42,6 @@ class GizmoFactory {
        double y1 = Double.parseDouble(yPos1);
         double x2 = Double.parseDouble(xPos2);
         double y2 = Double.parseDouble(yPos2);
-        System.out.println("Coordinates: ["+x1+","+y1+"],["+x2+","+y2+"]");
 
         for(double i=y1; i<y2; i++){
             for(double j=x1; j<x2; j++){
@@ -106,5 +105,8 @@ class GizmoFactory {
 
     boolean isPointTaken(Point.Double p){
         return takenPoints.contains(p);
+    }
+    void addTakenPoint(int x,int y){
+        takenPoints.add(new Point.Double(x,y));
     }
 }

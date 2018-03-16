@@ -349,6 +349,24 @@ public class Model extends Observable {
         return false;
     }
 
+    public boolean moveGizmo(String name,String xPos,String yPos){
+        for(AbstractGizmo gizmo:gizmos){
+            if(gizmo.getName().equals(name)){
+                System.out.println("Here");
+                Point.Double p = new Point.Double(Double.parseDouble(xPos),Double.parseDouble(yPos));
+                if(!gf.isPointTaken(p)){
+                    gf.removeTakenPoint((int)gizmo.getxPos(),(int)gizmo.getyPos());
+                    gizmo.move(Double.parseDouble(xPos),Double.parseDouble(yPos));
+                    gf.addTakenPoint((int)gizmo.getxPos(),(int)gizmo.getyPos());
+                    this.setChanged();
+                    this.notifyObservers();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     //TODO Marking the taken points for the ball is something that probably requires its own method,
     //TODO after all anytime we switch to build-mode we need to update the balls taken points
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo) {
