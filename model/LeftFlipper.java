@@ -190,5 +190,11 @@ public class LeftFlipper implements Flipper{
     public String toString() {
         return "LeftFlipper "+name+" "+xPos+" "+yPos;
     }
-
+    @Override
+    public void move(double xPos, double yPos) {
+        this.xPos=xPos;
+        this.yPos=yPos;
+        this.xArc = xPos;
+        this.yArc = yPos + 2;
+    }
 }

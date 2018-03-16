@@ -30,7 +30,7 @@ public class CircleGizmo implements AbstractGizmo{
         this.xPos=xPos;
         this.yPos=yPos;
         circles = new ArrayList<>();
-        createCircles();
+        createCircles(this.xPos,this.yPos);
         this.color = Color.GREEN;
         this.isTriggered = false;
     }
@@ -67,12 +67,12 @@ public class CircleGizmo implements AbstractGizmo{
     }
 
     @Override
-    public void createLines() {
+    public void createLines(double xPos,double yPos) {
         //DOES NOTHING
     }
 
     @Override
-    public void createCircles() {
+    public void createCircles(double xPos,double yPos) {
         physics.Circle circle = new physics.Circle(xPos+radius,yPos+radius,radius);
         circles.add(circle);
     }
@@ -113,6 +113,7 @@ public class CircleGizmo implements AbstractGizmo{
     public void move(double x, double y) {
         xPos=x;
         yPos=y;
+        createCircles(xPos,yPos);
     }
 
     public String toString() {

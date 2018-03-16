@@ -187,6 +187,14 @@ public class RightFlipper implements Flipper{
         }
     }
 
+    @Override
+    public void move(double xPos, double yPos) {
+        this.xPos=xPos;
+        this.yPos=yPos;
+        this.xArc = xPos;
+        this.yArc = yPos + 2;
+    }
+
     //Minus 2 here because we +2 at the top to push it right
     public String toString() {
         return "RightFlipper "+name+" "+(xPos)+" "+yPos;

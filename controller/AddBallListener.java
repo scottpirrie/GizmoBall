@@ -34,8 +34,8 @@ public class AddBallListener implements MouseListener{
     public void mouseReleased(MouseEvent e) {
         double x = e.getX() / L;
         double y = e.getY() / L;
-        double xV = 15.0;
-        double yV = 15.0;
+        double xV = 0.0;
+        double yV = 0.0;
         int size = m.getBalls().size();
 
         if (x + 0.25 >= 20 || y + 0.25 >= 20 || x - 0.25 <= 0 || y - 0.25 <= 0) {

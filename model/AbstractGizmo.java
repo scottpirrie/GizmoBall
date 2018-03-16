@@ -14,8 +14,8 @@ public interface AbstractGizmo {
     double getxPos();
     double getyPos();
     Color getColor();
-    void createLines();
-    void createCircles();
+    void createLines(double xPos,double yPos);
+    void createCircles(double xPos,double yPos);
     List<LineSegment> getLines();
     List<Circle> getCircles();
     void rotate();

@@ -24,6 +24,9 @@ public class SquareGizmo implements  AbstractGizmo {
     public void move(double x, double y) {
         xPos=x;
         yPos=y;
+        createLines(xPos,yPos);
+        createCircles(xPos,yPos);
+        System.out.println("New position: "+xPos+" "+yPos);
     }
 
     SquareGizmo(String type, String name, double xPos, double yPos){
@@ -33,8 +36,8 @@ public class SquareGizmo implements  AbstractGizmo {
         this.yPos=yPos;
         lines=new ArrayList<>();
         circles=new ArrayList<>();
-        createLines();
-        createCircles();
+        createLines(this.xPos,this.yPos);
+        createCircles(this.xPos,this.yPos);
         this.color = Color.RED;
         this.isTriggered = false;
 
@@ -70,7 +73,8 @@ public class SquareGizmo implements  AbstractGizmo {
     }
 
     @Override
-    public void createLines() {
+    public void createLines(double xPos,double yPos) {
+        lines.clear();
         LineSegment l1 = new LineSegment(xPos,yPos,xPos+1,yPos);
         LineSegment l2 = new LineSegment(xPos+1,yPos,xPos+1,yPos+1);
         LineSegment l3 = new LineSegment(xPos+1,yPos+1,xPos,yPos+1);
@@ -83,7 +87,8 @@ public class SquareGizmo implements  AbstractGizmo {
     }
 
     @Override
-    public void createCircles() {
+    public void createCircles(double xPos,double yPos) {
+        circles.clear();
         physics.Circle c1 = new physics.Circle(xPos,yPos,0);
         physics.Circle c2 = new physics.Circle(xPos+1,yPos,0);
         physics.Circle c3 = new physics.Circle(xPos+1,yPos+1,0);

@@ -29,8 +29,8 @@ public class TriangleGizmo implements AbstractGizmo{
         this.rotation = 0;
         lines = new ArrayList<>();
         circles = new ArrayList<>();
-        createLines();
-        createCircles();
+        createLines(this.xPos,this.yPos);
+        createCircles(this.xPos,this.yPos);
         this.color = Color.YELLOW;
         this.isTriggered = false;
     }
@@ -66,7 +66,8 @@ public class TriangleGizmo implements AbstractGizmo{
     }
 
     @Override
-    public void createLines() {
+    public void createLines(double xPos,double yPos) {
+        lines.clear();
         LineSegment l1 = new LineSegment(xPos,yPos,xPos+1,yPos);
         LineSegment l2 = new LineSegment(xPos,yPos+1,xPos,yPos);
         LineSegment l3 = new LineSegment(xPos+1,yPos,xPos,yPos+1);
@@ -78,7 +79,8 @@ public class TriangleGizmo implements AbstractGizmo{
     }
 
     @Override
-    public void createCircles() {
+    public void createCircles(double xPos,double yPos) {
+        circles.clear();
         Circle c1 = new Circle(xPos,yPos,0);
         Circle c2 = new Circle(xPos+1,yPos,0);
         Circle c3 = new Circle(xPos,yPos+1,0);
@@ -134,6 +136,8 @@ public class TriangleGizmo implements AbstractGizmo{
     public void move(double x, double y) {
         xPos=x;
         yPos=y;
+        createCircles(xPos,yPos);
+        createLines(xPos,yPos);
     }
 
     @Override

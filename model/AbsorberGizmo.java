@@ -31,8 +31,8 @@ public class AbsorberGizmo{
         this.ball = null;
         lines = new ArrayList<>();
         circles = new ArrayList<>();
-        createLines();
-        createCircles();
+        createLines(this.xPos1,this.xPos2,this.yPos1,this.yPos2);
+        createCircles(this.xPos1,this.xPos2,this.yPos1,this.yPos2);
     }
 
     public String getType() {
@@ -67,7 +67,8 @@ public class AbsorberGizmo{
         this.ball = ball;
     }
 
-    private void createLines() {
+    private void createLines(double xPos1,double xPos2,double yPos1,double yPos2) {
+        lines.clear();
         LineSegment l1 = new LineSegment(xPos1,yPos1,xPos2,yPos1); // TOP LINE
         LineSegment l2 = new LineSegment(xPos1,yPos2,xPos2,yPos2); // BOTTOM LINE
         LineSegment l3 = new LineSegment(xPos1,yPos1,xPos1,yPos2); // LEFT LINE
@@ -79,7 +80,8 @@ public class AbsorberGizmo{
         lines.add(l4);
     }
 
-    private void createCircles() {
+    private void createCircles(double xPos1,double xPos2,double yPos1,double yPos2) {
+        circles.clear();
         physics.Circle c1 = new physics.Circle(xPos1,yPos1,0);
         physics.Circle c2 = new physics.Circle(xPos2,yPos2,0);
         physics.Circle c3 = new physics.Circle(xPos1,yPos2,0);
@@ -116,5 +118,12 @@ public class AbsorberGizmo{
     public String toString(){
         return "Absorber "+name+" "+xPos1+" "+yPos1+" "+xPos2+" "+yPos2;
     }
-
+    public void move(double xPos1,double xPos2,double yPos1,double yPos2){
+        this.xPos1=xPos1;
+        this.xPos2=xPos2;
+        this.yPos1=yPos1;
+        this.yPos2 = yPos2;
+        createCircles(this.xPos1,this.xPos2,this.yPos1,this.yPos2);
+        createLines(this.xPos1,this.xPos2,this.yPos1,this.yPos2);
+    }
 }

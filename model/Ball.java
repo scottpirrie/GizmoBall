@@ -3,6 +3,7 @@ package model;
 import physics.Circle;
 import physics.Vect;
 import java.awt.*;
+import java.time.Year;
 
 public class Ball {
 
@@ -84,6 +85,10 @@ public class Ball {
 
     public String toString(){
         return "Ball "+"B "+Math.round(xpos)+" "+Math.round(ypos)+" "+Math.round(velocity.x())+" "+Math.round(velocity.y());
+    }
+    public void move(double xPos,double ypos){
+        this.xpos=xPos;
+        this.ypos= ypos;
     }
 
 }

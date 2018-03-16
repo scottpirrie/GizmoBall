@@ -39,7 +39,7 @@ class GizmoFactory {
         boolean foundTakenPoint=false;
 
         double x1 = Double.parseDouble(xPos1);
-       double y1 = Double.parseDouble(yPos1);
+        double y1 = Double.parseDouble(yPos1);
         double x2 = Double.parseDouble(xPos2);
         double y2 = Double.parseDouble(yPos2);
 
