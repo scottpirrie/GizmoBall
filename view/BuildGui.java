@@ -15,18 +15,13 @@ public class BuildGui implements Gui {
     private Container cp;
     private Font gf;
     private ActionListener listener;
-    //private Model model;
 
-    //still need to check if anything else needs passed...
     public BuildGui(Board newBoard){
-
         board = newBoard;
-
     }
 
     public void createAndShowGUI(){
         frame = new JFrame("Gizmoball - Build Mode");
-
         listener = new BuildListener(frame, board);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -44,15 +39,11 @@ public class BuildGui implements Gui {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-        System.out.println(frame.getWidth()+" "+frame.getHeight());
-
     }
 
     private void createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
         JMenu menuOption;
-        JMenuItem menuItem;
 
         ImageIcon saveIcon = new ImageIcon("save.png");
         ImageIcon quitIcon = new ImageIcon("quit.png");
@@ -61,26 +52,24 @@ public class BuildGui implements Gui {
 
         menuOption = new JMenu("Option");
 
-        menuItem = new JMenuItem("Save", saveIcon);
-        menuItem.addActionListener(listener);
-        menuOption.add(menuItem);
+        JMenuItem saveItem = new JMenuItem("Save", saveIcon);
+        saveItem.addActionListener(listener);
+        menuOption.add(saveItem);
 
-        menuItem = new JMenuItem("Load",loadIcon);
-        menuItem.addActionListener(listener);
-        menuOption.add(menuItem);
+        JMenuItem loadItem = new JMenuItem("Load",loadIcon);
+        loadItem.addActionListener(listener);
+        menuOption.add(loadItem);
 
-        menuItem = new JMenuItem("Quit", quitIcon);
-        menuItem.addActionListener(listener);
-        menuOption.add(menuItem);
-
+        JMenuItem quitItem = new JMenuItem("Quit", quitIcon);
+        quitItem.addActionListener(listener);
+        menuOption.add(quitItem);
         menuBar.add(menuOption);
 
 
         menuOption = new JMenu("Switch Mode");
-        menuItem = new JMenuItem("Run Mode",runIcon);
-        //add the action listener for switching mode
-        menuItem.addActionListener(listener);
-        menuOption.add(menuItem);
+        JMenuItem runItem = new JMenuItem("Run Mode",runIcon);
+        runItem.addActionListener(listener);
+        menuOption.add(runItem);
         menuBar.add(menuOption);
 
         frame.setJMenuBar(menuBar);
@@ -212,7 +201,6 @@ public class BuildGui implements Gui {
         pos.put(75, new JLabel("75"));
         pos.put(100, new JLabel("100"));
 
-        // Set the label to be drawn
         slider.setLabelTable(pos);
 
         return slider;

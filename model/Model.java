@@ -219,7 +219,7 @@ public class Model extends Observable {
                 }
             }
         }
-        
+
         return new CollisionDetails(shortestTime, newVelo);
     }
 

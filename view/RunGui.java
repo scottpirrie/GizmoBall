@@ -40,13 +40,11 @@ public class RunGui implements Gui {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        System.out.println("Run Gui: "+frame.getWidth()+" "+frame.getHeight());
     }
 
     private void createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
         JMenu menuOption;
-        JMenuItem menuItem;
 
         ImageIcon saveIcon = new ImageIcon("save.png");
         ImageIcon quitIcon = new ImageIcon("quit.png");
@@ -55,29 +53,27 @@ public class RunGui implements Gui {
 
         menuOption = new JMenu("Option");
 
-        menuItem = new JMenuItem("Save", saveIcon);
-        menuItem.addActionListener(listener);
-        menuOption.add(menuItem);
+        JMenuItem saveItem = new JMenuItem("Save", saveIcon);
+        saveItem.addActionListener(listener);
+        menuOption.add(saveItem);
 
-        menuItem = new JMenuItem("Load",loadIcon);
-        menuItem.addActionListener(listener);
-        menuOption.add(menuItem);
+        JMenuItem loadItem = new JMenuItem("Load",loadIcon);
+        loadItem.addActionListener(listener);
+        menuOption.add(loadItem);
 
-        menuItem = new JMenuItem("Quit", quitIcon);
-        menuItem.addActionListener(listener);
-        menuOption.add(menuItem);
-
+        JMenuItem quitItem = new JMenuItem("Quit", quitIcon);
+        quitItem.addActionListener(listener);
+        menuOption.add(quitItem);
         menuBar.add(menuOption);
 
+
         menuOption = new JMenu("Switch Mode");
-        menuItem = new JMenuItem("Build Mode", buildIcon);
-        //add the action listener for switching mode
-        menuItem.addActionListener(listener);
-        menuOption.add(menuItem);
+        JMenuItem buildItem = new JMenuItem("Build Mode",buildIcon);
+        buildItem.addActionListener(listener);
+        menuOption.add(buildItem);
         menuBar.add(menuOption);
 
         frame.setJMenuBar(menuBar);
-
     }
 
     private void createButtons(){
@@ -85,7 +81,6 @@ public class RunGui implements Gui {
         ImageIcon stopIcon = new ImageIcon("stop.png");
         ImageIcon tickIcon = new ImageIcon("tick.png");
 
-        //still need the action listeners for the buttons.
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
 
