@@ -35,13 +35,19 @@ public class AddTriangleGizmoListener implements MouseListener {
         int xPos = e.getX() / L;
         int yPos = e.getY() / L;
         int size = m.getGizmos().size();
-
-        boolean success = m.addGizmo("triangle", "T" + size, String.valueOf(xPos), String.valueOf(yPos));
-        if (!success) {
+        if (xPos >= 20 || yPos >= 20) {
             JOptionPane.showMessageDialog(panel,
-                    "Location already taken",
+                    "Out of bounds",
                     "Inane error",
                     JOptionPane.ERROR_MESSAGE);
+        } else {
+            boolean success = m.addGizmo("triangle", "T" + size, String.valueOf(xPos), String.valueOf(yPos));
+            if (!success) {
+                JOptionPane.showMessageDialog(panel,
+                        "Location already taken",
+                        "Inane error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
