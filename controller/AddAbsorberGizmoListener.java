@@ -50,6 +50,9 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
                         "Out of bounds",
                         "Inane error",
                         JOptionPane.ERROR_MESSAGE);
+
+
+
             }else {
 
                 success = model.addAbsorber("absorber", "A" + size, String.valueOf(startingPoint.x),
@@ -65,9 +68,11 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
                             "A location you choose is already taken",
                             "Inane error",
                             JOptionPane.ERROR_MESSAGE);
+
                 }
             }
             board.clearAbsorberPoints();
+            board.repaint();
             timesClicked=0;
         }
 
