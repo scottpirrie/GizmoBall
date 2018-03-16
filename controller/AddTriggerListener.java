@@ -13,11 +13,9 @@ public class AddTriggerListener implements MouseListener {
     private Model model;
     private int sourceX;
     private int sourceY;
-    private int targetX;
-    private int targetY;
     private int timesClicked;
 
-    public AddTriggerListener(Board board, Model model){
+    AddTriggerListener(Board board, Model model){
         timesClicked = 0;
         this.board = board;
         this.model = model;
@@ -36,9 +34,8 @@ public class AddTriggerListener implements MouseListener {
             sourceX = e.getX()/board.getL();
             sourceY = e.getY()/board.getL();
         }else if(timesClicked==2){
-            targetX = e.getX()/board.getL();
-            targetY = e.getY()/board.getL();
-
+            int targetX = e.getX()/board.getL();
+            int targetY = e.getY()/board.getL();
 
             boolean success = model.addTrigger(model.findName(sourceX,sourceY),model.findName(targetX,targetY));
 

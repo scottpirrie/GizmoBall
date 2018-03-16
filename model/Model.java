@@ -311,30 +311,6 @@ public class Model extends Observable {
         }
     }
 
-    public List<AbstractGizmo> getGizmos() {
-        return gizmos;
-    }
-
-    public List<AbsorberGizmo> getAbsorbers() {
-        return absorbers;
-    }
-
-    public List<Flipper> getFlippers() {
-        return flippers;
-    }
-
-    public List<Ball> getBalls() {
-        return balls;
-    }
-
-    public Map<Integer,String> getKeyDownMap(){
-        return keyDownMap;
-    }
-
-    public Map<Integer,String> getKeyUpMap(){
-        return keyUpMap;
-    }
-
     public boolean addGizmo(String type, String name, String xPos, String yPos) {
         AbstractGizmo gizmo = gf.createGizmo(type, name, xPos, yPos);
         if (gizmo != null) {
@@ -377,7 +353,8 @@ public class Model extends Observable {
         double y = Double.parseDouble(yPos);
         double xv = Double.parseDouble(xVelo);
         double yv = Double.parseDouble(yVelo);
-        Point p = new Point((int) x, (int) y);
+        Point.Double p = new Point.Double(Math.floor(x),Math.floor(y));
+
         if (!gf.isPointTaken(p)) {
             balls.add(new Ball(type, name, x, y, xv, yv, 0.25));
 
@@ -404,7 +381,8 @@ public class Model extends Observable {
             if (ball.getExactY() + ball.getRadius() > maxHeight) { // works
                 gf.addTakenPoint(squareToAddBall.x, maxHeight);
             }*/
-
+            this.setChanged();
+            this.notifyObservers();
             return true;
         }
         return false;
@@ -433,6 +411,199 @@ public class Model extends Observable {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    public boolean rotate(double x, double y){
+        return rotateGizmo(x,y) || rotateFlipper(x,y);
+    }
+
+    private boolean rotateGizmo(double x, double y) {
+
+        for (AbstractGizmo abstractGizmo : gizmos) {
+            if (abstractGizmo.getxPos() == Math.floor(x) && abstractGizmo.getyPos() == Math.floor(y)) {
+                abstractGizmo.rotate();
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean rotateFlipper(double x, double y){
+        for (Flipper flipper : flippers) {
+            if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),Math.floor(x),Math.floor(y))) {
+                flipper.rotate();
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public boolean remove(double x, double y) {
+        return removeBall(x, y) || removeAbsorber(x, y) || removeGizmo(x, y) || removeFlipper(x, y);
+    }
+
+    private boolean removeGizmo(double x, double y) {
+        double flooredx = Math.floor(x);
+        double flooredy = Math.floor(y);
+
+        for (AbstractGizmo abstractGizmo : gizmos) {
+            if (abstractGizmo.getxPos() == flooredx && abstractGizmo.getyPos() == flooredy) {
+                if(triggers.containsKey(abstractGizmo.getName())){
+                    triggers.remove(abstractGizmo.getName());
+                }
+                gizmos.remove(abstractGizmo);
+                x = Math.floor(x);
+                y = Math.floor(y);
+                gf.removeTakenPoint((int) flooredx,(int) flooredy);
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean removeBall(double x, double y) {
+        for (Ball ball : balls) {
+            if ((x <= ball.getExactX() + ball.getRadius() && x >= ball.getExactX() - ball.getRadius())
+                    && (y <= ball.getExactY() + ball.getRadius() && y >= ball.getExactY() - ball.getRadius())) {
+                balls.remove(ball);
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean removeAbsorber(double x, double y) {
+        double flooredx = Math.floor(x);
+        double flooredy = Math.floor(y);
+
+        for (AbsorberGizmo ab : absorbers) {
+            if ((flooredx >= ab.getxPos() && flooredx <= ab.getxPos2()) && (flooredy >= ab.getyPos() && flooredy <= ab.getyPos2())) {
+                if(triggers.containsKey(ab.getName())){
+                    triggers.remove(ab.getName());
+                }
+                absorbers.remove(ab);
+                for (int i = (int)ab.getyPos(); i <= ab.getyPos2(); i++) {
+                    for (int j = (int)ab.getxPos(); j <= ab.getxPos2(); j++) {
+                        gf.removeTakenPoint(j, i);
+                    }
+                }
+                this.setChanged();
+                this.notifyObservers();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean removeFlipper(double x, double y) {
+
+        for (Flipper flipper : flippers) {
+            if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
+                gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
+                gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
+                gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
+                gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
+                if(triggers.containsKey(flipper.getName())){
+                    triggers.remove(flipper.getName());
+                }
+                flippers.remove(flipper);
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public boolean removeKeybind(int key, String gizmoName) {
+        if(keyDownMap.size() > 0) {
+            if (keyDownMap.containsKey(key)) {
+                keyDownMap.remove(key, gizmoName);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeTrigger(String source, String target){
+        List<String> temp = triggers.get(source);
+
+        if(temp == null){
+            return false;
+        }else if(!temp.contains(target)){
+            return false;
+        }else{
+            triggers.get(source).remove(target);
+            return true;
+        }
+    }
+
+    public String findName(double x, double y){
+        String gizmo = findGizmo(x,y);
+        if(gizmo != null && !gizmo.isEmpty()) {
+            String[] temp = gizmo.split(" ");
+            return temp[1];
+        }
+        return "";
+    }
+
+    public String findGizmo(double x, double y) {
+        double flooredx = Math.floor(x);
+        double flooredy = Math.floor(y);
+
+        for (AbstractGizmo abstractGizmo : gizmos) {
+            if (abstractGizmo.getxPos() == flooredx && abstractGizmo.getyPos() == flooredy) {
+                return abstractGizmo.getType() + " " + abstractGizmo.getName() + " " + abstractGizmo.getxPos() + " " + abstractGizmo.getyPos();
+            }
+        }
+        for (AbsorberGizmo ab : absorbers) {
+            if ((flooredx >= ab.getxPos() && flooredx <= ab.getxPos2()) && (flooredy >= ab.getyPos() && flooredy <= ab.getyPos2())) {
+                double height = ab.getyPos2()-ab.getyPos();
+                double width = ab.getxPos2()-ab.getxPos();
+                return ab.getType() + " " + ab.getName() + " " + ab.getxPos() + " " + ab.getyPos() + " " + height + " " + width;
+            }
+
+        }
+
+        for (Ball ball : balls) {
+            if ((x <= ball.getExactX() + ball.getRadius() && x >= ball.getExactX() - ball.getRadius())
+                    && (y <= ball.getExactY() + ball.getRadius() && y >= ball.getExactY() - ball.getRadius())) {
+                return ball.getType() + " " + ball.getName() + " " + ball.getExactX() + " " + ball.getExactY();
+            }
+
+        }
+
+        for (Flipper flipper : flippers) {
+            if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),flooredx,flooredy)) {
+                return flipper.getType()+" "+flipper.getName()+" "+flipper.getXPivot()+" "+flipper.getYPivot();
+            }
+
+        }
+        return "";
+    }
+
+    private boolean flipperCheck(double flipperX, double flipperY, double targetX, double targetY){
+        targetX = Math.floor(targetX);
+        targetY = Math.floor(targetY);
+
+        if (flipperX == targetX && flipperY == targetY) {
+            return true;
+        } else if (flipperX + 1 == targetX && flipperY + 1 == targetY) {
+            return true;
+        } else if (flipperX + 1 == targetX && flipperY == targetY) {
+            return true;
+        } else if (flipperX == targetX && flipperY + 1 == targetY) {
+            return true;
         }
         return false;
     }
@@ -588,6 +759,26 @@ public class Model extends Observable {
         return true;
     }
 
+    public List<AbstractGizmo> getGizmos() {
+        return gizmos;
+    }
+
+    public List<AbsorberGizmo> getAbsorbers() {
+        return absorbers;
+    }
+
+    public List<Flipper> getFlippers() {
+        return flippers;
+    }
+
+    public List<Ball> getBalls() {
+        return balls;
+    }
+
+    public Map<Integer,String> getKeyDownMap(){
+        return keyDownMap;
+    }
+
     private void clearModel() {
         gizmos.clear();
         flippers.clear();
@@ -600,197 +791,4 @@ public class Model extends Observable {
         this.notifyObservers();
     }
 
-    public boolean rotate(double x, double y){
-        return rotateGizmo(x,y) || rotateFlipper(x,y);
-    }
-
-    private boolean rotateGizmo(double x, double y) {
-        int tempX = (int) x;
-        int tempY = (int) y;
-        for (AbstractGizmo abstractGizmo : gizmos) {
-            if (abstractGizmo.getxPos() == tempX && abstractGizmo.getyPos() == tempY) {
-                abstractGizmo.rotate();
-                this.setChanged();
-                this.notifyObservers();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean rotateFlipper(double x, double y){
-        x = (int) x;
-        y = (int) y;
-
-        for (Flipper flipper : flippers) {
-            if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
-                flipper.rotate();
-                this.setChanged();
-                this.notifyObservers();
-                return true;
-            }
-
-        }
-        return false;
-    }
-
-    public boolean remove(double x, double y) {
-        return removeBall(x, y) || removeAbsorber(x, y) || removeGizmo(x, y) || removeFlipper(x, y);
-    }
-
-    private boolean removeGizmo(double x, double y) {
-        int tempX = (int) x;
-        int tempY = (int) y;
-        for (AbstractGizmo abstractGizmo : gizmos) {
-            if (abstractGizmo.getxPos() == tempX && abstractGizmo.getyPos() == tempY) {
-                if(triggers.containsKey(abstractGizmo.getName())){
-                    triggers.remove(abstractGizmo.getName());
-                }
-                gizmos.remove(abstractGizmo);
-                gf.removeTakenPoint(tempX, tempY);
-                this.setChanged();
-                this.notifyObservers();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean removeBall(double x, double y) {
-        for (Ball ball : balls) {
-            if ((x <= ball.getExactX() + ball.getRadius() && x >= ball.getExactX() - ball.getRadius())
-                    && (y <= ball.getExactY() + ball.getRadius() && y >= ball.getExactY() - ball.getRadius())) {
-                balls.remove(ball);
-                this.setChanged();
-                this.notifyObservers();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean removeAbsorber(double x, double y) {
-        int tempX = (int) x;
-        int tempY = (int) y;
-        System.out.println("The x and y to remove: "+tempX+" "+tempY);
-        for (AbsorberGizmo ab : absorbers) {
-            //if((tempX >= ab.getxPos() || tempY >= ab.getyPos()) && (tempX <= ab.getxPos2() || tempY <= ab.getyPos2())){
-            if ((tempX >= ab.getxPos() && tempX <= ab.getxPos2()) && (tempY >= ab.getyPos() && tempY <= ab.getyPos2())) {
-                if(triggers.containsKey(ab.getName())){
-                    triggers.remove(ab.getName());
-                }
-                absorbers.remove(ab);
-                for (int i = ab.getyPos(); i <= ab.getyPos2(); i++) {
-                    for (int j = ab.getxPos(); j <= ab.getxPos2(); j++) {
-                        gf.removeTakenPoint(j, i);
-                    }
-                }
-                this.setChanged();
-                this.notifyObservers();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean removeFlipper(double x, double y) {
-        x = (int) x;
-        y = (int) y;
-
-        for (Flipper flipper : flippers) {
-            if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
-                gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
-                gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
-                gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
-                gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
-                if(triggers.containsKey(flipper.getName())){
-                    triggers.remove(flipper.getName());
-                }
-                flippers.remove(flipper);
-                return true;
-            }
-
-        }
-        return false;
-    }
-
-    public boolean removeKeybind(int key, String gizmoName) {
-        if (keyDownMap.containsKey(key)) {
-            keyDownMap.remove(key, gizmoName);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean removeTrigger(String source, String target){
-        List<String> temp = triggers.get(source);
-
-        if(temp == null){
-            return false;
-        }else if(!temp.contains(target)){
-            return false;
-        }else{
-            triggers.get(source).remove(target);
-            return true;
-        }
-    }
-
-    public String findName(double x, double y){
-        String gizmo = findGizmo(x,y);
-        if(gizmo != null && !gizmo.isEmpty()) {
-            String[] temp = gizmo.split(" ");
-            return temp[1];
-        }
-        return "";
-    }
-
-    public String findGizmo(double x, double y) {
-        for (AbstractGizmo abstractGizmo : gizmos) {
-            if (abstractGizmo.getxPos() == (int)x && abstractGizmo.getyPos() == (int)y) {
-                return abstractGizmo.getType() + " " + abstractGizmo.getName() + " " + abstractGizmo.getxPos() + " " + abstractGizmo.getyPos();
-            }
-        }
-        for (AbsorberGizmo ab : absorbers) {
-            //if((tempX >= ab.getxPos() || tempY >= ab.getyPos()) && (tempX <= ab.getxPos2() || tempY <= ab.getyPos2())){
-            if (((int)x >= ab.getxPos() && (int)x <= ab.getxPos2()) && ((int)y >= ab.getyPos() && (int)y <= ab.getyPos2())) {
-                int height = ab.getyPos2()-ab.getyPos();
-                int width = ab.getxPos2()-ab.getxPos();
-                return ab.getType() + " " + ab.getName() + " " + ab.getxPos() + " " + ab.getyPos() + " " + height + " " + width;
-            }
-
-        }
-
-        for (Ball ball : balls) {
-            System.out.println("Actual parameters: "+ball.getExactX()+" "+ball.getExactY());
-            if ((x <= ball.getExactX() + ball.getRadius() && x >= ball.getExactX() - ball.getRadius())
-                    && (y <= ball.getExactY() + ball.getRadius() && y >= ball.getExactY() - ball.getRadius())) {
-                return ball.getType() + " " + ball.getName() + " " + ball.getExactX() + " " + ball.getExactY();
-            }
-
-        }
-
-        x = (int) x;
-        y = (int) y;
-
-        for (Flipper flipper : flippers) {
-            if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
-                return flipper.getType()+" "+flipper.getName()+" "+flipper.getXPivot()+" "+flipper.getYPivot();
-            }
-
-        }
-        return "";
-    }
-
-    private boolean flipperCheck(double flipperX, double flipperY, double targetX, double targetY){
-        if (flipperX == targetX && flipperY == targetY) {
-            return true;
-        } else if (flipperX + 1 == targetX && flipperY + 1 == targetY) {
-            return true;
-        } else if (flipperX + 1 == targetX && flipperY == targetY) {
-            return true;
-        } else if (flipperX == targetX && flipperY + 1 == targetY) {
-            return true;
-        }
-        return false;
-    }
 }

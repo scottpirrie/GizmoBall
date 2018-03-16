@@ -45,14 +45,15 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
             Point endingPoint = findEndingPoint();
             int size = board.getModel().getGizmos().size();
             boolean success=false;
-            if(endingPoint.x>=20 || endingPoint.y>=20){
+            if(endingPoint.x >= 20 || endingPoint.y >= 20){
                 JOptionPane.showMessageDialog(board,
                         "Out of bounds",
                         "Inane error",
                         JOptionPane.ERROR_MESSAGE);
             }else {
 
-                success = model.addAbsorber("absorber", "A" + size, String.valueOf(startingPoint.x), String.valueOf(startingPoint.y), String.valueOf(endingPoint.x + 1), String.valueOf(endingPoint.y + 1));
+                success = model.addAbsorber("absorber", "A" + size, String.valueOf(startingPoint.x),
+                        String.valueOf(startingPoint.y), String.valueOf(endingPoint.x + 1), String.valueOf(endingPoint.y + 1));
 
 
                 if (success) {

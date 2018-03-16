@@ -13,11 +13,9 @@ public class RemoveTriggerListener implements MouseListener{
     private Model model;
     private int sourceX;
     private int sourceY;
-    private int targetX;
-    private int targetY;
     private int timesClicked;
 
-    public RemoveTriggerListener(Board board, Model model){
+    RemoveTriggerListener(Board board, Model model){
         timesClicked = 0;
         this.board = board;
         this.model = model;
@@ -36,14 +34,14 @@ public class RemoveTriggerListener implements MouseListener{
             sourceX = e.getX()/board.getL();
             sourceY = e.getY()/board.getL();
         }else if(timesClicked==2){
-            targetX = e.getX()/board.getL();
-            targetY = e.getY()/board.getL();
+            int targetX = e.getX()/board.getL();
+            int targetY = e.getY()/board.getL();
 
             boolean success = model.removeTrigger(model.findName(sourceX,sourceY),model.findName(targetX,targetY));
 
             if (!success) {
                 JOptionPane.showMessageDialog(board,
-                        "Trigger could not be removed.",
+                        "Trigger could not be removed",
                         "Inane error",
                         JOptionPane.ERROR_MESSAGE);
                 timesClicked = 0;

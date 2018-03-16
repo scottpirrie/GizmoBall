@@ -39,10 +39,11 @@ public class BuildListener implements ActionListener {
                 break;
         }
     }
-    public void removeListeners() {
+
+    private void removeListeners() {
         MouseListener[] listeners = board.getMouseListeners();
-        for (int i = 0; i < listeners.length; i++) {
-            board.removeMouseListener(listeners[i]);
+        for (MouseListener listener : listeners) {
+            board.removeMouseListener(listener);
         }
     }
 }

@@ -11,16 +11,16 @@ public class AbsorberGizmo{
 
     private String type;
     private String name;
-    private int xPos1;
-    private int yPos1;
-    private int xPos2;
-    private int yPos2;
-    private int height;
+    private double xPos1;
+    private double yPos1;
+    private double xPos2;
+    private double yPos2;
+    private double height;
     private Ball ball;
     private List<LineSegment> lines;
     private List<Circle> circles;
 
-    AbsorberGizmo(String type, String name, int xPos1, int yPos1, int xPos2, int yPos2){
+    AbsorberGizmo(String type, String name, double xPos1, double yPos1, double xPos2, double yPos2){
         this.type = type;
         this.name = name;
         this.xPos1 = xPos1;
@@ -43,19 +43,19 @@ public class AbsorberGizmo{
         return name;
     }
 
-    public int getxPos() {
+    public double getxPos() {
         return xPos1;
     }
 
-    public int getyPos() {
+    public double getyPos() {
         return yPos1;
     }
 
-    public int getxPos2() {
+    public double getxPos2() {
         return xPos2;
     }
 
-    public int getyPos2() {
+    public double getyPos2() {
         return yPos2;
     }
 
@@ -103,11 +103,11 @@ public class AbsorberGizmo{
         if(xPos1==0 && yPos1==0){
             ball.setExactX(xPos2-0.25);
             ball.setExactY(yPos2+0.25);
-            ball.setVelo(new Vect(0, +170));
+            ball.setVelo(new Vect(0, -1000));
         }else {
             ball.setExactX(xPos2-0.25);
             ball.setExactY(yPos1-0.25);
-            ball.setVelo(new Vect(0, -170));
+            ball.setVelo(new Vect(0, -1000));
         }
         ball.start();
         setBall(null);

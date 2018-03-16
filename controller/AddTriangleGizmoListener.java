@@ -14,7 +14,7 @@ public class AddTriangleGizmoListener implements MouseListener {
     private JPanel panel;
     private int L;
 
-    public AddTriangleGizmoListener(Model m, JPanel panel, int L){
+    AddTriangleGizmoListener(Model m, JPanel panel, int L){
         this.panel=panel;
         this.m = m;
         this.L = L;
@@ -35,19 +35,13 @@ public class AddTriangleGizmoListener implements MouseListener {
         int xPos = e.getX() / L;
         int yPos = e.getY() / L;
         int size = m.getGizmos().size();
-        if (xPos >= 20 || yPos >= 20) {
+
+        boolean success = m.addGizmo("triangle", "T" + size, String.valueOf(xPos), String.valueOf(yPos));
+        if (!success) {
             JOptionPane.showMessageDialog(panel,
-                    "Out of bounds",
+                    "Location already taken",
                     "Inane error",
                     JOptionPane.ERROR_MESSAGE);
-        } else {
-            boolean success = m.addGizmo("triangle", "T" + size, String.valueOf(xPos), String.valueOf(yPos));
-            if (!success) {
-                JOptionPane.showMessageDialog(panel,
-                        "Location already taken",
-                        "Inane error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
         }
     }
 

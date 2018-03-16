@@ -1,6 +1,5 @@
 package controller;
 
-import model.AbstractGizmo;
 import model.Model;
 import view.Board;
 
@@ -53,7 +52,6 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                     moveBackX = Integer.parseInt(attributes[2]);
                     moveBackY = Integer.parseInt(attributes[3]);
                 }
-                System.out.println("Move back positions: "+moveBackX+" "+moveBackY);
             }
 
         }else if(timesClicked==2){
@@ -156,10 +154,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                 }
             }
 
-
-
             if(!success) {
-
                 if(outOfBounds){
                     JOptionPane.showMessageDialog(board,
                             "Attempting to place gizmo out of bounds",
@@ -194,6 +189,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             startingX=(double)e.getX()/board.getL();
             startingY=(double)e.getY()/board.getL();
         }
+
     }
 
 }

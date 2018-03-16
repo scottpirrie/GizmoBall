@@ -37,7 +37,8 @@ public class AddBallListener implements MouseListener{
         double xV = 15.0;
         double yV = 15.0;
         int size = m.getBalls().size();
-        if (x >= 20 || y >= 20) {
+
+        if (x + 0.25 >= 20 || y + 0.25 >= 20 || x - 0.25 <= 0 || y - 0.25 <= 0) {
             JOptionPane.showMessageDialog(panel,
                     "Out of bounds",
                     "Inane error",

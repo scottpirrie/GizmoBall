@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -52,19 +53,15 @@ public class Board extends JPanel implements Observer{
     }
 
     public void paintComponent(Graphics g) {
-
-        //repaint can make bad systems laggy but smooths painting ball collisions
-        validate();
-        repaint();
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
         if(absorberPoints.size()>0){
             g2.setColor(Color.MAGENTA);
             for(Point p:absorberPoints){
                 g2.fillRect((int)p.getX()*L,(int)p.getY()*L,L,L);
             }
         }
-        // lines go out of the building area
 
         if(isBuildingMode) {
             g2.setColor(Color.BLACK);
@@ -78,8 +75,8 @@ public class Board extends JPanel implements Observer{
         for(AbstractGizmo gizmo : model.getGizmos()){
             if(gizmo.getType().toLowerCase().equals("square")){
                 g2.setColor(gizmo.getColor());
-                g2.fillRect(gizmo.getxPos()*L,gizmo.getyPos()*L,L,L);
-
+                Rectangle2D rect = new Rectangle2D.Double(gizmo.getxPos()*L,gizmo.getyPos()*L,L,L);
+                g2.fill(rect);
             }else if(gizmo.getType().toLowerCase().equals("triangle")){
                 g2.setColor(gizmo.getColor());
                 LineSegment l1 = gizmo.getLines().get(0);
@@ -103,10 +100,11 @@ public class Board extends JPanel implements Observer{
         }
 
         for(AbsorberGizmo absorber : model.getAbsorbers()){
-                int width = Math.abs(absorber.getxPos2() - absorber.getxPos()) * L;
-                int height = Math.abs(absorber.getyPos2() - absorber.getyPos()) * L;
+                double width = Math.abs(absorber.getxPos2() - absorber.getxPos()) * L;
+                double height = Math.abs(absorber.getyPos2() - absorber.getyPos()) * L;
+                Rectangle2D rect = new Rectangle2D.Double(absorber.getxPos()*L,absorber.getyPos()*L,width,height);
                 g2.setColor(Color.MAGENTA);
-                g2.fillRect(absorber.getxPos()*L,absorber.getyPos()*L, width,height);
+                g2.fill(rect);
         }
 
         for(Flipper flipper : model.getFlippers()){

@@ -13,7 +13,7 @@ public class RotateGizmoListener implements MouseListener{
     private Board panel;
     private Model model;
 
-    public RotateGizmoListener(Board panel, Model model){
+    RotateGizmoListener(Board panel, Model model){
         this.panel=panel;
         this.model=model;
     }

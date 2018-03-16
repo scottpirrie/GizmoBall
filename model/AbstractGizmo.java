@@ -11,8 +11,8 @@ public interface AbstractGizmo {
     String getType();
     String getName();
     int getRotation();
-    int getxPos();
-    int getyPos();
+    double getxPos();
+    double getyPos();
     Color getColor();
     void createLines();
     void createCircles();

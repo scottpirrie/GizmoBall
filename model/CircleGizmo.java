@@ -14,8 +14,8 @@ public class CircleGizmo implements AbstractGizmo{
 
     private String type;
     private String name;
-    private int xPos;
-    private int yPos;
+    private double xPos;
+    private double yPos;
     private double radius;
     private List<LineSegment> lines;
     private List<physics.Circle> circles;
@@ -23,7 +23,7 @@ public class CircleGizmo implements AbstractGizmo{
     private boolean isTriggered;
 
 
-    CircleGizmo(String type, String name,int xPos,int yPos){
+    CircleGizmo(String type, String name,double xPos,double yPos){
         this.type = type;
         this.name = name;
         this.radius = 0.5;
@@ -52,12 +52,12 @@ public class CircleGizmo implements AbstractGizmo{
     }
 
     @Override
-    public int getxPos() {
+    public double getxPos() {
         return xPos;
     }
 
     @Override
-    public int getyPos() {
+    public double getyPos() {
         return yPos;
     }
 

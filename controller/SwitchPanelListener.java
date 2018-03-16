@@ -13,7 +13,6 @@ public class SwitchPanelListener implements ActionListener{
 
     private Model m;
     private int L;
-    private String type;
     private Board bl;
 
     public SwitchPanelListener(Model m, int L, Board bl) {
@@ -22,62 +21,65 @@ public class SwitchPanelListener implements ActionListener{
         this.bl = bl;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    //TODO Make into a switch statement
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        removeListeners();
+        String command = e.getActionCommand();
 
-    public String getType() {
-        return type;
+        switch (command.toLowerCase()){
+            case "square":
+                bl.addMouseListener(new AddSquareGizmoListener(m,bl,L));
+                break;
+            case "triangle":
+                bl.addMouseListener(new AddTriangleGizmoListener(m,bl,L));
+                break;
+            case "circle":
+                bl.addMouseListener(new AddCircleGizmoListener(m,bl,L));
+                break;
+            case "remove":
+                bl.addMouseListener(new RemoveGizmo(bl,m));
+                break;
+            case "left flipper":
+                bl.addMouseListener(new AddLeftFlipperListener(bl,m));
+                break;
+            case "right flipper":
+                bl.addMouseListener(new AddRightFlipperListener(bl,m));
+                break;
+            case "ball":
+                bl.addMouseListener(new AddBallListener(m,bl, L));
+                break;
+            case "absorber":
+                AddAbsorberGizmoListener absorberListener = new AddAbsorberGizmoListener(bl,m);
+                bl.addMouseListener(absorberListener);
+                bl.addMouseMotionListener(absorberListener);
+                break;
+            case "move":
+                MoveGizmoListener moveListener = new MoveGizmoListener(bl,m);
+                bl.addMouseListener(moveListener);
+                bl.addMouseMotionListener(moveListener);
+            case "add trigger":
+                bl.addMouseListener(new AddTriggerListener(bl,m));
+                break;
+            case "remove trigger":
+                bl.addMouseListener(new RemoveTriggerListener(bl,m));
+                break;
+            case "add keybind":
+                bl.addMouseListener(new AddKeyBindListener(bl,m));
+                break;
+            case "remove keybind":
+                bl.addMouseListener(new RemoveKeyBindListener(bl,m));
+                break;
+            case "rotate":
+                bl.addMouseListener(new RotateGizmoListener(bl,m));
+                break;
+        }
     }
 
     private void removeListeners() {
         MouseListener[] listeners = bl.getMouseListeners();
-        for (int i = 0; i < listeners.length; i++) {
-            bl.removeMouseListener(listeners[i]);
-        }
-    }
-
-    //TODO Make into a switch statement
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        removeListeners();
-        if (e.getActionCommand().equals("Square")) {
-            bl.addMouseListener(new AddSquareGizmoListener(m,bl,L));
-        } else if (e.getActionCommand().equals("Triangle")) {
-            bl.addMouseListener(new AddTriangleGizmoListener(m,bl,L));
-        } else if (e.getActionCommand().equals("Circle")) {
-            bl.addMouseListener(new AddCircleGizmoListener(m,bl,L));
-        }else if(e.getActionCommand().equals("Remove")){
-            bl.addMouseListener(new RemoveGizmo(bl,m));
-        } else if(e.getActionCommand().equals("Left Flipper")){
-            bl.addMouseListener(new AddLeftFlipperListener(bl,m));
-        }else if(e.getActionCommand().equals("Right Flipper")){
-            bl.addMouseListener(new AddRightFlipperListener(bl,m));
-        }else if(e.getActionCommand().equals("Ball")){
-            bl.addMouseListener(new AddBallListener(m,bl, L));
-        }else if(e.getActionCommand().equals("Absorber")){
-            AddAbsorberGizmoListener listener = new AddAbsorberGizmoListener(bl,m);
-            bl.addMouseListener(listener);
-            bl.addMouseMotionListener(listener);
-        }else if(e.getActionCommand().equals("Move")){
-            MoveGizmoListener listener = new MoveGizmoListener(bl,m);
-            bl.addMouseListener(listener);
-            bl.addMouseMotionListener(listener);
-        }else if(e.getActionCommand().equals("Add Trigger")){
-            AddTriggerListener listener = new AddTriggerListener(bl,m);
-            bl.addMouseListener(listener);
-        }else if(e.getActionCommand().equals("Remove Trigger")){
-            RemoveTriggerListener listener = new RemoveTriggerListener(bl,m);
-            bl.addMouseListener(listener);
-        }else if(e.getActionCommand().equals("Add KeyBind")){
-            AddKeyBindListener listener = new AddKeyBindListener(bl,m);
-            bl.addMouseListener(listener);
-        }else if(e.getActionCommand().equals("Remove KeyBind")){
-            RemoveKeyBindListener listener = new RemoveKeyBindListener(bl,m);
-            bl.addMouseListener(listener);
-        }else if(e.getActionCommand().equals("Rotate")){
-            bl.addMouseListener(new RotateGizmoListener(bl,m));
+        for (MouseListener listener : listeners) {
+            bl.removeMouseListener(listener);
         }
     }
 }

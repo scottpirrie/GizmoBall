@@ -12,7 +12,7 @@ public class RemoveGizmo implements MouseListener{
     private Board panel;
     private Model model;
 
-    public RemoveGizmo(Board panel, Model model){
+    RemoveGizmo(Board panel, Model model){
         this.panel=panel;
         this.model=model;
     }

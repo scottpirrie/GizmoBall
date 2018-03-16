@@ -13,7 +13,7 @@ public class AddKeyBindListener implements MouseListener{
     private Model model;
     private int key;
 
-    public AddKeyBindListener(Board board, Model model){
+    AddKeyBindListener(Board board, Model model){
         this.board = board;
         this.model = model;
         getKey();

@@ -13,15 +13,15 @@ public class TriangleGizmo implements AbstractGizmo{
 
     private String type;
     private String name;
-    private int xPos;
-    private int yPos;
+    private double xPos;
+    private double yPos;
     private int rotation;
     private List<LineSegment> lines;
     private List<Circle> circles;
     private Color color;
     private boolean isTriggered;
 
-    TriangleGizmo(String type, String name,int xPos,int yPos){
+    TriangleGizmo(String type, String name,double xPos,double yPos){
         this.type = type;
         this.name = name;
         this.xPos=xPos;
@@ -51,12 +51,12 @@ public class TriangleGizmo implements AbstractGizmo{
     }
 
     @Override
-    public int getxPos() {
+    public double getxPos() {
         return xPos;
     }
 
     @Override
-    public int getyPos() {
+    public double getyPos() {
         return yPos;
     }
 
@@ -101,7 +101,7 @@ public class TriangleGizmo implements AbstractGizmo{
 
     @Override
     public void rotate() {
-        Vect pivot = new Vect((double)(xPos)+0.5,(double)(yPos)+0.5);
+        Vect pivot = new Vect(xPos+0.5,yPos+0.5);
         for(int x=0; x<circles.size();x++){
             circles.set(x,Geometry.rotateAround(circles.get(x),pivot,new Angle(Math.toRadians(90))));
         }

@@ -13,14 +13,14 @@ public class SquareGizmo implements  AbstractGizmo {
 
     private String type;
     private String name;
-    private int xPos;
-    private int yPos;
+    private double xPos;
+    private double yPos;
     private List<LineSegment> lines;
     private List<Circle> circles;
     private Color color;
     private boolean isTriggered;
 
-    SquareGizmo(String type,String name, int xPos, int yPos){
+    SquareGizmo(String type,String name, double xPos, double yPos){
         this.type = type;
         this.name = name;
         this.xPos=xPos;
@@ -49,12 +49,12 @@ public class SquareGizmo implements  AbstractGizmo {
     }
 
     @Override
-    public int getxPos() {
+    public double getxPos() {
         return xPos;
     }
 
     @Override
-    public int getyPos() {
+    public double getyPos() {
         return yPos;
     }
 

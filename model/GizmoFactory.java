@@ -2,28 +2,24 @@ package model;
 
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
 
 class GizmoFactory {
 
-    private ArrayList<Point> takenPoints;
+    private List<Point.Double> takenPoints;
 
     GizmoFactory(){
         takenPoints = new ArrayList<>();
     }
 
     AbstractGizmo createGizmo(String type, String name, String xPos, String yPos) {
-        int x=0;
-        int y=0;
-        try {
-          x = Integer.parseInt(xPos);
-             y = Integer.parseInt(yPos);
-        }catch (NumberFormatException e){
-            x = (int)Double.parseDouble(xPos);
-            y =  (int)Double.parseDouble(yPos);
-        }
+        double x = Double.parseDouble(xPos);
+        double y = Double.parseDouble(yPos);
+
         type = type.toLowerCase();
-        Point p = new Point(x, y);
+        Point.Double p = new Point2D.Double(x,y);
 
         if (!takenPoints.contains(p)) {
             takenPoints.add(p);
@@ -41,13 +37,15 @@ class GizmoFactory {
 
     AbsorberGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         boolean foundTakenPoint=false;
+
         int x1 = Integer.parseInt(xPos1);
         int y1 = Integer.parseInt(yPos1);
         int x2 = Integer.parseInt(xPos2);
         int y2 = Integer.parseInt(yPos2);
+
         for(int i=y1; i<y2; i++){
             for(int j=x1; j<x2; j++){
-                Point p = new Point(j,i);
+                Point.Double p = new Point.Double(j,i);
                 if(takenPoints.contains(p)){
                     foundTakenPoint=true;
                 }
@@ -57,7 +55,7 @@ class GizmoFactory {
             type = type.toLowerCase();
             for (int i = y1; i < y2; i++) {
                 for (int j = x1; j < x2; j++) {
-                    Point p = new Point(j, i);
+                    Point.Double p = new Point.Double(j,i);
                     takenPoints.add(p);
                 }
             }
@@ -66,29 +64,25 @@ class GizmoFactory {
         return null;
     }
 
-    //TODO test if flipper extends outside wall! ( only happens on rotation and left flippers currently
     Flipper createFlipper(String type,String name, String xPos, String yPos){
-        int x=0;
-        int y=0;
-        try {
-            x = Integer.parseInt(xPos);
-            y = Integer.parseInt(yPos);
-        }catch (NumberFormatException e){
-            x = (int)Double.parseDouble(xPos);
-            y =  (int)Double.parseDouble(yPos);
-        }
+        double x = Double.parseDouble(xPos);
+        double y = Double.parseDouble(yPos);
+
+        x = Math.floor(x);
+        y = Math.floor(y);
+
         type = type.toLowerCase();
-        Point p = new Point(x, y);
+        Point.Double p = new Point.Double(x, y);
 
         if(!takenPoints.contains(p)
-                &&!takenPoints.contains(new Point(p.x,p.y+1))
-                &&!takenPoints.contains(new Point(p.x+1,p.y+1))
-                &&!takenPoints.contains(new Point(p.x+1,p.y))) {
+                &&!takenPoints.contains(new Point.Double(p.x,p.y+1))
+                &&!takenPoints.contains(new Point.Double(p.x+1,p.y+1))
+                &&!takenPoints.contains(new Point.Double(p.x+1,p.y))) {
 
             takenPoints.add(p);
-            takenPoints.add(new Point(p.x+1,p.y));
-            takenPoints.add(new Point(p.x,p.y+1));
-            takenPoints.add(new Point(p.x+1,p.y+1));
+            takenPoints.add(new Point.Double(p.x+1,p.y));
+            takenPoints.add(new Point.Double(p.x,p.y+1));
+            takenPoints.add(new Point.Double(p.x+1,p.y+1));
 
             switch (type) {
                 case "leftflipper":
@@ -105,16 +99,11 @@ class GizmoFactory {
     }
 
     void removeTakenPoint(int x,int y){
-        Point p = new Point(x,y);
+        Point.Double p = new Point.Double(x,y);
         takenPoints.remove(p);
     }
 
-    void addTakenPoint(int x,int y){
-        Point p = new Point(x,y);
-        takenPoints.add(p);
-    }
-
-    boolean isPointTaken(Point p){
+    boolean isPointTaken(Point.Double p){
         return takenPoints.contains(p);
     }
 }
