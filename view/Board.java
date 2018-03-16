@@ -44,7 +44,6 @@ public class Board extends JPanel implements Observer{
     }
 
     public Dimension getPreferredSize() {
-
         return new Dimension(width, height);
     }
 
