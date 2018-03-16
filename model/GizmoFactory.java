@@ -38,13 +38,14 @@ class GizmoFactory {
     AbsorberGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         boolean foundTakenPoint=false;
 
-        int x1 = Integer.parseInt(xPos1);
-        int y1 = Integer.parseInt(yPos1);
-        int x2 = Integer.parseInt(xPos2);
-        int y2 = Integer.parseInt(yPos2);
+        double x1 = Double.parseDouble(xPos1);
+       double y1 = Double.parseDouble(yPos1);
+        double x2 = Double.parseDouble(xPos2);
+        double y2 = Double.parseDouble(yPos2);
+        System.out.println("Coordinates: ["+x1+","+y1+"],["+x2+","+y2+"]");
 
-        for(int i=y1; i<y2; i++){
-            for(int j=x1; j<x2; j++){
+        for(double i=y1; i<y2; i++){
+            for(double j=x1; j<x2; j++){
                 Point.Double p = new Point.Double(j,i);
                 if(takenPoints.contains(p)){
                     foundTakenPoint=true;
@@ -53,8 +54,8 @@ class GizmoFactory {
         }
         if(!foundTakenPoint) {
             type = type.toLowerCase();
-            for (int i = y1; i < y2; i++) {
-                for (int j = x1; j < x2; j++) {
+            for (double i = y1; i < y2; i++) {
+                for (double j = x1; j < x2; j++) {
                     Point.Double p = new Point.Double(j,i);
                     takenPoints.add(p);
                 }

@@ -43,8 +43,13 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                         JOptionPane.ERROR_MESSAGE);
                     timesClicked=0;
             }else {
-                startingX = (double)e.getX() / board.getL();
-                startingY = (double)e.getY() / board.getL();
+                if(attributes[0].equals("absorber")){
+                    startingX=Double.parseDouble(attributes[2]);
+                    startingY=Double.parseDouble(attributes[3]);
+                }else {
+                    startingX = (double) e.getX() / board.getL();
+                    startingY = (double) e.getY() / board.getL();
+                }
                 try {
                     moveBackX = Double.parseDouble(attributes[2]);
                     moveBackY = Double.parseDouble(attributes[3]);
@@ -77,10 +82,10 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                     model.addFlipper(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
                     break;
                 case "absorber":
-                    int height = Integer.parseInt(attributes[4]);
-                    int width = Integer.parseInt(attributes[5]);
-                    int newXPos2=(e.getX() / board.getL())+width;
-                    int newYPos2=(e.getY() / board.getL())+height;
+                    double height = Double.parseDouble(attributes[4]);
+                    double width = Double.parseDouble(attributes[5]);
+                    int newXPos2= (int) ((e.getX() / board.getL())+width);
+                    int newYPos2= (int) ((e.getY() / board.getL())+height);
                     model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
                     break;
                 case "ball":
@@ -143,11 +148,13 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                     outOfBounds=true;
                 }
             }else if(attributes[0].equals("absorber")){
-                int height = Integer.parseInt(attributes[4]);
-                int width = Integer.parseInt(attributes[5]);
-                if((e.getX() / board.getL())+width<=20 && (e.getY() / board.getL())+height<=20){
-                    int newXPos2=(e.getX() / board.getL())+width;
-                    int newYPos2=(e.getY() / board.getL())+height;
+                double height = Double.parseDouble(attributes[4]);
+                double width = Double.parseDouble(attributes[5]);
+
+                    int newXPos2= (int) ((e.getX() / board.getL())+width);
+                    int newYPos2= (int) ((e.getY() / board.getL())+height);
+
+                if(newXPos2<=20 && newYPos2<=20){
                     success= model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
                 }else{
                     outOfBounds=true;
@@ -176,18 +183,21 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                 }else if(attributes[0].equals("ball")){
                     model.addBall(attributes[0],attributes[1],String.valueOf(moveBackX),String.valueOf(moveBackY),"5.0","5.0");
                 }else if(attributes[0].equals("absorber")){
-                    int height = Integer.parseInt(attributes[4]);
-                    int width = Integer.parseInt(attributes[5]);
+                    double height = Double.parseDouble(attributes[4]);
+                    double width = Double.parseDouble(attributes[5]);
                     int tempMoveBackX=(int)moveBackX;
                     int tempMoveBackY=(int)moveBackY;
-                    int newXPos2=tempMoveBackX+width;
-                    int newYPos2=tempMoveBackY+height;
+                    double newXPos2=tempMoveBackX+width;
+                    double newYPos2=tempMoveBackY+height;
                     model.addAbsorber(attributes[0],attributes[1],String.valueOf(tempMoveBackX), String.valueOf(tempMoveBackY),String.valueOf(newXPos2),String.valueOf(newYPos2));
+
                 }
                timesClicked=0;
            }
-            startingX=(double)e.getX()/board.getL();
-            startingY=(double)e.getY()/board.getL();
+
+               startingX = (double) e.getX() / board.getL();
+               startingY = (double) e.getY() / board.getL();
+
         }
 
     }

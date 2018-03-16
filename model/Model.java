@@ -496,12 +496,13 @@ public class Model extends Observable {
                 if(triggers.containsKey(ab.getName())){
                     triggers.remove(ab.getName());
                 }
-                absorbers.remove(ab);
+
                 for (int i = (int)ab.getyPos(); i <= ab.getyPos2(); i++) {
                     for (int j = (int)ab.getxPos(); j <= ab.getxPos2(); j++) {
                         gf.removeTakenPoint(j, i);
                     }
                 }
+                absorbers.remove(ab);
                 this.setChanged();
                 this.notifyObservers();
                 return true;
