@@ -28,7 +28,7 @@ public class BuildGui implements Gui {
         frame.setFocusable(true);
 
         cp = frame.getContentPane();
-        gf = new Font("Arial", Font.BOLD, 12);
+        gf = new Font("Arial", Font.BOLD, 11);
 
         createMenuBar();
         createGizmoButtons();
@@ -76,14 +76,12 @@ public class BuildGui implements Gui {
     }
 
     private void createGizmoButtons(){
-        //still need the action listeners for the button
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(2,0));
 
         JPanel topButtons = new JPanel();
         topButtons.setLayout(new FlowLayout());
 
-        //creating a tabbed pane
         JTabbedPane tabbedPane = new JTabbedPane();
 
         JButton triangleButton = new JButton("Triangle");
@@ -140,17 +138,7 @@ public class BuildGui implements Gui {
         buttons.add(topButtons);
         buttons.add(lowButtons);
 
-        JPanel tabGizmoObj = new JPanel(){
-            //Make the panel wider than it really needs, so
-            //the window's wide enough for the tabs to stay
-            //in one row.
-            public Dimension getPreferredSize() {
-                Dimension size = super.getPreferredSize();
-                size.width += 25;
-                return size;
-            }
-        };
-
+        JPanel tabGizmoObj = new JPanel();
         JPanel tabGizmoSet = new JPanel();
 
         tabGizmoObj.add(buttons);
@@ -184,7 +172,7 @@ public class BuildGui implements Gui {
         tabbedPane.addTab("Gizmoball Objects", tabGizmoObj);
         tabbedPane.addTab("Gravity & Friction", tabGizmoSet);
 
-        cp.add(tabbedPane, BorderLayout.PAGE_START);
+        cp.add(tabbedPane, BorderLayout.NORTH);
     }
 
     private JSlider createNewSlider(){
@@ -244,24 +232,25 @@ public class BuildGui implements Gui {
         removeKeyBind.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons2.add(removeKeyBind);
 
-        JPanel buttons = new JPanel();
-        buttons.setLayout(new GridLayout(2,3));
-        buttons.add(lowButtons1);
-        buttons.add(lowButtons2);
-
         JButton moveButton = new JButton("Move");
         moveButton = setUpButton(moveButton);
         moveButton.setName("Move");
         moveButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons1.add(moveButton);
 
-        cp.add(buttons, BorderLayout.PAGE_END);
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new GridLayout(2,3));
+        buttons.add(lowButtons1);
+        buttons.add(lowButtons2);
+        
+        cp.add(buttons, BorderLayout.SOUTH);
+
     }
 
     private JButton setUpButton(JButton btn){
         btn.setFont(gf);
         btn.setPreferredSize(new Dimension(100,40));
-        btn.setMaximumSize(new Dimension(100, 100));
+        btn.setMaximumSize(new Dimension(100, 40));
         return btn;
     }
 
