@@ -148,13 +148,8 @@ public class BuildGui implements Gui {
         removeButton.addActionListener(new SwitchPanelListener(board.getModel(),board.getL(),board));
         lowButtons.add(removeButton);
 
-
-
         buttons.add(topButtons);
         buttons.add(lowButtons);
-
-
-
 
         JPanel tabGizmoObj = new JPanel(){
             //Make the panel wider than it really needs, so

@@ -47,10 +47,6 @@ public class Board extends JPanel implements Observer{
         return new Dimension(width, height);
     }
 
-    public boolean isBuildingMode() {
-        return isBuildingMode;
-    }
-
     public void setBuildingMode(boolean buildingMode) {
         isBuildingMode = buildingMode;
     }

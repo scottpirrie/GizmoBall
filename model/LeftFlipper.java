@@ -108,28 +108,37 @@ public class LeftFlipper implements Flipper{
     @Override
     public void moveFlipper(double time) {
         if (!isPressed()) {
+            if(thetaCheck < 0){
+                thetaCheck = 0;
+            }
+
             if (thetaCheck > 0) {
                 thetaCheck -= theta;
-                for(LineSegment line: lines) {
-                    LineSegment newline = Geometry.rotateAround(line, pivot, new Angle(Math.toRadians(theta)));
-                    lines.set(lines.indexOf(line),newline);
+                for (int i = 0; i < lines.size(); i++) {
+                    LineSegment newline = Geometry.rotateAround(lines.get(i), pivot, new Angle(Math.toRadians(theta)));
+                    lines.set(i, newline);
                 }
-                for(Circle circle: circles){
-                    Circle newCircle = Geometry.rotateAround(circle, pivot, new Angle(Math.toRadians(theta)));
-                    circles.set(circles.indexOf(circle),newCircle);
+
+                for (int i = 0; i < circles.size(); i++) {
+                    Circle newCircle = Geometry.rotateAround(circles.get(i), pivot, new Angle(Math.toRadians(theta)));
+                    circles.set(i, newCircle);
                 }
             }
         }else {
+            if(thetaCheck > 90){
+                thetaCheck = 90;
+            }
+
             if(thetaCheck < 90) {
                 thetaCheck += theta;
-                for (LineSegment line : lines) {
-                    LineSegment newline = Geometry.rotateAround(line, pivot, new Angle(Math.toRadians(-theta)));
-                    lines.set(lines.indexOf(line),newline);
+                for (int i = 0; i < lines.size(); i++) {
+                    LineSegment newline = Geometry.rotateAround(lines.get(i), pivot, new Angle(Math.toRadians(-theta)));
+                    lines.set(i, newline);
                 }
 
-                for(Circle circle: circles){
-                    Circle newCircle = Geometry.rotateAround(circle, pivot, new Angle(Math.toRadians(-theta)));
-                    circles.set(circles.indexOf(circle),newCircle);
+                for (int i = 0; i < circles.size(); i++) {
+                    Circle newCircle = Geometry.rotateAround(circles.get(i), pivot, new Angle(Math.toRadians(-theta)));
+                    circles.set(i, newCircle);
                 }
             }
         }
@@ -161,19 +170,21 @@ public class LeftFlipper implements Flipper{
 
     @Override
     public void doAction() {
-        Timer timer = new Timer();
-        if(!isPressed) {
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    while(thetaCheck < 90) {
-                        moveFlipper(0.017);
+        if(thetaCheck == 0) {
+            Timer timer = new Timer();
+            if (!isPressed) {
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        while (thetaCheck < 90) {
+                            moveFlipper(0.017);
+                        }
+                        isPressed = false;
                     }
-                    isPressed = false;
-                }
-            }, 1000);
+                }, 1000);
+            }
+            isPressed = true;
         }
-        isPressed = true;
     }
 
     public String toString() {
