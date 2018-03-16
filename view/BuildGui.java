@@ -242,7 +242,7 @@ public class BuildGui implements Gui {
         buttons.setLayout(new GridLayout(2,3));
         buttons.add(lowButtons1);
         buttons.add(lowButtons2);
-        
+
         cp.add(buttons, BorderLayout.SOUTH);
 
     }

@@ -86,7 +86,8 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                     double width = Double.parseDouble(attributes[5]);
                     int newXPos2= (int) ((e.getX() / board.getL())+width);
                     int newYPos2= (int) ((e.getY() / board.getL())+height);
-                    model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
+                    model.addAbsorber(attributes[0],attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),
+                            String.valueOf(newXPos2),String.valueOf(newYPos2));
                     break;
                 case "ball":
                     model.addBall(attributes[0],attributes[1],String.valueOf((double)e.getX() / board.getL()), String.valueOf((double)e.getY() / board.getL()),"5.0","5.0");

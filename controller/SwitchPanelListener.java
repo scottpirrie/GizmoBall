@@ -58,6 +58,7 @@ public class SwitchPanelListener implements ActionListener{
                 MoveGizmoListener moveListener = new MoveGizmoListener(bl,m);
                 bl.addMouseListener(moveListener);
                 bl.addMouseMotionListener(moveListener);
+                break;
             case "add trigger":
                 bl.addMouseListener(new AddTriggerListener(bl,m));
                 break;
