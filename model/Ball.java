@@ -35,11 +35,11 @@ public class Ball {
         return name;
     }
 
-    Vect getVelo() {
+    public Vect getVelo() {
         return velocity;
     }
 
-    void setVelo(Vect v) {
+    public void setVelo(Vect v) {
         velocity = v;
     }
 
@@ -59,23 +59,23 @@ public class Ball {
         return ypos;
     }
 
-    void setExactX(double x) {
+    public void setExactX(double x) {
         xpos = x;
     }
 
-    void setExactY(double y) {
+    public void setExactY(double y) {
         ypos = y;
     }
 
-    void stop() {
+    public void stop() {
         stopped = true;
     }
 
-    void start() {
+    public void start() {
         stopped = false;
     }
 
-    boolean stopped() {
+    public boolean stopped() {
         return stopped;
     }
 
@@ -86,7 +86,7 @@ public class Ball {
     public String toString(){
         return "Ball "+"B "+Math.round(xpos)+" "+Math.round(ypos)+" "+Math.round(velocity.x())+" "+Math.round(velocity.y());
     }
-    void movePoints(double xPos,double ypos){
+    public void move(double xPos,double ypos){
         this.xpos=xPos;
         this.ypos= ypos;
     }

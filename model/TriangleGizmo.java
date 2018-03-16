@@ -133,7 +133,7 @@ public class TriangleGizmo implements AbstractGizmo{
     }
 
     @Override
-    public void movePoints(double x, double y) {
+    public void move(double x, double y) {
         xPos = x;
         yPos = y;
         lines.clear();
