@@ -16,7 +16,6 @@ public class RunGui implements Gui {
     private Font gf;
     private ActionListener listener;
 
-    //still need to check if anything else needs passed...
     public RunGui(Board newBoard){
         this.board = newBoard;
     }

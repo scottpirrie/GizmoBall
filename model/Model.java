@@ -27,7 +27,7 @@ public class Model extends Observable {
     private String triggerSource;
 
     public Model() {
-        gws = new Walls(0, 0, 20, 20);
+        gws = new Walls("OuterWalls",0, 0, 20, 20);
         gizmos = new ArrayList<>();
         absorbers = new ArrayList<>();
         flippers = new ArrayList<>();
@@ -52,26 +52,27 @@ public class Model extends Observable {
     public void moveBall(double move) {
         if (move > 0) {
             double moveTime = move; // 0.0167 = 60 times per second
-
-            ball = balls.get(0);
-            if (ball != null && !ball.stopped()) {
-                CollisionDetails cd = timeUntilCollision();
-                double tuc = cd.getTuc();
-                if (tuc > moveTime) {
-                    ball = moveBallForTime(ball, moveTime);
-                } else {
-                    ball = moveBallForTime(ball, tuc);
-                    ball.setVelo(cd.getVelo());
-                    callActions(triggerSource);
+            if(!balls.isEmpty()) {
+                for(Ball b : balls) {
+                    ball = b;
+                    if (ball != null && !ball.stopped()) {
+                        CollisionDetails cd = timeUntilCollision();
+                        double tuc = cd.getTuc();
+                        if (tuc > moveTime) {
+                            ball = moveBallForTime(ball, moveTime);
+                        } else {
+                            ball = moveBallForTime(ball, tuc);
+                            ball.setVelo(cd.getVelo());
+                            callActions(triggerSource);
+                        }
+                        setGravity(ball, moveTime);
+                        setFriction(ball, moveTime);
+                    }
                 }
-
-                moveFlipper(moveTime);
-                setGravity(ball,moveTime);
-                setFriction(ball, moveTime);
-                this.setChanged();
-                this.notifyObservers();
-
             }
+            moveFlipper(moveTime);
+            this.setChanged();
+            this.notifyObservers();
         }
     }
 
@@ -93,7 +94,7 @@ public class Model extends Observable {
         return ball;
     }
 
-    //TODO fix gravity + Friction ( though i think its gravity ) 
+    //TODO fix gravity + Friction ( though i think its gravity )
     private void setGravity(Ball ball,double time) {
         if(!ball.stopped()) {
             ball.setVelo(ball.getVelo().plus(new Vect(0, (Math.sqrt(gravityConstant) * 20) * time)));
@@ -127,6 +128,7 @@ public class Model extends Observable {
             if (time < shortestTime) {
                 shortestTime = time;
                 newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+                triggerSource = "OuterWalls";
             }
         }
 
@@ -136,8 +138,8 @@ public class Model extends Observable {
                     time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
                     if (time < shortestTime) {
                         shortestTime = time;
-                        triggerSource = gizmo.getName();
                         newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+                        triggerSource = gizmo.getName();
                     }
                 }
             }
@@ -145,8 +147,8 @@ public class Model extends Observable {
                 time = Geometry.timeUntilCircleCollision(circle, ballCircle, ballVelocity);
                 if (time < shortestTime) {
                     shortestTime = time;
-                    triggerSource = gizmo.getName();
                     newVelo = Geometry.reflectCircle(circle.getCenter(), ballCircle.getCenter(), ballVelocity, 1.0);
+                    triggerSource = gizmo.getName();
                 }
             }
         }
@@ -217,6 +219,7 @@ public class Model extends Observable {
                 }
             }
         }
+        
         return new CollisionDetails(shortestTime, newVelo);
     }
 
