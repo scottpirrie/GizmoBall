@@ -111,9 +111,10 @@ public class CircleGizmo implements AbstractGizmo{
 
     @Override
     public void move(double x, double y) {
-        xPos=x;
-        yPos=y;
-        createCircles(xPos,yPos);
+        xPos = x;
+        yPos = y;
+        circles.clear();
+        createCircles(x,y);
     }
 
     public String toString() {

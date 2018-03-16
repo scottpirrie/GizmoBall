@@ -14,8 +14,6 @@ public class RightFlipper implements Flipper{
     private String name;
     private double xPos;
     private double yPos;
-    private double xArc;
-    private double yArc;
     private int rotation;
     private List<LineSegment> lines;
     private List<Circle> circles;
@@ -29,13 +27,11 @@ public class RightFlipper implements Flipper{
         this.name = name;
         this.xPos = xPos;
         this.yPos = yPos;
-        this.xArc = xPos;
-        this.yArc = yPos + 2;
         this.rotation = 0;
         lines=new ArrayList<>();
         circles = new ArrayList<>();
-        createLines();
-        createCircles();
+        createLines(xPos,yPos);
+        createCircles(xPos,yPos);
         this.isPressed = false;
         theta = 18;
         thetaCheck = 0;
@@ -58,9 +54,7 @@ public class RightFlipper implements Flipper{
     }
 
     @Override
-    public void createLines() {
-        //this.xPos = xPos+2; Because its a RightFlipper its on the RIGHT side of the 4x4 box
-
+    public void createLines(double xPos,double yPos) {
         LineSegment l1 = new LineSegment(xPos+1.5, yPos+0.25, xPos+1.5, yPos + 1.75);
         LineSegment l2 = new LineSegment(xPos+2, yPos+0.25, xPos+2, yPos + 1.75);
         lines.add(l1);
@@ -68,7 +62,7 @@ public class RightFlipper implements Flipper{
     }
 
     @Override
-    public void createCircles() {
+    public void createCircles(double xPos,double yPos) {
         Circle c1 = new Circle(xPos+1.75, yPos+0.25, 0.25);
         Circle c2 = new Circle(xPos+1.75, yPos+1.75, 0.25);
         Circle c3 = new Circle(xPos+1.5, yPos+0.25,0);
@@ -188,15 +182,16 @@ public class RightFlipper implements Flipper{
     }
 
     @Override
-    public void move(double xPos, double yPos) {
-        this.xPos=xPos;
-        this.yPos=yPos;
-        this.xArc = xPos;
-        this.yArc = yPos + 2;
+    public void move(double x, double y) {
+        xPos = x;
+        yPos = y;
+        lines.clear();
+        circles.clear();
+        createLines(x,y);
+        createCircles(x,y);
     }
 
-    //Minus 2 here because we +2 at the top to push it right
     public String toString() {
-        return "RightFlipper "+name+" "+(xPos)+" "+yPos;
+        return "RightFlipper "+name+" "+xPos+" "+yPos;
     }
 }

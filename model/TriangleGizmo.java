@@ -134,10 +134,12 @@ public class TriangleGizmo implements AbstractGizmo{
 
     @Override
     public void move(double x, double y) {
-        xPos=x;
-        yPos=y;
-        createCircles(xPos,yPos);
-        createLines(xPos,yPos);
+        xPos = x;
+        yPos = y;
+        lines.clear();
+        circles.clear();
+        createCircles(x,y);
+        createLines(x,y);
     }
 
     @Override

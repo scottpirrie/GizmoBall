@@ -20,15 +20,6 @@ public class SquareGizmo implements  AbstractGizmo {
     private Color color;
     private boolean isTriggered;
 
-    @Override
-    public void move(double x, double y) {
-        xPos=x;
-        yPos=y;
-        createLines(xPos,yPos);
-        createCircles(xPos,yPos);
-        System.out.println("New position: "+xPos+" "+yPos);
-    }
-
     SquareGizmo(String type, String name, double xPos, double yPos){
         this.type = type;
         this.name = name;
@@ -130,6 +121,16 @@ public class SquareGizmo implements  AbstractGizmo {
             }, 2000);
         }
         isTriggered = true;
+    }
+
+    @Override
+    public void move(double x, double y) {
+        xPos = x;
+        yPos = y;
+        lines.clear();
+        circles.clear();
+        createLines(x,y);
+        createCircles(x,y);
     }
 
     public String toString(){
