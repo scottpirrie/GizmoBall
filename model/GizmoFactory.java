@@ -51,6 +51,7 @@ class GizmoFactory {
                 }
             }
         }
+
         if(!foundTakenPoint) {
             type = type.toLowerCase();
             for (double i = y1; i < y2; i++) {
