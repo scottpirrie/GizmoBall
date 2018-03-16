@@ -351,15 +351,15 @@ public class Model extends Observable {
     }
 
     public boolean moveGizmo(String name,String xPos,String yPos){
+
         for(AbstractGizmo gizmo:gizmos){
             if(gizmo.getName().equals(name)){
-                System.out.println("Here");
-                gf.removeTakenPoint((int)gizmo.getxPos(),(int)gizmo.getyPos());
+                gf.removeTakenPoint(gizmo.getxPos(),gizmo.getyPos());
                 Point.Double p = new Point.Double(Double.parseDouble(xPos),Double.parseDouble(yPos));
-                if(!gf.isPointTaken(p)){
 
+                if(!gf.isPointTaken(p)){
                     gizmo.move(Double.parseDouble(xPos),Double.parseDouble(yPos));
-                    gf.addTakenPoint((int)gizmo.getxPos(),(int)gizmo.getyPos());
+                    gf.addTakenPoint(gizmo.getxPos(),gizmo.getyPos());
                     this.setChanged();
                     this.notifyObservers();
                     return true;
@@ -370,14 +370,13 @@ public class Model extends Observable {
     }
 
     public boolean moveBall(String name,String xPos,String yPos){
-        int toCheckX = (int)Double.parseDouble(xPos);
-        int toCheckY = (int)Double.parseDouble(yPos);
+        double toCheckX = Math.floor(Double.parseDouble(xPos));
+        double toCheckY = Math.floor(Double.parseDouble(yPos));
+
         for(Ball ball:balls){
-            System.out.println(ball.getName());
-            System.out.println(name);
             if(ball.getName().equals(name)){
-                System.out.println("here");
-                Point.Double p = new Point.Double((double)toCheckX,(double)toCheckY);
+
+                Point.Double p = new Point.Double(toCheckX,toCheckY);
                 if(!gf.isPointTaken(p)){
                     ball.move(Double.parseDouble(xPos),Double.parseDouble(yPos));
                     this.setChanged();
@@ -390,25 +389,26 @@ public class Model extends Observable {
     }
 
     public boolean MoveFlipper(String name,String xPos,String yPos){
+
         for(Flipper flipper:flippers){
             if(flipper.getName().equals(name)){
-                double xPivot = flipper.getXPivot();
-                double yPivot = flipper.getYPivot();
-                System.out.println("The pivot: "+xPivot+" "+yPivot);
-                gf.removeTakenPoint((int)xPivot,(int)yPivot);
-                gf.removeTakenPoint((int)xPivot,(int)yPivot+1);
-                gf.removeTakenPoint((int)xPivot+1,(int)yPivot);
-                gf.removeTakenPoint((int)xPivot+1,(int)yPivot+1);
+                double xPivot = Math.floor(flipper.getXPivot());
+                double yPivot = Math.floor(flipper.getYPivot());
+
+                gf.removeTakenPoint(xPivot,yPivot);
+                gf.removeTakenPoint(xPivot,yPivot+1);
+                gf.removeTakenPoint(xPivot+1,yPivot);
+                gf.removeTakenPoint(xPivot+1,yPivot+1);
 
                 Point.Double p = new Point.Double(Double.parseDouble(xPos),Double.parseDouble(yPos));
                 if(!gf.isPointTaken(p)) {
                     // move theFlipper
                     flipper.move(Double.parseDouble(xPos), Double.parseDouble(yPos));
 
-                    gf.addTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
-                    gf.addTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
-                    gf.addTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
-                    gf.addTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
+                    gf.addTakenPoint(flipper.getXPivot(), flipper.getYPivot());
+                    gf.addTakenPoint(flipper.getXPivot(), flipper.getYPivot() + 1);
+                    gf.addTakenPoint(flipper.getXPivot() + 1, flipper.getYPivot());
+                    gf.addTakenPoint(flipper.getXPivot() + 1, flipper.getYPivot() + 1);
 
                     this.setChanged();
                     this.notifyObservers();
@@ -425,6 +425,7 @@ public class Model extends Observable {
         double x2=Double.parseDouble(xPos2);
         double y1=Double.parseDouble(yPos);
         double y2=Double.parseDouble(yPos2);
+
         for(AbsorberGizmo ab:absorbers){
             if(ab.getName().equals(name)){
                 for(double i=ab.getyPos(); i<=ab.getyPos2(); i++){
@@ -625,11 +626,14 @@ public class Model extends Observable {
     private boolean removeFlipper(double x, double y) {
 
         for (Flipper flipper : flippers) {
+            double pivotX = Math.floor(flipper.getXPivot());
+            double pivotY = Math.floor(flipper.getYPivot());
+
             if (flipperCheck(flipper.getXPivot(),flipper.getYPivot(),x,y)) {
-                gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot());
-                gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot());
-                gf.removeTakenPoint((int) flipper.getXPivot(), (int) flipper.getYPivot() + 1);
-                gf.removeTakenPoint((int) flipper.getXPivot() + 1, (int) flipper.getYPivot() + 1);
+                gf.removeTakenPoint(pivotX, pivotY);
+                gf.removeTakenPoint(pivotX + 1, pivotY);
+                gf.removeTakenPoint(pivotX, pivotY + 1);
+                gf.removeTakenPoint(pivotX + 1, pivotY + 1);
                 if(triggers.containsKey(flipper.getName())){
                     triggers.remove(flipper.getName());
                 }

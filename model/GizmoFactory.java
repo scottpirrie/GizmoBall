@@ -98,15 +98,17 @@ class GizmoFactory {
         takenPoints.clear();
     }
 
-    void removeTakenPoint(int x,int y){
+    void removeTakenPoint(double x,double y){
         Point.Double p = new Point.Double(x,y);
         takenPoints.remove(p);
+    }
+
+    void addTakenPoint(double x,double y){
+        takenPoints.add(new Point.Double(x,y));
     }
 
     boolean isPointTaken(Point.Double p){
         return takenPoints.contains(p);
     }
-    void addTakenPoint(int x,int y){
-        takenPoints.add(new Point.Double(x,y));
-    }
+
 }
