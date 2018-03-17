@@ -105,11 +105,11 @@ public class AbsorberGizmo{
         if((xPos1 == 0 && yPos1==0) || (xPos2 == 0 && yPos2 == 0)){
             ball.setExactX(xPos2-0.25);
             ball.setExactY(yPos2+0.25);
-            ball.setVelo(new Vect(0, 90));
+            ball.setVelo(new Vect(0, 50));
         }else {
             ball.setExactX(xPos2-0.25);
             ball.setExactY(yPos1-0.25);
-            ball.setVelo(new Vect(0, -85));
+            ball.setVelo(new Vect(0, -50));
         }
         ball.start();
         setBall(null);

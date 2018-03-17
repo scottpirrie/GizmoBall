@@ -98,7 +98,7 @@ public class Model extends Observable {
     //TODO fix gravity + Friction ( though i think its gravity )
     private void setGravity(Ball ball,double time) {
         if(!ball.stopped()) {
-            ball.setVelo(ball.getVelo().plus(new Vect(0, (Math.sqrt(gravityConstant) * 20) * time)));
+            ball.setVelo(ball.getVelo().plus(new Vect(0, (gravityConstant ) * time)));
         }
     }
 
@@ -508,6 +508,7 @@ public class Model extends Observable {
             keyDownMap.put(key, gizmoName);
             return true;
         }
+
         return false;
     }
 
@@ -846,6 +847,7 @@ public class Model extends Observable {
                         if(token.toLowerCase().equals("connect")){
                             String nameA = tokenizer.nextToken();
                             String nameB = tokenizer.nextToken();
+
                             addTrigger(nameA, nameB);
                         }
 
@@ -856,7 +858,11 @@ public class Model extends Observable {
                             String gizmoName = tokenizer.nextToken();
 
                             if(type.toLowerCase().equals("down")){
-                                keyDownMap.put(Integer.parseInt(key),gizmoName);
+                                if(keyDownMap.containsKey(key)){
+
+                                }else {
+                                    keyDownMap.put(Integer.parseInt(key), gizmoName);
+                                }
                             }else{
                                 keyUpMap.put(Integer.parseInt(key),gizmoName);
                             }
