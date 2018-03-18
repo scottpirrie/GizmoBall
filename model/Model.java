@@ -64,13 +64,13 @@ public class Model extends Observable {
                         } else {
                             ball = moveBallForTime(ball, tuc);
                             ball.setVelo(cd.getVelo());
-                            callActions(triggerSource);
                         }
                         setGravity(ball, moveTime);
                         setFriction(ball, moveTime);
                     }
                 }
             }
+            callActions(triggerSource);
             moveFlipper(moveTime);
             this.setChanged();
             this.notifyObservers();
@@ -98,7 +98,7 @@ public class Model extends Observable {
     //TODO fix gravity + Friction ( though i think its gravity )
     private void setGravity(Ball ball,double time) {
         if(!ball.stopped()) {
-            ball.setVelo(ball.getVelo().plus(new Vect(0, (gravityConstant ) * time)));
+            ball.setVelo(ball.getVelo().plus(new Vect(0, (gravityConstant) * time)));
         }
     }
 
