@@ -463,11 +463,18 @@ public class Model extends Observable {
     //TODO Marking the taken points for the ball is something that probably requires its own method,
     //TODO after all anytime we switch to build-mode we need to update the balls taken points
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo) {
-
-        double x = Double.parseDouble(xPos);
-        double y = Double.parseDouble(yPos);
-        double xv = Double.parseDouble(xVelo);
-        double yv = Double.parseDouble(yVelo);
+        double x = 0.0;
+        double y = 0.0;
+        double xv = 0.0;
+        double yv = 0.0;
+        try {
+             x = Double.parseDouble(xPos);
+             y = Double.parseDouble(yPos);
+            xv = Double.parseDouble(xVelo);
+             yv = Double.parseDouble(yVelo);
+        }catch (NumberFormatException e){
+            return false;
+        }
         Point.Double p = new Point.Double(Math.floor(x),Math.floor(y));
 
         if (!gf.isPointTaken(p)) {
@@ -513,14 +520,42 @@ public class Model extends Observable {
         return false;
     }
 
+    private boolean isSourceAGizmo(String source){
+        for(AbstractGizmo gizmo:gizmos){
+            if(gizmo.getName().equals(source)){
+                return true;
+            }
+        }
+
+        for(Flipper flipper:flippers){
+            if(flipper.getName().equals(source)){
+                return true;
+            }
+        }
+
+        for(AbsorberGizmo absorberGizmo: absorbers){
+            if(absorberGizmo.getName().equals(source)){
+                return true;
+            }
+        }
+
+        for(Ball ball:balls){
+            if(ball.getName().equals(source)){
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean addTrigger(String source, String target){
         if(!source.equals("") && !target.equals("")) {
             List<String> temp = triggers.get(source);
             if (temp == null) {
-                temp = new ArrayList<>();
-                temp.add(target);
-                triggers.put(source, temp);
-                return true;
+                if(isSourceAGizmo(source)) {
+                    temp = new ArrayList<>();
+                    temp.add(target);
+                    triggers.put(source, temp);
+                    return true;
+                }
             } else {
                 if (!temp.contains(target)) {
                     triggers.get(source).add(target);
@@ -812,7 +847,7 @@ public class Model extends Observable {
     public boolean load(String directory, String fileName) {
         clearModel();
         String name;
-
+        boolean success=true;
         if (isWindows()) {
             name = directory + "\\" + fileName;
         } else {
@@ -829,33 +864,61 @@ public class Model extends Observable {
                         String token = tokenizer.nextToken();
 
                         if (token.toLowerCase().equals("square")) {
-                            addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            success=addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            if(!success){
+                                clearModel();
+                                return false;
+                            }
                         }
 
                         if (token.toLowerCase().equals("triangle")) {
-                            addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            success=addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            if(!success){
+                                clearModel();
+                                return false;
+                            }
                         }
 
                         if (token.toLowerCase().equals("circle")) {
-                            addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            success=addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            if(!success){
+                                clearModel();
+                                return false;
+                            }
                         }
 
                         if (token.toLowerCase().equals("absorber")) {
-                            addAbsorber(token, tokenizer.nextToken(), tokenizer.nextToken(),
+                            success=addAbsorber(token, tokenizer.nextToken(), tokenizer.nextToken(),
                                     tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            if(!success){
+                                clearModel();
+                                return false;
+                            }
                         }
 
                         if (token.toLowerCase().equals("leftflipper")) {
-                            addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            success=addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            if(!success){
+                                clearModel();
+                                return false;
+                            }
                         }
 
                         if (token.toLowerCase().equals("rightflipper")) {
-                            addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            success=addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            if(!success){
+                                clearModel();
+                                return false;
+                            }
                         }
 
                         if (token.toLowerCase().equals("ball")) {
-                            addBall(token, tokenizer.nextToken(), tokenizer.nextToken(),
+                            success=addBall(token, tokenizer.nextToken(), tokenizer.nextToken(),
                                     tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
+                            if(!success){
+                                clearModel();
+                                return false;
+                            }
                         }
 
                         if (token.toLowerCase().equals("rotate")) {
@@ -877,7 +940,11 @@ public class Model extends Observable {
                             String nameA = tokenizer.nextToken();
                             String nameB = tokenizer.nextToken();
 
-                            addTrigger(nameA, nameB);
+                            success=addTrigger(nameA, nameB);
+                            if(!success){
+                                clearModel();
+                                return false;
+                            }
                         }
 
                         if(token.toLowerCase().equals("keyconnect")){
