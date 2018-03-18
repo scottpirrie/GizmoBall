@@ -1,6 +1,5 @@
 package controller;
 
-import model.Model;
 import view.*;
 
 import javax.swing.*;
@@ -42,8 +41,14 @@ public class RunListener implements ActionListener {
                     timer.stop();
                     break;
                 case "Quit":
-                    frame.dispose();
-                    System.exit(0);
+                    String YesNo[] = {"Yes","No"};
+                    int choice = JOptionPane.showOptionDialog(null,"Are you sure you want to quit?","Gizmoball - RunMode",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,YesNo,YesNo[1]);
+                    if(choice==JOptionPane.YES_OPTION)
+                    {
+                        frame.dispose();
+                        System.exit(0);
+                        break;
+                    }
                     break;
                 case "Save":
                     SaveView save = new SaveView(board.getModel());
