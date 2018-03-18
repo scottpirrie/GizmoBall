@@ -103,6 +103,12 @@ public class TriangleGizmo implements AbstractGizmo{
 
     @Override
     public void rotate() {
+        if(rotation < 4){
+            rotation++;
+        }else{
+            rotation = 0;
+        }
+
         Vect pivot = new Vect(xPos+0.5,yPos+0.5);
         for(int x=0; x<circles.size();x++){
             circles.set(x,Geometry.rotateAround(circles.get(x),pivot,new Angle(Math.toRadians(90))));

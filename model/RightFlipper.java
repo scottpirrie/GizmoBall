@@ -89,6 +89,12 @@ public class RightFlipper implements Flipper{
 
     @Override
     public void rotate() {
+        if(rotation < 4){
+            rotation++;
+        }else{
+            rotation = 0;
+        }
+
         Vect rotatePivot = new Vect(xPos+1,yPos+1);
         for(int x=0; x<circles.size();x++){
             circles.set(x,Geometry.rotateAround(circles.get(x),rotatePivot,new Angle(Math.toRadians(90))));

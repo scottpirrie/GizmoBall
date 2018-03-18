@@ -573,6 +573,7 @@ public class Model extends Observable {
                 if(triggers.containsKey(abstractGizmo.getName())){
                     triggers.remove(abstractGizmo.getName());
                 }
+                removeKeybind(abstractGizmo.getName());
                 gizmos.remove(abstractGizmo);
                 gf.removeTakenPoint(flooredx,flooredy);
                 this.setChanged();
@@ -602,15 +603,16 @@ public class Model extends Observable {
 
         for (AbsorberGizmo ab : absorbers) {
             if ((flooredx >= ab.getxPos() && flooredx <= ab.getxPos2()) && (flooredy >= ab.getyPos() && flooredy <= ab.getyPos2())) {
-                if(triggers.containsKey(ab.getName())){
-                    triggers.remove(ab.getName());
-                }
-
                 for (double i = ab.getyPos(); i <= ab.getyPos2(); i++) {
                     for (double j = ab.getxPos(); j <= ab.getxPos2(); j++) {
                         gf.removeTakenPoint(j, i);
                     }
                 }
+
+                if(triggers.containsKey(ab.getName())){
+                    triggers.remove(ab.getName());
+                }
+                removeKeybind(ab.getName());
                 absorbers.remove(ab);
                 this.setChanged();
                 this.notifyObservers();
@@ -634,6 +636,7 @@ public class Model extends Observable {
                 if(triggers.containsKey(flipper.getName())){
                     triggers.remove(flipper.getName());
                 }
+                removeKeybind(flipper.getName());
                 flippers.remove(flipper);
                 this.setChanged();
                 this.notifyObservers();
@@ -645,14 +648,33 @@ public class Model extends Observable {
     }
 
     public boolean removeKeybind(int key, String gizmoName) {
-        if(keyDownMap.size() > 0) {
-            if (keyDownMap.containsKey(key)) {
-                keyDownMap.remove(key, gizmoName);
-                return true;
-            }
+        boolean removed = false;
+
+        if (!keyDownMap.isEmpty()){
+            keyDownMap.entrySet().removeIf(e -> keyDownMap.get(key).equals(gizmoName));
+            removed = true;
         }
-        return false;
+
+        if (!keyUpMap.isEmpty()){
+            keyUpMap.entrySet().removeIf(e -> keyDownMap.get(key).equals(gizmoName));
+            removed = true;
+        }
+
+        return removed;
     }
+
+    private void removeKeybind(String gizmoName) {
+
+        if (!keyDownMap.isEmpty()){
+            keyDownMap.entrySet().removeIf(e -> e.getValue().equals(gizmoName));
+        }
+
+        if (!keyUpMap.isEmpty()){
+            keyUpMap.entrySet().removeIf(e -> e.getValue().equals(gizmoName));
+        }
+
+    }
+
 
     public boolean removeTrigger(String source, String target){
         List<String> temp = triggers.get(source);
@@ -735,16 +757,16 @@ public class Model extends Observable {
     public void save(String directory, String fileName) {
         String name;
         if (isWindows()) {
-            name = directory + "\\" + fileName + ".txt";
+            name = directory + "\\" + fileName + ".giz";
         } else {
-            name = directory + "/" + fileName + ".txt";
+            name = directory + "/" + fileName + ".giz";
         }
         File file = new File((name));
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (AbstractGizmo gizmo : gizmos) {
                 writer.write(gizmo.toString() + "\n");
                 if(gizmo.getRotation() > 0){
-                    for(int i = 0; i < gizmo.getRotation(); i++){
+                    for(int i = 0; i <= gizmo.getRotation(); i++){
                         writer.write("Rotate " + gizmo.getName() + "\n");
                     }
                 }
@@ -753,7 +775,7 @@ public class Model extends Observable {
             for (Flipper flipper : flippers) {
                 writer.write(flipper.toString() + "\n");
                 if(flipper.getRotation() > 0){
-                    for(int i = 0; i < flipper.getRotation(); i++){
+                    for(int i = 0; i <= flipper.getRotation(); i++){
                         writer.write("Rotate " + flipper.getName() + "\n");
                     }
                 }
@@ -774,11 +796,11 @@ public class Model extends Observable {
             }
 
             for(int i : keyDownMap.keySet()){
-                writer.write("KeyConnect key " + i + " " + "down" + " " + keyDownMap.get(i));
+                writer.write("KeyConnect key " + i + " " + "down" + " " + keyDownMap.get(i) + "\n");
             }
 
             for(int i : keyUpMap.keySet()){
-                writer.write("KeyConnect key " + i + " " + "up" + " " + keyUpMap.get(i));
+                writer.write("KeyConnect key " + i + " " + "up" + " " + keyUpMap.get(i) + "\n");
             }
 
         } catch (IOException e) {
@@ -842,6 +864,12 @@ public class Model extends Observable {
                                     t.rotate();
                                 }
                             }
+
+                            for(Flipper f : flippers){
+                                if(f.getName().equals(target)){
+                                    f.rotate();
+                                }
+                            }
                         }
 
                         if(token.toLowerCase().equals("connect")){
@@ -858,11 +886,7 @@ public class Model extends Observable {
                             String gizmoName = tokenizer.nextToken();
 
                             if(type.toLowerCase().equals("down")){
-                                if(keyDownMap.containsKey(key)){
-
-                                }else {
-                                    keyDownMap.put(Integer.parseInt(key), gizmoName);
-                                }
+                                keyDownMap.put(Integer.parseInt(key), gizmoName);
                             }else{
                                 keyUpMap.put(Integer.parseInt(key),gizmoName);
                             }
