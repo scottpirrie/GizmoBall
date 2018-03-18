@@ -6,7 +6,6 @@ import physics.LineSegment;
 import physics.Vect;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -98,7 +97,7 @@ public class Model extends Observable {
     //TODO fix gravity + Friction ( though i think its gravity )
     private void setGravity(Ball ball,double time) {
         if(!ball.stopped()) {
-            ball.setVelo(ball.getVelo().plus(new Vect(0, (gravityConstant) * time)));
+            ball.setVelo(ball.getVelo().plus(new Vect(0, (gravityConstant * time))));
         }
     }
 
@@ -109,11 +108,13 @@ public class Model extends Observable {
         double oldY = ball.getVelo().y();
         double nyV = 0.0;
         double nxV = 0.0;
+        Vect newV;
 
         //Vnew = Vold * (1 - mu * delta_t - mu2 * |Vold| * delta_t)
         nxV = oldX * (1 - mu1 * time - mu2 * Math.abs(oldX) * time);
         nyV = oldY * (1 - mu1 * time - mu2 * Math.abs(oldY) * time);
-        ball.setVelo(new Vect(nxV, nyV));
+        newV = ball.getVelo().minus(new Vect(nxV, nyV));
+        ball.setVelo(ball.getVelo().minus(newV));
     }
 
     private CollisionDetails timeUntilCollision() {
