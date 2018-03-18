@@ -475,6 +475,7 @@ public class Model extends Observable {
         }catch (NumberFormatException e){
             return false;
         }
+
         Point.Double p = new Point.Double(Math.floor(x),Math.floor(y));
 
         if (!gf.isPointTaken(p)) {
@@ -853,7 +854,16 @@ public class Model extends Observable {
         } else {
             name = directory + "/" + fileName;
         }
+        char lastCharacter = name.charAt(name.length()-1);
+        char secondLast=name.charAt(name.length()-2);
+        char thirdLast = name.charAt(name.length()-3);
+        char fourthLast = name.charAt(name.length()-4);
 
+        char[] extension = {fourthLast,thirdLast,secondLast,lastCharacter};
+        String sExentsion = new String(extension);
+        if(!sExentsion.equals(".giz")){
+            return false;
+        }
         try (BufferedReader br = new BufferedReader(new FileReader(new File(name)))) {
             StringTokenizer tokenizer;
             String line;
@@ -963,7 +973,7 @@ public class Model extends Observable {
 
                     }
                 } catch (NoSuchElementException e) {
-                    br.readLine();
+                    return false;
                 }
             }
         } catch (IOException e) {

@@ -73,6 +73,9 @@ class GizmoFactory {
                     takenPoints.add(p);
                 }
             }
+            if(!type.equals("absorber")){
+                return null;
+            }
             return new AbsorberGizmo(type, name, x1, y1, x2, y2);
         }
         return null;
