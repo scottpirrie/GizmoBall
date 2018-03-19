@@ -17,7 +17,7 @@ public interface Flipper {
     void rotate();
     void moveFlipper(double time);
     double getThetaCheck();
-    void setPressed(boolean isPressed);
+    void setPressed();
     boolean isPressed();
     double getXPivot();
     double getYPivot();

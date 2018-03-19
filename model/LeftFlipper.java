@@ -18,11 +18,9 @@ public class LeftFlipper implements Flipper{
     private List<Circle> circles;
     private boolean isPressed;
     private double theta;
+    private double angularVelo;
     private double thetaCheck;
     private Vect pivot;
-
-
-    private double moveSpeed;
 
     LeftFlipper(String type,String name, double xPos, double yPos){
         this.type = type;
@@ -30,13 +28,14 @@ public class LeftFlipper implements Flipper{
         this.xPos = xPos;
         this.yPos = yPos;
         this.rotation = 0;
-        lines=new ArrayList<>();
+        lines = new ArrayList<>();
         circles = new ArrayList<>();
         createLines(xPos,yPos);
         createCircles(xPos,yPos);
         this.isPressed = false;
-        theta = 18;
+        theta = 90;
         thetaCheck = 0;
+        this.angularVelo = -1080;
         pivot = new Vect(xPos+0.25,yPos+0.25);
     }
 
@@ -110,49 +109,60 @@ public class LeftFlipper implements Flipper{
     @Override
     public void moveFlipper(double time) {
         if (!isPressed()) {
-            if(thetaCheck < 0){
-                thetaCheck = 0;
-            }
+            if (theta < 90) {
+                if(angularVelo < 0){
+                    angularVelo = -angularVelo;
+                }
 
-            if (thetaCheck > 0) {
-                thetaCheck -= theta;
+                theta = theta + (angularVelo * time);
+
+                if(theta > 90){
+                    theta = 90;
+                }
+
                 for (int i = 0; i < lines.size(); i++) {
-                    LineSegment newline = Geometry.rotateAround(lines.get(i), pivot, new Angle(Math.toRadians(theta)));
+                    LineSegment newline = Geometry.rotateAround(lines.get(i), pivot, new Angle(Math.toRadians(angularVelo / (1 / time))));
                     lines.set(i, newline);
                 }
 
                 for (int i = 0; i < circles.size(); i++) {
-                    Circle newCircle = Geometry.rotateAround(circles.get(i), pivot, new Angle(Math.toRadians(theta)));
+                    Circle newCircle = Geometry.rotateAround(circles.get(i), pivot, new Angle(Math.toRadians(angularVelo / (1 / time))));
                     circles.set(i, newCircle);
                 }
             }
-        }else {
-            if(thetaCheck > 90){
-                thetaCheck = 90;
-            }
+        }else if(isPressed()){
+            if(theta > 0) {
+                if(angularVelo > 0){
+                    angularVelo = -angularVelo;
+                }
 
-            if(thetaCheck < 90) {
-                thetaCheck += theta;
+                theta = theta + (angularVelo * time);
+
+                if(theta < 0){
+                    theta = 0;
+                }
+
                 for (int i = 0; i < lines.size(); i++) {
-                    LineSegment newline = Geometry.rotateAround(lines.get(i), pivot, new Angle(Math.toRadians(-theta)));
+                    LineSegment newline = Geometry.rotateAround(lines.get(i), pivot, new Angle(Math.toRadians(angularVelo / (1 / time))));
                     lines.set(i, newline);
                 }
 
                 for (int i = 0; i < circles.size(); i++) {
-                    Circle newCircle = Geometry.rotateAround(circles.get(i), pivot, new Angle(Math.toRadians(-theta)));
+                    Circle newCircle = Geometry.rotateAround(circles.get(i), pivot, new Angle(Math.toRadians(angularVelo / (1 / time))));
                     circles.set(i, newCircle);
                 }
+
             }
         }
     }
 
     public double getThetaCheck(){
-        return thetaCheck;
+        return theta;
     }
 
     @Override
-    public void setPressed(boolean isPressed) {
-        this.isPressed = isPressed;
+    public void setPressed() {
+        this.isPressed = !isPressed;
     }
 
     @Override
@@ -179,7 +189,7 @@ public class LeftFlipper implements Flipper{
                     @Override
                     public void run() {
                         while (thetaCheck < 90) {
-                            moveFlipper(0.017);
+                            moveFlipper(0.0167);
                         }
                         isPressed = false;
                     }

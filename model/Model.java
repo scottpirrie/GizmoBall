@@ -51,7 +51,7 @@ public class Model extends Observable {
 
     public void moveBall(double move) {
         if (move > 0) {
-            double moveTime = move; // 0.0167 = 60 times per second
+            double moveTime = move;
             if(!balls.isEmpty()) {
                 for(Ball b : balls) {
                     ball = b;
@@ -109,7 +109,7 @@ public class Model extends Observable {
         double nyV = 0.0;
         double nxV = 0.0;
         Vect newV;
-
+        mu1 = mu1 / time;
         //Vnew = Vold * (1 - mu * delta_t - mu2 * |Vold| * delta_t)
         nxV = oldX * (1 - mu1 * time - mu2 * Math.abs(oldX) * time);
         nyV = oldY * (1 - mu1 * time - mu2 * Math.abs(oldY) * time);
@@ -277,7 +277,7 @@ public class Model extends Observable {
         for (Flipper flipper : flippers) {
             if (name.equals(flipper.getName())) {
                 if(flipper.isPressed()) {
-                    flipper.moveFlipper(0.017);
+                    flipper.moveFlipper(0.0167);
                 }
             }
         }
@@ -300,11 +300,7 @@ public class Model extends Observable {
         }
         for (Flipper flipper : flippers) {
             if (name.equals(flipper.getName())) {
-                if(!flipper.isPressed()){
-                    flipper.setPressed(true);
-                }else{
-                    flipper.setPressed(false);
-                }
+                flipper.setPressed();
             }
         }
     }
