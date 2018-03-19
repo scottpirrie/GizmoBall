@@ -127,7 +127,10 @@ class GizmoFactory {
     }
 
     void addTakenPoint(double x,double y){
-        takenPoints.add(new Point.Double(x,y));
+        Point.Double p=new Point.Double(x,y);
+        if(!takenPoints.contains(p)) {
+            takenPoints.add(p);
+        }
     }
 
     boolean isPointTaken(Point.Double p){

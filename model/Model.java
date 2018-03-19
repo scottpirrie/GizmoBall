@@ -6,6 +6,7 @@ import physics.LineSegment;
 import physics.Vect;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -458,6 +459,85 @@ public class Model extends Observable {
     }
     //TODO Marking the taken points for the ball is something that probably requires its own method,
     //TODO after all anytime we switch to build-mode we need to update the balls taken points
+
+    public void removeBalsTakenPoint(){
+        for(Ball ball:balls) {
+            Point squareToAddBall = new Point((int) ball.getExactX(), (int) ball.getExactY());
+            Point.Double upRight = new Point.Double(ball.getExactX() + ball.getRadius(), ball.getExactY() - ball.getRadius());
+            Point.Double upLeft = new Point.Double(ball.getExactX() - ball.getRadius(), ball.getExactY() - ball.getRadius());
+            Point.Double downLeft = new Point.Double(ball.getExactX() - ball.getRadius(), ball.getExactY() + ball.getRadius());
+            Point.Double downRight = new Point.Double(ball.getExactX() + ball.getRadius(), ball.getExactY() + ball.getRadius());
+            if (upRight.x > squareToAddBall.x) {
+                System.out.println("upRight");
+                int xToAdd = (int) upRight.x;
+                int yToAdd = (int) upRight.y;
+                gf.removeTakenPoint(xToAdd, yToAdd);
+            }
+            if (upLeft.x < squareToAddBall.x) {// works
+                System.out.println("Upleft");
+                int xToAdd = (int) upLeft.x;
+                int yToAdd = (int) upLeft.y;
+                gf.removeTakenPoint(xToAdd, yToAdd);
+            }
+            if (downLeft.y > squareToAddBall.y) {
+                System.out.println("downLeft");
+                int xToAdd = (int) downLeft.x;
+                int yToAdd = (int) downLeft.y;
+                gf.removeTakenPoint(xToAdd, yToAdd);
+            }
+            if (downRight.x > squareToAddBall.x && downRight.y > squareToAddBall.y) { // works
+                System.out.println("downRight");
+                int xToAdd = (int) downRight.x;
+                int yToAdd = (int) downRight.y;
+                gf.removeTakenPoint(xToAdd, yToAdd);
+            }
+
+            this.setChanged();
+            this.notifyObservers();
+        }
+    }
+
+    public void addBallsTakenPoints(){
+        for(Ball ball:balls) {
+            Point squareToAddBall = new Point((int) ball.getExactX(), (int) ball.getExactY());
+
+            //addGizmo("square","testing",String.valueOf(squareToAddBall.x),String.valueOf(squareToAddBall.y));
+
+            gf.addTakenPoint(squareToAddBall.x, squareToAddBall.y);
+            //TODO need to think about invalid points
+
+            Point.Double upRight = new Point.Double(ball.getExactX() + ball.getRadius(), ball.getExactY() - ball.getRadius());
+            Point.Double upLeft = new Point.Double(ball.getExactX() - ball.getRadius(), ball.getExactY() - ball.getRadius());
+            Point.Double downLeft = new Point.Double(ball.getExactX() - ball.getRadius(), ball.getExactY() + ball.getRadius());
+            Point.Double downRight = new Point.Double(ball.getExactX() + ball.getRadius(), ball.getExactY() + ball.getRadius());
+            if (upRight.x > squareToAddBall.x) {
+                System.out.println("upRight");
+                int xToAdd = (int) upRight.x;
+                int yToAdd = (int) upRight.y;
+                gf.addTakenPoint(xToAdd, yToAdd);
+            }
+            if (upLeft.x < squareToAddBall.x) {// works
+                System.out.println("Upleft");
+                int xToAdd = (int) upLeft.x;
+                int yToAdd = (int) upLeft.y;
+                gf.addTakenPoint(xToAdd, yToAdd);
+            }
+            if (downLeft.y > squareToAddBall.y) {
+                System.out.println("downLeft");
+                int xToAdd = (int) downLeft.x;
+                int yToAdd = (int) downLeft.y;
+                gf.addTakenPoint(xToAdd, yToAdd);
+            }
+            if (downRight.x > squareToAddBall.x && downRight.y > squareToAddBall.y) { // works
+                System.out.println("downRight");
+                int xToAdd = (int) downRight.x;
+                int yToAdd = (int) downRight.y;
+                gf.addTakenPoint(xToAdd, yToAdd);
+            }
+            this.setChanged();
+            this.notifyObservers();
+        }
+    }
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo) {
         double x = 0.0;
         double y = 0.0;
@@ -480,26 +560,39 @@ public class Model extends Observable {
 
             Point squareToAddBall = new Point((int) Double.parseDouble(xPos), (int) Double.parseDouble(yPos));
 
-            int maxWidth = squareToAddBall.x + 1;
-            int maxHeight = squareToAddBall.y + 1;
-            int leastWidth = squareToAddBall.x;
-            int leastHeight = squareToAddBall.y;
+          //addGizmo("square","testing",String.valueOf(squareToAddBall.x),String.valueOf(squareToAddBall.y));
 
-     
+            gf.addTakenPoint(squareToAddBall.x,squareToAddBall.y);
             //TODO need to think about invalid points
             Ball ball = balls.get(balls.size() - 1);
-            /*if (ball.getExactX() - ball.getRadius() < leastWidth) {
-                gf.addTakenPoint(leastWidth, squareToAddBall.y);
+            Point.Double upRight = new Point.Double(ball.getExactX()+ball.getRadius(),ball.getExactY()-ball.getRadius());
+            Point.Double upLeft = new Point.Double(ball.getExactX()-ball.getRadius(),ball.getExactY()-ball.getRadius());
+            Point.Double downLeft = new Point.Double(ball.getExactX()-ball.getRadius(),ball.getExactY()+ball.getRadius());
+            Point.Double downRight= new Point.Double(ball.getExactX()+ball.getRadius(),ball.getExactY()+ball.getRadius());
+            if (upRight.x > squareToAddBall.x) {
+                System.out.println("upRight");
+                int xToAdd = (int)upRight.x;
+                int yToAdd=(int) upRight.y;
+                gf.addTakenPoint(xToAdd,yToAdd);
             }
-            if (ball.getExactX() + ball.getRadius() > maxWidth) {// works
-                gf.addTakenPoint(maxWidth, squareToAddBall.y);
+            if (upLeft.x < squareToAddBall.x) {// works
+                System.out.println("Upleft");
+                int xToAdd = (int)upLeft.x;
+                int yToAdd=(int) upLeft.y;
+                gf.addTakenPoint(xToAdd,yToAdd);
             }
-            if (ball.getExactY() - ball.getRadius() < leastHeight) {
-                gf.addTakenPoint(squareToAddBall.x, leastHeight);
+            if (downLeft.y > squareToAddBall.y) {
+                System.out.println("downLeft");
+                int xToAdd = (int)downLeft.x;
+                int yToAdd=(int) downLeft.y;
+                gf.addTakenPoint(xToAdd,yToAdd);
             }
-            if (ball.getExactY() + ball.getRadius() > maxHeight) { // works
-                gf.addTakenPoint(squareToAddBall.x, maxHeight);
-            }*/
+            if (downRight.x > squareToAddBall.x && downRight.y>squareToAddBall.y) { // works
+                System.out.println("downRight");
+                int xToAdd = (int)downRight.x;
+                int yToAdd=(int) downRight.y;
+                gf.addTakenPoint(xToAdd,yToAdd);
+            }
             this.setChanged();
             this.notifyObservers();
             return true;
@@ -622,6 +715,35 @@ public class Model extends Observable {
         for (Ball ball : balls) {
             if ((x <= ball.getExactX() + ball.getRadius() && x >= ball.getExactX() - ball.getRadius())
                     && (y <= ball.getExactY() + ball.getRadius() && y >= ball.getExactY() - ball.getRadius())) {
+               Point squareToAddBall = new Point((int)ball.getExactX(),(int)ball.getExactY());
+                Point.Double upRight = new Point.Double(ball.getExactX()+ball.getRadius(),ball.getExactY()-ball.getRadius());
+                Point.Double upLeft = new Point.Double(ball.getExactX()-ball.getRadius(),ball.getExactY()-ball.getRadius());
+                Point.Double downLeft = new Point.Double(ball.getExactX()-ball.getRadius(),ball.getExactY()+ball.getRadius());
+                Point.Double downRight= new Point.Double(ball.getExactX()+ball.getRadius(),ball.getExactY()+ball.getRadius());
+                if (upRight.x > squareToAddBall.x) {
+                    System.out.println("upRight");
+                    int xToAdd = (int)upRight.x;
+                    int yToAdd=(int) upRight.y;
+                    gf.removeTakenPoint(xToAdd,yToAdd);
+                }
+                if (upLeft.x < squareToAddBall.x) {// works
+                    System.out.println("Upleft");
+                    int xToAdd = (int)upLeft.x;
+                    int yToAdd=(int) upLeft.y;
+                    gf.removeTakenPoint(xToAdd,yToAdd);
+                }
+                if (downLeft.y > squareToAddBall.y) {
+                    System.out.println("downLeft");
+                    int xToAdd = (int)downLeft.x;
+                    int yToAdd=(int) downLeft.y;
+                    gf.removeTakenPoint(xToAdd,yToAdd);
+                }
+                if (downRight.x > squareToAddBall.x && downRight.y>squareToAddBall.y) { // works
+                    System.out.println("downRight");
+                    int xToAdd = (int)downRight.x;
+                    int yToAdd=(int) downRight.y;
+                    gf.removeTakenPoint(xToAdd,yToAdd);
+                }
                 balls.remove(ball);
                 this.setChanged();
                 this.notifyObservers();
