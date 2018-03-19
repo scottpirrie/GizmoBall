@@ -13,12 +13,12 @@ class Walls {
     private int ypos2;
     private int xpos2;
 
-    Walls(String name,int x1, int y1, int x2, int y2) {
-        this.name = name;
-        xpos1 = x1;
-        ypos1 = y1;
-        xpos2 = x2;
-        ypos2 = y2;
+    Walls() {
+        this.name = "OuterWalls";
+        xpos1 = 0;
+        ypos1 = 0;
+        xpos2 = 20;
+        ypos2 = 20;
     }
 
     List<LineSegment> getLineSegments() {
@@ -34,5 +34,8 @@ class Walls {
         return ls;
     }
 
+    public String getName(){
+        return name;
+    }
 
 }
