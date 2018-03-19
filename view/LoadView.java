@@ -22,7 +22,7 @@ public class LoadView {
             boolean isFormatValid = m.load(fileChooser.getCurrentDirectory().toString(), fileChooser.getSelectedFile().getName());
             if(!isFormatValid){
                 JOptionPane.showMessageDialog(frame,
-                        "The file format is not supported",
+                        "The file could not be loaded. Please check its extension and its contents.",
                         "Inane error",
                         JOptionPane.ERROR_MESSAGE);
             }

@@ -402,7 +402,6 @@ public class Model extends Observable {
                 if(!gf.isPointTaken(p)) {
                     // move theFlipper
                     flipper.move(Double.parseDouble(xPos), Double.parseDouble(yPos));
-
                     gf.addTakenPoint(flipper.getXPivot(), flipper.getYPivot());
                     gf.addTakenPoint(flipper.getXPivot(), flipper.getYPivot() + 1);
                     gf.addTakenPoint(flipper.getXPivot() + 1, flipper.getYPivot());
@@ -457,9 +456,9 @@ public class Model extends Observable {
         }
         return false;
     }
+
     //TODO Marking the taken points for the ball is something that probably requires its own method,
     //TODO after all anytime we switch to build-mode we need to update the balls taken points
-
     public void removeBalsTakenPoint(){
         for(Ball ball:balls) {
             Point squareToAddBall = new Point((int) ball.getExactX(), (int) ball.getExactY());
@@ -538,6 +537,7 @@ public class Model extends Observable {
             this.notifyObservers();
         }
     }
+
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo) {
         double x = 0.0;
         double y = 0.0;
@@ -610,43 +610,14 @@ public class Model extends Observable {
         return false;
     }
 
-    private boolean isSourceAGizmo(String source){
-        for(AbstractGizmo gizmo:gizmos){
-            if(gizmo.getName().equals(source)){
-                return true;
-            }
-        }
-
-        for(Flipper flipper:flippers){
-            if(flipper.getName().equals(source)){
-                return true;
-            }
-        }
-
-        for(AbsorberGizmo absorberGizmo: absorbers){
-            if(absorberGizmo.getName().equals(source)){
-                return true;
-            }
-        }
-
-        for(Ball ball:balls){
-            if(ball.getName().equals(source)){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean addTrigger(String source, String target){
         if(!source.equals("") && !target.equals("")) {
             List<String> temp = triggers.get(source);
             if (temp == null) {
-                if(isSourceAGizmo(source)) {
-                    temp = new ArrayList<>();
-                    temp.add(target);
-                    triggers.put(source, temp);
-                    return true;
-                }
+                temp = new ArrayList<>();
+                temp.add(target);
+                triggers.put(source, temp);
+                return true;
             } else {
                 if (!temp.contains(target)) {
                     triggers.get(source).add(target);
@@ -917,6 +888,7 @@ public class Model extends Observable {
             name = directory + "/" + fileName + ".giz";
         }
         File file = new File((name));
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (AbstractGizmo gizmo : gizmos) {
                 writer.write(gizmo.toString() + "\n");
@@ -966,22 +938,17 @@ public class Model extends Observable {
     public boolean load(String directory, String fileName) {
         clearModel();
         String name;
-        boolean success=true;
+
         if (isWindows()) {
             name = directory + "\\" + fileName;
         } else {
             name = directory + "/" + fileName;
         }
-        char lastCharacter = name.charAt(name.length()-1);
-        char secondLast=name.charAt(name.length()-2);
-        char thirdLast = name.charAt(name.length()-3);
-        char fourthLast = name.charAt(name.length()-4);
 
-        char[] extension = {fourthLast,thirdLast,secondLast,lastCharacter};
-        String sExentsion = new String(extension);
-        if(!sExentsion.equals(".giz")){
+        if(!name.contains(".giz")){
             return false;
         }
+
         try (BufferedReader br = new BufferedReader(new FileReader(new File(name)))) {
             StringTokenizer tokenizer;
             String line;
@@ -992,58 +959,49 @@ public class Model extends Observable {
                         String token = tokenizer.nextToken();
 
                         if (token.toLowerCase().equals("square")) {
-                            success=addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
-                            if(!success){
+                            if(!addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())){
                                 clearModel();
                                 return false;
                             }
                         }
 
                         if (token.toLowerCase().equals("triangle")) {
-                            success=addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
-                            if(!success){
+                            if(!addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())){
                                 clearModel();
                                 return false;
                             }
                         }
 
                         if (token.toLowerCase().equals("circle")) {
-                            success=addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
-                            if(!success){
+                            if(!addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())){
                                 clearModel();
                                 return false;
                             }
                         }
 
                         if (token.toLowerCase().equals("absorber")) {
-                            success=addAbsorber(token, tokenizer.nextToken(), tokenizer.nextToken(),
-                                    tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
-                            if(!success){
+                            if(!addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())){
                                 clearModel();
                                 return false;
                             }
                         }
 
                         if (token.toLowerCase().equals("leftflipper")) {
-                            success=addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
-                            if(!success){
+                            if(!addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())){
                                 clearModel();
                                 return false;
                             }
                         }
 
                         if (token.toLowerCase().equals("rightflipper")) {
-                            success=addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
-                            if(!success){
+                            if(!addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())){
                                 clearModel();
                                 return false;
                             }
                         }
 
                         if (token.toLowerCase().equals("ball")) {
-                            success=addBall(token, tokenizer.nextToken(), tokenizer.nextToken(),
-                                    tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken());
-                            if(!success){
+                            if(!addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())){
                                 clearModel();
                                 return false;
                             }
@@ -1068,8 +1026,7 @@ public class Model extends Observable {
                             String nameA = tokenizer.nextToken();
                             String nameB = tokenizer.nextToken();
 
-                            success=addTrigger(nameA, nameB);
-                            if(!success){
+                            if(!addTrigger(nameA, nameB)){
                                 clearModel();
                                 return false;
                             }
@@ -1095,7 +1052,7 @@ public class Model extends Observable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
 
         this.setChanged();
