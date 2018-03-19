@@ -45,7 +45,7 @@ public class AddBallListener implements MouseListener{
                     JOptionPane.ERROR_MESSAGE);
         } else {
             boolean success = m.addBall("ball", "B" + size, String.valueOf(x), String.valueOf(y), String.valueOf(xV), String.valueOf(yV));
-
+            System.out.println("Double X: " + x + " Y: "+ y +" Name and Size: B"+size+" Cord's X: " + String.valueOf(x) + " Y: " + String.valueOf(y) + " xV: " + String.valueOf(xV) + " yV: " + String.valueOf(yV));
             if (!success) {
                 JOptionPane.showMessageDialog(panel,
                         "Location already taken",
