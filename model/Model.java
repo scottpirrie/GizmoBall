@@ -95,7 +95,7 @@ public class Model extends Observable {
 
     private void setGravity(Ball ball, double time) {
         if (!ball.stopped()) {
-            ball.setVelo(ball.getVelo().plus(new Vect(0, (gravityConstant * time))));
+            ball.setVelo(ball.getVelo().plus(new Vect(0, (gravityConstant *time))));
         }
     }
 
