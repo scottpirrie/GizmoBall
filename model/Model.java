@@ -547,6 +547,7 @@ public class Model extends Observable {
         }
         return false;
     }
+
     public boolean addTrigger(String source, String target){
         if(!source.equals("") && !target.equals("")) {
             List<String> temp = triggers.get(source);
@@ -711,7 +712,6 @@ public class Model extends Observable {
         }
 
     }
-
 
     public boolean removeTrigger(String source, String target){
         List<String> temp = triggers.get(source);
