@@ -25,17 +25,17 @@ public class RunListener implements ActionListener {
         } else {
             switch (e.getActionCommand()) {
                 case "Start":
-                    board.getModel().removeBalsTakenPoint();
+                    board.getModel().cleanUpWhenBallMoves();
                     timer.start();
                     break;
                 case "Tick":
-                    board.getModel().removeBalsTakenPoint();
+                    board.getModel().cleanUpWhenBallMoves();
                     board.getModel().moveBall(0.0167);
-                    board.getModel().addBallsTakenPoints();
+                    board.getModel().setNewBallsTakenPoints();
                     break;
                 case "Stop":
                     timer.stop();
-                    board.getModel().addBallsTakenPoints();
+                    board.getModel().setNewBallsTakenPoints();
                     break;
                 case "Build Mode":
                     frame.dispose();
@@ -43,7 +43,7 @@ public class RunListener implements ActionListener {
                     Gui bGUI = new BuildGui(board);
                     bGUI.createAndShowGUI();
                     timer.stop();
-                    board.getModel().addBallsTakenPoints();
+                    board.getModel().setNewBallsTakenPoints();
                     break;
                 case "Quit":
                     String YesNo[] = {"Yes","No"};

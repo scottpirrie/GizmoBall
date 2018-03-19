@@ -36,6 +36,9 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
         if(timesClicked==1){
             String gizmo = model.findGizmo((double)e.getX()/board.getL(),(double)e.getY()/board.getL());
             String [] attributes=gizmo.split(" ");
+            if(attributes[0].equals("ball")){
+                model.cleanUpWhenBallMoves();
+            }
             if(gizmo.equals("")){
                 JOptionPane.showMessageDialog(board,
                         "No gizmo in this location",
@@ -92,6 +95,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                     break;
                 case "ball":
                     model.moveBall(attributes[1],String.valueOf((double)e.getX() / board.getL()), String.valueOf((double)e.getY() / board.getL()));
+                    model.setNewBallsTakenPoints();
                     break;
             }
 

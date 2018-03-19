@@ -103,6 +103,7 @@ public class Model extends Observable {
     }
 
     private void setFriction(Ball ball, double time) {
+        System.out.println("Time : "+time);
         double mu1 = frictionConstant; //per/second
         double mu2 = frictionConstant; //per/L
         double oldX = ball.getVelo().x();
@@ -111,6 +112,7 @@ public class Model extends Observable {
         double nxV = 0.0;
         Vect newV;
         mu1 = mu1 / time;
+
         //Vnew = Vold * (1 - mu * delta_t - mu2 * |Vold| * delta_t)
         nxV = oldX * (1 - mu1 * time - mu2 * Math.abs(oldX) * time);
         nyV = oldY * (1 - mu1 * time - mu2 * Math.abs(oldY) * time);
@@ -375,8 +377,11 @@ public class Model extends Observable {
             if(ball.getName().equals(name)){
 
                 Point.Double p = new Point.Double(toCheckX,toCheckY);
+
+
                 if(!gf.isPointTaken(p)){
                     ball.move(Double.parseDouble(xPos),Double.parseDouble(yPos));
+
                     this.setChanged();
                     this.notifyObservers();
                     return true;
@@ -460,8 +465,8 @@ public class Model extends Observable {
     //TODO Marking the taken points for the ball is something that probably requires its own method,
     //TODO after all anytime we switch to build-mode we need to update the balls taken points
 
-    public void removeBalsTakenPoint(){
-        for(Ball ball:balls) {
+    public void removeBalsTakenPoint(Ball ball){
+
             Point squareToAddBall = new Point((int) ball.getExactX(), (int) ball.getExactY());
             Point.Double upRight = new Point.Double(ball.getExactX() + ball.getRadius(), ball.getExactY() - ball.getRadius());
             Point.Double upLeft = new Point.Double(ball.getExactX() - ball.getRadius(), ball.getExactY() - ball.getRadius());
@@ -495,10 +500,10 @@ public class Model extends Observable {
             this.setChanged();
             this.notifyObservers();
         }
-    }
 
-    public void addBallsTakenPoints(){
-        for(Ball ball:balls) {
+
+    public void addBallsTakenPoints(Ball ball){
+
             Point squareToAddBall = new Point((int) ball.getExactX(), (int) ball.getExactY());
 
             //addGizmo("square","testing",String.valueOf(squareToAddBall.x),String.valueOf(squareToAddBall.y));
@@ -537,7 +542,7 @@ public class Model extends Observable {
             this.setChanged();
             this.notifyObservers();
         }
-    }
+
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo) {
         double x = 0.0;
         double y = 0.0;
@@ -1130,5 +1135,15 @@ public class Model extends Observable {
         this.setChanged();
         this.notifyObservers();
     }
+ public void cleanUpWhenBallMoves(){
+        for(Ball ball:balls){
+            removeBalsTakenPoint(ball);
+        }
+ }
 
+ public void setNewBallsTakenPoints(){
+     for (Ball ball:balls){
+         addBallsTakenPoints(ball);
+     }
+ }
 }
