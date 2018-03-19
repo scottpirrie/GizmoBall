@@ -19,7 +19,7 @@ class GizmoFactory {
         double y=0.0;
         try {
             x = Math.floor(Double.parseDouble(xPos));
-             y = Math.floor(Double.parseDouble(yPos));
+            y = Math.floor(Double.parseDouble(yPos));
         }catch (NumberFormatException e){
             return null;
         }
@@ -49,9 +49,9 @@ class GizmoFactory {
         double y2=0.0;
         try {
             x1 = Double.parseDouble(xPos1);
-             y1 = Double.parseDouble(yPos1);
-             x2 = Double.parseDouble(xPos2);
-             y2 = Double.parseDouble(yPos2);
+            y1 = Double.parseDouble(yPos1);
+            x2 = Double.parseDouble(xPos2);
+            y2 = Double.parseDouble(yPos2);
         }catch (NumberFormatException e){
             return null;
         }
@@ -84,9 +84,10 @@ class GizmoFactory {
     Flipper createFlipper(String type,String name, String xPos, String yPos){
         double x=0.0;
         double y=0.0;
+
         try {
-           x = Double.parseDouble(xPos);
-             y = Double.parseDouble(yPos);
+            x = Double.parseDouble(xPos);
+            y = Double.parseDouble(yPos);
         }catch (NumberFormatException e){
             return null;
         }

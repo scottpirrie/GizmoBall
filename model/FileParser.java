@@ -72,7 +72,7 @@ class FileParser {
         }
     }
 
-    public boolean load(String directory, String fileName) {
+    boolean load(String directory, String fileName) {
         model.clearModel();
         String name;
 
