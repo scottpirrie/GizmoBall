@@ -41,4 +41,13 @@ public class ModelTests {
         assertTrue(model.remove(1,1));
     }
 
+    @Test
+    public void testGizmoSpaceTaken(){
+        model.addGizmo("circle", "C0", "1", "1");
+        //adding another gizmo in same place
+        assertFalse(model.addGizmo("triangle", "T0", "1", "1"));
+    }
+
+
+
 }
