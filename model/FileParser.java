@@ -87,7 +87,7 @@ class FileParser {
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(new File(name)))) {
-
+            // fix load
             StringTokenizer tokenizer;
             String line;
             while ((line = br.readLine()) != null) {
