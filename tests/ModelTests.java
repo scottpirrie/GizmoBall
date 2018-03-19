@@ -32,12 +32,13 @@ public class ModelTests {
 
     @Test
     public void testAddGizmo(){
-
+        assertTrue(model.addGizmo("circle", "C0", "1", "1"));
     }
 
     @Test
     public void testRemoveGizmo(){
-
+        model.addGizmo("circle", "C0", "1", "1");
+        assertTrue(model.remove(1,1));
     }
 
 }
