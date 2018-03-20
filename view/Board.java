@@ -83,8 +83,8 @@ public class Board extends JPanel implements Observer{
                 LineSegment l2 = gizmo.getLines().get(1);
                 LineSegment l3 = gizmo.getLines().get(2);
 
-                int [] xPoints = {(int)l1.p1().x()*L,(int)l2.p1().x()*L,(int)l3.p1().x()*L};
-                int [] yPoints = {(int)l1.p1().y()*L,(int)l2.p1().y()*L,(int)l3.p1().y()*L};
+                int [] xPoints = {(int)Math.round(l1.p1().x()*L),(int)Math.round(l2.p1().x()*L),(int)Math.round(l3.p1().x()*L)};
+                int [] yPoints = {(int)Math.round(l1.p1().y()*L),(int)Math.round(l2.p1().y()*L),(int)Math.round(l3.p1().y()*L)};
                 Polygon p = new Polygon(xPoints,yPoints,3);
                 g2.fillPolygon(p);
 
