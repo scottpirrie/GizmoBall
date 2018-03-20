@@ -147,4 +147,77 @@ public class ModelTests {
     }
 
 
+    //triggers
+    @Test
+    public void testAddTriggersGizmos(){
+        model.addGizmo("square", "S0", "4", "4");
+        model.addGizmo("circle", "C0", "1", "1");
+
+        assertTrue(model.addTrigger("S0", "C0"));
+    }
+
+    @Test
+    public void testAddTriggersFlippers(){
+        model.addFlipper("rightflipper", "F1", "1", "1");
+        model.addFlipper("rightflipper", "F2", "5", "5");
+
+        assertTrue(model.addTrigger("F1", "F2"));
+    }
+
+    @Test
+    public void testAddTriggersAbsorbers(){
+        model.addAbsorber("absorber", "A1", "1", "1", "4", "4");
+        model.addAbsorber("absorber", "A2", "6", "6", "9", "9");
+        assertTrue(model.addTrigger("A1", "A2"));
+    }
+
+    @Test
+    public void testAddTriggersExtra(){
+        model.addAbsorber("absorber", "A1", "1", "1", "4", "4");
+        model.addAbsorber("absorber", "A2", "6", "6", "9", "9");
+
+        model.addAbsorber("absorber", "A3", "8", "8", "3", "3");
+
+        model.addTrigger("A1", "A2");
+
+        assertTrue(model.addTrigger("A1", "A3"));
+    }
+
+    @Test
+    public void testAddTriggersNoGizmo(){
+        model.addGizmo("square", "S0", "4", "4");
+
+        assertFalse(model.addTrigger("S0", "Unknown"));
+    }
+
+
+    @Test
+    public void testRemoveTriggers(){
+
+        model.addGizmo("square", "S0", "4", "4");
+        model.addGizmo("circle", "C0", "1", "1");
+
+        model.addTrigger("S0", "C0");
+        assertTrue(model.removeTrigger("S0", "C0"));
+    }
+
+    @Test
+    public void testRemoveTriggersNoGizmo(){
+        model.addGizmo("square", "S0", "4", "4");
+        model.addGizmo("circle", "C0", "1", "1");
+
+        assertFalse(model.removeTrigger("S0", "C0"));
+    }
+
+    @Test
+    public void testRemoveTriggersWrongTrigger(){
+        model.addGizmo("square", "S0", "4", "4");
+        model.addGizmo("circle", "C0", "1", "1");
+
+        model.addTrigger("S0", "C0");
+
+        assertFalse(model.removeTrigger("S0", "C1"));
+    }
+
+
 }
