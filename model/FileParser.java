@@ -87,10 +87,13 @@ class FileParser {
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(new File(name)))) {
+            // fix load
             StringTokenizer tokenizer;
             String line;
             while ((line = br.readLine()) != null) {
+
                 try {
+
                     tokenizer = new StringTokenizer(line);
                     while (tokenizer.hasMoreTokens()) {
                         String token = tokenizer.nextToken();
@@ -102,49 +105,49 @@ class FileParser {
                             }
                         }
 
-                        if (token.toLowerCase().equals("triangle")) {
+                        else if (token.toLowerCase().equals("triangle")) {
                             if (!model.addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
                         }
 
-                        if (token.toLowerCase().equals("circle")) {
+                        else if (token.toLowerCase().equals("circle")) {
                             if (!model.addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
                         }
 
-                        if (token.toLowerCase().equals("absorber")) {
-                            if (!model.addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
+                       else if (token.toLowerCase().equals("absorber")) {
+                            if (!model.addAbsorber(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
                         }
 
-                        if (token.toLowerCase().equals("leftflipper")) {
-                            if (!model.addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
+                       else if (token.toLowerCase().equals("leftflipper")) {
+                            if (!model.addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
                         }
 
-                        if (token.toLowerCase().equals("rightflipper")) {
-                            if (!model.addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
+                       else if (token.toLowerCase().equals("rightflipper")) {
+                            if (!model.addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
                         }
 
-                        if (token.toLowerCase().equals("ball")) {
-                            if (!model.addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
+                       else if (token.toLowerCase().equals("ball")) {
+                            if (!model.addBall(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
                         }
 
-                        if (token.toLowerCase().equals("rotate")) {
+                        else if (token.toLowerCase().equals("rotate")) {
                             String target = tokenizer.nextToken();
                             for (AbstractGizmo t : model.getGizmos()) {
                                 if (t.getName().equals(target)) {
@@ -159,7 +162,7 @@ class FileParser {
                             }
                         }
 
-                        if (token.toLowerCase().equals("connect")) {
+                       else if (token.toLowerCase().equals("connect")) {
                             String nameA = tokenizer.nextToken();
                             String nameB = tokenizer.nextToken();
 
@@ -169,7 +172,7 @@ class FileParser {
                             }
                         }
 
-                        if (token.toLowerCase().equals("keyconnect")) {
+                        else if (token.toLowerCase().equals("keyconnect")) {
                             tokenizer.nextToken();
                             String key = tokenizer.nextToken();
                             String type = tokenizer.nextToken();
