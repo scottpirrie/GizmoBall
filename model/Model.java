@@ -386,7 +386,7 @@ public class Model extends Observable {
             Point.Double p = new Point.Double(Math.floor(x), Math.floor(y));
 
             if (!gf.isPointTaken(p)) {
-                balls.add(new Ball(type, name, x, y, xv, yv, 0.24));
+                balls.add(new Ball(type, name, x, y, xv, yv, 0.25));
                 Point.Double squareToAddBall = new Point.Double(Math.floor(Double.parseDouble(xPos)), Math.floor(Double.parseDouble(yPos)));
                 gf.addTakenPoint(squareToAddBall.x, squareToAddBall.y);
                 Ball ball = balls.get(balls.size() - 1);
@@ -448,9 +448,8 @@ public class Model extends Observable {
     public boolean moveGizmo(String name, String xPos, String yPos) {
         for (AbstractGizmo gizmo : gizmos) {
             if (gizmo.getName().equals(name)) {
-                //gf.removeTakenPoint(gizmo.getxPos(), gizmo.getyPos());
-                Point.Double p = new Point.Double(Double.parseDouble(xPos), Double.parseDouble(yPos));
 
+                Point.Double p = new Point.Double(Double.parseDouble(xPos), Double.parseDouble(yPos));
                 if (!gf.isPointTaken(p)) {
                     gf.removeTakenPoint(gizmo.getxPos(), gizmo.getyPos());
                     gizmo.move(Double.parseDouble(xPos), Double.parseDouble(yPos));
@@ -513,11 +512,11 @@ public class Model extends Observable {
 
                 Point.Double p = new Point.Double(Double.parseDouble(xPos), Double.parseDouble(yPos));
                 if (!gf.isPointTaken(p)) {
-                    // move theFlipper
                     gf.removeTakenPoint(xPivot, yPivot);
                     gf.removeTakenPoint(xPivot, yPivot + 1);
                     gf.removeTakenPoint(xPivot + 1, yPivot);
                     gf.removeTakenPoint(xPivot + 1, yPivot + 1);
+
                     flipper.move(Double.parseDouble(xPos), Double.parseDouble(yPos));
                     gf.addTakenPoint(flipper.getXPos(), flipper.getYPos());
                     gf.addTakenPoint(flipper.getXPos(), flipper.getYPos() + 1);
