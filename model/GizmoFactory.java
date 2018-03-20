@@ -43,6 +43,11 @@ class GizmoFactory {
 
     AbsorberGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         boolean foundTakenPoint=false;
+
+        if(!type.equals("absorber")){
+            return null;
+        }
+
         double x1 = 0.0;
         double y1 = 0.0;
         double x2 = 0.0;
@@ -72,9 +77,6 @@ class GizmoFactory {
                     Point.Double p = new Point.Double(j,i);
                     takenPoints.add(p);
                 }
-            }
-            if(!type.equals("absorber")){
-                return null;
             }
             return new AbsorberGizmo(type, name, x1, y1, x2, y2);
         }
