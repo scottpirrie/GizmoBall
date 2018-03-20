@@ -176,18 +176,22 @@ public class BuildGui implements Gui {
     }
 
     private JSlider createNewSlider(){
-        JSlider slider = new JSlider();
-        slider.setMajorTickSpacing(25);
+        JSlider slider = new JSlider(JSlider.HORIZONTAL,0,200,100);
+        slider.setMajorTickSpacing(50);
         slider.setMinorTickSpacing(10);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
 
         Hashtable<Integer, JLabel> pos = new Hashtable<>();
         pos.put(0, new JLabel("0"));
-        pos.put(25, new JLabel("25"));
+
         pos.put(50, new JLabel("50"));
-        pos.put(75, new JLabel("75"));
+      
         pos.put(100, new JLabel("100"));
+
+        pos.put(150, new JLabel("150"));
+
+        pos.put(200, new JLabel("200"));
 
         slider.setLabelTable(pos);
 
