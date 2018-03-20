@@ -35,11 +35,11 @@ public class Ball {
         return name;
     }
 
-    public Vect getVelo() {
+    Vect getVelo() {
         return velocity;
     }
 
-    public void setVelo(Vect v) {
+    void setVelo(Vect v) {
         velocity = v;
     }
 
@@ -59,23 +59,23 @@ public class Ball {
         return ypos;
     }
 
-    public void setExactX(double x) {
+    void setExactX(double x) {
         xpos = x;
     }
 
-    public void setExactY(double y) {
+    void setExactY(double y) {
         ypos = y;
     }
 
-    public void stop() {
+    void stop() {
         stopped = true;
     }
 
-    public void start() {
+    void start() {
         stopped = false;
     }
 
-    public boolean stopped() {
+    boolean stopped() {
         return stopped;
     }
 

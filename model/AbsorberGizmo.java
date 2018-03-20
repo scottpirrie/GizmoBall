@@ -15,7 +15,6 @@ public class AbsorberGizmo{
     private double yPos1;
     private double xPos2;
     private double yPos2;
-    private double height;
     private Ball ball;
     private List<LineSegment> lines;
     private List<Circle> circles;
@@ -27,7 +26,6 @@ public class AbsorberGizmo{
         this.yPos1 = yPos1;
         this.xPos2 = xPos2;
         this.yPos2 = yPos2;
-        this.height = height;
         this.ball = null;
         lines = new ArrayList<>();
         circles = new ArrayList<>();

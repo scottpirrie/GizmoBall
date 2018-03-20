@@ -367,7 +367,6 @@ public class Model extends Observable {
 
     public boolean addBall(String type, String name, String xPos, String yPos, String xVelo, String yVelo) {
         if(!checkGizmoExists(name)) {
-
             double x = 0.0;
             double y = 0.0;
             double xv = 0.0;
@@ -388,7 +387,6 @@ public class Model extends Observable {
                 balls.add(new Ball(type, name, x, y, xv, yv, 0.25));
                 Point.Double squareToAddBall = new Point.Double(Math.floor(Double.parseDouble(xPos)), Math.floor(Double.parseDouble(yPos)));
                 gf.addTakenPoint(squareToAddBall.x, squareToAddBall.y);
-                //TODO need to think about invalid points
                 Ball ball = balls.get(balls.size() - 1);
                 addBallsTakenPoints(ball);
                 this.setChanged();
