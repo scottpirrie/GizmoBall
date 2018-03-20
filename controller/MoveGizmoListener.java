@@ -44,7 +44,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                         "No gizmo in this location",
                         "Inane error",
                         JOptionPane.ERROR_MESSAGE);
-                    timesClicked=0;
+                timesClicked=0;
             }else {
                 if(attributes[0].equals("absorber")){
                     startingX=Double.parseDouble(attributes[2]);
@@ -91,6 +91,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                     double newXPos2=  (Double.parseDouble(attributes[2])+width);
                     double newYPos2=  (Double.parseDouble(attributes[3])+height);
                     model.moveAbsorber(attributes[1],attributes[2], attributes[3],String.valueOf(newXPos2),String.valueOf(newYPos2));
+
                     break;
                 case "ball":
                     model.moveBall(attributes[1],String.valueOf((double)e.getX() / board.getL()), String.valueOf((double)e.getY() / board.getL()));
@@ -136,18 +137,21 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             boolean success=false;
             if(attributes[0].equals("square")||attributes[0].equals("triangle")||attributes[0].equals("circle")) {
                 if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
+
                     success= model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
                 }else{
                     outOfBounds=true;
                 }
             }else if((attributes[0].equals("rightflipper")||attributes[0].equals("leftflipper"))){
                 if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19){
+                    System.out.println("Move to: "+e.getX()/board.getL()+" "+e.getY()/board.getL());
                     success= model.MoveFlipper(attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
                 }else{
                     outOfBounds=true;
                 }
             }else if(attributes[0].equals("ball")){
-                if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
+                if(e.getX()<20*board.getL()-board.getL()/4 && e.getY()<20*board.getL()-board.getL()/4 && e.getX()>board.getL()/4 && e.getY()>board.getL()/4) {
+
                     success = model.moveBall(attributes[1], String.valueOf((double) e.getX() / board.getL()), String.valueOf((double) e.getY() / board.getL()));
                 }else{
                     outOfBounds=true;
@@ -156,8 +160,8 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                 double height = Double.parseDouble(attributes[4]);
                 double width = Double.parseDouble(attributes[5]);
 
-                    int newXPos2= (int) ((e.getX() / board.getL())+width);
-                    int newYPos2= (int) ((e.getY() / board.getL())+height);
+                int newXPos2= (int) ((e.getX() / board.getL())+width);
+                int newYPos2= (int) ((e.getY() / board.getL())+height);
 
                 if(newXPos2<=20 && newYPos2<=20){
                     success= model.moveAbsorber(attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
@@ -179,7 +183,6 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                             "Inane error",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
                 if(attributes[0].equals("square")||attributes[0].equals("triangle")||attributes[0].equals("circle")) {
                     model.moveGizmo( attributes[1], String.valueOf(moveBackX), String.valueOf(moveBackY));
                 }else if(attributes[0].equals("leftflipper")){
@@ -198,11 +201,11 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                     model.moveAbsorber(attributes[1],String.valueOf(tempMoveBackX), String.valueOf(tempMoveBackY),String.valueOf(newXPos2),String.valueOf(newYPos2));
 
                 }
-               timesClicked=0;
-           }
+                timesClicked=0;
+            }
 
-               startingX = (double) e.getX() / board.getL();
-               startingY = (double) e.getY() / board.getL();
+            startingX = (double) e.getX() / board.getL();
+            startingY = (double) e.getY() / board.getL();
 
         }
 
