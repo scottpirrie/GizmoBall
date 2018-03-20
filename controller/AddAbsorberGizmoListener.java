@@ -43,7 +43,7 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
         }else if(timesClicked==2){
             Point startingPoint = findStartingPoint();
             Point endingPoint = findEndingPoint();
-            int size = board.getModel().getGizmos().size();
+            int size = board.getModel().getAbsorbers().size();
 
             if(endingPoint.x >= 20 || endingPoint.y >= 20){
                 JOptionPane.showMessageDialog(board,

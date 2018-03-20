@@ -65,6 +65,7 @@ class GizmoFactory {
             for(double j=x1; j<x2; j++){
                 Point.Double p = new Point.Double(j,i);
                 if(takenPoints.contains(p)){
+                    System.out.println("Found taken point: "+p.x+" "+p.y);
                     foundTakenPoint=true;
                 }
             }
