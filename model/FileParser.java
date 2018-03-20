@@ -32,7 +32,7 @@ class FileParser {
             for (AbstractGizmo gizmo : model.getGizmos()) {
                 writer.write(gizmo.toString() + "\n");
                 if (gizmo.getRotation() > 0) {
-                    for (int i = 0; i <= gizmo.getRotation(); i++) {
+                    for (int i = 0; i < gizmo.getRotation(); i++) {
                         writer.write("Rotate " + gizmo.getName() + "\n");
                     }
                 }
@@ -41,7 +41,7 @@ class FileParser {
             for (Flipper flipper : model.getFlippers()) {
                 writer.write(flipper.toString() + "\n");
                 if (flipper.getRotation() > 0) {
-                    for (int i = 0; i <= flipper.getRotation(); i++) {
+                    for (int i = 0; i < flipper.getRotation(); i++) {
                         writer.write("Rotate " + flipper.getName() + "\n");
                     }
                 }
