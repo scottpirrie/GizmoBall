@@ -9,13 +9,13 @@ import java.util.TimerTask;
 
 public class LeftFlipper implements Flipper{
 
-    private String type;
-    private String name;
+    private final String type;
+    private final String name;
     private double xPos;
     private double yPos;
     private int rotation;
-    private List<LineSegment> lines;
-    private List<Circle> circles;
+    private final List<LineSegment> lines;
+    private final List<Circle> circles;
     private boolean isPressed;
     private double theta;
     private double angularVelo;
@@ -52,16 +52,14 @@ public class LeftFlipper implements Flipper{
         return rotation;
     }
 
-    @Override
-    public void createLines(double xPos, double yPos) {
+    private void createLines(double xPos, double yPos) {
         LineSegment l1 = new LineSegment(xPos, yPos+0.25, xPos, yPos + 1.75);
         LineSegment l2 = new LineSegment(xPos+0.5, yPos+0.25, xPos+0.5, yPos + 1.75);
         lines.add(l1);
         lines.add(l2);
     }
 
-    @Override
-    public void createCircles(double xPos, double yPos) {
+    private void createCircles(double xPos, double yPos) {
         Circle c1 = new Circle(xPos+0.25, yPos+0.25, 0.25);
         Circle c2 = new Circle(xPos+0.25, yPos+1.75, 0.25);
         Circle c3 = new Circle(xPos, yPos+0.25,0);

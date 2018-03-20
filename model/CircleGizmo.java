@@ -12,13 +12,13 @@ import java.util.TimerTask;
 
 public class CircleGizmo implements AbstractGizmo{
 
-    private String type;
-    private String name;
+    private final String type;
+    private final String name;
     private double xPos;
     private double yPos;
-    private double radius;
+    private final double radius;
     private List<LineSegment> lines;
-    private List<physics.Circle> circles;
+    private final List<physics.Circle> circles;
     private Color color;
     private boolean isTriggered;
 
@@ -66,13 +66,11 @@ public class CircleGizmo implements AbstractGizmo{
         return color;
     }
 
-    @Override
-    public void createLines(double xPos,double yPos) {
+    private void createLines(double xPos,double yPos) {
         //DOES NOTHING
     }
 
-    @Override
-    public void createCircles(double xPos,double yPos) {
+    private void createCircles(double xPos,double yPos) {
         physics.Circle circle = new physics.Circle(xPos+radius,yPos+radius,radius);
         circles.add(circle);
     }

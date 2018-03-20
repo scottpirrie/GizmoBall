@@ -9,15 +9,15 @@ import java.util.List;
 
 public class AbsorberGizmo{
 
-    private String type;
-    private String name;
+    private final String type;
+    private final String name;
     private double xPos1;
     private double yPos1;
     private double xPos2;
     private double yPos2;
     private Ball ball;
-    private List<LineSegment> lines;
-    private List<Circle> circles;
+    private final List<LineSegment> lines;
+    private final List<Circle> circles;
 
     AbsorberGizmo(String type, String name, double xPos1, double yPos1, double xPos2, double yPos2){
         this.type = type;

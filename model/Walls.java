@@ -7,11 +7,11 @@ import java.util.List;
 
 class Walls {
 
-    private String name;
-    private int xpos1;
-    private int ypos1;
-    private int ypos2;
-    private int xpos2;
+    private final String name;
+    private final int xpos1;
+    private final int ypos1;
+    private final int ypos2;
+    private final int xpos2;
 
     Walls() {
         this.name = "OuterWalls";

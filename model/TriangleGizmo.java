@@ -11,13 +11,13 @@ import java.util.TimerTask;
 public class TriangleGizmo implements AbstractGizmo{
 
 
-    private String type;
-    private String name;
+    private final String type;
+    private final String name;
     private double xPos;
     private double yPos;
     private int rotation;
-    private List<LineSegment> lines;
-    private List<Circle> circles;
+    private final List<LineSegment> lines;
+    private final List<Circle> circles;
     private Color color;
     private boolean isTriggered;
 
@@ -65,8 +65,7 @@ public class TriangleGizmo implements AbstractGizmo{
         return color;
     }
 
-    @Override
-    public void createLines(double xPos,double yPos) {
+    private void createLines(double xPos,double yPos) {
         lines.clear();
         LineSegment l1 = new LineSegment(xPos,yPos,xPos+1,yPos);
         LineSegment l2 = new LineSegment(xPos,yPos+1,xPos,yPos);
@@ -78,8 +77,7 @@ public class TriangleGizmo implements AbstractGizmo{
         lines.add(l3);
     }
 
-    @Override
-    public void createCircles(double xPos,double yPos) {
+    private void createCircles(double xPos,double yPos) {
         circles.clear();
         Circle c1 = new Circle(xPos,yPos,0);
         Circle c2 = new Circle(xPos+1,yPos,0);

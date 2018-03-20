@@ -2,7 +2,6 @@ package model;
 
 import physics.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -10,13 +9,13 @@ import java.util.TimerTask;
 
 public class RightFlipper implements Flipper{
 
-    private String type;
-    private String name;
+    private final String type;
+    private final String name;
     private double xPos;
     private double yPos;
     private int rotation;
-    private List<LineSegment> lines;
-    private List<Circle> circles;
+    private final List<LineSegment> lines;
+    private final List<Circle> circles;
     private boolean isPressed;
     private double theta;
     private double angularVelo;
@@ -53,16 +52,14 @@ public class RightFlipper implements Flipper{
         return rotation;
     }
 
-    @Override
-    public void createLines(double xPos,double yPos) {
+    private void createLines(double xPos,double yPos) {
         LineSegment l1 = new LineSegment(xPos+1.5, yPos+0.25, xPos+1.5, yPos + 1.75);
         LineSegment l2 = new LineSegment(xPos+2, yPos+0.25, xPos+2, yPos + 1.75);
         lines.add(l1);
         lines.add(l2);
     }
 
-    @Override
-    public void createCircles(double xPos,double yPos) {
+    private void createCircles(double xPos,double yPos) {
         Circle c1 = new Circle(xPos+1.75, yPos+0.25, 0.25);
         Circle c2 = new Circle(xPos+1.75, yPos+1.75, 0.25);
         Circle c3 = new Circle(xPos+1.5, yPos+0.25,0);

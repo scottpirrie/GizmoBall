@@ -7,8 +7,8 @@ import physics.Vect;
  */
 
 class CollisionDetails {
-    private double tuc;
-    private Vect velo;
+    private final double tuc;
+    private final Vect velo;
 
     CollisionDetails(double t, Vect v) {
         tuc = t;

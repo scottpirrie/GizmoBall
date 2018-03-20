@@ -3,17 +3,16 @@ package model;
 import physics.Circle;
 import physics.Vect;
 import java.awt.*;
-import java.time.Year;
 
 public class Ball {
 
-    private String type;
-    private String name;
+    private final String type;
+    private final String name;
     private Vect velocity;
-    private double radius;
+    private final double radius;
     private double xpos;
     private double ypos;
-    private Color colour;
+    private final Color colour;
     private boolean stopped;
 
     public Ball(String type, String name, double x, double y, double xv, double yv, double radius) {

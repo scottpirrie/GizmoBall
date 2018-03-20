@@ -57,10 +57,7 @@ public class ModelTests {
         model.addGizmo("leftflipper", "LF0", "3", "3");
         model.addGizmo("rightflipper", "RF0", "8", "3");
 
-
         //roate Gizmos
-
-
     }
 
 

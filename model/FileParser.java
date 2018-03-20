@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 class FileParser {
 
-    private Model model;
+    private final Model model;
 
     FileParser(Model model){
         this.model = model;

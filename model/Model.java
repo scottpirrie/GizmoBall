@@ -11,16 +11,16 @@ import java.util.List;
 
 public class Model extends Observable {
 
-    private GizmoFactory gf;
+    private final GizmoFactory gf;
     private Ball ball;
-    private Walls gws;
-    private List<AbstractGizmo> gizmos;
-    private List<AbsorberGizmo> absorbers;
-    private List<Flipper> flippers;
-    private List<Ball> balls;
-    private Map<Integer, List<String>> keyDownMap;
-    private Map<Integer, List<String>> keyUpMap;
-    private Map<String, List<String>> triggers;
+    private final Walls gws;
+    private final List<AbstractGizmo> gizmos;
+    private final List<AbsorberGizmo> absorbers;
+    private final List<Flipper> flippers;
+    private final List<Ball> balls;
+    private final Map<Integer, List<String>> keyDownMap;
+    private final Map<Integer, List<String>> keyUpMap;
+    private final Map<String, List<String>> triggers;
     private double gravityConstant;
     private double frictionConstant;
     private String triggerSource;

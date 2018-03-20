@@ -8,7 +8,7 @@ import java.util.List;
 
 class GizmoFactory {
 
-    private List<Point.Double> takenPoints;
+    private final List<Point.Double> takenPoints;
 
     GizmoFactory(){
         takenPoints = new ArrayList<>();

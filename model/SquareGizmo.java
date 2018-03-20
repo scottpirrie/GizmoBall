@@ -11,12 +11,12 @@ import java.util.TimerTask;
 
 public class SquareGizmo implements  AbstractGizmo {
 
-    private String type;
-    private String name;
+    private final String type;
+    private final String name;
     private double xPos;
     private double yPos;
-    private List<LineSegment> lines;
-    private List<Circle> circles;
+    private final List<LineSegment> lines;
+    private final List<Circle> circles;
     private Color color;
     private boolean isTriggered;
 
@@ -63,8 +63,7 @@ public class SquareGizmo implements  AbstractGizmo {
         return color;
     }
 
-    @Override
-    public void createLines(double xPos,double yPos) {
+    private void createLines(double xPos,double yPos) {
         lines.clear();
         LineSegment l1 = new LineSegment(xPos,yPos,xPos+1,yPos);
         LineSegment l2 = new LineSegment(xPos+1,yPos,xPos+1,yPos+1);
@@ -77,8 +76,7 @@ public class SquareGizmo implements  AbstractGizmo {
         lines.add(l4);
     }
 
-    @Override
-    public void createCircles(double xPos,double yPos) {
+    private void createCircles(double xPos,double yPos) {
         circles.clear();
         physics.Circle c1 = new physics.Circle(xPos,yPos,0);
         physics.Circle c2 = new physics.Circle(xPos+1,yPos,0);
