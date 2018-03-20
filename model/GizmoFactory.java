@@ -140,4 +140,15 @@ class GizmoFactory {
         return takenPoints.contains(p);
     }
 
+    public boolean isAbsorberPoint(AbsorberGizmo ab, Point.Double p){
+        for(double i=ab.getyPos(); i<=ab.getyPos2(); i++){
+            for(double j=ab.getxPos(); j<=ab.getxPos2(); j++){
+                Point.Double temp = new Point.Double(j,i);
+                if(temp.x==p.x && temp.y==p.y){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
