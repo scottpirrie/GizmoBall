@@ -448,10 +448,11 @@ public class Model extends Observable {
     public boolean moveGizmo(String name, String xPos, String yPos) {
         for (AbstractGizmo gizmo : gizmos) {
             if (gizmo.getName().equals(name)) {
-                gf.removeTakenPoint(gizmo.getxPos(), gizmo.getyPos());
+                //gf.removeTakenPoint(gizmo.getxPos(), gizmo.getyPos());
                 Point.Double p = new Point.Double(Double.parseDouble(xPos), Double.parseDouble(yPos));
 
                 if (!gf.isPointTaken(p)) {
+                    gf.removeTakenPoint(gizmo.getxPos(), gizmo.getyPos());
                     gizmo.move(Double.parseDouble(xPos), Double.parseDouble(yPos));
                     gf.addTakenPoint(gizmo.getxPos(), gizmo.getyPos());
                     this.setChanged();
@@ -471,11 +472,7 @@ public class Model extends Observable {
 
         for (AbsorberGizmo ab : absorbers) {
             if (ab.getName().equals(name)) {
-                for (double i = ab.getyPos(); i <= ab.getyPos2(); i++) {
-                    for (double j = ab.getxPos(); j <= ab.getxPos2(); j++) {
-                        gf.removeTakenPoint(j,i);
-                    }
-                }
+
 
                 for (double i = y1; i <= y2; i++) {
                     for (double j = x1; j <= x2; j++) {
@@ -486,7 +483,11 @@ public class Model extends Observable {
 
                     }
                 }
-
+                for (double i = ab.getyPos(); i <= ab.getyPos2(); i++) {
+                    for (double j = ab.getxPos(); j <= ab.getxPos2(); j++) {
+                        gf.removeTakenPoint(j,i);
+                    }
+                }
                 ab.move(x1, x2, y1, y2);
                 for (double i = y1; i < y2; i++) {
                     for (double j = x1; j < x2; j++) {
@@ -509,14 +510,15 @@ public class Model extends Observable {
                 double xPivot = Math.floor(flipper.getXPos());
                 double yPivot = Math.floor(flipper.getYPos());
 
-                gf.removeTakenPoint(xPivot, yPivot);
-                gf.removeTakenPoint(xPivot, yPivot + 1);
-                gf.removeTakenPoint(xPivot + 1, yPivot);
-                gf.removeTakenPoint(xPivot + 1, yPivot + 1);
+
 
                 Point.Double p = new Point.Double(Double.parseDouble(xPos), Double.parseDouble(yPos));
                 if (!gf.isPointTaken(p)) {
                     // move theFlipper
+                    gf.removeTakenPoint(xPivot, yPivot);
+                    gf.removeTakenPoint(xPivot, yPivot + 1);
+                    gf.removeTakenPoint(xPivot + 1, yPivot);
+                    gf.removeTakenPoint(xPivot + 1, yPivot + 1);
                     flipper.move(Double.parseDouble(xPos), Double.parseDouble(yPos));
                     gf.addTakenPoint(flipper.getXPos(), flipper.getYPos());
                     gf.addTakenPoint(flipper.getXPos(), flipper.getYPos() + 1);
