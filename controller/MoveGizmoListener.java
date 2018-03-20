@@ -32,9 +32,13 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
     @Override
     public void mousePressed(MouseEvent e) {
         timesClicked++;
-
+        String gizmo="";
+        boolean success = false;
+        boolean outOfBounds = false;
+        gizmo = model.findGizmo((double)e.getX()/board.getL(),(double)e.getY()/board.getL());
         if(timesClicked==1){
-            String gizmo = model.findGizmo((double)e.getX()/board.getL(),(double)e.getY()/board.getL());
+
+             System.out.println(gizmo);
             String [] attributes=gizmo.split(" ");
             if(attributes[0].equals("ball")){
                 model.cleanUpWhenBallMoves();
@@ -62,45 +66,95 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                 }
             }
 
-        }else if(timesClicked==2){
+        }else if(timesClicked==2) {
 
-            String gizmo = model.findGizmo((double)e.getX()/board.getL(),(double)e.getY()/board.getL());
+            String otherGizmo = model.findGizmo((double) e.getX() / board.getL(), (double) e.getY() / board.getL());
             //model.remove((double)e.getX()/board.getL(),(double)e.getY()/board.getL());
+            gizmo = model.findGizmo(startingX, startingY);
+
             String[] attributes = gizmo.split(" ");
 
-            switch (attributes[0]){
-                case "square":
-                    model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                    break;
-                case "triangle":
-                    model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                    break;
-                case "circle":
-                    model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                    break;
-                case "rightflipper":
-                    model.MoveFlipper(attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                    break;
-                case "leftflipper":
-                    model.MoveFlipper(attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                    break;
-                case "absorber":
-                    double height = Double.parseDouble(attributes[4]);
-                    double width = Double.parseDouble(attributes[5]);
+                switch (attributes[0]) {
+                    case "square":
+                        if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
+                            success = model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                        }else{
+                            outOfBounds=true;
+                        }
+                        break;
+                    case "triangle":
+                        if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
+                            success = model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                        }else{
+                            outOfBounds=true;
+                        }
+                        break;
+                    case "circle":
+                        if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
+                            success = model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                        }else{
+                            outOfBounds=true;
+                        }
+                        break;
+                    case "rightflipper":
+                        if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19) {
+                            success = model.MoveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                        }else {
+                            outOfBounds=true;
+                        }
+                        break;
+                    case "leftflipper":
+                        if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19) {
+                            success = model.MoveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                        }else {
+                            outOfBounds=true;
+                        }
+                        break;
+                    case "absorber":
 
-                    double newXPos2=  (Double.parseDouble(attributes[2])+width);
-                    double newYPos2=  (Double.parseDouble(attributes[3])+height);
-                    model.moveAbsorber(attributes[1],attributes[2], attributes[3],String.valueOf(newXPos2),String.valueOf(newYPos2));
+                        double height = Double.parseDouble(attributes[4]);
+                        double width = Double.parseDouble(attributes[5]);
 
-                    break;
-                case "ball":
-                    model.moveBall(attributes[1],String.valueOf((double)e.getX() / board.getL()), String.valueOf((double)e.getY() / board.getL()));
-                    model.setNewBallsTakenPoints();
-                    break;
+                        double xPos = e.getX() / board.getL();
+                        double yPos = e.getY() / board.getL();
+                        double newXPos2 = xPos+ width;
+                        double newYPos2 = yPos + height;
+                        if(newXPos2<=20 && newYPos2<=20) {
+                            success = model.moveAbsorber(attributes[1], String.valueOf(xPos), String.valueOf(yPos), String.valueOf(newXPos2), String.valueOf(newYPos2));
+                        }else{
+                            outOfBounds=true;
+                        }
+
+                        break;
+                    case "ball":
+                        if(e.getX()<20*board.getL()-board.getL()/4 && e.getY()<20*board.getL()-board.getL()/4 && e.getX()>board.getL()/4 && e.getY()>board.getL()/4) {
+                            success = model.moveBall(attributes[1], String.valueOf((double) e.getX() / board.getL()), String.valueOf((double) e.getY() / board.getL()));
+                            model.setNewBallsTakenPoints();
+                        }else{
+                            outOfBounds=true;
+                        }
+
+                        break;
+                }
+
+                timesClicked = 0;
+                if(!success){
+                    if(outOfBounds){
+                        JOptionPane.showMessageDialog(board,
+                                "Try to place gizmo out of bounds",
+                                "Inane error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }else {
+                        JOptionPane.showMessageDialog(board,
+                                "Other gizmo in this location",
+                                "Inane error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+
             }
 
-            timesClicked=0;
-        }
     }
 
 
@@ -127,7 +181,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
     @Override
     public void mouseMoved(MouseEvent e) {
 
-        if(timesClicked==1) {
+      /*  if(timesClicked==1) {
 
             System.out.println(startingX+" "+startingY);
             String gizmo = model.findGizmo(startingX,startingY);
@@ -207,7 +261,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
             startingX = (double) e.getX() / board.getL();
             startingY = (double) e.getY() / board.getL();
 
-        }
+        }*/
 
     }
 
