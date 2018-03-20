@@ -25,7 +25,7 @@ public class AddKeyBindListener implements MouseListener{
         double xPos = e.getX()/L;
         double yPos = e.getY()/L;
         boolean success = false;
-        String name  = model.findName(xPos, yPos);
+        String name  = model.findGizmoName(xPos, yPos);
 
         if(!name.equals("")) {
             success = model.addKeyBind(key, name);

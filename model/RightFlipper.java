@@ -170,12 +170,12 @@ public class RightFlipper implements Flipper{
     }
 
     @Override
-    public double getXPivot() {
+    public double getXPos() {
         return xPos;
     }
 
     @Override
-    public double getYPivot() {
+    public double getYPos() {
         return yPos;
     }
 

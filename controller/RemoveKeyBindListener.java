@@ -24,7 +24,7 @@ public class RemoveKeyBindListener implements MouseListener {
         double L = board.getL();
         double xPos = e.getX()/L;
         double yPos = e.getY()/L;
-        boolean success = model.removeKeybind(key, model.findName(xPos, yPos));
+        boolean success = model.removeKeybind(key, model.findGizmoName(xPos, yPos));
 
         if (!success) {
             JOptionPane.showMessageDialog(board,

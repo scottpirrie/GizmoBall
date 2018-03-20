@@ -2,6 +2,7 @@ package model;
 
 import physics.Circle;
 import physics.LineSegment;
+import physics.Vect;
 
 import java.util.List;
 
@@ -19,8 +20,8 @@ public interface Flipper {
     double getTheta();
     void setPressed();
     boolean isPressed();
-    double getXPivot();
-    double getYPivot();
+    double getXPos();
+    double getYPos();
     void doAction();
     void move(double xPos,double yPos);
 

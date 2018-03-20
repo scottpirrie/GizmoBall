@@ -37,7 +37,7 @@ public class RemoveTriggerListener implements MouseListener{
             int targetX = e.getX()/board.getL();
             int targetY = e.getY()/board.getL();
 
-            boolean success = model.removeTrigger(model.findName(sourceX,sourceY),model.findName(targetX,targetY));
+            boolean success = model.removeTrigger(model.findGizmoName(sourceX,sourceY),model.findGizmoName(targetX,targetY));
 
             if (!success) {
                 JOptionPane.showMessageDialog(board,

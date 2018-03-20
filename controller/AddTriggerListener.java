@@ -37,7 +37,7 @@ public class AddTriggerListener implements MouseListener {
             int targetX = e.getX()/board.getL();
             int targetY = e.getY()/board.getL();
 
-            boolean success = model.addTrigger(model.findName(sourceX,sourceY),model.findName(targetX,targetY));
+            boolean success = model.addTrigger(model.findGizmoName(sourceX,sourceY),model.findGizmoName(targetX,targetY));
 
             if (!success) {
                 JOptionPane.showMessageDialog(board,

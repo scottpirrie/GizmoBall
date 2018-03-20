@@ -19,7 +19,6 @@ public class LeftFlipper implements Flipper{
     private boolean isPressed;
     private double theta;
     private double angularVelo;
-    private double thetaCheck;
     private Vect pivot;
 
     LeftFlipper(String type,String name, double xPos, double yPos){
@@ -34,7 +33,6 @@ public class LeftFlipper implements Flipper{
         createCircles(xPos,yPos);
         this.isPressed = false;
         theta = 90;
-        thetaCheck = 0;
         this.angularVelo = -1080;
         pivot = new Vect(xPos+0.25,yPos+0.25);
     }
@@ -171,12 +169,12 @@ public class LeftFlipper implements Flipper{
     }
 
     @Override
-    public double getXPivot() {
+    public double getXPos() {
         return xPos;
     }
 
     @Override
-    public double getYPivot() {
+    public double getYPos() {
         return yPos;
     }
 

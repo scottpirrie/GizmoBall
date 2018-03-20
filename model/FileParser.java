@@ -183,7 +183,7 @@ class FileParser {
                             if (type.toLowerCase().equals("down")) {
                                 model.addKeyBind(Integer.parseInt(key),gizmoName);
                             } else {
-                                if (model.checkName(gizmoName)) {
+                                if (model.checkGizmoExists(gizmoName)) {
                                     if (model.getKeyUpMap().containsKey(Integer.parseInt(key))) {
                                         List<String> actions = model.getKeyUpMap().get(Integer.parseInt(key));
                                         actions.add(gizmoName);
