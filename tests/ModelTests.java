@@ -269,6 +269,57 @@ public class ModelTests {
         assertFalse(model.moveAbsorber("A1", "8", "5", "6", "3"));
     }
 
+    //move right flipper
+    @Test
+    public void testMoveRightFlipper(){
+        model.addFlipper("rightflipper", "F1", "1", "1");
+
+        assertTrue(model.MoveFlipper("F1", "5", "6"));
+    }
+
+    @Test
+    public void testMoveRightFlipperNoFlipper(){
+        model.addFlipper("rightflipper", "F1", "1", "1");
+
+        assertFalse(model.MoveFlipper("Random", "5", "6"));
+    }
+
+    @Test
+    public void testMoveRightFlipperSpaceTaken(){
+        model.addFlipper("rightflipper", "F1", "1", "1");
+
+
+        model.addFlipper("rightflipper", "F2", "5", "5");
+
+
+        assertFalse(model.MoveFlipper("F1", "5", "5"));
+    }
+
+    //move left flipper
+    @Test
+    public void testMoveLeftFlipper(){
+        model.addFlipper("leftflipper", "F1", "1", "1");
+
+        assertTrue(model.MoveFlipper("F1", "5", "6"));
+    }
+
+    @Test
+    public void testMoveLeftFlipperNoFlipper(){
+        model.addFlipper("leftflipper", "F1", "1", "1");
+
+        assertFalse(model.MoveFlipper("Random", "5", "6"));
+    }
+
+    @Test
+    public void testMoveLeftFlipperSpaceTaken(){
+        model.addFlipper("leftflipper", "F1", "1", "1");
+
+
+        model.addFlipper("leftflipper", "F2", "5", "5");
+
+
+        assertFalse(model.MoveFlipper("F1", "5", "5"));
+    }
 
 
 }
