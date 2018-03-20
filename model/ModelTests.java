@@ -64,9 +64,10 @@ public class ModelTests {
     }
 
 
+    //absorber
     @Test
     public void testAddAbsorber(){
-        model.addAbsorber("absorber", "A", "1", "1", "4", "4");
+        assertTrue(model.addAbsorber("absorber", "A", "1", "1", "4", "4"));
 
     }
 
@@ -88,7 +89,61 @@ public class ModelTests {
     @Test
     public void testAbsorberNotRemove(){
         model.addAbsorber("absorber", "A", "1", "1", "4", "4");
-        assertFalse("not the stored absorber", model.remove(5,5));
+        assertFalse("not a stored absorber", model.remove(5,5));
     }
+
+
+    //left flippers
+    @Test
+    public void testAddLeftFlipper(){
+        assertTrue(model.addFlipper("leftflipper", "F", "1", "1"));
+    }
+
+    @Test
+    public void testAddLeftFlipperSpaceTaken(){
+        model.addFlipper("leftflipper", "F", "1", "1");
+
+        //adding another flipper in same place
+        assertFalse(model.addFlipper("leftflipper", "F", "1", "1"));
+    }
+
+    @Test
+    public void testLeftFlipperRemove(){
+        model.addFlipper("leftflipper", "F", "1", "1");
+        assertTrue(model.remove(1,1));
+    }
+
+    @Test
+    public void testLeftFlipperNotRemove(){
+        model.addFlipper("leftflipper", "F", "1", "1");
+        assertFalse("not a stored flipper", model.remove(5,5));
+    }
+
+    //right flipper
+    @Test
+    public void testAddRightFlipper(){
+        assertTrue(model.addFlipper("rightflipper", "F", "1", "1"));
+    }
+
+    @Test
+    public void testAddRightFlipperSpaceTaken(){
+        model.addFlipper("rightflipper", "F", "1", "1");
+
+        //adding another flipper in same place
+        assertFalse(model.addFlipper("rightflipper", "F", "1", "1"));
+    }
+
+    @Test
+    public void testRightFlipperRemove(){
+        model.addFlipper("rightflipper", "F", "1", "1");
+        assertTrue(model.remove(1,1));
+    }
+
+    @Test
+    public void testRightFlipperNotRemove(){
+        model.addFlipper("rightflipper", "F", "1", "1");
+        assertFalse("not a stored flipper", model.remove(5,5));
+    }
+
 
 }
