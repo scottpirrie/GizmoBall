@@ -269,6 +269,84 @@ public class ModelTests {
         assertFalse(model.moveAbsorber("A1", "8", "5", "6", "3"));
     }
 
+    //move right flipper
+    @Test
+    public void testMoveRightFlipper(){
+        model.addFlipper("rightflipper", "F1", "1", "1");
+
+        assertTrue(model.MoveFlipper("F1", "5", "6"));
+    }
+
+    @Test
+    public void testMoveRightFlipperNoFlipper(){
+        model.addFlipper("rightflipper", "F1", "1", "1");
+
+        assertFalse(model.MoveFlipper("Random", "5", "6"));
+    }
+
+    @Test
+    public void testMoveRightFlipperSpaceTaken(){
+        model.addFlipper("rightflipper", "F1", "1", "1");
+
+
+        model.addFlipper("rightflipper", "F2", "5", "5");
+
+
+        assertFalse(model.MoveFlipper("F1", "5", "5"));
+    }
+
+    //move left flipper
+    @Test
+    public void testMoveLeftFlipper(){
+        model.addFlipper("leftflipper", "F1", "1", "1");
+
+        assertTrue(model.MoveFlipper("F1", "5", "6"));
+    }
+
+    @Test
+    public void testMoveLeftFlipperNoFlipper(){
+        model.addFlipper("leftflipper", "F1", "1", "1");
+
+        assertFalse(model.MoveFlipper("Random", "5", "6"));
+    }
+
+    @Test
+    public void testMoveLeftFlipperSpaceTaken(){
+        model.addFlipper("leftflipper", "F1", "1", "1");
+
+
+        model.addFlipper("leftflipper", "F2", "5", "5");
+
+
+        assertFalse(model.MoveFlipper("F1", "5", "5"));
+    }
+
+    //move ball
+    @Test
+    public void testMoveBall(){
+        model.addBall("ball","B0", "0.36", "0.44", "0.0", "0.0");
+
+        assertTrue(model.moveBall("B0", "4", "6"));
+    }
+
+    @Test
+    public void testMoveBallNoBall(){
+        model.addBall("ball","B0", "0.36", "0.44", "0.0", "0.0");
+
+        assertFalse(model.moveBall("Random", "5", "6"));
+    }
+
+    @Test
+    public void testMoveBallSpaceTaken(){
+        model.addBall("ball","B0", "0.36", "0.44", "0.0", "0.0");
+
+
+        model.addBall("ball","B1", "1.22", "5.22", "0.0", "0.0");
+
+
+        assertFalse(model.MoveFlipper("B0", "1.22", "5.22"));
+    }
+
 
 
 }
