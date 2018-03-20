@@ -321,5 +321,32 @@ public class ModelTests {
         assertFalse(model.MoveFlipper("F1", "5", "5"));
     }
 
+    //move ball
+    @Test
+    public void testMoveBall(){
+        model.addBall("ball","B0", "0.36", "0.44", "0.0", "0.0");
+
+        assertTrue(model.moveBall("B0", "4", "6"));
+    }
+
+    @Test
+    public void testMoveBallNoBall(){
+        model.addBall("ball","B0", "0.36", "0.44", "0.0", "0.0");
+
+        assertFalse(model.moveBall("Random", "5", "6"));
+    }
+
+    @Test
+    public void testMoveBallSpaceTaken(){
+        model.addBall("ball","B0", "0.36", "0.44", "0.0", "0.0");
+
+
+        model.addBall("ball","B1", "1.22", "5.22", "0.0", "0.0");
+
+
+        assertFalse(model.MoveFlipper("B0", "1.22", "5.22"));
+    }
+
+
 
 }
