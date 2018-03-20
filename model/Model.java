@@ -480,7 +480,6 @@ public class Model extends Observable {
                         if (gf.isPointTaken(p)&& !gf.isAbsorberPoint(ab,p)) {
                             return false;
                         }
-
                     }
                 }
                 for (double i = ab.getyPos(); i <= ab.getyPos2(); i++) {
