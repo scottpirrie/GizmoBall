@@ -44,6 +44,12 @@ class GizmoFactory {
     AbsorberGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         boolean foundTakenPoint=false;
 
+
+        if(!type.equals("absorber")){
+            System.out.println("didnt get doubles");
+            return null;
+        }
+
         double x1 = 0.0;
         double y1 = 0.0;
         double x2 = 0.0;
@@ -54,6 +60,7 @@ class GizmoFactory {
             x2 = Double.parseDouble(xPos2);
             y2 = Double.parseDouble(yPos2);
         }catch (NumberFormatException e){
+
             return null;
         }
 
@@ -61,6 +68,7 @@ class GizmoFactory {
             for(double j=x1; j<x2; j++){
                 Point.Double p = new Point.Double(j,i);
                 if(takenPoints.contains(p)){
+
                     foundTakenPoint=true;
                 }
             }
