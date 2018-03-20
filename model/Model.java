@@ -474,13 +474,12 @@ public class Model extends Observable {
             if (ab.getName().equals(name)) {
 
 
-                for (double i = y1; i <= y2; i++) {
-                    for (double j = x1; j <= x2; j++) {
+                for (double i = y1; i < y2; i++) {
+                    for (double j = x1; j < x2; j++) {
                         Point.Double p = new Point.Double(j, i);
                         if (gf.isPointTaken(p)) {
                             return false;
                         }
-
                     }
                 }
                 for (double i = ab.getyPos(); i <= ab.getyPos2(); i++) {
