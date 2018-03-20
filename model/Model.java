@@ -448,7 +448,7 @@ public class Model extends Observable {
     public boolean moveGizmo(String name, String xPos, String yPos) {
         for (AbstractGizmo gizmo : gizmos) {
             if (gizmo.getName().equals(name)) {
-                //gf.removeTakenPoint(gizmo.getxPos(), gizmo.getyPos());
+
                 Point.Double p = new Point.Double(Double.parseDouble(xPos), Double.parseDouble(yPos));
 
                 if (!gf.isPointTaken(p)) {
@@ -472,6 +472,8 @@ public class Model extends Observable {
 
         for (AbsorberGizmo ab : absorbers) {
             if (ab.getName().equals(name)) {
+
+
                 for (double i = y1; i < y2; i++) {
                     for (double j = x1; j < x2; j++) {
                         Point.Double p = new Point.Double(j, i);

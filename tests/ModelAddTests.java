@@ -2,7 +2,6 @@ import model.Model;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ModelAddTests {
@@ -31,7 +30,10 @@ public class ModelAddTests {
 
         model.addFlipper("leftflipper","LF0","1","10");
         model.addFlipper("leftflipper","LF1","1","15");
+        model.addFlipper("rightflipper","RF2","5","10");
+        model.addFlipper("rightflipper","RF3","5","15");
 
+        model.addBall("ball","B0","10","1","0","0");
     }
 
     /*
@@ -59,7 +61,14 @@ public class ModelAddTests {
     }
 
     @Test
-    public void addGizmoExtremePosition(){
+    public void addGizmoExtremePositionA(){
+        int size = model.getGizmos().size();
+        model.addGizmo("square","S12","-1","-1");
+        assertTrue(model.getGizmos().size() == size);
+    }
+
+    @Test
+    public void addGizmoExtremePositionB(){
         int size = model.getGizmos().size();
         model.addGizmo("square","S12","21","21");
         assertTrue(model.getGizmos().size() == size);
@@ -72,14 +81,14 @@ public class ModelAddTests {
     @Test
     public void addAbsorberValid(){
         String name = "A1";
-        model.addAbsorber("absorber","A1","0","17","19","17");
+        model.addAbsorber("absorber","A1","0","17","19","18");
         assertTrue(model.getAbsorbers().get(1).getName().equals(name));
     }
 
     @Test
     public void addAbsorberInvalidName(){
         int size = model.getAbsorbers().size();
-        model.addAbsorber("absorber","A0","0","17","19","17");
+        model.addAbsorber("absorber","A0","0","17","19","18");
         assertTrue(model.getAbsorbers().size() == size);
     }
 
@@ -91,16 +100,123 @@ public class ModelAddTests {
     }
 
     @Test
-    public void addAbsorberExtremePosition(){
+    public void addAbsorberExtremePositionA(){
         int size = model.getAbsorbers().size();
-        model.addAbsorber("absorber","A1","-1","21","21","21");
+        model.addAbsorber("absorber","A1","-1","-1","21","21");
+        assertTrue(model.getAbsorbers().size() == size);
+    }
+
+    @Test
+    public void addAbsorberExtremePositionB(){
+        int size = model.getAbsorbers().size();
+        model.addAbsorber("absorber","A1","21","21","-1","-1");
         assertTrue(model.getAbsorbers().size() == size);
     }
 
     /*
         Add Flipper Tests
      */
+    @Test
+    public void addLeftFlipperValid(){
+        String name = "LF4";
+        model.addFlipper("leftflipper","LF4","10","10");
+        assertTrue(model.getFlippers().get(4).getName().equals(name));
+    }
+
+    @Test
+    public void addRightFlipperValid(){
+        String name = "RF4";
+        model.addFlipper("rightflipper","RF4","10","10");
+        assertTrue(model.getFlippers().get(4).getName().equals(name));
+    }
+
+    @Test
+    public void addFlipperInvalidName(){
+        int size = model.getFlippers().size();
+        model.addFlipper("rightflipper","LF0","10","10");
+        assertTrue(model.getFlippers().size() == size);
+    }
+
+    @Test
+    public void addLeftFlipperInvalidPosition(){
+        int size = model.getFlippers().size();
+        model.addFlipper("leftflipper","LF4","1","10");
+        assertTrue(model.getFlippers().size() == size);
+    }
+
+    @Test
+    public void addRightFlipperInvalidPosition(){
+        int size = model.getFlippers().size();
+        model.addFlipper("rightflipper","RF4","5","10");
+        assertTrue(model.getFlippers().size() == size);
+    }
 
 
+    @Test
+    public void addLeftFlipperExtremePositionA(){
+        int size = model.getFlippers().size();
+        model.addFlipper("leftflipper","LF4","-1","-1");
+        assertTrue(model.getFlippers().size() == size);
+    }
+
+    @Test
+    public void addRightFlipperExtremePositionA(){
+        int size = model.getFlippers().size();
+        model.addFlipper("rightflipper","RF4","-1","-1");
+        assertTrue(model.getFlippers().size() == size);
+    }
+
+    @Test
+    public void addLeftFlipperExtremePositionB(){
+        int size = model.getFlippers().size();
+        model.addFlipper("leftflipper","LF4","21","21");
+        assertTrue(model.getFlippers().size() == size);
+    }
+
+    @Test
+    public void addRightFlipperExtremePositionB(){
+        int size = model.getFlippers().size();
+        model.addFlipper("rightflipper","RF4","21","21");
+        assertTrue(model.getFlippers().size() == size);
+    }
+
+    /*
+        Add Ball
+     */
+
+    @Test
+    public void addBallValid(){
+        String name = "B1";
+        model.addBall("ball","B1","10","2","0","0");
+        assertTrue(model.getBalls().get(1).getName().equals(name));
+    }
+
+    @Test
+    public void addBallInvalidName(){
+        int size = model.getBalls().size();
+        model.addBall("ball","B0","2","2","0","0");
+        assertTrue(model.getBalls().size() == size);
+    }
+
+    @Test
+    public void addBallInvalidPosition(){
+        int size = model.getBalls().size();
+        model.addBall("ball","B1","1","1","0","0");
+        assertTrue(model.getBalls().size() == size);
+    }
+
+    @Test
+    public void addBallExtremePositionA(){
+        int size = model.getBalls().size();
+        model.addBall("ball","B1","-1","-1","0","0");
+        assertTrue(model.getBalls().size() == size);
+    }
+
+    @Test
+    public void addBallExtremePositionB(){
+        int size = model.getBalls().size();
+        model.addBall("ball","B1","21","21","0","0");
+        assertTrue(model.getBalls().size() == size);
+    }
 
 }
