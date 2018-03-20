@@ -1,5 +1,3 @@
-package tests;
-
 import model.Model;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +19,8 @@ public class ModelTests {
     @Test
     public void testAddBall(){
 
-        assertTrue(model.addBall("ball","B0", "0.36", "0.44", "0.0", "0.0"));
+        model.addBall("ball","B0", "0.36", "0.44", "0.0", "0.0");
+        assertTrue(model.getBalls().get(0).getType().equals("ball") && model.getBalls().get(0).getName().equals("B0"));
     }
 
     @Test
