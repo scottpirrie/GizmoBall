@@ -160,8 +160,8 @@ public class BuildGui implements Gui {
 
         JSlider frictionSlider = createNewSlider();
         frictionSlider.addMouseListener(new SetFrictionConstantListener(board.getModel()));
-        label = new JLabel("Friction: ");
-        settingsPanel2.add(label);
+        JLabel label2 = new JLabel("Friction: ");
+        settingsPanel2.add(label2);
         settingsPanel2.add(frictionSlider);
 
         settingsPanel.add(settingsPanel1);

@@ -21,6 +21,8 @@ public class Model extends Observable {
     private final Map<Integer, List<String>> keyDownMap;
     private final Map<Integer, List<String>> keyUpMap;
     private final Map<String, List<String>> triggers;
+    private final static double GRAVITY = 25;
+    private final static double FRICTION = 0.045;
     private double gravityConstant;
     private double frictionConstant;
     private String triggerSource;
@@ -41,11 +43,11 @@ public class Model extends Observable {
     }
 
     public void setGravityConstant(double value) {
-        this.gravityConstant = gravityConstant * value/50;
+        this.gravityConstant = GRAVITY * value/100;
     }
 
     public void setFrictionConstant(double value) {
-        this.frictionConstant = frictionConstant * value/50;
+        this.frictionConstant = FRICTION * value/100;
     }
 
     public void moveBall(double move) {

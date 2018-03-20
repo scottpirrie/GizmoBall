@@ -13,7 +13,7 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
     private Board board;
     private Model model;
 
-    public AddAbsorberGizmoListener(Board board,Model model){
+    AddAbsorberGizmoListener(Board board,Model model){
         this.model=model;
         this.board=board;
     }
@@ -36,7 +36,7 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
         timesClicked++;
 
         if(timesClicked==1){
-            Point p = new Point(e.getX()/25,e.getY()/25);
+            Point p = new Point(e.getX()/board.getL(),e.getY()/board.getL());
             board.addAbsorberPoints(p);
             board.repaint();
 
@@ -44,7 +44,6 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
             Point startingPoint = findStartingPoint();
             Point endingPoint = findEndingPoint();
             int size = board.getModel().getGizmos().size();
-            boolean success=false;
 
             if(endingPoint.x >= 20 || endingPoint.y >= 20){
                 JOptionPane.showMessageDialog(board,
@@ -54,7 +53,7 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
 
             }else {
 
-                success = model.addAbsorber("absorber", "A" + size, String.valueOf(startingPoint.x),
+                boolean success = model.addAbsorber("absorber", "A" + size, String.valueOf(startingPoint.x),
                         String.valueOf(startingPoint.y), String.valueOf(endingPoint.x + 1), String.valueOf(endingPoint.y + 1));
 
                 if (success) {
@@ -66,7 +65,6 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
                             "A location you choose is already taken",
                             "Inane error",
                             JOptionPane.ERROR_MESSAGE);
-
                 }
             }
             board.clearAbsorberPoints();
@@ -94,7 +92,7 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
     @Override
     public void mouseMoved(MouseEvent e) {
         if(timesClicked==1) {
-            Point p = new Point(e.getX() / 25, e.getY() / 25);
+            Point p = new Point(e.getX() / board.getL(), e.getY() / board.getL());
             board.addAbsorberPoints(p);
             board.repaint();
         }
