@@ -1,6 +1,7 @@
 package model;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -179,9 +180,20 @@ class FileParser {
                             String gizmoName = tokenizer.nextToken();
 
                             if (type.toLowerCase().equals("down")) {
-                                model.getKeyDownMap().put(Integer.parseInt(key), gizmoName);
+                                model.addKeyBind(Integer.parseInt(key),gizmoName);
                             } else {
-                                model.getKeyUpMap().put(Integer.parseInt(key), gizmoName);
+                                System.out.println(gizmoName);
+                                if (model.checkName(gizmoName)) {
+                                    if (model.getKeyUpMap().containsKey(Integer.parseInt(key))) {
+                                        ArrayList<String> actions = model.getKeyUpMap().get(Integer.parseInt(key));
+                                        actions.add(gizmoName);
+                                        model.getKeyUpMap().put(Integer.parseInt(key), actions);
+                                    } else {
+                                        ArrayList<String> toAdd = new ArrayList<>();
+                                        toAdd.add(gizmoName);
+                                        model.getKeyUpMap().put(Integer.parseInt(key), toAdd);
+                                    }
+                                }
                             }
 
                         }

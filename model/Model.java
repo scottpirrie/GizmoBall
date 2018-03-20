@@ -18,8 +18,8 @@ public class Model extends Observable {
     private List<AbsorberGizmo> absorbers;
     private List<Flipper> flippers;
     private List<Ball> balls;
-    private Map<Integer, String> keyDownMap;
-    private Map<Integer, String> keyUpMap;
+    private Map<Integer, ArrayList<String>> keyDownMap;
+    private Map<Integer, ArrayList<String>> keyUpMap;
     private Map<String, List<String>> triggers;
     private double gravityConstant;
     private double frictionConstant;
@@ -264,39 +264,49 @@ public class Model extends Observable {
         }
     }
 
-    private void keybindActions(String name) {
+    private void keybindActions(ArrayList<String> actions) {
         for (AbstractGizmo gizmo : gizmos) {
-            if (name.equals(gizmo.getName())) {
-                gizmo.doAction();
+            for (String name : actions) {
+                if (name.equals(gizmo.getName())) {
+                    gizmo.doAction();
+                }
             }
         }
 
         for (Flipper flipper : flippers) {
-            if (name.equals(flipper.getName())) {
-                if (flipper.isPressed()) {
-                    flipper.moveFlipper(0.0167);
+            for (String name : actions) {
+                if (name.equals(flipper.getName())) {
+                    if (flipper.isPressed()) {
+                        flipper.moveFlipper(0.0167);
+                    }
                 }
             }
         }
 
         for (AbsorberGizmo absorber : absorbers) {
-            if (name.equals(absorber.getName())) {
-                if (absorber.getBall() != null) {
-                    absorber.doAction();
+            for (String name : actions) {
+                if (name.equals(absorber.getName())) {
+                    if (absorber.getBall() != null) {
+                        absorber.doAction();
+                    }
                 }
             }
         }
     }
 
     public void changeFlipperStatus(int key) {
-        String name = "";
+       // String name = "";
+        ArrayList<String> flipperNames=new ArrayList<>();
         if (keyDownMap.containsKey(key)) {
-            name = keyDownMap.get(key);
+            flipperNames = keyDownMap.get(key);
+           // name = keyDownMap.get(key);
         } else if (keyUpMap.containsKey(key)) {
-            name = keyUpMap.get(key);
+             flipperNames = keyDownMap.get(key);
+            //name = keyUpMap.get(key);
         }
-        if(!name.isEmpty()) {
+        if(!flipperNames.isEmpty()) {
             for (Flipper flipper : flippers) {
+                for (String name: flipperNames)
                 if (name.equals(flipper.getName())) {
                     flipper.setPressed();
                 }
@@ -501,27 +511,40 @@ public class Model extends Observable {
     }
 
     public boolean addKeyBind(int key, String gizmoName) {
-        System.out.println(key);
-        if (!keyDownMap.containsKey(key)) {
-            keyDownMap.put(key, gizmoName);
-            return true;
-        }
+        if (checkName(gizmoName)) {
+            if (!keyDownMap.containsKey(key)) {
+                ArrayList<String> toAdd = new ArrayList<>();
+                toAdd.add(gizmoName);
+                keyDownMap.put(key, toAdd);
+                return true;
+            } else {
+                ArrayList<String> actions = keyDownMap.get(key);
+                actions.add(gizmoName);
+                keyDownMap.put(key, actions);
+                return true;
+            }
 
+        }
         return false;
     }
 
+
+
+
     public boolean addTrigger(String source, String target) {
-        if (!source.equals("") && !target.equals("")) {
-            List<String> temp = triggers.get(source);
-            if (temp == null) {
-                temp = new ArrayList<>();
-                temp.add(target);
-                triggers.put(source, temp);
-                return true;
-            } else {
-                if (!temp.contains(target)) {
-                    triggers.get(source).add(target);
+        if(checkName(source) && checkName(target)) {
+            if (!source.equals("") && !target.equals("")) {
+                List<String> temp = triggers.get(source);
+                if (temp == null) {
+                    temp = new ArrayList<>();
+                    temp.add(target);
+                    triggers.put(source, temp);
                     return true;
+                } else {
+                    if (!temp.contains(target)) {
+                        triggers.get(source).add(target);
+                        return true;
+                    }
                 }
             }
         }
@@ -650,12 +673,18 @@ public class Model extends Observable {
         boolean removed = false;
 
         if (!keyDownMap.isEmpty()) {
-            keyDownMap.entrySet().removeIf(e -> keyDownMap.get(key).equals(gizmoName));
+            if(keyDownMap.containsKey(key)){
+                keyDownMap.remove(key);
+            }
+           // keyDownMap.entrySet().removeIf(e -> keyDownMap.get(key).equals(gizmoName));
             removed = true;
         }
 
         if (!keyUpMap.isEmpty()) {
-            keyUpMap.entrySet().removeIf(e -> keyDownMap.get(key).equals(gizmoName));
+            if(keyUpMap.containsKey(key)){
+                keyUpMap.remove(key);
+            }
+           // keyUpMap.entrySet().removeIf(e -> keyDownMap.get(key).equals(gizmoName));
             removed = true;
         }
 
@@ -696,6 +725,31 @@ public class Model extends Observable {
         return "";
     }
 
+    public boolean checkName(String gizmoName){
+
+        for(AbstractGizmo gizmo:gizmos){
+            if(gizmo.getName().equals(gizmoName)){
+                return true;
+            }
+        }
+        for(Flipper flipper:flippers){
+            System.out.println("Name to check: "+flipper.getName());
+            if(flipper.getName().equals(gizmoName)){
+                return true;
+            }
+        }
+        for(AbsorberGizmo ab:absorbers){
+            if(ab.getName().equals(gizmoName)){
+                return true;
+            }
+        }
+        for(Ball ball:balls){
+            if(ball.getName().equals(gizmoName)){
+                return true;
+            }
+        }
+        return false;
+    }
     public String findGizmo(double x, double y) {
         double flooredx = Math.floor(x);
         double flooredy = Math.floor(y);
@@ -853,15 +907,16 @@ public class Model extends Observable {
         return triggers;
     }
 
-    Map<Integer,String> getKeyDownMap(){
+    Map<Integer,ArrayList<String>>  getKeyDownMap(){
         return keyDownMap;
     }
 
-    Map<Integer,String> getKeyUpMap(){
+    Map<Integer,ArrayList<String>> getKeyUpMap(){
         return keyUpMap;
     }
 
     void clearModel() {
+        absorbers.clear();
         gizmos.clear();
         flippers.clear();
         balls.clear();
