@@ -18,8 +18,8 @@ public class Model extends Observable {
     private List<AbsorberGizmo> absorbers;
     private List<Flipper> flippers;
     private List<Ball> balls;
-    private Map<Integer, ArrayList<String>> keyDownMap;
-    private Map<Integer, ArrayList<String>> keyUpMap;
+    private Map<Integer, List<String>> keyDownMap;
+    private Map<Integer, List<String>> keyUpMap;
     private Map<String, List<String>> triggers;
     private double gravityConstant;
     private double frictionConstant;
@@ -239,7 +239,6 @@ public class Model extends Observable {
         List<String> temp = triggers.get(source);
         Timer timer = new Timer();
         long time = Double.valueOf(tuc * 1000).longValue();
-        System.out.println(tuc + " " + time);
 
         if (temp != null) {
             for (String name : temp) {
@@ -281,27 +280,23 @@ public class Model extends Observable {
         }
     }
 
-    private void keybindActions(ArrayList<String> actions) {
-        for (AbstractGizmo gizmo : gizmos) {
-            for (String name : actions) {
+    private void keybindActions(List<String> actions) {
+        for (String name : actions) {
+            for (AbstractGizmo gizmo : gizmos) {
                 if (name.equals(gizmo.getName())) {
                     gizmo.doAction();
                 }
             }
-        }
 
-        for (Flipper flipper : flippers) {
-            for (String name : actions) {
+            for (Flipper flipper : flippers) {
                 if (name.equals(flipper.getName())) {
                     if (flipper.isPressed()) {
                         flipper.moveFlipper(0.0167);
                     }
                 }
             }
-        }
 
-        for (AbsorberGizmo absorber : absorbers) {
-            for (String name : actions) {
+            for (AbsorberGizmo absorber : absorbers) {
                 if (name.equals(absorber.getName())) {
                     if (absorber.getBall() != null) {
                         absorber.doAction();
@@ -312,15 +307,13 @@ public class Model extends Observable {
     }
 
     public void changeFlipperStatus(int key) {
-       // String name = "";
-        ArrayList<String> flipperNames=new ArrayList<>();
+        List<String> flipperNames = new ArrayList<>();
         if (keyDownMap.containsKey(key)) {
             flipperNames = keyDownMap.get(key);
-           // name = keyDownMap.get(key);
         } else if (keyUpMap.containsKey(key)) {
              flipperNames = keyDownMap.get(key);
-            //name = keyUpMap.get(key);
         }
+
         if(!flipperNames.isEmpty()) {
             for (Flipper flipper : flippers) {
                 for (String name: flipperNames)
@@ -373,7 +366,6 @@ public class Model extends Observable {
     }
 
     public boolean moveGizmo(String name, String xPos, String yPos) {
-
         for (AbstractGizmo gizmo : gizmos) {
             if (gizmo.getName().equals(name)) {
                 gf.removeTakenPoint(gizmo.getxPos(), gizmo.getyPos());
@@ -454,8 +446,7 @@ public class Model extends Observable {
             if (ab.getName().equals(name)) {
                 for (double i = ab.getyPos(); i <= ab.getyPos2(); i++) {
                     for (double j = ab.getxPos(); j <= ab.getxPos2(); j++) {
-
-                        gf.removeTakenPoint((int) j, (int) i);
+                        gf.removeTakenPoint(j,i);
                     }
                 }
 
@@ -503,7 +494,7 @@ public class Model extends Observable {
 
         if (!gf.isPointTaken(p)) {
             balls.add(new Ball(type, name, x, y, xv, yv, 0.25));
-            Point squareToAddBall = new Point((int) Double.parseDouble(xPos), (int) Double.parseDouble(yPos));
+            Point.Double squareToAddBall = new Point.Double(Math.floor(Double.parseDouble(xPos)),Math.floor(Double.parseDouble(yPos)));
             gf.addTakenPoint(squareToAddBall.x, squareToAddBall.y);
             //TODO need to think about invalid points
             Ball ball = balls.get(balls.size() - 1);
@@ -530,14 +521,14 @@ public class Model extends Observable {
     public boolean addKeyBind(int key, String gizmoName) {
         if (checkName(gizmoName)) {
             if (!keyDownMap.containsKey(key)) {
-                ArrayList<String> toAdd = new ArrayList<>();
+                List<String> toAdd = new ArrayList<>();
                 toAdd.add(gizmoName);
                 keyDownMap.put(key, toAdd);
                 return true;
             } else {
-                ArrayList<String> actions = keyDownMap.get(key);
-                actions.add(gizmoName);
-                keyDownMap.put(key, actions);
+                List<String> toAdd = keyDownMap.get(key);
+                toAdd.add(gizmoName);
+                keyDownMap.put(key, toAdd);
                 return true;
             }
 
@@ -545,24 +536,17 @@ public class Model extends Observable {
         return false;
     }
 
-
-
-
     public boolean addTrigger(String source, String target) {
         if(checkName(source) && checkName(target)) {
-            if (!source.equals("") && !target.equals("")) {
-                List<String> temp = triggers.get(source);
-                if (temp == null) {
-                    temp = new ArrayList<>();
-                    temp.add(target);
-                    triggers.put(source, temp);
-                    return true;
-                } else {
-                    if (!temp.contains(target)) {
-                        triggers.get(source).add(target);
-                        return true;
-                    }
-                }
+            List<String> temp = triggers.get(source);
+            if (temp == null) {
+                temp = new ArrayList<>();
+                temp.add(target);
+                triggers.put(source, temp);
+                return true;
+            } else if (!temp.contains(target)) {
+                triggers.get(source).add(target);
+                return true;
             }
         }
         return false;
@@ -691,17 +675,15 @@ public class Model extends Observable {
 
         if (!keyDownMap.isEmpty()) {
             if(keyDownMap.containsKey(key)){
-                keyDownMap.remove(key);
+                keyDownMap.get(key).remove(gizmoName);
             }
-           // keyDownMap.entrySet().removeIf(e -> keyDownMap.get(key).equals(gizmoName));
             removed = true;
         }
 
         if (!keyUpMap.isEmpty()) {
             if(keyUpMap.containsKey(key)){
-                keyUpMap.remove(key);
+                keyDownMap.get(key).remove(gizmoName);
             }
-           // keyUpMap.entrySet().removeIf(e -> keyDownMap.get(key).equals(gizmoName));
             removed = true;
         }
 
@@ -711,11 +693,16 @@ public class Model extends Observable {
     private void removeKeybind(String gizmoName) {
 
         if (!keyDownMap.isEmpty()) {
-            keyDownMap.entrySet().removeIf(e -> e.getValue().equals(gizmoName));
+           keyDownMap.entrySet().stream()
+                   .filter(list -> list.getValue().contains(gizmoName))
+                   .forEach(list -> list.getValue().remove(gizmoName));
+
         }
 
         if (!keyUpMap.isEmpty()) {
-            keyUpMap.entrySet().removeIf(e -> e.getValue().equals(gizmoName));
+            keyUpMap.entrySet().stream()
+                    .filter(list -> list.getValue().contains(gizmoName))
+                    .forEach(list -> list.getValue().remove(gizmoName));
         }
 
     }
@@ -742,15 +729,13 @@ public class Model extends Observable {
         return "";
     }
 
-    public boolean checkName(String gizmoName){
-//find gizmo by name
+    boolean checkName(String gizmoName){
         for(AbstractGizmo gizmo:gizmos){
             if(gizmo.getName().equals(gizmoName)){
                 return true;
             }
         }
         for(Flipper flipper:flippers){
-            System.out.println("Name to check: "+flipper.getName());
             if(flipper.getName().equals(gizmoName)){
                 return true;
             }
@@ -767,6 +752,7 @@ public class Model extends Observable {
         }
         return false;
     }
+
     public String findGizmo(double x, double y) {
         double flooredx = Math.floor(x);
         double flooredy = Math.floor(y);
@@ -818,9 +804,6 @@ public class Model extends Observable {
         return false;
     }
 
-
-    //TODO Marking the taken points for the ball is something that probably requires its own method,
-    //TODO after all anytime we switch to build-mode we need to update the balls taken points
     private void removeBallsTakenPoint(Ball ball) {
         Point.Double squareToAddBall = new Point.Double(Math.floor(ball.getExactX()), Math.floor(ball.getExactY()));
         gf.removeTakenPoint(squareToAddBall.x, squareToAddBall.y);
@@ -924,11 +907,11 @@ public class Model extends Observable {
         return triggers;
     }
 
-    Map<Integer,ArrayList<String>>  getKeyDownMap(){
+    Map<Integer,List<String>>  getKeyDownMap(){
         return keyDownMap;
     }
 
-    Map<Integer,ArrayList<String>> getKeyUpMap(){
+    Map<Integer,List<String>> getKeyUpMap(){
         return keyUpMap;
     }
 

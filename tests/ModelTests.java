@@ -1,4 +1,3 @@
-/*
 package tests;
 
 import model.Model;
@@ -67,4 +66,3 @@ public class ModelTests {
 
 
 }
-*/
