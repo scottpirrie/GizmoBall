@@ -119,7 +119,31 @@ public class ModelTests {
         assertFalse("not a stored flipper", model.remove(5,5));
     }
 
+    //right flipper
+    @Test
+    public void testAddRightFlipper(){
+        assertTrue(model.addFlipper("rightflipper", "F", "1", "1"));
+    }
 
+    @Test
+    public void testAddRightFlipperSpaceTaken(){
+        model.addFlipper("rightflipper", "F", "1", "1");
+
+        //adding another flipper in same place
+        assertFalse(model.addFlipper("rightflipper", "F", "1", "1"));
+    }
+
+    @Test
+    public void testRightFlipperRemove(){
+        model.addFlipper("rightflipper", "F", "1", "1");
+        assertTrue(model.remove(1,1));
+    }
+
+    @Test
+    public void testRightFlipperNotRemove(){
+        model.addFlipper("rightflipper", "F", "1", "1");
+        assertFalse("not a stored flipper", model.remove(5,5));
+    }
 
 
 }
