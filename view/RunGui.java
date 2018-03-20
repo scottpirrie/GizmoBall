@@ -22,7 +22,7 @@ public class RunGui implements Gui {
 
     public void createAndShowGUI() {
         frame = new JFrame("Gizmoball - Run Mode");
-        frame.setPreferredSize(new Dimension(506,604));
+        //frame.setPreferredSize(new Dimension(25*20+50,25*20));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setFocusable(false);
         listener = new RunListener(frame,board);
@@ -36,6 +36,9 @@ public class RunGui implements Gui {
 
         createMenuBar();
         createButtons();
+
+        //The +60 is the height of the buttons at bottom
+        cp.setPreferredSize(new Dimension(board.getWidth()+1,board.getHeight()+61));
 
         frame.pack();
         frame.setResizable(false);
@@ -87,21 +90,21 @@ public class RunGui implements Gui {
 
         JButton startButton = new JButton("Start", startIcon);
         startButton.setFont(gf);
-        startButton.setMaximumSize(new Dimension(100, 100));
+        startButton.setPreferredSize(new Dimension(100, 50));
         startButton.addActionListener(listener);
         startButton.setFocusable(false);
         buttons.add(startButton);
 
         JButton tickButton = new JButton("Tick", tickIcon);
         tickButton.setFont(gf);
-        tickButton.setMaximumSize(new Dimension(100, 100));
+        tickButton.setPreferredSize(new Dimension(100, 50));
         tickButton.addActionListener(listener);
         tickButton.setFocusable(false);
         buttons.add(tickButton);
 
         JButton stopButton = new JButton("Stop", stopIcon);
         stopButton.setFont(gf);
-        stopButton.setMaximumSize(new Dimension(100, 100));
+        stopButton.setPreferredSize(new Dimension(100, 50));
         stopButton.addActionListener(listener);
         stopButton.setFocusable(false);
         buttons.add(stopButton);
