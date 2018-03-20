@@ -1,6 +1,5 @@
-package tests;
+package model;
 
-import model.Model;
 import org.junit.Before;
 import org.junit.Test;
 
