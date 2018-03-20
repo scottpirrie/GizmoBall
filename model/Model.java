@@ -743,7 +743,7 @@ public class Model extends Observable {
     }
 
     public boolean checkName(String gizmoName){
-
+//find gizmo by name
         for(AbstractGizmo gizmo:gizmos){
             if(gizmo.getName().equals(gizmoName)){
                 return true;
