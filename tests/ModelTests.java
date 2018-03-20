@@ -219,5 +219,56 @@ public class ModelTests {
         assertFalse(model.removeTrigger("S0", "C1"));
     }
 
+    //move gizmo
+    @Test
+    public void testMoveGizmo(){
+        model.addGizmo("square", "S0", "4", "4");
+
+        assertTrue(model.moveGizmo("S0", "5", "6"));
+    }
+
+    @Test
+    public void testMoveGimzoNoGizmo(){
+        model.addGizmo("square", "S0", "4", "4");
+
+        assertFalse(model.moveGizmo("S1", "5", "7"));
+    }
+
+    @Test
+
+    public void testMoveSpaceTaken(){
+        model.addGizmo("square", "S0", "4", "4");
+
+        model.addGizmo("circle", "C0", "5", "8");
+
+        assertFalse(model.moveGizmo("S0", "5", "8"));
+    }
+
+
+    //move absorber
+    @Test
+    public void testMoveAbsorber(){
+        model.addAbsorber("absorber", "A1", "1", "1", "4", "4");
+
+        assertTrue(model.moveAbsorber("A1", "5", "6", "8", "8"));
+    }
+
+    @Test
+    public void testMoveAbsorberNoAbsorber(){
+        model.addAbsorber("absorber", "A1", "1", "1", "4", "4");
+
+        assertFalse(model.moveAbsorber("Random", "5", "6", "8", "8"));
+    }
+
+    @Test
+    public void testMoveAbsorberSpaceTaken(){
+        model.addAbsorber("absorber", "A1", "1", "1", "4", "4");
+
+        model.addAbsorber("absorber", "A2", "8", "5", "6", "3");
+
+        assertFalse(model.moveAbsorber("A1", "8", "5", "6", "3"));
+    }
+
+
 
 }
