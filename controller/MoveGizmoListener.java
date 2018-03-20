@@ -150,7 +150,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                     outOfBounds=true;
                 }
             }else if(attributes[0].equals("ball")){
-                if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
+                if(e.getX()<20*board.getL()-board.getL()/4 && e.getY()<20*board.getL()-board.getL()/4 && e.getX()>board.getL()/4 && e.getY()>board.getL()/4) {
 
                     success = model.moveBall(attributes[1], String.valueOf((double) e.getX() / board.getL()), String.valueOf((double) e.getY() / board.getL()));
                 }else{
