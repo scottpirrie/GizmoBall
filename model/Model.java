@@ -384,7 +384,7 @@ public class Model extends Observable {
             Point.Double p = new Point.Double(Math.floor(x), Math.floor(y));
 
             if (!gf.isPointTaken(p)) {
-                balls.add(new Ball(type, name, x, y, xv, yv, 0.25));
+                balls.add(new Ball(type, name, x, y, xv, yv, 0.24));
                 Point.Double squareToAddBall = new Point.Double(Math.floor(Double.parseDouble(xPos)), Math.floor(Double.parseDouble(yPos)));
                 gf.addTakenPoint(squareToAddBall.x, squareToAddBall.y);
                 Ball ball = balls.get(balls.size() - 1);
