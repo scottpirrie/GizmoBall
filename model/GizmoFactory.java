@@ -140,6 +140,7 @@ class GizmoFactory {
         return takenPoints.contains(p);
     }
 
+    // new method to check if is an absorber point
     public boolean isAbsorberPoint(AbsorberGizmo ab, Point.Double p){
         for(double i=ab.getyPos(); i<=ab.getyPos2(); i++){
             for(double j=ab.getxPos(); j<=ab.getxPos2(); j++){
