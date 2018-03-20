@@ -20,7 +20,6 @@ public class RightFlipper implements Flipper{
     private boolean isPressed;
     private double theta;
     private double angularVelo;
-    private double thetaCheck;
     private Vect pivot;
 
     RightFlipper(String type,String name, double xPos, double yPos){
@@ -36,7 +35,6 @@ public class RightFlipper implements Flipper{
         this.isPressed = false;
         angularVelo = 1080;
         theta = 90;
-        thetaCheck = 0;
         pivot = new Vect(xPos+1.75,yPos+0.25);
     }
 
@@ -157,8 +155,8 @@ public class RightFlipper implements Flipper{
         }
     }
 
-    public double getThetaCheck(){
-        return thetaCheck;
+    public double getTheta(){
+        return theta;
     }
 
     @Override
@@ -183,13 +181,13 @@ public class RightFlipper implements Flipper{
 
     @Override
     public void doAction() {
-        if(thetaCheck == 0) {
+        if(theta == 90) {
             Timer timer = new Timer();
             if (!isPressed) {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        while (thetaCheck < 90) {
+                        while (theta > 90) {
                             moveFlipper(0.0167);
                         }
                         isPressed = false;
