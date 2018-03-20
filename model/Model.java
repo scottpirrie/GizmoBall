@@ -40,12 +40,12 @@ public class Model extends Observable {
 
     }
 
-    public void setGravityConstant(double gravityConstant) {
-        this.gravityConstant = gravityConstant;
+    public void setGravityConstant(double value) {
+        this.gravityConstant = gravityConstant * value/50;
     }
 
-    public void setFrictionConstant(double frictionConstant) {
-        this.frictionConstant = frictionConstant;
+    public void setFrictionConstant(double value) {
+        this.frictionConstant = frictionConstant * value/50;
     }
 
     public void moveBall(double move) {
@@ -65,10 +65,10 @@ public class Model extends Observable {
                         }
                         setGravity(ball, moveTime);
                         setFriction(ball, moveTime);
+                        callActions(triggerSource,tuc);
                     }
                 }
             }
-            callActions(triggerSource);
             moveFlipper(moveTime);
             this.setChanged();
             this.notifyObservers();
@@ -174,7 +174,7 @@ public class Model extends Observable {
         }
 
         for (Flipper flipper : flippers) {
-            if (flipper.getThetaCheck() > 0 && flipper.getThetaCheck() < 90) {
+            if (flipper.getTheta() > 0 && flipper.getTheta() < 90) {
                 for (LineSegment line : flipper.getLines()) {
                     time = Geometry.timeUntilRotatingWallCollision(line, new Vect(line.p1().x(), line.p1().y()),
                             Math.toRadians(1080), ballCircle, ballVelocity);
@@ -235,28 +235,45 @@ public class Model extends Observable {
         }
     }
 
-    private void callActions(String source) {
+    private void callActions(String source, double tuc) {
         List<String> temp = triggers.get(source);
+        Timer timer = new Timer();
+        long time = Double.valueOf(tuc * 1000).longValue();
+        System.out.println(tuc + " " + time);
 
         if (temp != null) {
             for (String name : temp) {
-
                 for (AbstractGizmo gizmo : gizmos) {
                     if (name.equals(gizmo.getName())) {
-                        gizmo.doAction();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                gizmo.doAction();
+                            }
+                        }, time);
                     }
                 }
 
                 for (Flipper flipper : flippers) {
                     if (name.equals(flipper.getName())) {
-                        flipper.doAction();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                flipper.doAction();
+                            }
+                        }, time);
                     }
                 }
 
                 for (AbsorberGizmo absorber : absorbers) {
                     if (name.equals(absorber.getName())) {
                         if (absorber.getBall() != null) {
-                            absorber.doAction();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    absorber.doAction();
+                                }
+                            }, time);
                         }
                     }
                 }

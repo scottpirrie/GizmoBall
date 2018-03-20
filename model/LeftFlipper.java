@@ -156,7 +156,7 @@ public class LeftFlipper implements Flipper{
         }
     }
 
-    public double getThetaCheck(){
+    public double getTheta(){
         return theta;
     }
 
@@ -182,13 +182,13 @@ public class LeftFlipper implements Flipper{
 
     @Override
     public void doAction() {
-        if(thetaCheck == 0) {
+        if(theta == 90) {
             Timer timer = new Timer();
             if (!isPressed) {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        while (thetaCheck < 90) {
+                        while (theta > 90) {
                             moveFlipper(0.0167);
                         }
                         isPressed = false;
