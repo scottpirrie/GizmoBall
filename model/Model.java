@@ -472,8 +472,6 @@ public class Model extends Observable {
 
         for (AbsorberGizmo ab : absorbers) {
             if (ab.getName().equals(name)) {
-
-
                 for (double i = y1; i < y2; i++) {
                     for (double j = x1; j < x2; j++) {
                         Point.Double p = new Point.Double(j, i);
@@ -512,7 +510,8 @@ public class Model extends Observable {
 
 
                 Point.Double p = new Point.Double(Double.parseDouble(xPos), Double.parseDouble(yPos));
-                if (!gf.isPointTaken(p)) {
+
+                if (!gf.isPointTaken(p) || (gf.isPointTaken(p) && gf.isFlipperPoint(flipper,p))) {
                     // move theFlipper
                     gf.removeTakenPoint(xPivot, yPivot);
                     gf.removeTakenPoint(xPivot, yPivot + 1);

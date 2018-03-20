@@ -152,4 +152,17 @@ class GizmoFactory {
         }
         return false;
     }
+
+    // new method to check if is a flipper point
+    public boolean isFlipperPoint(Flipper flipper, Point.Double p){
+        for(double i=flipper.getXPos(); i<=flipper.getXPos()+1; i++){
+            for(double j=flipper.getYPos(); j<=flipper.getYPos()+1; j++){
+                Point.Double temp = new Point.Double(j,i);
+                if(temp.x==p.x && temp.y==p.y){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
