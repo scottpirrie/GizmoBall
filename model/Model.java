@@ -168,7 +168,7 @@ public class Model extends Observable {
                     shortestTime = time;
                     triggerSource = absorber.getName();
                     newVelo = Geometry.reflectWall(line, ball.getVelo(), -1.0);
-                    captureBall(absorber, ball);
+                    absorber.captureBall(ball);
                 }
             }
             for (Circle circle : absorber.getCircles()) {
@@ -177,7 +177,7 @@ public class Model extends Observable {
                     shortestTime = time;
                     triggerSource = absorber.getName();
                     newVelo = Geometry.reflectCircle(circle.getCenter(), ballCircle.getCenter(), ballVelocity, -1.0);
-                    captureBall(absorber, ball);
+                    absorber.captureBall(ball);
                 }
             }
         }
@@ -229,19 +229,6 @@ public class Model extends Observable {
         }
 
         return new CollisionDetails(shortestTime, newVelo);
-    }
-
-    private void captureBall(AbsorberGizmo absorber, Ball ball) {
-        boolean XCheck = ball.getExactX() >= absorber.getxPos() && ball.getExactX() <= absorber.getxPos2();
-        boolean YCheck = ball.getExactY() >= absorber.getyPos() - ball.getRadius()
-                && ball.getExactY() <= absorber.getyPos2() + ball.getRadius();
-
-        if (XCheck && YCheck) {
-            absorber.setBall(ball);
-            ball.stop();
-            ball.setExactX(absorber.getxPos2() - ball.getRadius());
-            ball.setExactY(absorber.getyPos2() - ball.getRadius());
-        }
     }
 
     private void callActions(String source, double tuc) {
@@ -358,16 +345,20 @@ public class Model extends Observable {
     public boolean addAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         AbsorberGizmo absorberGizmo = gf.createAbsorber(type, name, xPos1, yPos1, xPos2, yPos2);
         if (absorberGizmo != null && !checkGizmoExists(name)) {
-        if(absorberGizmo.getxPos()<=20 && absorberGizmo.getxPos()>=0 && absorberGizmo.getyPos()<=20 && absorberGizmo.getyPos()>=0&&
-        absorberGizmo.getxPos2()<=20 && absorberGizmo.getxPos2()>=0 && absorberGizmo.getyPos2()<=20 && absorberGizmo.getyPos2()>=0) {
+            if(absorberGizmo.getxPos()<=20
+                    && absorberGizmo.getxPos()>=0
+                    && absorberGizmo.getyPos()<=20
+                    && absorberGizmo.getyPos()>=0
+                    && absorberGizmo.getxPos2()<=20 && absorberGizmo.getxPos2()>=0
+                    && absorberGizmo.getyPos2()<=20 && absorberGizmo.getyPos2()>=0) {
 
-                absorbers.add(absorberGizmo);
-                this.setChanged();
-                this.notifyObservers();
-                return true;
+                        absorbers.add(absorberGizmo);
+                        this.setChanged();
+                        this.notifyObservers();
+                        return true;
+                    }
             }
-        }
-        return false;
+            return false;
     }
 
     public double getGravityConstant() {

@@ -113,6 +113,19 @@ public class AbsorberGizmo{
         setBall(null);
     }
 
+    public void captureBall(Ball ball) {
+        boolean XCheck = ball.getExactX() >= this.getxPos() && ball.getExactX() <= this.getxPos2();
+        boolean YCheck = ball.getExactY() >= this.getyPos() - ball.getRadius()
+                && ball.getExactY() <= this.getyPos2() + ball.getRadius();
+
+        if (XCheck && YCheck) {
+            this.setBall(ball);
+            ball.stop();
+            ball.setExactX(this.getxPos2() - ball.getRadius());
+            ball.setExactY(this.getyPos2() - ball.getRadius());
+        }
+    }
+
     public void move(double xPos1,double xPos2,double yPos1,double yPos2){
         this.xPos1=xPos1;
         this.xPos2=xPos2;
