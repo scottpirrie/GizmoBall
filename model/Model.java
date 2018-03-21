@@ -365,9 +365,8 @@ public class Model extends Observable {
 
     public boolean addFlipper(String type, String name, String xPos, String yPos) {
         Flipper flipper = gf.createFlipper(type, name, xPos, yPos);
-
+        if (flipper != null && !checkGizmoExists(name)) {
         if(flipper.getXPos()<19 && flipper.getXPos()>=0 && flipper.getYPos()<19 && flipper.getYPos()>=0) {
-            if (flipper != null && !checkGizmoExists(name)) {
                 flippers.add(flipper);
                 this.setChanged();
                 this.notifyObservers();
