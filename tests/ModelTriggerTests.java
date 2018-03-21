@@ -124,7 +124,7 @@ public class ModelTriggerTests {
     @Test
     public void callAbsorberKeyActionValid(){
         model.addKeyBind(97,"A0");
-        model.getAbsorbers().get(0).setBall(model.getBalls().get(0));
+        model.getAbsorbers().get(0).captureBall(model.getBalls().get(0));
         model.keybindAction(97);
         assertTrue(model.getAbsorbers().get(0).getBall() == null);
     }
