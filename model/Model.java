@@ -361,11 +361,11 @@ public class Model extends Observable {
             return false;
     }
 
-    public double getGravityConstant() {
+    double getGravityConstant() {
         return gravityConstant;
     }
 
-    public double getFrictionConstant() {
+    double getFrictionConstant() {
         return frictionConstant;
     }
 

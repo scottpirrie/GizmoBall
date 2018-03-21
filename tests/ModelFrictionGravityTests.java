@@ -15,7 +15,7 @@ public class ModelFrictionGravityTests {
 
     @Test
     public void checkGravityValid(){
-
+        model.setGravityConstant();
     }
 
     @After
