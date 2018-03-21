@@ -67,7 +67,7 @@ public class RemoveKeyBindListener implements MouseListener {
                         "Please only enter the key you wish to disconnect.",
                         "", JOptionPane.ERROR_MESSAGE);
             } else {
-                key = message.toLowerCase().charAt(0);
+                key = message.toUpperCase().charAt(0);
             }
         }
     }
