@@ -80,7 +80,6 @@ class GizmoFactory {
             for(double j=x1; j<x2; j++){
                 Point.Double p = new Point.Double(j,i);
                 if(takenPoints.contains(p)){
-
                     foundTakenPoint=true;
                 }
             }

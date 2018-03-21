@@ -409,7 +409,7 @@ public class Model extends Observable {
             }
 
             Point.Double p = new Point.Double(Math.floor(x), Math.floor(y));
-
+            if (x + 0.25 <= 20 || y + 0.25 <= 20 || x - 0.25 >= 0 || y - 0.25 >= 0) {
                 if (!gf.isPointTaken(p)) {
                     balls.add(new Ball(type, name, x, y, xv, yv, 0.24));
                     Point.Double squareToAddBall = new Point.Double(Math.floor(Double.parseDouble(xPos)), Math.floor(Double.parseDouble(yPos)));
@@ -421,6 +421,7 @@ public class Model extends Observable {
                     return true;
                 }
             }
+        }
 
         return false;
     }
