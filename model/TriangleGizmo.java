@@ -101,7 +101,7 @@ public class TriangleGizmo implements AbstractGizmo{
 
     @Override
     public void rotate() {
-        if(rotation < 4){
+        if(rotation < 3){
             rotation++;
         }else{
             rotation = 0;
