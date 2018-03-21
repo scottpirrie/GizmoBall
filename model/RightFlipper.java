@@ -189,7 +189,7 @@ public class RightFlipper implements Flipper{
                         }
                         isPressed = false;
                     }
-                }, 1000);
+                }, 2000);
             }
             isPressed = true;
         }
