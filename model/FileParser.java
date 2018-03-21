@@ -68,7 +68,8 @@ class FileParser {
             for (int i : model.getKeyUpMap().keySet()) {
                 writer.write("KeyConnect key " + i + " " + "up" + " " + model.getKeyUpMap().get(i) + "\n");
             }
-
+            writer.write("Gravity "+model.getGravityConstant()+ "\n");
+            writer.write("Friction "+model.getFrictionConstant()+ "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -199,7 +200,12 @@ System.out.println(line);
                             }
 
                         }
-
+                        else if(token.toLowerCase().equals("gravity")){
+                            model.setGravityFromFile(Double.parseDouble(tokenizer.nextToken()));
+                        }
+                        else if(token.toLowerCase().equals("friction")){
+                            model.setFrictionFromFIile(Double.parseDouble(tokenizer.nextToken()));
+                        }
                     }
                 } catch (NoSuchElementException e) {
                     return false;

@@ -42,11 +42,18 @@ public class Model extends Observable {
 
     }
 
+    public void setGravityFromFile(double value){
+        this.gravityConstant=value;
+    }
+    public void setFrictionFromFIile(double value){
+        this.frictionConstant=value;
+    }
     public void setGravityConstant(double value) {
         this.gravityConstant = GRAVITY * value/100;
     }
 
     public void setFrictionConstant(double value) {
+
         this.frictionConstant = FRICTION * value/100;
     }
 
@@ -337,7 +344,7 @@ public class Model extends Observable {
     public boolean addGizmo(String type, String name, String xPos, String yPos) {
         AbstractGizmo gizmo = gf.createGizmo(type, name, xPos, yPos);
         if (gizmo != null && !checkGizmoExists(name)) {
-        if(gizmo.getxPos()<20 && gizmo.getxPos()>=0 && gizmo.getyPos()<20 && gizmo.getyPos()>=0) {
+        if(gizmo.getxPos()<=20 && gizmo.getxPos()>=0 && gizmo.getyPos()<=20 && gizmo.getyPos()>=0) {
 
                 gizmos.add(gizmo);
                 this.setChanged();
@@ -351,8 +358,8 @@ public class Model extends Observable {
     public boolean addAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         AbsorberGizmo absorberGizmo = gf.createAbsorber(type, name, xPos1, yPos1, xPos2, yPos2);
         if (absorberGizmo != null && !checkGizmoExists(name)) {
-        if(absorberGizmo.getxPos()<20 && absorberGizmo.getxPos()>=0 && absorberGizmo.getyPos()<20 && absorberGizmo.getyPos()>=0&&
-        absorberGizmo.getxPos2()<20 && absorberGizmo.getxPos2()>=0 && absorberGizmo.getyPos2()<20 && absorberGizmo.getyPos2()>=0) {
+        if(absorberGizmo.getxPos()<=20 && absorberGizmo.getxPos()>=0 && absorberGizmo.getyPos()<=20 && absorberGizmo.getyPos()>=0&&
+        absorberGizmo.getxPos2()<=20 && absorberGizmo.getxPos2()>=0 && absorberGizmo.getyPos2()<=20 && absorberGizmo.getyPos2()>=0) {
 
                 absorbers.add(absorberGizmo);
                 this.setChanged();
@@ -363,14 +370,23 @@ public class Model extends Observable {
         return false;
     }
 
+    public double getGravityConstant() {
+        return gravityConstant;
+    }
+
+    public double getFrictionConstant() {
+        return frictionConstant;
+    }
+
     public boolean addFlipper(String type, String name, String xPos, String yPos) {
         Flipper flipper = gf.createFlipper(type, name, xPos, yPos);
         if (flipper != null && !checkGizmoExists(name)) {
-        if(flipper.getXPos()<19 && flipper.getXPos()>=0 && flipper.getYPos()<19 && flipper.getYPos()>=0) {
+        if(flipper.getXPos()<=19 && flipper.getXPos()>=0 && flipper.getYPos()<=19 && flipper.getYPos()>=0) {
                 flippers.add(flipper);
                 this.setChanged();
                 this.notifyObservers();
                 return true;
+
             }
         }
         return false;
@@ -393,7 +409,7 @@ public class Model extends Observable {
             }
 
             Point.Double p = new Point.Double(Math.floor(x), Math.floor(y));
-            if (x + 0.25 >= 20 || y + 0.25 >= 20 || x - 0.25 <= 0 || y - 0.25 <= 0) {
+
                 if (!gf.isPointTaken(p)) {
                     balls.add(new Ball(type, name, x, y, xv, yv, 0.24));
                     Point.Double squareToAddBall = new Point.Double(Math.floor(Double.parseDouble(xPos)), Math.floor(Double.parseDouble(yPos)));
@@ -405,7 +421,7 @@ public class Model extends Observable {
                     return true;
                 }
             }
-        }
+
         return false;
     }
 
