@@ -38,14 +38,15 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
         if(timesClicked==1){
             Point p = new Point(e.getX()/board.getL(),e.getY()/board.getL());
             board.addAbsorberPoints(p);
-            board.repaint();
+
 
         }else if(timesClicked==2){
-            Point startingPoint = findStartingPoint();
-            Point endingPoint = findEndingPoint();
+            int endX = e.getX()/board.getL();
+            int endY = e.getY()/board.getL();
+
             int size = board.getModel().getAbsorbers().size();
 
-            if(endingPoint.x >= 20 || endingPoint.y >= 20){
+            if(endX >= 20 || endY >= 20){
                 JOptionPane.showMessageDialog(board,
                         "Out of bounds",
                         "Inane error",
@@ -53,8 +54,8 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
 
             }else {
 
-                boolean success = model.addAbsorber("absorber", "A" + size, String.valueOf(startingPoint.x),
-                        String.valueOf(startingPoint.y), String.valueOf(endingPoint.x + 1), String.valueOf(endingPoint.y + 1));
+                boolean success = model.addAbsorber("absorber", "A" + size, String.valueOf(board.getAbsorberPoints().get(0).x),
+                        String.valueOf(board.getAbsorberPoints().get(0).y), String.valueOf(endX+1), String.valueOf(endY+1));
 
                 if (success) {
                     model.addTrigger("A" + size, "A" + size);
@@ -91,27 +92,27 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(timesClicked==1) {
-            Point p = new Point(e.getX() / board.getL(), e.getY() / board.getL());
-            board.addAbsorberPoints(p);
-            board.repaint();
-        }
+//        if(timesClicked==1) {
+//            Point p = new Point(e.getX() / board.getL(), e.getY() / board.getL());
+//            board.addAbsorberPoints(p);
+//            board.repaint();
+//        }
     }
 
-    private Point findStartingPoint(){
-        int minY=board.getAbsorberPoints().get(0).y;
-        int minX=board.getAbsorberPoints().get(0).x;
-
-        for(Point p: board.getAbsorberPoints()){
-            if(p.x<=minX) {
-                minX=p.x;
-            }
-            if(p.y<=minY) {
-                minY=p.y;
-            }
-        }
-        return new Point(minX,minY);
-    }
+//    private Point findStartingPoint(){
+//        int minY=board.getAbsorberPoints().get(0).y;
+//        int minX=board.getAbsorberPoints().get(0).x;
+//
+//        for(Point p: board.getAbsorberPoints()){
+//            if(p.x<=minX) {
+//                minX=p.x;
+//            }
+//            if(p.y<=minY) {
+//                minY=p.y;
+//            }
+//        }
+//        return new Point(minX,minY);
+//    }
 
     private Point findEndingPoint(){
         int maxY=board.getAbsorberPoints().get(0).y;

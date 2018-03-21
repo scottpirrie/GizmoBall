@@ -95,12 +95,13 @@ class FileParser {
             while ((line = br.readLine()) != null) {
 
                 try {
-
+System.out.println(line);
                     tokenizer = new StringTokenizer(line);
                     while (tokenizer.hasMoreTokens()) {
                         String token = tokenizer.nextToken();
 
                         if (token.toLowerCase().equals("square")) {
+
                             if (!model.addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
@@ -122,7 +123,7 @@ class FileParser {
                         }
 
                        else if (token.toLowerCase().equals("absorber")) {
-                            if (!model.addAbsorber(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken())) {
+                            if (!model.addAbsorber(token.toLowerCase(), tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
@@ -169,6 +170,7 @@ class FileParser {
                             String nameB = tokenizer.nextToken();
 
                             if (!model.addTrigger(nameA, nameB)) {
+
                                 model.clearModel();
                                 return false;
                             }

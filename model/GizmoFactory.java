@@ -44,6 +44,12 @@ class GizmoFactory {
     AbsorberGizmo createAbsorber(String type, String name, String xPos1, String yPos1, String xPos2, String yPos2) {
         boolean foundTakenPoint=false;
 
+
+        if(!type.equals("absorber")){
+            System.out.println("didnt get doubles");
+            return null;
+        }
+
         double x1 = 0.0;
         double y1 = 0.0;
         double x2 = 0.0;
@@ -54,13 +60,27 @@ class GizmoFactory {
             x2 = Double.parseDouble(xPos2);
             y2 = Double.parseDouble(yPos2);
         }catch (NumberFormatException e){
+
             return null;
+        }
+
+        if(x1>=x2){
+            double temp = x1;
+            x1 = x2-1;
+            x2 = temp+1;
+        }
+
+        if(y1>=y2){
+            double temp = y1;
+            y1 = y2-1;
+            y2 = temp+1;
         }
 
         for(double i=y1; i<y2; i++){
             for(double j=x1; j<x2; j++){
                 Point.Double p = new Point.Double(j,i);
                 if(takenPoints.contains(p)){
+
                     foundTakenPoint=true;
                 }
             }
@@ -140,6 +160,19 @@ class GizmoFactory {
     boolean isAbsorberPoint(AbsorberGizmo ab, Point.Double p){
         for(double i=ab.getyPos(); i<=ab.getyPos2(); i++){
             for(double j=ab.getxPos(); j<=ab.getxPos2(); j++){
+                Point.Double temp = new Point.Double(j,i);
+                if(temp.x==p.x && temp.y==p.y){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // new method to check if is a flipper point
+    public boolean isFlipperPoint(Flipper flipper, Point.Double p){
+        for(double i=flipper.getXPos(); i<=flipper.getXPos()+1; i++){
+            for(double j=flipper.getYPos(); j<=flipper.getYPos()+1; j++){
                 Point.Double temp = new Point.Double(j,i);
                 if(temp.x==p.x && temp.y==p.y){
                     return true;
