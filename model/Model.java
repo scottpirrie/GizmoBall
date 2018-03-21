@@ -108,7 +108,7 @@ public class Model extends Observable {
         }
     }
 
-    private void setFriction(Ball ball, double time) {
+        private void setFriction(Ball ball, double time) {
         double mu1 = frictionConstant; //per/second
         double mu2 = frictionConstant; //per/L
         double oldX = ball.getVelo().x();
@@ -561,7 +561,6 @@ public class Model extends Observable {
 
                 Point.Double p = new Point.Double(toCheckX, toCheckY);
 
-
                 if (!gf.isPointTaken(p)) {
                     ball.move(Double.parseDouble(xPos), Double.parseDouble(yPos));
 
@@ -937,7 +936,7 @@ public class Model extends Observable {
         return keyUpMap;
     }
 
-    void clearModel() {
+    public void clearModel() {
         absorbers.clear();
         gizmos.clear();
         flippers.clear();

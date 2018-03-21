@@ -1,4 +1,5 @@
 import model.Model;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -90,5 +91,9 @@ public class ModelKeyConnectTests {
         assertTrue(model.getKeyDownMap().get(97).size() == (size-1));
     }
 
+    @After
+    public void tearDown(){
+        model.clearModel();
+    }
 
 }

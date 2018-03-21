@@ -1,4 +1,5 @@
 import model.Model;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -217,6 +218,11 @@ public class ModelAddTests {
         int size = model.getBalls().size();
         model.addBall("ball","B1","21","21","0","0");
         assertTrue(model.getBalls().size() == size);
+    }
+
+    @After
+    public void tearDown(){
+        model.clearModel();
     }
 
 }

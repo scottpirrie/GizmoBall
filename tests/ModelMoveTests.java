@@ -1,5 +1,6 @@
 import model.Model;
 import model.SquareGizmo;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -81,8 +82,8 @@ public class ModelMoveTests {
     @Test
     public void moveFlipperValid(){
         String nameOldPos = model.findGizmoName(1,10);
-        model.moveFlipper("LF0","6","20");
-        assertTrue(model.findGizmoName(6,20).equals(nameOldPos));
+        model.moveFlipper("LF0","11","15");
+        assertTrue(model.findGizmoName(11,15).equals(nameOldPos));
     }
 
     @Test
@@ -100,8 +101,9 @@ public class ModelMoveTests {
     @Test
     public void moveBallValid(){
         String nameOldPos = model.findGizmoName(10,1);
-        model.moveBall("B0","10","20");
-        assertTrue(model.findGizmoName(10,20).equals(nameOldPos));
+        model.moveBall("B0","10","7");
+        System.out.println(model.findGizmoName(10,7));
+        assertTrue(model.findGizmoName(10,7).equals(nameOldPos));
     }
 
     @Test
@@ -111,4 +113,8 @@ public class ModelMoveTests {
         assertTrue(model.findGizmoName(10,1).equals(nameOldPos));
     }
 
+    @After
+    public void tearDown(){
+        model.clearModel();
+    }
 }
