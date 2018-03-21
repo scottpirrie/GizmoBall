@@ -529,14 +529,23 @@ public class Model extends Observable {
 
         for (Flipper flipper : flippers) {
             if (flipper.getName().equals(name)) {
-                double xPivot = Math.floor(flipper.getXPos());
-                double yPivot = Math.floor(flipper.getYPos());
-
-
 
                 Point.Double p = new Point.Double(Double.parseDouble(xPos), Double.parseDouble(yPos));
 
+                for (double i = Double.parseDouble(xPos); i <= Double.parseDouble(xPos)+1; i++) {
+                    for (double j = Double.parseDouble(yPos); j <= Double.parseDouble(yPos)+1; j++) {
+                        Point.Double p1 = new Point.Double(i, j);
+                        if (gf.isPointTaken(p1)) {
+                            if (!gf.isFlipperPoint(flipper, p1)) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+
                 if (!gf.isPointTaken(p) || (gf.isPointTaken(p) && gf.isFlipperPoint(flipper,p))) {
+                    double xPivot = Math.floor(flipper.getXPos());
+                    double yPivot = Math.floor(flipper.getYPos());
                     // move theFlipper
                     gf.removeTakenPoint(xPivot, yPivot);
                     gf.removeTakenPoint(xPivot, yPivot + 1);
