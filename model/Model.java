@@ -41,19 +41,20 @@ public class Model extends Observable {
         frictionConstant = 0.045;
 
     }
-//methods so they dont go the same change twice
-    public void setGravityFromFile(double value){
+
+    void setGravityFromFile(double value){
         this.gravityConstant=value;
     }
-    public void setFrictionFromFIile(double value){
+
+    void setFrictionFromFIile(double value){
         this.frictionConstant=value;
     }
+
     public void setGravityConstant(double value) {
         this.gravityConstant = GRAVITY * value/100;
     }
 
     public void setFrictionConstant(double value) {
-
         this.frictionConstant = FRICTION * value/100;
     }
 
@@ -262,7 +263,7 @@ public class Model extends Observable {
 
                 for (AbsorberGizmo absorber : absorbers) {
                     if (name.equals(absorber.getName())) {
-                        if (absorber.getBall() != null) {
+                        if (!absorber.getBallQueue().isEmpty()) {
                             timer.schedule(new TimerTask() {
                                 @Override
                                 public void run() {
@@ -294,7 +295,7 @@ public class Model extends Observable {
 
             for (AbsorberGizmo absorber : absorbers) {
                 if (name.equals(absorber.getName())) {
-                    if (absorber.getBall() != null) {
+                    if (!absorber.getBallQueue().isEmpty()) {
                         absorber.doAction();
                     }
                 }
@@ -400,7 +401,7 @@ public class Model extends Observable {
             }
 
             Point.Double p = new Point.Double(Math.floor(x), Math.floor(y));
-            if (x + 0.25 <= 20 || y + 0.25 <= 20 || x - 0.25 >= 0 || y - 0.25 >= 0) {
+            if (x + 0.25 <= 20 && y + 0.25 <= 20 && x - 0.25 >= 0 && y - 0.25 >= 0) {
                 if (!gf.isPointTaken(p)) {
                     balls.add(new Ball(type, name, x, y, xv, yv, 0.24));
                     Point.Double squareToAddBall = new Point.Double(Math.floor(Double.parseDouble(xPos)), Math.floor(Double.parseDouble(yPos)));
@@ -505,11 +506,13 @@ public class Model extends Observable {
                         }
                     }
                 }
+
                 for (double i = ab.getyPos(); i < ab.getyPos2(); i++) {
                     for (double j = ab.getxPos(); j < ab.getxPos2(); j++) {
                         gf.removeTakenPoint(j,i);
                     }
                 }
+
                 ab.move(x1, x2, y1, y2);
                 for (double i = y1; i < y2; i++) {
                     for (double j = x1; j < x2; j++) {
@@ -672,15 +675,15 @@ public class Model extends Observable {
         if (!keyDownMap.isEmpty()) {
             if(keyDownMap.containsKey(key)){
                 keyDownMap.get(key).remove(gizmoName);
+                removed = true;
             }
-            removed = true;
         }
 
         if (!keyUpMap.isEmpty()) {
             if(keyUpMap.containsKey(key)){
                 keyDownMap.get(key).remove(gizmoName);
+                removed = true;
             }
-            removed = true;
         }
 
         return removed;
@@ -721,7 +724,6 @@ public class Model extends Observable {
     }
 
     private boolean rotateGizmo(double x, double y) {
-
         for (AbstractGizmo abstractGizmo : gizmos) {
             if (abstractGizmo.getxPos() == Math.floor(x) && abstractGizmo.getyPos() == Math.floor(y)) {
                 abstractGizmo.rotate();

@@ -18,10 +18,6 @@ public class AddSquareGizmoListener implements MouseListener {
         this.L = L;
     }
 
-    //TODO the line "int xPos = e.getX()/m.getL();" was previously "int xPos = e.getX()/25;" we should avoid using
-    //TODO absolute values for L ! but its minor and easily fixed with m.getL();
-    //TODO also need to somehow increment the name to something like S0 , S1 , S3 - also minor!
-
     @Override
     public void mouseClicked(MouseEvent e) {
 

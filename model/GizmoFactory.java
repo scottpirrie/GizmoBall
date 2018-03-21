@@ -46,7 +46,6 @@ class GizmoFactory {
 
 
         if(!type.equals("absorber")){
-            System.out.println("didnt get doubles");
             return null;
         }
 

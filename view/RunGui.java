@@ -22,7 +22,6 @@ public class RunGui implements Gui {
 
     public void createAndShowGUI() {
         frame = new JFrame("Gizmoball - Run Mode");
-        //frame.setPreferredSize(new Dimension(25*20+50,25*20));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setFocusable(false);
         listener = new RunListener(frame,board);
@@ -36,9 +35,6 @@ public class RunGui implements Gui {
 
         createMenuBar();
         createButtons();
-
-        //The +60 is the height of the buttons at bottom
-        cp.setPreferredSize(new Dimension(board.getWidth()+1,board.getHeight()+61));
 
         frame.pack();
         frame.setResizable(false);

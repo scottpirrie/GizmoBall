@@ -66,11 +66,22 @@ public class ModelTriggerTests {
     }
 
     @Test
-    public void removeValidTrigger(){
+    public void removeValidTriggerA(){
         model.addTrigger("S0","LF0");
         model.addTrigger("S1","LF0");
         model.addTrigger("S2","LF0");
         model.addTrigger("S3","LF0");
+
+        int sizeOfList = model.getTriggers().get("S3").size();
+
+        model.removeTrigger("S3","LF0");
+        assertTrue(model.getTriggers().get("S3").size() == (sizeOfList-1));
+    }
+
+    @Test
+    public void removeValidTriggerB(){
+        model.addTrigger("S3","LF0");
+        model.addTrigger("S3","LF1");
 
         int sizeOfList = model.getTriggers().get("S3").size();
 
@@ -108,10 +119,24 @@ public class ModelTriggerTests {
      */
 
     @Test
-    public void callGizmoKeyActionValid(){
+    public void callGizmoKeyActionSquareValid(){
         model.addKeyBind(97,"S0");
         model.keybindAction(97);
         assertTrue(model.getGizmos().get(0).getColor().equals(Color.GREEN));
+    }
+
+    @Test
+    public void callGizmoKeyActionTriangleValid(){
+        model.addKeyBind(97,"T4");
+        model.keybindAction(97);
+        assertTrue(model.getGizmos().get(4).getColor().equals(Color.CYAN));
+    }
+
+    @Test
+    public void callGizmoKeyActionCircleValid(){
+        model.addKeyBind(97,"C8");
+        model.keybindAction(97);
+        assertTrue(model.getGizmos().get(8).getColor().equals(Color.blue));
     }
 
     @Test
@@ -127,7 +152,7 @@ public class ModelTriggerTests {
         model.addKeyBind(97,"A0");
         model.getAbsorbers().get(0).captureBall(model.getBalls().get(0));
         model.keybindAction(97);
-        assertTrue(model.getAbsorbers().get(0).getBall() == null);
+        assertTrue(model.getAbsorbers().get(0).getBallQueue().isEmpty());
     }
 
     /*

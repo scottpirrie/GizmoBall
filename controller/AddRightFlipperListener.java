@@ -12,7 +12,7 @@ public class AddRightFlipperListener implements MouseListener{
     private Board board;
     private Model model;
 
-    public AddRightFlipperListener(Board board, Model model){
+    AddRightFlipperListener(Board board, Model model){
         this.model=model;
         this.board=board;
     }

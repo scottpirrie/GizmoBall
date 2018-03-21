@@ -62,12 +62,17 @@ class FileParser {
             }
 
             for (int i : model.getKeyDownMap().keySet()) {
-                writer.write("KeyConnect key " + i + " " + "down" + " " + model.getKeyDownMap().get(i) + "\n");
+                for(String s : model.getKeyDownMap().get(i)) {
+                    writer.write("KeyConnect key " + i + " " + "down" + " " + s + "\n");
+                }
             }
 
             for (int i : model.getKeyUpMap().keySet()) {
-                writer.write("KeyConnect key " + i + " " + "up" + " " + model.getKeyUpMap().get(i) + "\n");
+                for(String s : model.getKeyUpMap().get(i)) {
+                    writer.write("KeyConnect key " + i + " " + "up" + " " + s + "\n");
+                }
             }
+
             writer.write("Gravity " + model.getGravityConstant()+ "\n");
             writer.write("Friction " + model.getFrictionConstant()+ "\n");
         } catch (IOException e) {
@@ -90,13 +95,10 @@ class FileParser {
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(new File(name)))) {
-            // fix load
             StringTokenizer tokenizer;
             String line;
             while ((line = br.readLine()) != null) {
-
                 try {
-System.out.println(line);
                     tokenizer = new StringTokenizer(line);
                     while (tokenizer.hasMoreTokens()) {
                         String token = tokenizer.nextToken();
@@ -107,51 +109,37 @@ System.out.println(line);
                                 model.clearModel();
                                 return false;
                             }
-                        }
-
-                        else if (token.toLowerCase().equals("triangle")) {
+                        } else if (token.toLowerCase().equals("triangle")) {
                             if (!model.addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
-                        }
-
-                        else if (token.toLowerCase().equals("circle")) {
+                        } else if (token.toLowerCase().equals("circle")) {
                             if (!model.addGizmo(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
-                        }
-
-                       else if (token.toLowerCase().equals("absorber")) {
+                        } else if (token.toLowerCase().equals("absorber")) {
                             if (!model.addAbsorber(token.toLowerCase(), tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
-                        }
-
-                       else if (token.toLowerCase().equals("leftflipper")) {
+                        } else if (token.toLowerCase().equals("leftflipper")) {
                             if (!model.addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
-                        }
-
-                       else if (token.toLowerCase().equals("rightflipper")) {
+                        } else if (token.toLowerCase().equals("rightflipper")) {
                             if (!model.addFlipper(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
-                        }
-
-                       else if (token.toLowerCase().equals("ball")) {
+                        } else if (token.toLowerCase().equals("ball")) {
                             if (!model.addBall(token, tokenizer.nextToken(), tokenizer.nextToken(), tokenizer.nextToken(),tokenizer.nextToken(),tokenizer.nextToken())) {
                                 model.clearModel();
                                 return false;
                             }
-                        }
-
-                        else if (token.toLowerCase().equals("rotate")) {
+                        } else if (token.toLowerCase().equals("rotate")) {
                             String target = tokenizer.nextToken();
                             for (AbstractGizmo t : model.getGizmos()) {
                                 if (t.getName().equals(target)) {
@@ -164,20 +152,15 @@ System.out.println(line);
                                     f.rotate();
                                 }
                             }
-                        }
-
-                       else if (token.toLowerCase().equals("connect")) {
+                        } else if (token.toLowerCase().equals("connect")) {
                             String nameA = tokenizer.nextToken();
                             String nameB = tokenizer.nextToken();
 
                             if (!model.addTrigger(nameA, nameB)) {
-
                                 model.clearModel();
                                 return false;
                             }
-                        }
-
-                        else if (token.toLowerCase().equals("keyconnect")) {
+                        } else if (token.toLowerCase().equals("keyconnect")) {
                             tokenizer.nextToken();
                             String key = tokenizer.nextToken();
                             String type = tokenizer.nextToken();
@@ -199,11 +182,9 @@ System.out.println(line);
                                 }
                             }
 
-                        }
-                        else if(token.toLowerCase().equals("gravity")){
+                        } else if(token.toLowerCase().equals("gravity")){
                             model.setGravityFromFile(Double.parseDouble(tokenizer.nextToken()));
-                        }
-                        else if(token.toLowerCase().equals("friction")){
+                        } else if(token.toLowerCase().equals("friction")){
                             model.setFrictionFromFIile(Double.parseDouble(tokenizer.nextToken()));
                         }
                     }

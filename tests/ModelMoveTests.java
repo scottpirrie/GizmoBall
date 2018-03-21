@@ -1,7 +1,6 @@
-package tests;
+
 
 import model.Model;
-import model.SquareGizmo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +29,7 @@ public class ModelMoveTests {
         model.addGizmo("circle","C10","3","3");
         model.addGizmo("circle","C11","4","3");
 
-        model.addAbsorber("absorber","A0","0","19","19","19");
+        model.addAbsorber("absorber","A0","0","20","20","20");
 
         model.addFlipper("leftflipper","LF0","1","10");
         model.addFlipper("leftflipper","LF1","1","15");
@@ -66,7 +65,7 @@ public class ModelMoveTests {
     @Test
     public void moveAbsorberValid(){
         String nameOldPos = model.findGizmoName(0,19);
-        model.moveAbsorber("A0","0","16","19","16");
+        model.moveAbsorber("A0","0","18","20","19");
         assertTrue(model.findGizmoName(0,16).equals(nameOldPos));
     }
 

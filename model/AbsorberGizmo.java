@@ -5,7 +5,9 @@ import physics.LineSegment;
 import physics.Vect;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class AbsorberGizmo{
 
@@ -15,20 +17,20 @@ public class AbsorberGizmo{
     private double yPos1;
     private double xPos2;
     private double yPos2;
-    private Ball ball;
+    private final Queue<Ball> ballQueue;
     private final List<LineSegment> lines;
     private final List<Circle> circles;
 
-    public AbsorberGizmo(String type, String name, double xPos1, double yPos1, double xPos2, double yPos2){
+    AbsorberGizmo(String type, String name, double xPos1, double yPos1, double xPos2, double yPos2){
         this.type = type;
         this.name = name;
         this.xPos1 = xPos1;
         this.yPos1 = yPos1;
         this.xPos2 = xPos2;
         this.yPos2 = yPos2;
-        this.ball = null;
         lines = new ArrayList<>();
         circles = new ArrayList<>();
+        this.ballQueue = new LinkedList<>();
         createLines(this.xPos1,this.xPos2,this.yPos1,this.yPos2);
         createCircles(this.xPos1,this.xPos2,this.yPos1,this.yPos2);
     }
@@ -57,12 +59,8 @@ public class AbsorberGizmo{
         return yPos2;
     }
 
-    public Ball getBall() {
-        return ball;
-    }
-
-    public void setBall(Ball ball) {
-        this.ball = ball;
+    public Queue getBallQueue() {
+        return ballQueue;
     }
 
     private void createLines(double xPos1,double xPos2,double yPos1,double yPos2) {
@@ -100,17 +98,19 @@ public class AbsorberGizmo{
     }
 
     void doAction() {
-        if((xPos1 == 0 && yPos1==0) || (xPos2 == 0 && yPos2 == 0)){
-            ball.setExactX(xPos2-0.25);
-            ball.setExactY(yPos2+0.25);
-            ball.setVelo(new Vect(0, 50));
-        }else {
-            ball.setExactX(xPos2-0.25);
-            ball.setExactY(yPos1-0.25);
-            ball.setVelo(new Vect(0, -50));
+        Ball ball = ballQueue.poll();
+        if(ball != null) {
+            if ((xPos1 == 0 && yPos1 == 0) || (xPos2 == 0 && yPos2 == 0)) {
+                ball.setExactX(xPos2 - 0.25);
+                ball.setExactY(yPos2 + 0.25);
+                ball.setVelo(new Vect(0, 50));
+            } else {
+                ball.setExactX(xPos2 - 0.25);
+                ball.setExactY(yPos1 - 0.25);
+                ball.setVelo(new Vect(0, -50));
+            }
+            ball.start();
         }
-        ball.start();
-        setBall(null);
     }
 
     public void captureBall(Ball ball) {
@@ -119,7 +119,7 @@ public class AbsorberGizmo{
                 && ball.getExactY() <= this.getyPos2() + ball.getRadius();
 
         if (XCheck && YCheck) {
-            this.setBall(ball);
+            ballQueue.add(ball);
             ball.stop();
             ball.setExactX(this.getxPos2() - ball.getRadius());
             ball.setExactY(this.getyPos2() - ball.getRadius());
