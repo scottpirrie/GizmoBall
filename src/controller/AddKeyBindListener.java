@@ -72,7 +72,7 @@ public class AddKeyBindListener implements MouseListener{
                         "Please only enter the key you wish to connect.",
                         "", JOptionPane.ERROR_MESSAGE);
             } else {
-                key = message.toLowerCase().charAt(0);
+                key = message.toUpperCase().charAt(0);
             }
         }
     }
