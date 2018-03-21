@@ -1,3 +1,5 @@
+package tests;
+
 import model.Model;
 import org.junit.After;
 import org.junit.Before;
@@ -147,6 +149,8 @@ public class ModelAddTests {
 
     @Test
     public void addRightFlipperInvalidPosition(){
+        //if the size changes, then that indicates that the Flipper has
+        //been added to the model Board, which would make this test fail
         int size = model.getFlippers().size();
         model.addFlipper("rightflipper","RF4","5","10");
         assertTrue(model.getFlippers().size() == size);
@@ -194,6 +198,8 @@ public class ModelAddTests {
 
     @Test
     public void addBallInvalidName(){
+        //If the Ball is added with a incorrect name then the size of the ball
+        //would change casuing the test to fail
         int size = model.getBalls().size();
         model.addBall("ball","B0","2","2","0","0");
         assertTrue(model.getBalls().size() == size);

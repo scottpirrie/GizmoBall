@@ -491,17 +491,22 @@ public class Model extends Observable {
         for (AbsorberGizmo ab : absorbers) {
             if (ab.getName().equals(name)) {
 
-
                 for (double i = y1; i < y2; i++) {
                     for (double j = x1; j < x2; j++) {
-                        Point.Double p = new Point.Double(j, i);
-                        if (gf.isPointTaken(p)&& !gf.isAbsorberPoint(ab,p)) {
-                            return false;
+                        Point.Double p1 = new Point.Double(j, i);
+                        if (gf.isPointTaken(p1)) {
+                            String gizmoType=findGizmo(p1.x,p1.y).split(" ")[0];
+                            if (!gizmoType.equals("absorber")){
+                                return false;
+                            }
+                            if(!gf.isAbsorberPoint(ab,p1)){
+                                return false;
+                            }
                         }
                     }
                 }
-                for (double i = ab.getyPos(); i <= ab.getyPos2(); i++) {
-                    for (double j = ab.getxPos(); j <= ab.getxPos2(); j++) {
+                for (double i = ab.getyPos(); i < ab.getyPos2(); i++) {
+                    for (double j = ab.getxPos(); j < ab.getxPos2(); j++) {
                         gf.removeTakenPoint(j,i);
                     }
                 }
@@ -784,10 +789,12 @@ public class Model extends Observable {
             }
         }
         for (AbsorberGizmo ab : absorbers) {
-            if ((flooredx >= ab.getxPos() && flooredx <= ab.getxPos2()) && (flooredy >= ab.getyPos() && flooredy <= ab.getyPos2())) {
-                double height = ab.getyPos2() - ab.getyPos();
-                double width = ab.getxPos2() - ab.getxPos();
-                return ab.getType() + " " + ab.getName() + " " + ab.getxPos() + " " + ab.getyPos() + " " + height + " " + width;
+            if (flooredx >= ab.getxPos() && flooredx <= ab.getxPos2()-1){
+                if(flooredy >= ab.getyPos() && flooredy <= ab.getyPos2()-1) {
+                    double height = ab.getyPos2() - ab.getyPos();
+                    double width = ab.getxPos2() - ab.getxPos();
+                    return ab.getType() + " " + ab.getName() + " " + ab.getxPos() + " " + ab.getyPos() + " " + height + " " + width;
+                }
             }
 
         }

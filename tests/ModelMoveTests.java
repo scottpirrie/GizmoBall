@@ -1,3 +1,5 @@
+package tests;
+
 import model.Model;
 import model.SquareGizmo;
 import org.junit.After;
