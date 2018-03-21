@@ -64,6 +64,18 @@ class GizmoFactory {
             return null;
         }
 
+        if(x1>=x2){
+            double temp = x1;
+            x1 = x2-1;
+            x2 = temp+1;
+        }
+
+        if(y1>=y2){
+            double temp = y1;
+            y1 = y2-1;
+            y2 = temp+1;
+        }
+
         for(double i=y1; i<y2; i++){
             for(double j=x1; j<x2; j++){
                 Point.Double p = new Point.Double(j,i);
