@@ -20,14 +20,14 @@ public class KeyPressListener implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyChar();
+        int key = e.getKeyCode();
         model.changeFlipperStatus(key);
         model.keybindAction(key);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int key = e.getKeyChar();
+        int key = e.getKeyCode();
         model.changeFlipperStatus(key);
         model.keybindAction(key);
 

@@ -16,6 +16,7 @@ public class RunListener implements ActionListener {
         this.frame = view;
         this.board = board;
         timer = new Timer(17, this);
+        timer.stop();
     }
 
     @Override

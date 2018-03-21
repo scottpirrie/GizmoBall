@@ -5,9 +5,12 @@ import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.*;
 import java.util.List;
+import java.util.Timer;
 
 public class Model extends Observable {
 

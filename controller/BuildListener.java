@@ -30,8 +30,7 @@ public class BuildListener implements ActionListener {
             case "Quit":
                 String YesNo[] = {"Yes","No"};
                 int choice = JOptionPane.showOptionDialog(null,"Are you sure you want to quit?","Gizmoball - BuildMode",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,YesNo,YesNo[1]);
-                if(choice==JOptionPane.YES_OPTION)
-                {
+                if(choice==JOptionPane.YES_OPTION){
                     frame.dispose();
                     System.exit(0);
                     break;
