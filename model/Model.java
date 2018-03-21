@@ -41,7 +41,7 @@ public class Model extends Observable {
         frictionConstant = 0.045;
 
     }
-
+//methods so they dont go the same change twice
     public void setGravityFromFile(double value){
         this.gravityConstant=value;
     }
