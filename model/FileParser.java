@@ -68,8 +68,8 @@ class FileParser {
             for (int i : model.getKeyUpMap().keySet()) {
                 writer.write("KeyConnect key " + i + " " + "up" + " " + model.getKeyUpMap().get(i) + "\n");
             }
-            writer.write("Gravity "+model.getGravityConstant()+ "\n");
-            writer.write("Friction "+model.getFrictionConstant()+ "\n");
+            writer.write("Gravity " + model.getGravityConstant()+ "\n");
+            writer.write("Friction " + model.getFrictionConstant()+ "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

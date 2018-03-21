@@ -1,4 +1,5 @@
 import model.Model;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,11 @@ public class ModelFrictionGravityTests {
 
     @Test
     public void checkGravityValid(){
-        model.setGravityConstant(100);
+        model.setGravityConstant();
     }
 
+    @After
+    public void tearDown(){
+        model.clearModel();
+    }
 }

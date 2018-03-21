@@ -1,5 +1,6 @@
 import model.AbsorberGizmo;
 import model.Model;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -138,4 +139,8 @@ public class ModelTriggerTests {
 
     }
 
+    @After
+    public void tearDown(){
+        model.clearModel();
+    }
 }

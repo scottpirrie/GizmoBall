@@ -1,6 +1,7 @@
 package tests;
 
 import model.Model;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -128,6 +129,11 @@ public class ModelRemoveTests {
         model.remove(-1,-1);
         assertTrue(model.getBalls().size() == size);
 
+    }
+
+    @After
+    public void tearDown(){
+        model.clearModel();
     }
 
 }
