@@ -499,6 +499,9 @@ public class Model extends Observable {
                             if (!gizmoType.equals("absorber")){
                                 return false;
                             }
+                            if(!gf.isAbsorberPoint(ab,p1)){
+                                return false;
+                            }
                         }
                     }
                 }
@@ -787,10 +790,12 @@ public class Model extends Observable {
             }
         }
         for (AbsorberGizmo ab : absorbers) {
-            if ((flooredx >= ab.getxPos() && flooredx <= ab.getxPos2()) && (flooredy >= ab.getyPos() && flooredy <= ab.getyPos2())) {
-                double height = ab.getyPos2() - ab.getyPos();
-                double width = ab.getxPos2() - ab.getxPos();
-                return ab.getType() + " " + ab.getName() + " " + ab.getxPos() + " " + ab.getyPos() + " " + height + " " + width;
+            if (flooredx >= ab.getxPos() && flooredx <= ab.getxPos2()-1){
+                if(flooredy >= ab.getyPos() && flooredy <= ab.getyPos2()-1) {
+                    double height = ab.getyPos2() - ab.getyPos();
+                    double width = ab.getxPos2() - ab.getxPos();
+                    return ab.getType() + " " + ab.getName() + " " + ab.getxPos() + " " + ab.getyPos() + " " + height + " " + width;
+                }
             }
 
         }
