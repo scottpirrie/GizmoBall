@@ -21,7 +21,7 @@ public class RunListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == timer) {
-            board.getModel().moveBall(0.0167);
+            board.getModel().gameLoop(0.0167);
         } else {
             switch (e.getActionCommand()) {
                 case "Start":
@@ -30,7 +30,7 @@ public class RunListener implements ActionListener {
                     break;
                 case "Tick":
                     board.getModel().cleanUpWhenBallMoves();
-                    board.getModel().moveBall(0.0167);
+                    board.getModel().gameLoop(0.0167);
                     board.getModel().setNewBallsTakenPoints();
                     break;
                 case "Stop":

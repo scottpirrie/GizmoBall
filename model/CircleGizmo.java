@@ -23,7 +23,7 @@ public class CircleGizmo implements AbstractGizmo{
     private boolean isTriggered;
 
 
-    CircleGizmo(String type, String name,double xPos,double yPos){
+    public CircleGizmo(String type, String name,double xPos,double yPos){
         this.type = type;
         this.name = name;
         this.radius = 0.5;

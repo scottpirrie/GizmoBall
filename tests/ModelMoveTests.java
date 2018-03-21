@@ -1,6 +1,9 @@
 import model.Model;
+import model.SquareGizmo;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class ModelMoveTests {
 
@@ -42,7 +45,70 @@ public class ModelMoveTests {
     public void moveGizmoValid(){
         String nameOldPos = model.findGizmoName(1,3);
         model.moveGizmo(nameOldPos,"5","5");
+        assertTrue(model.findGizmoName(5,5).equals(nameOldPos));
     }
 
+    @Test
+    public void moveGizmoInvalid(){
+        String nameOldPos = model.findGizmoName(1,3);
+        String nameOtherGizmoPos = "T6";
+        model.moveGizmo(nameOldPos,"3","2");
+        assertTrue(model.findGizmoName(3,2).equals(nameOtherGizmoPos) && model.findGizmoName(1,3).equals(nameOldPos));
+    }
+
+    /*
+        Move Absorber Test
+     */
+
+    @Test
+    public void moveAbsorberValid(){
+        String nameOldPos = model.findGizmoName(0,19);
+        model.moveAbsorber("A0","0","16","19","16");
+        assertTrue(model.findGizmoName(0,16).equals(nameOldPos));
+    }
+
+    @Test
+    public void moveAbsorberInvalid(){
+        String nameOldPos = model.findGizmoName(0,19);
+        model.moveAbsorber("A0","1","1","4","3");
+        assertTrue(model.findGizmoName(0,19).equals(nameOldPos));
+    }
+
+    /*
+        Move Flipper Test
+     */
+
+    @Test
+    public void moveFlipperValid(){
+        String nameOldPos = model.findGizmoName(1,10);
+        model.moveFlipper("LF0","6","20");
+        assertTrue(model.findGizmoName(6,20).equals(nameOldPos));
+    }
+
+    @Test
+    public void moveFlipperInvalid(){
+        String nameOldPos = model.findGizmoName(1,10);
+        String nameOtherGizmoPos = "LF1";
+        model.moveFlipper("LF0","1","15");
+        assertTrue(model.findGizmoName(1,10).equals(nameOldPos) && model.findGizmoName(1,15).equals(nameOtherGizmoPos));
+    }
+
+    /*
+        Move Ball Test
+     */
+
+    @Test
+    public void moveBallValid(){
+        String nameOldPos = model.findGizmoName(10,1);
+        model.moveBall("B0","10","20");
+        assertTrue(model.findGizmoName(10,20).equals(nameOldPos));
+    }
+
+    @Test
+    public void moveBallInvalid(){
+        String nameOldPos = model.findGizmoName(10,1);
+        model.moveBall("B0","1","1");
+        assertTrue(model.findGizmoName(10,1).equals(nameOldPos));
+    }
 
 }

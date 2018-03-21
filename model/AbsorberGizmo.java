@@ -19,7 +19,7 @@ public class AbsorberGizmo{
     private final List<LineSegment> lines;
     private final List<Circle> circles;
 
-    AbsorberGizmo(String type, String name, double xPos1, double yPos1, double xPos2, double yPos2){
+    public AbsorberGizmo(String type, String name, double xPos1, double yPos1, double xPos2, double yPos2){
         this.type = type;
         this.name = name;
         this.xPos1 = xPos1;

@@ -21,7 +21,7 @@ public class TriangleGizmo implements AbstractGizmo{
     private Color color;
     private boolean isTriggered;
 
-    TriangleGizmo(String type, String name,double xPos,double yPos){
+    public TriangleGizmo(String type, String name,double xPos,double yPos){
         this.type = type;
         this.name = name;
         this.xPos=xPos;
