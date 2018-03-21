@@ -6,13 +6,8 @@ import model.Model;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * The GizmoView will be the main menu for the Gizmoball Application
- */
-
 public class GizmoView extends JFrame {
 
-    private GridLayout layout;
     private Model model;
 
     public GizmoView(Model model){
@@ -21,7 +16,6 @@ public class GizmoView extends JFrame {
     }
 
     private void init(){
-        //need to pass through runGUI, buildGUI and Board
         createLayout();
         setTitle("Gizmoball - Menu");
         pack();

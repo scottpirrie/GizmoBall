@@ -185,7 +185,7 @@ class FileParser {
                         } else if(token.toLowerCase().equals("gravity")){
                             model.setGravityFromFile(Double.parseDouble(tokenizer.nextToken()));
                         } else if(token.toLowerCase().equals("friction")){
-                            model.setFrictionFromFIile(Double.parseDouble(tokenizer.nextToken()));
+                            model.setFrictionFromFile(Double.parseDouble(tokenizer.nextToken()));
                         }
                     }
                 } catch (NoSuchElementException e) {

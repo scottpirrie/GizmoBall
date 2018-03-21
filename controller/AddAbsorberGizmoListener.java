@@ -92,41 +92,6 @@ public class AddAbsorberGizmoListener implements MouseListener,MouseMotionListen
 
     @Override
     public void mouseMoved(MouseEvent e) {
-//        if(timesClicked==1) {
-//            Point p = new Point(e.getX() / board.getL(), e.getY() / board.getL());
-//            board.addAbsorberPoints(p);
-//            board.repaint();
-//        }
-    }
 
-//    private Point findStartingPoint(){
-//        int minY=board.getAbsorberPoints().get(0).y;
-//        int minX=board.getAbsorberPoints().get(0).x;
-//
-//        for(Point p: board.getAbsorberPoints()){
-//            if(p.x<=minX) {
-//                minX=p.x;
-//            }
-//            if(p.y<=minY) {
-//                minY=p.y;
-//            }
-//        }
-//        return new Point(minX,minY);
-//    }
-
-    private Point findEndingPoint(){
-        int maxY=board.getAbsorberPoints().get(0).y;
-        int maxX=board.getAbsorberPoints().get(0).x;
-
-        for(Point p: board.getAbsorberPoints()){
-            if(p.x>=maxX) {
-                maxX=p.x;
-            }
-            if(p.y>=maxY ) {
-                maxY=p.y;
-            }
-
-        }
-        return new Point(maxX,maxY);
     }
 }

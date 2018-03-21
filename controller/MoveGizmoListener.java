@@ -61,82 +61,82 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
 
             String[] attributes = gizmo.split(" ");
 
-                switch (attributes[0]) {
-                    case "square":
-                        if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
-                            success = model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                        }else{
-                            outOfBounds=true;
-                        }
-                        break;
-                    case "triangle":
-                        if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
-                            success = model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                        }else{
-                            outOfBounds=true;
-                        }
-                        break;
-                    case "circle":
-                        if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
-                            success = model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                        }else{
-                            outOfBounds=true;
-                        }
-                        break;
-                    case "rightflipper":
-                        if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19) {
-                            success = model.moveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                        }else {
-                            outOfBounds=true;
-                        }
-                        break;
-                    case "leftflipper":
-                        if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19) {
-                            success = model.moveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                        }else {
-                            outOfBounds=true;
-                        }
-                        break;
-                    case "absorber":
-                        double height = Double.parseDouble(attributes[4]);
-                        double width = Double.parseDouble(attributes[5]);
-                        double xPos = e.getX() / board.getL();
-                        double yPos = e.getY() / board.getL();
-                        double newXPos2 = xPos + width;
-                        double newYPos2 = yPos + height;
-
-                        if(newXPos2<=20 && newYPos2<=20) {
-                            success = model.moveAbsorber(attributes[1], String.valueOf(xPos), String.valueOf(yPos), String.valueOf(newXPos2), String.valueOf(newYPos2));
-                        }else{
-                            outOfBounds=true;
-                        }
-                        break;
-
-                    case "ball":
-                        if(e.getX()<20*board.getL()-board.getL()/4 && e.getY()<20*board.getL()-board.getL()/4 && e.getX()>board.getL()/4 && e.getY()>board.getL()/4) {
-                            success = model.moveBall(attributes[1], String.valueOf((double) e.getX() / board.getL()), String.valueOf((double) e.getY() / board.getL()));
-                            model.setNewBallsTakenPoints();
-                        }else{
-                            outOfBounds=true;
-                        }
-                        break;
-                }
-
-                timesClicked = 0;
-                if(!success){
-                    if(outOfBounds){
-                        JOptionPane.showMessageDialog(board,
-                                "Try to place gizmo out of bounds",
-                                "Inane error",
-                                JOptionPane.ERROR_MESSAGE);
-                    }else {
-                        JOptionPane.showMessageDialog(board,
-                                "Other gizmo in this location",
-                                "Inane error",
-                                JOptionPane.ERROR_MESSAGE);
+            switch (attributes[0]) {
+                case "square":
+                    if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
+                        success = model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    }else{
+                        outOfBounds=true;
                     }
+                    break;
+                case "triangle":
+                    if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
+                        success = model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    }else{
+                        outOfBounds=true;
+                    }
+                    break;
+                case "circle":
+                    if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
+                        success = model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    }else{
+                        outOfBounds=true;
+                    }
+                    break;
+                case "rightflipper":
+                    if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19) {
+                        success = model.moveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    }else {
+                        outOfBounds=true;
+                    }
+                    break;
+                case "leftflipper":
+                    if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19) {
+                        success = model.moveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                    }else {
+                        outOfBounds=true;
+                    }
+                    break;
+                case "absorber":
+                    double height = Double.parseDouble(attributes[4]);
+                    double width = Double.parseDouble(attributes[5]);
+                    double xPos = e.getX() / board.getL();
+                    double yPos = e.getY() / board.getL();
+                    double newXPos2 = xPos + width;
+                    double newYPos2 = yPos + height;
+
+                    if(newXPos2<=20 && newYPos2<=20) {
+                        success = model.moveAbsorber(attributes[1], String.valueOf(xPos), String.valueOf(yPos), String.valueOf(newXPos2), String.valueOf(newYPos2));
+                    }else{
+                        outOfBounds=true;
+                    }
+                    break;
+
+                case "ball":
+                    if(e.getX()<20*board.getL()-board.getL()/4 && e.getY()<20*board.getL()-board.getL()/4 && e.getX()>board.getL()/4 && e.getY()>board.getL()/4) {
+                        success = model.moveBall(attributes[1], String.valueOf((double) e.getX() / board.getL()), String.valueOf((double) e.getY() / board.getL()));
+                        model.setNewBallsTakenPoints();
+                    }else{
+                        outOfBounds=true;
+                    }
+                    break;
+            }
+
+            timesClicked = 0;
+            if(!success){
+                if(outOfBounds){
+                    JOptionPane.showMessageDialog(board,
+                            "Try to place gizmo out of bounds",
+                            "Inane error",
+                            JOptionPane.ERROR_MESSAGE);
+                }else {
+                    JOptionPane.showMessageDialog(board,
+                            "Other gizmo in this location",
+                            "Inane error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
+        }
 
     }
 

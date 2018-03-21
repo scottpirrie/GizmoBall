@@ -181,7 +181,7 @@ public class BuildGui implements Gui {
         slider.setMinorTickSpacing(10);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
-//change sliders
+
         Hashtable<Integer, JLabel> pos = new Hashtable<>();
         pos.put(0, new JLabel("0"));
 

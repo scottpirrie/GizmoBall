@@ -46,7 +46,7 @@ public class Model extends Observable {
         this.gravityConstant=value;
     }
 
-    void setFrictionFromFIile(double value){
+    void setFrictionFromFile(double value){
         this.frictionConstant=value;
     }
 
@@ -109,7 +109,7 @@ public class Model extends Observable {
         }
     }
 
-        private void setFriction(Ball ball, double time) {
+    private void setFriction(Ball ball, double time) {
         double mu1 = frictionConstant; //per/second
         double mu2 = frictionConstant; //per/L
         double oldX = ball.getVelo().x();
@@ -308,15 +308,15 @@ public class Model extends Observable {
         if (keyDownMap.containsKey(key)) {
             flipperNames = keyDownMap.get(key);
         } else if (keyUpMap.containsKey(key)) {
-             flipperNames = keyDownMap.get(key);
+            flipperNames = keyDownMap.get(key);
         }
 
         if(!flipperNames.isEmpty()) {
             for (Flipper flipper : flippers) {
                 for (String name: flipperNames)
-                if (name.equals(flipper.getName())) {
-                    flipper.setPressed();
-                }
+                    if (name.equals(flipper.getName())) {
+                        flipper.setPressed();
+                    }
             }
         }
     }
@@ -332,7 +332,7 @@ public class Model extends Observable {
     public boolean addGizmo(String type, String name, String xPos, String yPos) {
         AbstractGizmo gizmo = gf.createGizmo(type, name, xPos, yPos);
         if (gizmo != null && !checkGizmoExists(name)) {
-        if(gizmo.getxPos()<=20 && gizmo.getxPos()>=0 && gizmo.getyPos()<=20 && gizmo.getyPos()>=0) {
+            if(gizmo.getxPos()<=20 && gizmo.getxPos()>=0 && gizmo.getyPos()<=20 && gizmo.getyPos()>=0) {
 
                 gizmos.add(gizmo);
                 this.setChanged();
@@ -353,13 +353,13 @@ public class Model extends Observable {
                     && absorberGizmo.getxPos2()<=20 && absorberGizmo.getxPos2()>=0
                     && absorberGizmo.getyPos2()<=20 && absorberGizmo.getyPos2()>=0) {
 
-                        absorbers.add(absorberGizmo);
-                        this.setChanged();
-                        this.notifyObservers();
-                        return true;
-                    }
+                absorbers.add(absorberGizmo);
+                this.setChanged();
+                this.notifyObservers();
+                return true;
             }
-            return false;
+        }
+        return false;
     }
 
     double getGravityConstant() {
@@ -373,7 +373,7 @@ public class Model extends Observable {
     public boolean addFlipper(String type, String name, String xPos, String yPos) {
         Flipper flipper = gf.createFlipper(type, name, xPos, yPos);
         if (flipper != null && !checkGizmoExists(name)) {
-        if(flipper.getXPos()<=19 && flipper.getXPos()>=0 && flipper.getYPos()<=19 && flipper.getYPos()>=0) {
+            if(flipper.getXPos()<=19 && flipper.getXPos()>=0 && flipper.getYPos()<=19 && flipper.getYPos()>=0) {
                 flippers.add(flipper);
                 this.setChanged();
                 this.notifyObservers();
@@ -701,9 +701,9 @@ public class Model extends Observable {
     private void removeKeybind(String gizmoName) {
 
         if (!keyDownMap.isEmpty()) {
-           keyDownMap.entrySet().stream()
-                   .filter(list -> list.getValue().contains(gizmoName))
-                   .forEach(list -> list.getValue().remove(gizmoName));
+            keyDownMap.entrySet().stream()
+                    .filter(list -> list.getValue().contains(gizmoName))
+                    .forEach(list -> list.getValue().remove(gizmoName));
 
         }
 

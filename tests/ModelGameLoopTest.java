@@ -1,6 +1,10 @@
+
 import model.Model;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class ModelGameLoopTest {
 
@@ -31,12 +35,20 @@ public class ModelGameLoopTest {
         model.addFlipper("rightflipper","RF2","5","10");
         model.addFlipper("rightflipper","RF3","5","15");
 
-        model.addBall("ball","B0","10","1","0","0");
+        model.addBall("ball","B0","10","1","0","10");
     }
 
     @Test
-    public void testGameLoop(){
-        model.gameLoop(0.0167);
+    public void testGameLoopAbsorber(){
+        while(model.getAbsorbers().get(0).getBallQueue().isEmpty()){
+            model.gameLoop(0.0167);
+        }
+        assertTrue(model.getAbsorbers().get(0).getBallQueue().peek().getName().equals("B0"));
+    }
+
+    @After
+    public void tearDown(){
+        model.clearModel();
     }
 
 }

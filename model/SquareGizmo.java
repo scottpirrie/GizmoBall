@@ -20,7 +20,7 @@ public class SquareGizmo implements  AbstractGizmo {
     private Color color;
     private boolean isTriggered;
 
-    public SquareGizmo(String type, String name, double xPos, double yPos){
+    SquareGizmo(String type, String name, double xPos, double yPos){
         this.type = type;
         this.name = name;
         this.xPos=xPos;

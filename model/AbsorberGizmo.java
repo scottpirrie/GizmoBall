@@ -59,7 +59,7 @@ public class AbsorberGizmo{
         return yPos2;
     }
 
-    public Queue getBallQueue() {
+    public Queue<Ball> getBallQueue() {
         return ballQueue;
     }
 

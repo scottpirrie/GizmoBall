@@ -9,8 +9,8 @@ import view.GizmoView;
  */
 
 public class Main {
-	public static void main(String[] args) {
-		Model model = new Model();
-		GizmoView mainView = new GizmoView(model);
-	}
+    public static void main(String[] args) {
+        Model model = new Model();
+        GizmoView mainView = new GizmoView(model);
+    }
 }

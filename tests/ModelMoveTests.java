@@ -29,12 +29,12 @@ public class ModelMoveTests {
         model.addGizmo("circle","C10","3","3");
         model.addGizmo("circle","C11","4","3");
 
-        model.addAbsorber("absorber","A0","0","20","20","20");
+        model.addAbsorber("absorber","A0","0","19","20","20");
 
-        model.addFlipper("leftflipper","LF0","1","10");
-        model.addFlipper("leftflipper","LF1","1","15");
-        model.addFlipper("rightflipper","RF2","5","10");
-        model.addFlipper("rightflipper","RF3","5","15");
+        model.addFlipper("leftflipper","LF0","1","5");
+        model.addFlipper("leftflipper","LF1","1","10");
+        model.addFlipper("rightflipper","RF2","5","5");
+        model.addFlipper("rightflipper","RF3","5","10");
 
         model.addBall("ball","B0","10","1","0","0");
     }
@@ -46,8 +46,8 @@ public class ModelMoveTests {
     @Test
     public void moveGizmoValid(){
         String nameOldPos = model.findGizmoName(1,3);
-        model.moveGizmo(nameOldPos,"5","5");
-        assertTrue(model.findGizmoName(5,5).equals(nameOldPos));
+        model.moveGizmo(nameOldPos,"10","5");
+        assertTrue(model.findGizmoName(10,5).equals(nameOldPos));
     }
 
     @Test
@@ -65,8 +65,8 @@ public class ModelMoveTests {
     @Test
     public void moveAbsorberValid(){
         String nameOldPos = model.findGizmoName(0,19);
-        model.moveAbsorber("A0","0","18","20","19");
-        assertTrue(model.findGizmoName(0,16).equals(nameOldPos));
+        model.moveAbsorber("A0","0","17","20","19");
+        assertTrue(model.findGizmoName(0,17).equals(nameOldPos));
     }
 
     @Test
@@ -82,17 +82,17 @@ public class ModelMoveTests {
 
     @Test
     public void moveFlipperValid(){
-        String nameOldPos = model.findGizmoName(1,10);
+        String nameOldPos = model.findGizmoName(1,5);
         model.moveFlipper("LF0","11","15");
         assertTrue(model.findGizmoName(11,15).equals(nameOldPos));
     }
 
     @Test
     public void moveFlipperInvalid(){
-        String nameOldPos = model.findGizmoName(1,10);
+        String nameOldPos = model.findGizmoName(1,5);
         String nameOtherGizmoPos = "LF1";
-        model.moveFlipper("LF0","1","15");
-        assertTrue(model.findGizmoName(1,10).equals(nameOldPos) && model.findGizmoName(1,15).equals(nameOtherGizmoPos));
+        model.moveFlipper("LF0","1","10");
+        assertTrue(model.findGizmoName(1,5).equals(nameOldPos) && model.findGizmoName(1,10).equals(nameOtherGizmoPos));
     }
 
     /*

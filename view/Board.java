@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,11 +100,11 @@ public class Board extends JPanel implements Observer{
         }
 
         for(AbsorberGizmo absorber : model.getAbsorbers()){
-                double width = Math.abs(absorber.getxPos2() - absorber.getxPos()) * L;
-                double height = Math.abs(absorber.getyPos2() - absorber.getyPos()) * L;
-                Rectangle2D rect = new Rectangle2D.Double(absorber.getxPos()*L,absorber.getyPos()*L,width,height);
-                g2.setColor(Color.MAGENTA);
-                g2.fill(rect);
+            double width = Math.abs(absorber.getxPos2() - absorber.getxPos()) * L;
+            double height = Math.abs(absorber.getyPos2() - absorber.getyPos()) * L;
+            Rectangle2D rect = new Rectangle2D.Double(absorber.getxPos()*L,absorber.getyPos()*L,width,height);
+            g2.setColor(Color.MAGENTA);
+            g2.fill(rect);
         }
 
         for(Flipper flipper : model.getFlippers()){

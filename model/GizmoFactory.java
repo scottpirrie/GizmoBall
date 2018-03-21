@@ -154,7 +154,6 @@ class GizmoFactory {
         return takenPoints.contains(p);
     }
 
-    // new method to check if is an absorber point
     boolean isAbsorberPoint(AbsorberGizmo ab, Point.Double p){
         for(double i=ab.getyPos(); i<=ab.getyPos2(); i++){
             for(double j=ab.getxPos(); j<=ab.getxPos2(); j++){
@@ -168,7 +167,7 @@ class GizmoFactory {
     }
 
     // new method to check if is a flipper point
-    public boolean isFlipperPoint(Flipper flipper, Point.Double p){
+    boolean isFlipperPoint(Flipper flipper, Point.Double p){
         for(double i=flipper.getXPos(); i<=flipper.getXPos()+1; i++){
             for(double j=flipper.getYPos(); j<=flipper.getYPos()+1; j++){
                 Point.Double temp = new Point.Double(i,j);
