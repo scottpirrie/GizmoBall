@@ -21,7 +21,7 @@ public class RightFlipper implements Flipper{
     private double angularVelo;
     private Vect pivot;
 
-    RightFlipper(String type,String name, double xPos, double yPos){
+    public RightFlipper(String type,String name, double xPos, double yPos){
         this.type = type;
         this.name = name;
         this.xPos = xPos;

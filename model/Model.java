@@ -50,7 +50,7 @@ public class Model extends Observable {
         this.frictionConstant = FRICTION * value/100;
     }
 
-    public void moveBall(double move) {
+    public void gameLoop(double move) {
         if (move > 0) {
             double moveTime = move;
             if (!balls.isEmpty()) {
@@ -513,7 +513,7 @@ public class Model extends Observable {
         return false;
     }
 
-    public boolean MoveFlipper(String name, String xPos, String yPos) {
+    public boolean moveFlipper(String name, String xPos, String yPos) {
 
         for (Flipper flipper : flippers) {
             if (flipper.getName().equals(name)) {
@@ -540,7 +540,6 @@ public class Model extends Observable {
                     this.notifyObservers();
                     return true;
                 }
-
             }
         }
         return false;
@@ -919,15 +918,15 @@ public class Model extends Observable {
         return balls;
     }
 
-    Map<String, List<String>> getTriggers(){
+    public Map<String, List<String>> getTriggers(){
         return triggers;
     }
 
-    Map<Integer,List<String>>  getKeyDownMap(){
+    public Map<Integer,List<String>>  getKeyDownMap(){
         return keyDownMap;
     }
 
-    Map<Integer,List<String>> getKeyUpMap(){
+    public Map<Integer,List<String>> getKeyUpMap(){
         return keyUpMap;
     }
 

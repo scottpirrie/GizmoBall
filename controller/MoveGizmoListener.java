@@ -94,14 +94,14 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                         break;
                     case "rightflipper":
                         if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19) {
-                            success = model.MoveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                            success = model.moveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
                         }else {
                             outOfBounds=true;
                         }
                         break;
                     case "leftflipper":
                         if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19) {
-                            success = model.MoveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
+                            success = model.moveFlipper(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
                         }else {
                             outOfBounds=true;
                         }
@@ -113,7 +113,7 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
                         double yPos = e.getY() / board.getL();
                         double newXPos2 = xPos+ width;
                         double newYPos2 = yPos + height;
-                        
+
                         if(newXPos2<=20 && newYPos2<=20) {
                             success = model.moveAbsorber(attributes[1], String.valueOf(xPos), String.valueOf(yPos), String.valueOf(newXPos2), String.valueOf(newYPos2));
                         }else{
@@ -175,88 +175,6 @@ public class MoveGizmoListener implements MouseListener,MouseMotionListener{
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
-      /*  if(timesClicked==1) {
-
-            System.out.println(startingX+" "+startingY);
-            String gizmo = model.findGizmo(startingX,startingY);
-            System.out.println(gizmo);
-            //model.remove(startingX,startingY);
-            String[] attributes = gizmo.split(" ");
-            boolean success=false;
-            if(attributes[0].equals("square")||attributes[0].equals("triangle")||attributes[0].equals("circle")) {
-                if((e.getX() / board.getL())<20 && (e.getY() / board.getL())<20) {
-
-                    success= model.moveGizmo(attributes[1], String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                }else{
-                    outOfBounds=true;
-                }
-            }else if((attributes[0].equals("rightflipper")||attributes[0].equals("leftflipper"))){
-                if((e.getX() / board.getL())<19 && (e.getY() / board.getL())<19){
-                    System.out.println("Move to: "+e.getX()/board.getL()+" "+e.getY()/board.getL());
-                    success= model.MoveFlipper(attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()));
-                }else{
-                    outOfBounds=true;
-                }
-            }else if(attributes[0].equals("ball")){
-                if(e.getX()<20*board.getL()-board.getL()/4 && e.getY()<20*board.getL()-board.getL()/4 && e.getX()>board.getL()/4 && e.getY()>board.getL()/4) {
-
-                    success = model.moveBall(attributes[1], String.valueOf((double) e.getX() / board.getL()), String.valueOf((double) e.getY() / board.getL()));
-                }else{
-                    outOfBounds=true;
-                }
-            }else if(attributes[0].equals("absorber")){
-                double height = Double.parseDouble(attributes[4]);
-                double width = Double.parseDouble(attributes[5]);
-
-                int newXPos2= (int) ((e.getX() / board.getL())+width);
-                int newYPos2= (int) ((e.getY() / board.getL())+height);
-
-                if(newXPos2<=20 && newYPos2<=20){
-                    success= model.moveAbsorber(attributes[1],String.valueOf(e.getX() / board.getL()), String.valueOf(e.getY() / board.getL()),String.valueOf(newXPos2),String.valueOf(newYPos2));
-                }else{
-                    outOfBounds=true;
-                }
-            }
-
-            if(!success) {
-                if(outOfBounds){
-                    JOptionPane.showMessageDialog(board,
-                            "Attempting to place gizmo out of bounds",
-                            "Inane error",
-                            JOptionPane.ERROR_MESSAGE);
-                    outOfBounds=false;
-                }else {
-                    JOptionPane.showMessageDialog(board,
-                            "Other gizmo in this location(moving)",
-                            "Inane error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-                if(attributes[0].equals("square")||attributes[0].equals("triangle")||attributes[0].equals("circle")) {
-                    model.moveGizmo( attributes[1], String.valueOf(moveBackX), String.valueOf(moveBackY));
-                }else if(attributes[0].equals("leftflipper")){
-                    model.MoveFlipper(attributes[1],String.valueOf(moveBackX),String.valueOf(moveBackY));
-                }else if(attributes[0].equals("rightflipper")){
-                    model.MoveFlipper(attributes[1],String.valueOf(moveBackX),String.valueOf(moveBackY));
-                }else if(attributes[0].equals("ball")){
-                    model.moveBall(attributes[1],String.valueOf(moveBackX),String.valueOf(moveBackY));
-                }else if(attributes[0].equals("absorber")){
-                    double height = Double.parseDouble(attributes[4]);
-                    double width = Double.parseDouble(attributes[5]);
-                    int tempMoveBackX=(int)moveBackX;
-                    int tempMoveBackY=(int)moveBackY;
-                    double newXPos2=tempMoveBackX+width;
-                    double newYPos2=tempMoveBackY+height;
-                    model.moveAbsorber(attributes[1],String.valueOf(tempMoveBackX), String.valueOf(tempMoveBackY),String.valueOf(newXPos2),String.valueOf(newYPos2));
-
-                }
-                timesClicked=0;
-            }
-
-            startingX = (double) e.getX() / board.getL();
-            startingY = (double) e.getY() / board.getL();
-
-        }*/
 
     }
 

@@ -34,11 +34,11 @@ public class Ball {
         return name;
     }
 
-    Vect getVelo() {
+    public Vect getVelo() {
         return velocity;
     }
 
-    void setVelo(Vect v) {
+    public void setVelo(Vect v) {
         velocity = v;
     }
 
